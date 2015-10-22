@@ -57,7 +57,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	int front;
 	int back;
 	
-	public float acceleration = 0.15f;
+	private float acceleration = 0.15f;
 	
 	
 	public float inAirRotationSpeedWithoutAcc = 10.0f;
@@ -98,7 +98,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	
 	public float RightAccelerometer;
 	public float LeftAccelerometer;
-	public float speed = 60.0f;
+	//public float speed = 60.0f;
 	public float speedSuper = 60.0f;
 	public float groundedWeightFactor = 20.0f;
 	public float inAirRotationSpeed = 10.0f;
@@ -290,8 +290,8 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 			//if (usingAccelerometer) {
 			RotateVehicle ();
 			if (!crash && !crashed) {	
-				
-				if (speed > 80) {
+			  
+				if (SpeedMotorMobile > 80) {
 					if (fire) {
 						Instantiate (fire, CarBody.transform.position, Quaternion.identity);
 						fire.transform.position = CarBody.transform.position;
@@ -301,26 +301,36 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					//fire.Stop ();
 				}
 				if (accelerate) {
+				  if(CurrentSpeedInKmph < MaxSpeed){
 					rearWheel.freezeRotation = false; //allow rotation to rear wheel
 					//rearWheel.GetComponent.<Rigidbody2D>().AddTorque (0, parseInt(inAirRotationSpeed * 180 * Time.deltaTime));  
 					
 					if(forMobile){
 						//CurrentVelocity = Acceleration * inAirRotationSpeed * Time.deltaTime * wheelieStrength;
 						CurrentVelocity = Acceleration * InputGetAxis("Vertical") * Time.deltaTime * SpeedMotorMobile;
+						//CurrentVelocity = Acceleration * InputGetAxis("Vertical") * SpeedMotorMobile;
 						//	CurrentVelocity = Acceleration * Input.GetAxisRaw ("Vertical") * Time.deltaTime * 10;
 						//Input.acceleration.x
 						//rearWheel.AddTorque (new Vector3 (0, 0, -speed * Time.deltaTime), ForceMode.Impulse);
+						//if(Velocity < MaxSpeed){
 						Velocity = Mathf.Clamp(CurrentVelocity, -MaxSpeed, MaxSpeed);
+					//	}
+
 					}
 					else{
 						CurrentVelocity = Acceleration * Input.GetAxis("Vertical") * Time.deltaTime * SpeedMotor;
+						//if(Velocity < MaxSpeed){
 						Velocity = Mathf.Clamp(CurrentVelocity, -MaxSpeed, MaxSpeed);
+						//}
 					}
-					for(var i = 0; i <= (Wheels.Length-1); i++)
-					{
-						//Wheels[i].GetComponent.<Rigidbody2D>().AddTorque(-0.2f * (Velocity / WheelRadius[i]) * 10);
-						Wheels[i].GetComponent<Rigidbody2D>().AddTorque(-0.2f * (Velocity / WheelRadius[i]) * 10);
-					}
+
+						for(var i = 0; i <= (Wheels.Length-1); i++)
+						{
+
+							//Wheels[i].GetComponent.<Rigidbody2D>().AddTorque(-0.2f * (Velocity / WheelRadius[i]) * 10);
+							Wheels[i].GetComponent<Rigidbody2D>().AddTorque(-0.2f * (Velocity / WheelRadius[i]) * 10);
+						}
+
 					
 					
 					//	rearWheel.GetComponent.<Rigidbody2D>().AddTorque (parseInt(-speed * Time.deltaTime),0);	
@@ -337,6 +347,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 						//dirt.transform.position = rearWheel.position; //allign dirt to rear wheel
 						
 					} 
+				  }
 				} 
 				if (brake){
 					rearWheel.freezeRotation = true; //disable rotation for rear wheel if player is braking								
@@ -374,6 +385,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					onGround = false;
 					inAir = true;
 				}
+			  
 			}
 			//}
 			
@@ -449,7 +461,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 				if (Physics.Raycast (frontWheel.position, CarBody.transform.position, out hit, DistToCollided)) {
 					if (ObjectToVelocity != null) {
 						if (hit.collider.gameObject.name == ObjectToVelocity.name) {
-							speed = speedSuper;
+							SpeedMotorMobile = speedSuper;
 						}
 					}
 					if (ObjectToCollidedOne != null) {
@@ -899,6 +911,8 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		//This converts rigidbody2D velocity magnitude to km/h
 		CurrentSpeed = CarBody.GetComponent<Rigidbody2D>().velocity.magnitude * 3.6f;
 		CurrentSpeedInKmph = CurrentSpeed;
+
+
 		//Debug.Log("CurrentSpeed: "+CurrentSpeed+" km/h");
 	}
 }

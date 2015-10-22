@@ -82,8 +82,8 @@ public class BodyTrigger2D : MonoBehaviour {
 			//disable rear wheel rotation
 			var m = transform.root.GetComponent<Motorcycle_Controller2D>();
 			m.rearWheel.freezeRotation = true;
-			m.acceleration = 0;
-			
+			//m.acceleration = 0;
+		//	m.Acceleration = 0;
 			
 			winText.enabled = true; //show win text				
 			
