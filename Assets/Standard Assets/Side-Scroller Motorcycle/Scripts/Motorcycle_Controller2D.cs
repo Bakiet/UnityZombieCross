@@ -171,11 +171,9 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	public bool UserControlled = true;
 	public float MaxSpeed = 50.0f;
 	public int BreakMass = 0;
-<<<<<<< HEAD
-	public int BreakGravity = 0;
-=======
+
 	public float BreakGravity = 0.0f;
->>>>>>> origin/master
+
 	public static float CurrentSpeed;
 	public float CurrentSpeedInKmph;
 	public float Acceleration = 15.0f;
