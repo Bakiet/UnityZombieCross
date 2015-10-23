@@ -273,7 +273,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &190232
 GameObject:
   m_ObjectHideFlags: 1
@@ -456,8 +456,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 173032}
   m_LocalRotation: {x: 0, y: 0, z: -.00886991061, w: .999960661}
-  m_LocalPosition: {x: 22.6679993, y: .226970002, z: -2.04130006}
-  m_LocalScale: {x: .116984986, y: .116985068, z: .116985098}
+  m_LocalPosition: {x: 8.28800011, y: 1.57299995, z: -2.04130006}
+  m_LocalScale: {x: .0866012126, y: .0866012573, z: .0866012871}
   m_Children:
   - {fileID: 449794}
   - {fileID: 472178}
@@ -1149,8 +1149,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explodeDuration: 5
   explosionTime: 1
-  SpeedMotorMobile: 70
-  SpeedMotor: 30
+  SpeedMotorMobile: 42
+  SpeedMotor: 42
   ObjectToVelocity: {fileID: 0}
   ObjectToCollidedOne: {fileID: 0}
   DistToCollided: 0
@@ -1163,7 +1163,6 @@ MonoBehaviour:
   ObjectToCollidedEight: {fileID: 0}
   dirt: {fileID: 19827792}
   is2D: 1
-  acceleration: 30
   inAirRotationSpeedWithoutAcc: 10
   forMobile: 0
   usingAccelerometer: 1
@@ -1178,7 +1177,6 @@ MonoBehaviour:
   restartTexture: {fileID: 0}
   RightAccelerometer: .800000012
   LeftAccelerometer: .800000012
-  speed: 70
   speedSuper: 90
   groundedWeightFactor: 20
   inAirRotationSpeed: 10
@@ -1204,9 +1202,11 @@ MonoBehaviour:
   Smoke: {fileID: 192772}
   Ensemble: {fileID: 155440}
   UserControlled: 1
-  MaxSpeed: 50
+  MaxSpeed: 52
+  BreakMass: 300
+  BreakGravity: 6.5
   CurrentSpeedInKmph: 0
-  Acceleration: 15
+  Acceleration: 23
   Wheels:
   - {fileID: 109496}
   - {fileID: 192524}
