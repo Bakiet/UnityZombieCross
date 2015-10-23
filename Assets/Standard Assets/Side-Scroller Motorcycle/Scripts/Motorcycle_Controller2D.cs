@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Soomla.Store;
 
 public class Motorcycle_Controller2D : MonoBehaviour {
 	
@@ -192,6 +193,29 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	
 	public static float axisH = 0f;
 	public static float axisV = 0f;
+
+	private float upgradeVelocity;
+	private float upgradeAcc;
+	private float upgradeBrake;
+
+
+	void UpgradeInventory(){
+
+		if (StoreInventory.IsVirtualGoodEquipped ("super_upgrade_level_1")) {
+			upgradeVelocity = 1;
+			upgradeAcc = 2;
+			upgradeBrake = 3;
+		} else if (StoreInventory.IsVirtualGoodEquipped ("super_upgrade_level_2")) {
+			upgradeVelocity = 1;
+			upgradeAcc = 2;
+			upgradeBrake = 3;
+		} else if (StoreInventory.IsVirtualGoodEquipped ("super_upgrade_level_3")) {
+			upgradeVelocity = 1;
+			upgradeAcc = 2;
+			upgradeBrake = 3;
+		}
+
+	}
 	
 	void Awake()
 	{
