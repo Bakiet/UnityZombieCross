@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using Soomla.Store;
 
 public class Motorcycle_Controller2D : MonoBehaviour {
 	
@@ -170,10 +169,13 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	//Vehicle properties
 	public bool UserControlled = true;
 	public float MaxSpeed = 50.0f;
+<<<<<<< HEAD
 	public int BreakMass = 0;
 
 	public float BreakGravity = 0.0f;
 
+=======
+>>>>>>> parent of d8ec65d... 1
 	public static float CurrentSpeed;
 	public float CurrentSpeedInKmph;
 	public float Acceleration = 15.0f;
@@ -191,20 +193,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	
 	public static float axisH = 0f;
 	public static float axisV = 0f;
-
-	private int upgradeLevel1 = 0;
-	private int upgradeLevel2 = 0;
-	private int upgradeLevel3 = 0;
-
-	void upgradeInventory ()
-	{
-		if (StoreInventory.GetGoodCurrentUpgrade("")=="")
-			upgradeLevel1 = 10;
-		else if (StoreInventory.GetGoodCurrentUpgrade("")=="")
-			upgradeLevel2 = 20;
-		else if (StoreInventory.GetGoodCurrentUpgrade("")=="")
-			upgradeLevel3 = 30;
-	}
+	
 	void Awake()
 	{
 		SmokeEmmiter = Smoke.GetComponent<ParticleAnimator>();
@@ -894,15 +883,11 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	void GetUserInput()
 	{
 		//Get input for the handbrake
-		if(Input.GetKey(KeyCode.Space) || CarHandbrake == true || brake == true)
+		if(Input.GetKey(KeyCode.Space) || CarHandbrake == true)
 		{
 			for(var i = 0; i <= (Wheels.Length-1); i++)
 			{
 				Wheels[i].GetComponent<Rigidbody2D>().fixedAngle = true;
-
-				rearWheel.GetComponent<Rigidbody2D>().mass = BreakMass;
-				rearWheel.GetComponent<Rigidbody2D>().gravityScale = BreakGravity;
-			//	frontWheel.GetComponent<Rigidbody2D>().mass = BreakMass;
 			}
 		}
 		
@@ -913,9 +898,6 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 			for(var j = 0; j <= (Wheels.Length-1); j++)
 			{
 				Wheels[j].GetComponent<Rigidbody2D>().fixedAngle = false;
-				rearWheel.GetComponent<Rigidbody2D>().mass = 1;
-				frontWheel.GetComponent<Rigidbody2D>().mass = 1;
-				rearWheel.GetComponent<Rigidbody2D>().gravityScale = 1;
 			}
 		}
 		
