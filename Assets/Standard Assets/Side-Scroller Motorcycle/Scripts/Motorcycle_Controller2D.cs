@@ -882,11 +882,14 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	void GetUserInput()
 	{
 		//Get input for the handbrake
-		if(Input.GetKey(KeyCode.Space) || CarHandbrake == true)
+		if(Input.GetKey(KeyCode.Space) || CarHandbrake == true || brake == true)
 		{
 			for(var i = 0; i <= (Wheels.Length-1); i++)
 			{
 				Wheels[i].GetComponent<Rigidbody2D>().fixedAngle = true;
+
+				rearWheel.GetComponent<Rigidbody2D>().mass= BreakMass;
+				rearWheel.GetComponent<Rigidbody2D>().gravityScale= BreakGravity;
 			}
 		}
 		
@@ -897,6 +900,8 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 			for(var j = 0; j <= (Wheels.Length-1); j++)
 			{
 				Wheels[j].GetComponent<Rigidbody2D>().fixedAngle = false;
+				rearWheel.GetComponent<Rigidbody2D>().mass= 1;
+				rearWheel.GetComponent<Rigidbody2D>().gravityScale= 1.0f;
 			}
 		}
 		

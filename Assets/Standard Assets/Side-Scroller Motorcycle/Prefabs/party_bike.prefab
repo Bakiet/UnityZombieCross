@@ -1151,7 +1151,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explodeDuration: 5
   explosionTime: 1
-  SpeedMotorMobile: 70
+  SpeedMotorMobile: 30
   SpeedMotor: 30
   ObjectToVelocity: {fileID: 0}
   ObjectToCollidedOne: {fileID: 0}
@@ -1165,7 +1165,6 @@ MonoBehaviour:
   ObjectToCollidedEight: {fileID: 0}
   dirt: {fileID: 19879018}
   is2D: 1
-  acceleration: 30
   inAirRotationSpeedWithoutAcc: 10
   forMobile: 0
   usingAccelerometer: 1
@@ -1180,7 +1179,6 @@ MonoBehaviour:
   restartTexture: {fileID: 0}
   RightAccelerometer: .800000012
   LeftAccelerometer: .800000012
-  speed: 70
   speedSuper: 90
   groundedWeightFactor: 20
   inAirRotationSpeed: 10
@@ -1206,9 +1204,11 @@ MonoBehaviour:
   Smoke: {fileID: 180704}
   Ensemble: {fileID: 103974}
   UserControlled: 1
-  MaxSpeed: 50
+  MaxSpeed: 42
+  BreakMass: 200
+  BreakGravity: 5
   CurrentSpeedInKmph: 0
-  Acceleration: 15
+  Acceleration: 12
   Wheels:
   - {fileID: 194832}
   - {fileID: 167020}
