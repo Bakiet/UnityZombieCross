@@ -169,13 +169,12 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	//Vehicle properties
 	public bool UserControlled = true;
 	public float MaxSpeed = 50.0f;
-<<<<<<< HEAD
+
 	public int BreakMass = 0;
 
 	public float BreakGravity = 0.0f;
 
-=======
->>>>>>> parent of d8ec65d... 1
+
 	public static float CurrentSpeed;
 	public float CurrentSpeedInKmph;
 	public float Acceleration = 15.0f;
