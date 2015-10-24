@@ -1,16 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
-
-namespace Soomla.Store {
+using Soomla.Store;
 
 	public class StoreInitiate : MonoBehaviour {
 
+	bool initiated;
 		// Use this for initialization
 		void Start () {
 
 			//StoreInventory.RefreshLocalInventory();
-			
-			StoreEvents.OnSoomlaStoreInitialized();
+			if (initiated == false) {
+				StoreEvents.OnSoomlaStoreInitialized ();
+				initiated = true;
+			}
 		
 		}
 		
@@ -19,4 +21,3 @@ namespace Soomla.Store {
 		
 		}
 	}
-}

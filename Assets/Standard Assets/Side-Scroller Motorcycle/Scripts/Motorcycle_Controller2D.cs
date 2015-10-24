@@ -201,18 +201,22 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 
 	void UpgradeInventory(){
 
-		if (StoreInventory.IsVirtualGoodEquipped ("super_upgrade_level_1")) {
-			upgradeVelocity = 1;
-			upgradeAcc = 2;
-			upgradeBrake = 3;
-		} else if (StoreInventory.IsVirtualGoodEquipped ("super_upgrade_level_2")) {
-			upgradeVelocity = 1;
-			upgradeAcc = 2;
-			upgradeBrake = 3;
-		} else if (StoreInventory.IsVirtualGoodEquipped ("super_upgrade_level_3")) {
-			upgradeVelocity = 1;
-			upgradeAcc = 2;
-			upgradeBrake = 3;
+		string upgradelevel1 = StoreInventory.GetGoodCurrentUpgrade ("test_upgrade_level_1");
+		string upgradelevel2 = StoreInventory.GetGoodCurrentUpgrade ("test_upgrade_level_2");
+		string upgradelevel3 = StoreInventory.GetGoodCurrentUpgrade ("test_upgrade_level_3");
+
+		if (upgradelevel1 != "") {
+			upgradeVelocity = 10;
+			upgradeAcc = 20;
+			upgradeBrake = 30;
+		} else if (upgradelevel2 != "") {
+			upgradeVelocity = 10;
+			upgradeAcc = 20;
+			upgradeBrake = 30;
+		} else if (upgradelevel3 != "") {
+			upgradeVelocity = 10;
+			upgradeAcc = 20;
+			upgradeBrake = 30;
 		}
 
 	}

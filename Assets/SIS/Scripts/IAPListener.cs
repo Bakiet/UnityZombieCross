@@ -173,45 +173,6 @@ namespace SIS
 				ShopManager.ShowMessage("Neon bike unlocked!");
 				break;
 
-			case "brutal_bike":
-				ShopManager.ShowMessage("Neon bike unlocked!");
-				break;
-
-
-
-			case "super_helmet":
-				ShopManager.ShowMessage("Super helmet unlocked!");
-                    break;
-			case "super_glove":
-				ShopManager.ShowMessage("Super glove unlocked!");
-                    break;
-
-
-			case "nightmare_helmet":
-				ShopManager.ShowMessage("Nightmare helmet unlocked!");
-				break;
-			case "nightmare_glove":
-				ShopManager.ShowMessage("Nightmare glove unlocked!");
-				break;
-			case "hell_helmet":
-				ShopManager.ShowMessage("Hell helmet unlocked!");
-				break;
-			case "hell_glove":
-				ShopManager.ShowMessage("Hell glove unlocked!");
-				break;
-			case "brutal_helmet":
-				ShopManager.ShowMessage("Brutal helmet unlocked!");
-				break;
-			case "brutal_glove":
-				ShopManager.ShowMessage("Brutal glove unlocked!");
-				break;
-			case "neon_helmet":
-				ShopManager.ShowMessage("Neon helmet unlocked!");
-				break;
-			case "neon_glove":
-				ShopManager.ShowMessage("Neon glove unlocked!");
-				break;
-
             }
         }
 
