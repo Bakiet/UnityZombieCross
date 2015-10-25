@@ -10,8 +10,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Soomla;
 using Soomla.Store;
-//using Grow.Highway;
-//using Grow.Sync;
+using Grow.Highway;
+using Grow.Sync;
 
 
 namespace SIS
@@ -142,8 +142,7 @@ namespace SIS
         {
             #if !UNITY_EDITOR
                 KeyValueStorage.SetValue("soomla.referrer", "SimpleIAP");
-               
-
+                GrowHighway.Initialize();
             #endif
 
             //If you would like to initialize GrowSync too, do it here.

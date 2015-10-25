@@ -21,9 +21,6 @@ public class AndroidInAppPurchaseManager : SA_Singleton<AndroidInAppPurchaseMana
 	public static event Action<BillingResult>  ActionBillingSetupFinished   = delegate {};
 	public static event Action<BillingResult>  ActionRetrieveProducsFinished = delegate {};
 
-	private List<string> _productsIds =  new List<string>();
-
-
 	private string _processedSKU;
 	private AndroidInventory _inventory;
 
@@ -57,16 +54,28 @@ public class AndroidInAppPurchaseManager : SA_Singleton<AndroidInAppPurchaseMana
 	}
 
 	public void AddProduct(string SKU) {
-
-		if(_productsIds.Contains(SKU)) {
-			return;
-		}
-
-
-		_productsIds.Add(SKU);
+		GoogleProductTemplate template = new GoogleProductTemplate(){SKU = SKU};
+		AddProduct(template);
 	}
 
+	public void AddProduct(GoogleProductTemplate template) {
 
+		bool IsPordcutAlreadyInList = false;
+		int replaceIndex = 0;
+		foreach(GoogleProductTemplate p in _inventory.Products) {
+			if(p.SKU.Equals(template.SKU)) {
+				IsPordcutAlreadyInList = true;
+				replaceIndex = _inventory.Products.IndexOf(p);
+				break;
+			}
+		}
+		
+		if(IsPordcutAlreadyInList) {
+			_inventory.Products[replaceIndex] = template;
+		} else {
+			_inventory.Products.Add(template);
+		}
+	}
 
 	[System.Obsolete("retrieveProducDetails is deprectaed, plase use RetrieveProducDetails instead")]
 	public void retrieveProducDetails() {
@@ -149,18 +158,18 @@ public class AndroidInAppPurchaseManager : SA_Singleton<AndroidInAppPurchaseMana
 
 	public void LoadStore(string base64EncodedPublicKey) {
 		
-		foreach(string pid in AndroidNativeSettings.Instance.InAppProducts) {
-			AddProduct(pid);
+		foreach(GoogleProductTemplate pid in AndroidNativeSettings.Instance.InAppProducts) {
+			AddProduct(pid.SKU);
 		}
 		
 		string ids = "";
-		int len = _productsIds.Count;
+		int len = AndroidNativeSettings.Instance.InAppProducts.Count;
 		for(int i = 0; i < len; i++) {
 			if(i != 0) {
 				ids += ",";
 			}
 			
-			ids += _productsIds[i];
+			ids += AndroidNativeSettings.Instance.InAppProducts[i].SKU;
 		}
 		
 		AN_BillingProxy.Connect (ids, base64EncodedPublicKey);
@@ -172,7 +181,14 @@ public class AndroidInAppPurchaseManager : SA_Singleton<AndroidInAppPurchaseMana
 	// GET / SET
 	//--------------------------------------
 
+	[System.Obsolete("inventory is deprectaed, plase use Inventory instead")]
 	public AndroidInventory inventory {
+		get {
+			return _inventory;
+		}
+	}
+
+	public AndroidInventory Inventory {
 		get {
 			return _inventory;
 		}
@@ -318,8 +334,6 @@ public class AndroidInAppPurchaseManager : SA_Singleton<AndroidInAppPurchaseMana
 		string[] storeData;
 		storeData = data.Split(AndroidNative.DATA_SPLITTER [0]);
 
-
-
 		for(int i = 0; i < storeData.Length; i+=9) {
 			GooglePurchaseTemplate tpl =  new GooglePurchaseTemplate();
 			tpl.SKU 				= storeData[i];
@@ -335,7 +349,7 @@ public class AndroidInAppPurchaseManager : SA_Singleton<AndroidInAppPurchaseMana
 			_inventory.addPurchase (tpl);
 		}
 
-		Debug.Log("InAppPurchaseManager, total purchases loaded: " + _inventory.purchases.Count);
+		Debug.Log("InAppPurchaseManager, total purchases loaded: " + _inventory.Purchases.Count);
 
 	}
 
@@ -351,18 +365,31 @@ public class AndroidInAppPurchaseManager : SA_Singleton<AndroidInAppPurchaseMana
 
 
 		for(int i = 0; i < storeData.Length; i+=7) {
-			GoogleProductTemplate tpl =  new GoogleProductTemplate();
-			tpl.SKU 		  				= storeData[i];
-			tpl.price 		  				= storeData[i + 1];
-			tpl.title 	      				= storeData[i + 2];
-			tpl.description   				= storeData[i + 3];
+			GoogleProductTemplate tpl =  _inventory.GetProductDetails(storeData[i]);
+			if(tpl == null) {
+				tpl =  new GoogleProductTemplate();
+				tpl.SKU = storeData[i];
+				_inventory.Products.Add(tpl);
+			}
+
+			tpl.Price 		  				= storeData[i + 1];
+			tpl.Title 	      				= storeData[i + 2];
+			tpl.Description   				= storeData[i + 3];
 			tpl.priceAmountMicros 	      	= storeData[i + 4];
 			tpl.priceCurrencyCode   		= storeData[i + 5];
-			tpl.originalJson   				= storeData[i + 6];
-			_inventory.addProduct (tpl);
+			tpl.OriginalJson   				= storeData[i + 6];
+
+			Debug.Log("[OnProducttDetailsRecive]");
+			Debug.Log("SKU: " + tpl.SKU);
+			Debug.Log("Price: " + tpl.Price);
+			Debug.Log("title: " + tpl.Title);
+			Debug.Log("description: " + tpl.Description);
+			Debug.Log("priceAmountMicros: " + tpl.priceAmountMicros);
+			Debug.Log("priceCurrencyCode: " + tpl.priceCurrencyCode);
+			Debug.Log("originalJson: " + tpl.OriginalJson);
 		}
 
-		Debug.Log("InAppPurchaseManager, total products loaded: " + _inventory.products.Count);
+		Debug.Log("InAppPurchaseManager, total products loaded: " + _inventory.Products.Count);
 	}
 
 

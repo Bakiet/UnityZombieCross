@@ -40,13 +40,13 @@ public class PluginsInstalationUtil : MonoBehaviour {
 		
 
 		IOS_Install_SocialPart();
-		InstallGMAPart();
+		IOS_InstallGMAPart();
 		
 
 
 	}
 
-	public static void InstallGMAPart() {
+	public static void IOS_InstallGMAPart() {
 		//GMA
 		FileStaticAPI.CopyFile(PluginsInstalationUtil.IOS_SOURCE_PATH + "GMA_SA_Lib_Proxy.mm.txt", 	PluginsInstalationUtil.IOS_DESTANATION_PATH + "GMA_SA_Lib_Proxy.mm");
 		FileStaticAPI.CopyFile(PluginsInstalationUtil.IOS_SOURCE_PATH + "GMA_SA_Lib.h.txt", 	PluginsInstalationUtil.IOS_DESTANATION_PATH + "GMA_SA_Lib.h");

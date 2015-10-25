@@ -13,12 +13,23 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-
+[System.Serializable]
 public class GPLeaderBoard  {
-	
-	private string _id;
-	private string _name;
 
+	//Editor Only
+	public bool IsOpen = true;
+
+	[SerializeField]
+	private string _id = string.Empty;
+
+	[SerializeField]
+	private string _name = string.Empty;
+
+	[SerializeField]
+	private string _description = string.Empty;
+
+	[SerializeField]
+	private Texture2D _Texture;
 	
 	public GPScoreCollection SocsialCollection =  new GPScoreCollection();
 	public GPScoreCollection GlobalCollection  =  new GPScoreCollection();
@@ -213,11 +224,35 @@ public class GPLeaderBoard  {
 		get {
 			return _id;
 		}
+		set {
+			_id = value;
+		}
 	}
 
 	public string Name {
 		get {
 			return _name;
+		}
+		set {
+			_name = value;
+		}
+	}
+
+	public string Description {
+		get {
+			return _description;
+		}
+		set {
+			_description = value;
+		}
+	}
+
+	public Texture2D Texture {
+		get {
+			return _Texture;
+		}
+		set {
+			_Texture = value;
 		}
 	}
 }

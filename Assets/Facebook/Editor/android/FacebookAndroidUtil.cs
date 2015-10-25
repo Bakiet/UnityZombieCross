@@ -59,11 +59,8 @@ namespace UnityEditor.FacebookEditor
             get
             {
                 return (Application.platform == RuntimePlatform.WindowsEditor) ?
-              //      System.Environment.GetEnvironmentVariable("HOMEDRIVE") + System.Environment.GetEnvironmentVariable("HOMEPATH") + @"\.android\debug.keystore" : 
-              //      System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal) + @"/.android/debug.keystore";
-					@"E:\Github\UnityZombieCross\Publish\Android\bakiet.keystore" : 
-						@"E:/Github/UnityZombieCross/Publish/Android/bakiet.keystore";
-
+                    System.Environment.GetEnvironmentVariable("HOMEDRIVE") + System.Environment.GetEnvironmentVariable("HOMEPATH") + @"\.android\debug.keystore" : 
+                    System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal) + @"/.android/debug.keystore";
             }
         }
 

@@ -1,4 +1,4 @@
-
+﻿
 using UnityEngine;
 using UnityEditor;
 using System.IO;
@@ -332,12 +332,14 @@ public class AndroidNativeSettingsEditor : Editor {
 
 	public static void LoadExampleSettings()  {
 		AndroidNativeSettings.Instance.base64EncodedPublicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsV676BTvO5djSDdUwotbLCIPtGZ5OVCbIn402RXuEpDwuHZMIOy5E6DQjUlQPKCiB7A1Vx+ePQI50Gk8NO1zuPRBgCgvW/oTTf863KkF34QLZD+Ii8fc6VE0UKp3GfApnLmq2qtr1fwDmRCteBUET1h0EcRn3/6R/BA5DMmF1aTv8yUY5LQETWqEPIjGdyNaAhmnWf2sTliYLANiR51WXsfbDdCNT4Ux3gQo/XJynGadfwRS7A9N9e5SgvMEFUR6EwnANOF9QXgE2d0HEitpS56D3uHH/2LwICrTWAmbLX3qPYlQ3Ncf1SRyjqiKae2wW8QUnDFU5BSozwGW6tcQvQIDAQAB";
-		AndroidNativeSettings.Instance.InAppProducts =  new List<string>();
-		AndroidNativeSettings.Instance.InAppProducts.Add("coins_bonus");
-		AndroidNativeSettings.Instance.InAppProducts.Add("small_coins_bag");
-		AndroidNativeSettings.Instance.InAppProducts.Add("pm_coins");
-		AndroidNativeSettings.Instance.InAppProducts.Add("pm_green_sphere");
-		AndroidNativeSettings.Instance.InAppProducts.Add("pm_red_sphere");
+		AndroidNativeSettings.Instance.InAppProducts =  new List<GoogleProductTemplate>();
+
+		AndroidNativeSettings.Instance.InAppProducts.Add(new GoogleProductTemplate(){ SKU = "coins_bonus", 		Title = "Bonus Coins"});
+		AndroidNativeSettings.Instance.InAppProducts.Add(new GoogleProductTemplate(){ SKU = "small_coins_bag", 	Title = "Small Coins Bag"});
+		AndroidNativeSettings.Instance.InAppProducts.Add(new GoogleProductTemplate(){ SKU = "pm_coins", 		Title = "Coins"});
+		AndroidNativeSettings.Instance.InAppProducts.Add(new GoogleProductTemplate(){ SKU = "pm_green_sphere", 	Title = "Green Sphere"});
+		AndroidNativeSettings.Instance.InAppProducts.Add(new GoogleProductTemplate(){ SKU = "pm_red_sphere", 	Title = "Red Sphere"});
+
 		AndroidNativeSettings.Instance.GCM_SenderId = "216817929098";
 		AndroidNativeSettings.Instance.GooglePlayServiceAppID = "216817929098";
 
@@ -1187,6 +1189,14 @@ public class AndroidNativeSettingsEditor : Editor {
 		EditorGUILayout.EndHorizontal ();
 	}
 
+	GUIContent LeaderboardIdDLabel 		= new GUIContent("LeaderboardId[?]:", "A unique identifier that will be used for reporting. It can be composed of letters and numbers.");
+	GUIContent LeaderboardNameLabel  	= new GUIContent("Display Name[?]:", "This is the name of the Leaderboard that will be seen by customers (if this is their primary language). For automatically renewable subscriptions, don’t include a duration in the display name. The display name can’t be longer than 75 characters.");
+	GUIContent LeaderboardDescriptionLabel 	= new GUIContent("Description[?]:", "This is the description of the Leaderboard. The description cannot be longer than 255 bytes.");
+
+	GUIContent AchievementIdDLabel 		= new GUIContent("AchievementId[?]:", "A unique identifier that will be used for reporting. It can be composed of letters and numbers.");
+	GUIContent AchievementNameLabel  	= new GUIContent("Display Name[?]:", "This is the name of the Achievement that will be seen by customers (if this is their primary language). For automatically renewable subscriptions, don’t include a duration in the display name. The display name can’t be longer than 75 characters.");
+	GUIContent AchievementDescriptionLabel 	= new GUIContent("Description[?]:", "This is the description of the Achievement. The description cannot be longer than 255 bytes.");
+
 	private void PlayServiceSettings() {
 		EditorGUILayout.HelpBox("Google API Settings", MessageType.None);
 		AndroidNativeSettings.Instance.ShowPSSettings = EditorGUILayout.Foldout(AndroidNativeSettings.Instance.ShowPSSettings, "PlayService Settings");
@@ -1265,9 +1275,180 @@ public class AndroidNativeSettingsEditor : Editor {
 			EditorGUILayout.EndHorizontal();
 			EditorGUI.indentLevel--;
 
+			EditorGUI.indentLevel++;
+			{
+				EditorGUILayout.BeginVertical (GUI.skin.box);
+				
+				
+				EditorGUILayout.BeginHorizontal();
+				AndroidNativeSettings.Instance.ShowLeaderboards = EditorGUILayout.Foldout(AndroidNativeSettings.Instance.ShowLeaderboards, "Leaderboards");
+
+				EditorGUILayout.EndHorizontal();
+				EditorGUILayout.Space();
+
+				if(AndroidNativeSettings.Instance.ShowLeaderboards) {
+					
+					foreach(GPLeaderBoard leaderboard in AndroidNativeSettings.Instance.Leaderboards) {
+						
+						EditorGUILayout.BeginVertical (GUI.skin.box);
+						
+						EditorGUILayout.BeginHorizontal();
+						
+						GUIStyle s =  new GUIStyle();
+						s.padding =  new RectOffset();
+						s.margin =  new RectOffset();
+						s.border =  new RectOffset();
+						
+						if(leaderboard.Texture != null) {
+							GUILayout.Box(leaderboard.Texture, s, new GUILayoutOption[]{GUILayout.Width(18), GUILayout.Height(18)});
+						}
+						
+						leaderboard.IsOpen 	= EditorGUILayout.Foldout(leaderboard.IsOpen, leaderboard.Name);
+												
+						bool ItemWasRemoved = DrawSortingButtons((object) leaderboard, AndroidNativeSettings.Instance.Leaderboards);
+						if(ItemWasRemoved) {
+							return;
+						}
+						
+						EditorGUILayout.EndHorizontal();
+						
+						if(leaderboard.IsOpen) {
+							EditorGUILayout.BeginHorizontal();
+							EditorGUILayout.LabelField(LeaderboardIdDLabel);
+							leaderboard.Id	 	= EditorGUILayout.TextField(leaderboard.Id);
+							if(leaderboard.Id.Length > 0) {
+								leaderboard.Id 		= leaderboard.Id.Trim();
+							}
+							EditorGUILayout.EndHorizontal();
+							
+							EditorGUILayout.BeginHorizontal();
+							EditorGUILayout.LabelField(LeaderboardNameLabel);
+							leaderboard.Name	 	= EditorGUILayout.TextField(leaderboard.Name);
+							EditorGUILayout.EndHorizontal();
+							
+							EditorGUILayout.Space();
+							EditorGUILayout.Space();
+
+							EditorGUILayout.BeginHorizontal();
+							EditorGUILayout.LabelField(LeaderboardDescriptionLabel);
+							EditorGUILayout.EndHorizontal();
+							
+							EditorGUILayout.BeginHorizontal();
+							leaderboard.Description	 = EditorGUILayout.TextArea(leaderboard.Description,  new GUILayoutOption[]{GUILayout.Height(60), GUILayout.Width(200)} );
+							leaderboard.Texture = (Texture2D) EditorGUILayout.ObjectField("", leaderboard.Texture, typeof (Texture2D), false);
+							EditorGUILayout.EndHorizontal();
+						}
+
+						EditorGUILayout.EndVertical();
+					}
+					
+					EditorGUILayout.BeginHorizontal();
+					EditorGUILayout.Space();
+					if(GUILayout.Button("Add new", EditorStyles.miniButton, GUILayout.Width(250))) {
+						GPLeaderBoard leaderboard =  new GPLeaderBoard(string.Empty, "New Leaderboard");
+						AndroidNativeSettings.Instance.Leaderboards.Add(leaderboard);
+					}
+					
+					EditorGUILayout.Space();
+					EditorGUILayout.EndHorizontal();
+					EditorGUILayout.Space();
+				}
+
+				EditorGUILayout.EndVertical();
+			}
+			EditorGUI.indentLevel--;
+
+			EditorGUI.indentLevel++;
+			{
+				EditorGUILayout.BeginVertical (GUI.skin.box);
+				
+				
+				EditorGUILayout.BeginHorizontal();
+				AndroidNativeSettings.Instance.ShowAchievements = EditorGUILayout.Foldout(AndroidNativeSettings.Instance.ShowAchievements, "Achievements");
+				
+				EditorGUILayout.EndHorizontal();
+				EditorGUILayout.Space();
+				
+				if(AndroidNativeSettings.Instance.ShowAchievements) {
+					
+					foreach(GPAchievement achievement in AndroidNativeSettings.Instance.Achievements) {
+						
+						EditorGUILayout.BeginVertical (GUI.skin.box);
+						
+						EditorGUILayout.BeginHorizontal();
+						
+						GUIStyle s =  new GUIStyle();
+						s.padding =  new RectOffset();
+						s.margin =  new RectOffset();
+						s.border =  new RectOffset();
+						
+						if(achievement.Texture != null) {
+							GUILayout.Box(achievement.Texture, s, new GUILayoutOption[]{GUILayout.Width(18), GUILayout.Height(18)});
+						}
+						
+						achievement.IsOpen 	= EditorGUILayout.Foldout(achievement.IsOpen, achievement.Name);
+						
+						bool ItemWasRemoved = DrawSortingButtons((object) achievement, AndroidNativeSettings.Instance.Achievements);
+						if(ItemWasRemoved) {
+							return;
+						}
+						
+						EditorGUILayout.EndHorizontal();
+						
+						if(achievement.IsOpen) {
+							EditorGUILayout.BeginHorizontal();
+							EditorGUILayout.LabelField(AchievementIdDLabel);
+							achievement.Id	 	= EditorGUILayout.TextField(achievement.Id);
+							if(achievement.Id.Length > 0) {
+								achievement.Id 		= achievement.Id.Trim();
+							}
+							EditorGUILayout.EndHorizontal();
+							
+							EditorGUILayout.BeginHorizontal();
+							EditorGUILayout.LabelField(AchievementNameLabel);
+							achievement.Name	 	= EditorGUILayout.TextField(achievement.Name);
+							EditorGUILayout.EndHorizontal();
+							
+							EditorGUILayout.Space();
+							EditorGUILayout.Space();
+							
+							EditorGUILayout.BeginHorizontal();
+							EditorGUILayout.LabelField(AchievementDescriptionLabel);
+							EditorGUILayout.EndHorizontal();
+							
+							EditorGUILayout.BeginHorizontal();
+							achievement.Description	 = EditorGUILayout.TextArea(achievement.Description,  new GUILayoutOption[]{GUILayout.Height(60), GUILayout.Width(200)} );
+							achievement.Texture = (Texture2D) EditorGUILayout.ObjectField("", achievement.Texture, typeof (Texture2D), false);
+							EditorGUILayout.EndHorizontal();
+						}
+						
+						EditorGUILayout.EndVertical();
+					}
+					
+					EditorGUILayout.BeginHorizontal();
+					EditorGUILayout.Space();
+					if(GUILayout.Button("Add new", EditorStyles.miniButton, GUILayout.Width(250))) {
+						GPAchievement achievement =  new GPAchievement(string.Empty, "New Achievement");
+						AndroidNativeSettings.Instance.Achievements.Add(achievement);
+					}
+					
+					EditorGUILayout.Space();
+					EditorGUILayout.EndHorizontal();
+					EditorGUILayout.Space();
+				}
+				
+				EditorGUILayout.EndVertical();
+			}
+			EditorGUI.indentLevel--;
+
 		}
 
 	}
+
+	GUIContent ProductIdDLabel 		= new GUIContent("ProductId[?]:", "A unique identifier that will be used for reporting. It can be composed of letters and numbers.");
+	GUIContent IsConsLabel 			= new GUIContent("Is Consumable[?]:", "Is prodcut allowed to be purchased more than once?");
+	GUIContent DisplayNameLabel  	= new GUIContent("Display Name[?]:", "This is the name of the In-App Purchase that will be seen by customers (if this is their primary language). For automatically renewable subscriptions, don’t include a duration in the display name. The display name can’t be longer than 75 characters.");
+	GUIContent DescriptionLabel 	= new GUIContent("Description[?]:", "This is the description of the In-App Purchase that will be used by App Review during the review process. If indicated in your code, this description may also be seen by customers. For automatically renewable subscriptions, do not include a duration in the description. The description cannot be longer than 255 bytes.");
 
 	private void BillingSettings() {
 	//	EditorGUILayout.HelpBox("(Optional) In-app Billing Parameters", MessageType.None);
@@ -1284,42 +1465,138 @@ public class AndroidNativeSettingsEditor : Editor {
 
 			EditorGUILayout.EndHorizontal();
 
-
-			if(settings.InAppProducts.Count == 0) {
-				EditorGUILayout.HelpBox("No products added", MessageType.Warning);
-			}
-		
-
-			int i = 0;
-			foreach(string str in settings.InAppProducts) {
+			EditorGUI.indentLevel++;
+			{
+				EditorGUILayout.BeginVertical (GUI.skin.box);
+				
+				
 				EditorGUILayout.BeginHorizontal();
-				settings.InAppProducts[i]	 	= EditorGUILayout.TextField(settings.InAppProducts[i]);
-				if(settings.InAppProducts[i].Length > 0) {
-					settings.InAppProducts[i]		= settings.InAppProducts[i].Trim();
-				}
-				if(GUILayout.Button("Remove",  GUILayout.Width(80))) {
-					settings.InAppProducts.Remove(str);
-					break;
-				}
+				AndroidNativeSettings.Instance.ShowStoreProducts = EditorGUILayout.Foldout(AndroidNativeSettings.Instance.ShowStoreProducts, "Products");
+				
 				EditorGUILayout.EndHorizontal();
-				i++;
+				EditorGUILayout.Space();
+
+				if(AndroidNativeSettings.Instance.ShowStoreProducts) {
+					
+					foreach(GoogleProductTemplate product in AndroidNativeSettings.Instance.InAppProducts) {
+						
+						EditorGUILayout.BeginVertical (GUI.skin.box);
+						
+						EditorGUILayout.BeginHorizontal();
+						
+						GUIStyle s =  new GUIStyle();
+						s.padding =  new RectOffset();
+						s.margin =  new RectOffset();
+						s.border =  new RectOffset();
+						
+						if(product.Texture != null) {
+							GUILayout.Box(product.Texture, s, new GUILayoutOption[]{GUILayout.Width(18), GUILayout.Height(18)});
+						}
+						
+						product.IsOpen 	= EditorGUILayout.Foldout(product.IsOpen, product.Title);
+
+						
+						EditorGUILayout.LabelField(product.Price + "$");
+						bool ItemWasRemoved = DrawSortingButtons((object) product, AndroidNativeSettings.Instance.InAppProducts);
+						if(ItemWasRemoved) {
+							return;
+						}
+						
+						EditorGUILayout.EndHorizontal();
+						
+						if(product.IsOpen) {
+							EditorGUILayout.BeginHorizontal();
+							EditorGUILayout.LabelField(ProductIdDLabel);
+							product.SKU	 	= EditorGUILayout.TextField(product.SKU);
+							if(product.SKU.Length > 0) {
+								product.SKU 		= product.SKU.Trim();
+							}
+							EditorGUILayout.EndHorizontal();
+							
+							EditorGUILayout.BeginHorizontal();
+							EditorGUILayout.LabelField(DisplayNameLabel);
+							product.Title	 	= EditorGUILayout.TextField(product.Title);
+							EditorGUILayout.EndHorizontal();
+							
+							EditorGUILayout.BeginHorizontal();
+							EditorGUILayout.LabelField(IsConsLabel);
+							product.ProductType	 	= (AN_InAppType) EditorGUILayout.EnumPopup(product.ProductType);
+							EditorGUILayout.EndHorizontal();
+							
+							EditorGUILayout.Space();
+							EditorGUILayout.Space();
+
+							EditorGUILayout.BeginHorizontal();
+							EditorGUILayout.LabelField(DescriptionLabel);
+							EditorGUILayout.EndHorizontal();
+							
+							EditorGUILayout.BeginHorizontal();
+							product.Description	 = EditorGUILayout.TextArea(product.Description,  new GUILayoutOption[]{GUILayout.Height(60), GUILayout.Width(200)} );
+							product.Texture = (Texture2D) EditorGUILayout.ObjectField("", product.Texture, typeof (Texture2D), false);
+							EditorGUILayout.EndHorizontal();
+						}
+
+						
+						EditorGUILayout.EndVertical();
+						
+					}
+					
+					EditorGUILayout.BeginHorizontal();
+					EditorGUILayout.Space();
+					if(GUILayout.Button("Add new", EditorStyles.miniButton, GUILayout.Width(250))) {
+						GoogleProductTemplate product =  new GoogleProductTemplate();
+						AndroidNativeSettings.Instance.InAppProducts.Add(product);
+					}
+					
+					EditorGUILayout.Space();
+					EditorGUILayout.EndHorizontal();
+					EditorGUILayout.Space();
+				}
+				
+				EditorGUILayout.EndVertical();
 			}
 
-
-			EditorGUILayout.BeginHorizontal();
-			EditorGUILayout.Space();
-			if(GUILayout.Button("Add",  GUILayout.Width(80))) {
-				settings.InAppProducts.Add("");
-			}
-			EditorGUILayout.EndHorizontal();
-
-
-			EditorGUILayout.Space();
+			EditorGUI.indentLevel--;
 		}
 	}
 
-
-
+	private bool DrawSortingButtons(object currentObject, IList ObjectsList) {
+		
+		int ObjectIndex = ObjectsList.IndexOf(currentObject);
+		if(ObjectIndex == 0) {
+			GUI.enabled = false;
+		} 
+		
+		bool up 		= GUILayout.Button("↑", EditorStyles.miniButtonLeft, GUILayout.Width(20));
+		if(up) {
+			object c = currentObject;
+			ObjectsList[ObjectIndex]  		= ObjectsList[ObjectIndex - 1];
+			ObjectsList[ObjectIndex - 1] 	=  c;
+		}
+		
+		
+		if(ObjectIndex >= ObjectsList.Count -1) {
+			GUI.enabled = false;
+		} else {
+			GUI.enabled = true;
+		}
+		
+		bool down 		= GUILayout.Button("↓", EditorStyles.miniButtonMid, GUILayout.Width(20));
+		if(down) {
+			object c = currentObject;
+			ObjectsList[ObjectIndex] =  ObjectsList[ObjectIndex + 1];
+			ObjectsList[ObjectIndex + 1] = c;
+		}
+		
+		
+		GUI.enabled = true;
+		bool r 			= GUILayout.Button("-", EditorStyles.miniButtonRight, GUILayout.Width(20));
+		if(r) {
+			ObjectsList.Remove(currentObject);
+		}
+		
+		return r;
+	}
 
 	private void GCM() {
 		AndroidNativeSettings.Instance.GCMSettingsActinve = EditorGUILayout.Foldout(AndroidNativeSettings.Instance.GCMSettingsActinve, "Google Cloud Messaging  Settings");

@@ -17,7 +17,7 @@ using UnityEditor;
 
 public class AndroidNativeSettings : ScriptableObject {
 
-	public const string VERSION_NUMBER = "6.9.1";
+	public const string VERSION_NUMBER = "7.0.1";
 	public const string GOOGLE_PLAY_SDK_VERSION_NUMBER = "8115000";
 
 
@@ -112,10 +112,14 @@ public class AndroidNativeSettings : ScriptableObject {
 	public  string base64EncodedPublicKey = "REPLACE_WITH_YOUR_PUBLIC_KEY";
 	#endif
 
+	public bool ShowStoreProducts = true;
+	public List<GoogleProductTemplate> InAppProducts = new List<GoogleProductTemplate>();
 
+	public bool ShowLeaderboards = true;
+	public List<GPLeaderBoard> Leaderboards = new List<GPLeaderBoard>();
 
-	
-	public List<string> InAppProducts = new List<string>();
+	public bool ShowAchievements = true;
+	public List<GPAchievement> Achievements = new List<GPAchievement>();
 
 	public bool ShowWhenAppIsForeground = true;
 	public bool EnableVibrationLocal = false;
