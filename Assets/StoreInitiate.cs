@@ -5,43 +5,66 @@ using Grow.Highway;
 using Grow.Sync;
 using Grow.Insights;
 using Grow.Gifting;
+using Soomla;
+using System.Collections.Generic;
 
 	public class StoreInitiate : MonoBehaviour {
 
-	bool initiated;
-		// Use this for initialization
-		void Start () {
-
+	//
+	// Various event handling methods
+	//
+	public void onGoodBalanceChanged(VirtualGood good, int balance, int amountAdded) {
+		SoomlaUtils.LogDebug("TAG", good.ID + " now has a balance of " + balance);
+	}
+	public void onGrowSyncInitialized() {
+		Debug.Log("GROW Sync has been initialized.");
+	}
+	public void onModelSyncFinished(IList<string> modules) {
+		Debug.Log("Model Sync has finished.");
+	}
+	public void onStateSyncFinished(IList<string> changedComponents,
+	                                IList<string> failedComponents) {
+		Debug.Log("State Sync has finished.");
+	}
+	
+	//
+	// Initialize SOOMLA's modules
+	//
+	void Start () {
+		
+		// Setup all event handlers - Make sure to set the event handlers before you initialize
+		StoreEvents.OnGoodBalanceChanged += onGoodBalanceChanged;
+		
+		HighwayEvents.OnGrowSyncInitialized += onGrowSyncInitialized;
+		HighwayEvents.OnModelSyncFinished += onModelSyncFinished;
+		HighwayEvents.OnStateSyncFinished += onStateSyncFinished;
+		
+		// Make sure to make this call in your earliest loading scene,
+		// and before initializing any other SOOMLA/GROW components
+		// i.e. before SoomlaStore.Initialize(...)
 		GrowHighway.Initialize();
 		
-		// Make sure to make this call AFTER initializing HIGHWAY
-		GrowInsights.Initialize();
-		
 		// Make sure to make this call AFTER initializing HIGHWAY,
-		// and BEFORE initializing STORE/PROFILE/LEVELUP
+		// and BEFORE initializing STORE
 		bool modelSync = true;     // Remote Economy Management - Synchronizes your game's
 		// economy model between the client and server - enables
 		// you to remotely manage your economy.
 		
-		bool stateSync = true; // Synchronizes the users' balances data with the server
+		bool stateSync = true;     // Synchronizes the users' balances data with the server
 		// and across his other devices.
-		// Must be TRUE in order to use LEADERBOARDS.
 		
 		// State sync and Model sync can be enabled/disabled separately.
 		GrowSync.Initialize(modelSync, stateSync);
 		
-		// LEADERBOARDS requires no initialization,
-		// but it depends on SYNC initialization with stateSync=true
-		
-		// Make sure to make this call AFTER initializing SYNC,
-		// and BEFORE initializing STORE/PROFILE/LEVELUP
-		GrowGifting.Initialize();
+	//	SoomlaStore.Initialize(new IStoreAssets());
+		//StoreEvents.OnSoomlaStoreInitialized ();
+	
 
 			//StoreInventory.RefreshLocalInventory();
-			if (initiated == false) {
-				//StoreEvents.OnSoomlaStoreInitialized ();
+		/*	if (initiated == false) {
+				StoreEvents.OnSoomlaStoreInitialized ();
 				initiated = true;
-			}
+			}*/
 		
 		}
 		

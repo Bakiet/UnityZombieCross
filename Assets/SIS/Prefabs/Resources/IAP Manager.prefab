@@ -685,7 +685,7 @@ MonoBehaviour:
       description: 
       realPrice: 
       amount: 0
-      specific: super_bike;super_upgrade_level_1;super_upgrade_level_2
+      specific: super_bike;super_upgrade_level_1;super_upgrade_level_3
       icon: {fileID: 21300000, guid: ddf5e968340dcd64488ce424b99f2de8, type: 3}
       virtualPrice:
         name: Coins
@@ -695,7 +695,7 @@ MonoBehaviour:
         target: 0
         labelText: 
       platformFoldout: 0
-    - id: super_upgrade_level_2
+    - id: super_upgrade_level_3
       localId: []
       fetch: 0
       type: 5
@@ -721,26 +721,8 @@ MonoBehaviour:
       description: 
       realPrice: 
       amount: 0
-      specific: party_bike;[PREV];party_upgrade_level_1
+      specific: party_bike;[PREV];party_upgrade_level_2
       icon: {fileID: 21300000, guid: 37266182dcf769645b88eedca0525287, type: 3}
-      virtualPrice:
-        name: Coins
-        amount: 0
-      req:
-        entry: 
-        target: 0
-        labelText: 
-      platformFoldout: 0
-    - id: party_upgrade_level_1
-      localId: []
-      fetch: 0
-      type: 5
-      title: Upgrade Party Level 2
-      description: 
-      realPrice: 
-      amount: 0
-      specific: party_bike;party_upgrade_level_1;party_upgrade_level_2
-      icon: {fileID: 21300000, guid: f5ef4927c96f252439274ead637a2ceb, type: 3}
       virtualPrice:
         name: Coins
         amount: 0
@@ -753,11 +735,29 @@ MonoBehaviour:
       localId: []
       fetch: 0
       type: 5
+      title: Upgrade Party Level 2
+      description: 
+      realPrice: 
+      amount: 0
+      specific: party_bike;party_upgrade_level_1;party_upgrade_level_3
+      icon: {fileID: 21300000, guid: f5ef4927c96f252439274ead637a2ceb, type: 3}
+      virtualPrice:
+        name: Coins
+        amount: 0
+      req:
+        entry: 
+        target: 0
+        labelText: 
+      platformFoldout: 0
+    - id: party_upgrade_level_3
+      localId: []
+      fetch: 0
+      type: 5
       title: Upgrade Party Level 3
       description: 
       realPrice: 
       amount: 0
-      specific: party_bike;party_upgrade_level_1;[NEXT]
+      specific: party_bike;party_upgrade_level_2;[NEXT]
       icon: {fileID: 21300000, guid: 86cf35fff387dab45a1590189eb07d3e, type: 3}
       virtualPrice:
         name: Coins
@@ -1715,7 +1715,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[5].id
-      value: super_upgrade_level_2
+      value: super_upgrade_level_3
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[6].id
@@ -1723,11 +1723,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[7].id
-      value: party_upgrade_level_1
+      value: party_upgrade_level_2
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[8].id
-      value: party_upgrade_level_2
+      value: party_upgrade_level_3
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[9].id
@@ -1799,7 +1799,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[4].specific
-      value: super_bike;super_upgrade_level_1;super_upgrade_level_2
+      value: super_bike;super_upgrade_level_1;super_upgrade_level_3
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[5].type
@@ -1815,7 +1815,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[6].specific
-      value: party_bike;[PREV];party_upgrade_level_1
+      value: party_bike;[PREV];party_upgrade_level_2
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[7].type
@@ -1823,7 +1823,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[7].specific
-      value: party_bike;party_upgrade_level_1;party_upgrade_level_2
+      value: party_bike;party_upgrade_level_1;party_upgrade_level_3
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[8].type
@@ -1831,7 +1831,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[8].specific
-      value: party_bike;party_upgrade_level_1;[NEXT]
+      value: party_bike;party_upgrade_level_2;[NEXT]
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[9].type

@@ -219,6 +219,7 @@ namespace SIS
 									   + " This will cause errors during runtime.");
 
 					//add this IAPObject to the dictionary of id <> IAPObject
+					//if (IAPObjects != obj)
 					IAPObjects.Add(obj.id, obj);
 				}
 			}
