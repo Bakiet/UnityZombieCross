@@ -271,6 +271,8 @@ MonoBehaviour:
   currency:
   - name: Coins
     amount: 2000
+  - name: 
+    amount: 0
   IGCs:
   - id: 1386019334.20801503
     name: Items
@@ -593,7 +595,161 @@ MonoBehaviour:
       realPrice: 
       amount: 0
       specific: global
-      icon: {fileID: 21300000, guid: 3ed8f08a659106448b2b494d7d1f551f, type: 3}
+      icon: {fileID: 21300000, guid: cbc27603f0785974c9e6951142460a74, type: 3}
+      virtualPrice:
+        name: Coins
+        amount: 0
+      req:
+        entry: 
+        target: 0
+        labelText: 
+      platformFoldout: 0
+  - id: 1445903207.6273816
+    name: Custom
+    items:
+    - id: bike_upgrade
+      localId: []
+      fetch: 0
+      type: 3
+      title: Upgrade Bike
+      description: 'gain a speed, acc, brake boost at bike. next upgrade: 10 points'
+      realPrice: 
+      amount: 0
+      specific: 
+      icon: {fileID: 21300000, guid: 746d1a4298806f3478e35ce29c1f57ec, type: 3}
+      virtualPrice:
+        name: Coins
+        amount: 0
+      req:
+        entry: 
+        target: 0
+        labelText: 
+      platformFoldout: 0
+    - id: super_upgrade
+      localId: []
+      fetch: 0
+      type: 3
+      title: Upgrade Super
+      description: 'gain a speed, acc, brake boost at super super bike. next upgrade:
+        10 points'
+      realPrice: 
+      amount: 0
+      specific: 
+      icon: {fileID: 21300000, guid: 7766d7e412f20ec458a65a78686d9701, type: 3}
+      virtualPrice:
+        name: Coins
+        amount: 0
+      req:
+        entry: 
+        target: 0
+        labelText: 
+      platformFoldout: 0
+    - id: party_upgrade
+      localId: []
+      fetch: 0
+      type: 3
+      title: Upgrade Party
+      description: 'gain a speed, acc, brake boost at party bike. next upgrade: 10
+        points'
+      realPrice: 
+      amount: 0
+      specific: 
+      icon: {fileID: 21300000, guid: 1b69257069af7234aacae8bb2cd022a5, type: 3}
+      virtualPrice:
+        name: Coins
+        amount: 0
+      req:
+        entry: 
+        target: 0
+        labelText: 
+      platformFoldout: 0
+    - id: nightmare_upgrade
+      localId: []
+      fetch: 0
+      type: 3
+      title: Upgrade Nightmare
+      description: 'gain a speed, acc, brake boost at nightmare bike. next upgrade:
+        10 points'
+      realPrice: 
+      amount: 0
+      specific: 
+      icon: {fileID: 21300000, guid: 0f65b74cb6775c14e8a126d562654538, type: 3}
+      virtualPrice:
+        name: Coins
+        amount: 0
+      req:
+        entry: 
+        target: 0
+        labelText: 
+      platformFoldout: 0
+    - id: monster_upgrade
+      localId: []
+      fetch: 0
+      type: 3
+      title: Upgrade Monster
+      description: 'gain a speed, acc, brake boost at monster bike. next upgrade:
+        10 points'
+      realPrice: 
+      amount: 0
+      specific: 
+      icon: {fileID: 21300000, guid: b0a97c75a9123ab429bbb2c91cdacb5f, type: 3}
+      virtualPrice:
+        name: Coins
+        amount: 0
+      req:
+        entry: 
+        target: 0
+        labelText: 
+      platformFoldout: 0
+    - id: neon_upgrade
+      localId: []
+      fetch: 0
+      type: 3
+      title: Upgrade Neon
+      description: 'gain a speed, acc, brake boost at neon bike. next upgrade: 10
+        points'
+      realPrice: 
+      amount: 0
+      specific: 
+      icon: {fileID: 21300000, guid: 721c930108a31344a8e2b62e775f0464, type: 3}
+      virtualPrice:
+        name: Coins
+        amount: 0
+      req:
+        entry: 
+        target: 0
+        labelText: 
+      platformFoldout: 0
+    - id: hell_upgrade
+      localId: []
+      fetch: 0
+      type: 3
+      title: Upgrade Hell
+      description: 'gain a speed, acc, brake boost at hell bike. next upgrade: 10
+        points'
+      realPrice: 
+      amount: 0
+      specific: 
+      icon: {fileID: 21300000, guid: 629f58bc56f309a49a32d990f87e53f4, type: 3}
+      virtualPrice:
+        name: Coins
+        amount: 0
+      req:
+        entry: 
+        target: 0
+        labelText: 
+      platformFoldout: 0
+    - id: test_upgrade
+      localId: []
+      fetch: 0
+      type: 3
+      title: Upgrade Hell
+      description: 'gain a speed, acc, brake boost at test bike. next upgrade: 10
+        points'
+      realPrice: 
+      amount: 0
+      specific: 
+      icon: {fileID: 21300000, guid: 721c930108a31344a8e2b62e775f0464, type: 3}
       virtualPrice:
         name: Coins
         amount: 0
@@ -603,7 +759,7 @@ MonoBehaviour:
         labelText: 
       platformFoldout: 0
   - id: 1386019334.20801925
-    name: Custom
+    name: Upgrade
     items:
     - id: bike_upgrade_level_1
       localId: []
@@ -613,8 +769,8 @@ MonoBehaviour:
       description: 
       realPrice: 
       amount: 0
-      specific: bike;[PREV];bike_upgrade_level_2
-      icon: {fileID: 21300000, guid: 0b0b2b9d8e40c8e43931028d9f62db64, type: 3}
+      specific: bike_upgrade;[PREV];bike_upgrade_level_2
+      icon: {fileID: 21300000, guid: 7647d185feb260445a781d74308f8c5d, type: 3}
       virtualPrice:
         name: Coins
         amount: 0
@@ -631,8 +787,8 @@ MonoBehaviour:
       description: 
       realPrice: 
       amount: 0
-      specific: bike;bike_upgrade_level_1;bike_upgrade_level_3
-      icon: {fileID: 21300000, guid: 80dc0cc390f5d3f4f91aae55bfa2613e, type: 3}
+      specific: bike_upgrade;bike_upgrade_level_1;bike_upgrade_level_3
+      icon: {fileID: 21300000, guid: 6a315e462f420cb43905d8979c0058da, type: 3}
       virtualPrice:
         name: Coins
         amount: 0
@@ -649,8 +805,8 @@ MonoBehaviour:
       description: 
       realPrice: 
       amount: 0
-      specific: bike;bike_upgrade_level_2;[NEXT]
-      icon: {fileID: 21300000, guid: c363cc46d23e0294b967e4d6d45f1e62, type: 3}
+      specific: bike_upgrade;bike_upgrade_level_2;[NEXT]
+      icon: {fileID: 21300000, guid: 989e088ca640b7f48b3c360eb1633cdc, type: 3}
       virtualPrice:
         name: Coins
         amount: 0
@@ -667,11 +823,11 @@ MonoBehaviour:
       description: 
       realPrice: 
       amount: 0
-      specific: super_bike;[PREV];super_upgrade_level_2
-      icon: {fileID: 21300000, guid: d14dc9d03051f5d44acfbe62a0348fea, type: 3}
+      specific: super_upgrade;[PREV];super_upgrade_level_2
+      icon: {fileID: 21300000, guid: 85729fbe547f85b4bb0c933a9ce4fe82, type: 3}
       virtualPrice:
         name: Coins
-        amount: 500
+        amount: 0
       req:
         entry: 
         target: 0
@@ -685,8 +841,8 @@ MonoBehaviour:
       description: 
       realPrice: 
       amount: 0
-      specific: super_bike;super_upgrade_level_1;super_upgrade_level_3
-      icon: {fileID: 21300000, guid: ddf5e968340dcd64488ce424b99f2de8, type: 3}
+      specific: super_upgrade;super_upgrade_level_1;super_upgrade_level_3
+      icon: {fileID: 21300000, guid: 391911e46f53c8a44823f6281fe62b66, type: 3}
       virtualPrice:
         name: Coins
         amount: 0
@@ -703,8 +859,8 @@ MonoBehaviour:
       description: 
       realPrice: 
       amount: 0
-      specific: super_bike;super_upgrade_level_2;[NEXT]
-      icon: {fileID: 21300000, guid: 18a8b45e96cb3c94b87e03adc05d5aba, type: 3}
+      specific: super_upgrade;super_upgrade_level_2;[NEXT]
+      icon: {fileID: 21300000, guid: 9025f2102b8c8b34c805dcd39c89a4af, type: 3}
       virtualPrice:
         name: Coins
         amount: 0
@@ -721,8 +877,8 @@ MonoBehaviour:
       description: 
       realPrice: 
       amount: 0
-      specific: party_bike;[PREV];party_upgrade_level_2
-      icon: {fileID: 21300000, guid: 37266182dcf769645b88eedca0525287, type: 3}
+      specific: party_upgrade;[PREV];party_upgrade_level_2
+      icon: {fileID: 21300000, guid: 933df44d0a581fb4997499a620f2414d, type: 3}
       virtualPrice:
         name: Coins
         amount: 0
@@ -739,8 +895,8 @@ MonoBehaviour:
       description: 
       realPrice: 
       amount: 0
-      specific: party_bike;party_upgrade_level_1;party_upgrade_level_3
-      icon: {fileID: 21300000, guid: f5ef4927c96f252439274ead637a2ceb, type: 3}
+      specific: party_upgrade;party_upgrade_level_1;party_upgrade_level_3
+      icon: {fileID: 21300000, guid: be28e623de7e64641ac4ce55f89bc81e, type: 3}
       virtualPrice:
         name: Coins
         amount: 0
@@ -757,8 +913,8 @@ MonoBehaviour:
       description: 
       realPrice: 
       amount: 0
-      specific: party_bike;party_upgrade_level_2;[NEXT]
-      icon: {fileID: 21300000, guid: 86cf35fff387dab45a1590189eb07d3e, type: 3}
+      specific: party_upgrade;party_upgrade_level_2;[NEXT]
+      icon: {fileID: 21300000, guid: ef6a79b48d4b2a440bd58dbc620383fc, type: 3}
       virtualPrice:
         name: Coins
         amount: 0
@@ -775,11 +931,11 @@ MonoBehaviour:
       description: 
       realPrice: 
       amount: 0
-      specific: nightmare_bike;[PREV];nightmare_upgrade_level_2
-      icon: {fileID: 21300000, guid: b4565a28fb46f6f4288a79aa5ba1253a, type: 3}
+      specific: nightmare_upgrade;[PREV];nightmare_upgrade_level_2
+      icon: {fileID: 21300000, guid: 31d3e72baa853934faa18c9c516e15b6, type: 3}
       virtualPrice:
         name: Coins
-        amount: 1000
+        amount: 0
       req:
         entry: 
         target: 0
@@ -793,8 +949,8 @@ MonoBehaviour:
       description: 
       realPrice: 
       amount: 0
-      specific: nightmare_bike;nightmare_upgrade_level_1;nightmare_upgrade_level_3
-      icon: {fileID: 21300000, guid: 8d2806dffe8633f40a93e8baa3b7bc13, type: 3}
+      specific: nightmare_upgrade;nightmare_upgrade_level_1;nightmare_upgrade_level_3
+      icon: {fileID: 21300000, guid: 7662bf9526547c34baba439a21c41a2f, type: 3}
       virtualPrice:
         name: Coins
         amount: 0
@@ -811,8 +967,8 @@ MonoBehaviour:
       description: 
       realPrice: 
       amount: 0
-      specific: nightmare_bike;nightmare_upgrade_level_2;[NEXT]
-      icon: {fileID: 21300000, guid: cd90f8dfa4115184289551da401dfdd1, type: 3}
+      specific: nightmare_upgrade;nightmare_upgrade_level_2;[NEXT]
+      icon: {fileID: 21300000, guid: 31d3e72baa853934faa18c9c516e15b6, type: 3}
       virtualPrice:
         name: Coins
         amount: 0
@@ -829,8 +985,8 @@ MonoBehaviour:
       description: 
       realPrice: 
       amount: 0
-      specific: monster_bike;[PREV];monster_upgrade_level_2
-      icon: {fileID: 21300000, guid: 047668da79a563841828cfb32999719d, type: 3}
+      specific: monster_upgrade;[PREV];monster_upgrade_level_2
+      icon: {fileID: 21300000, guid: 993c279ac053a11488f9b9905fd550ad, type: 3}
       virtualPrice:
         name: Coins
         amount: 0
@@ -847,8 +1003,8 @@ MonoBehaviour:
       description: 
       realPrice: 
       amount: 0
-      specific: monster_bike;monster_upgrade_level_1;monster_upgrade_level_3
-      icon: {fileID: 21300000, guid: 4b12093364a50dc459475564800ba771, type: 3}
+      specific: monster_upgrade;monster_upgrade_level_1;monster_upgrade_level_3
+      icon: {fileID: 21300000, guid: 4dcd001ac0850a444b463780bcaa3afd, type: 3}
       virtualPrice:
         name: Coins
         amount: 0
@@ -865,8 +1021,8 @@ MonoBehaviour:
       description: 
       realPrice: 
       amount: 0
-      specific: monster_bike;monster_upgrade_level_2;[NEXT]
-      icon: {fileID: 21300000, guid: 62b7b399fae715f4bbe9731558132ced, type: 3}
+      specific: monster_upgrade;monster_upgrade_level_2;[NEXT]
+      icon: {fileID: 21300000, guid: 0624d8defbc91784da309beec7c83301, type: 3}
       virtualPrice:
         name: Coins
         amount: 0
@@ -883,11 +1039,11 @@ MonoBehaviour:
       description: 
       realPrice: 
       amount: 0
-      specific: neon_bike;[PREV];neon_upgrade_level_2
-      icon: {fileID: 21300000, guid: 148469bff8bfc3247ba4dd6045dc35d3, type: 3}
+      specific: neon_upgrade;[PREV];neon_upgrade_level_2
+      icon: {fileID: 21300000, guid: 27c9c94f1f8794c458cf000b779d5d06, type: 3}
       virtualPrice:
         name: Coins
-        amount: 4000
+        amount: 0
       req:
         entry: 
         target: 0
@@ -901,8 +1057,8 @@ MonoBehaviour:
       description: 
       realPrice: 
       amount: 0
-      specific: neon_bike;neon_upgrade_level_1;neon_upgrade_level_3
-      icon: {fileID: 21300000, guid: 769dff579f6426b4f8ad0aa39a546b3d, type: 3}
+      specific: neon_upgrade;neon_upgrade_level_1;neon_upgrade_level_3
+      icon: {fileID: 21300000, guid: b9bdfe9f8b0fb4f418ff020765155e5e, type: 3}
       virtualPrice:
         name: Coins
         amount: 0
@@ -919,8 +1075,8 @@ MonoBehaviour:
       description: 
       realPrice: 
       amount: 0
-      specific: neon_bike;neon_upgrade_level_2;[NEXT]
-      icon: {fileID: 21300000, guid: f8a48f190608fd5428c0839260581004, type: 3}
+      specific: neon_upgrade;neon_upgrade_level_2;[NEXT]
+      icon: {fileID: 21300000, guid: 797063a465325d247980a1c602c4b0dc, type: 3}
       virtualPrice:
         name: Coins
         amount: 0
@@ -937,11 +1093,11 @@ MonoBehaviour:
       description: 
       realPrice: 
       amount: 0
-      specific: hell_bike;[PREV];hell_upgrade_level_2
-      icon: {fileID: 21300000, guid: 231054c37aa9cd242ba36eacdfc89c8c, type: 3}
+      specific: hell_upgrade;[PREV];hell_upgrade_level_2
+      icon: {fileID: 21300000, guid: 992330b30e3896140a7cec65bb3ad7a5, type: 3}
       virtualPrice:
         name: Coins
-        amount: 1900
+        amount: 0
       req:
         entry: 
         target: 0
@@ -955,8 +1111,8 @@ MonoBehaviour:
       description: 
       realPrice: 
       amount: 0
-      specific: hell_bike;hell_upgrade_level_1;hell_upgrade_level_3
-      icon: {fileID: 21300000, guid: 62f8ba04f60d2cf4ea512a931625bbb0, type: 3}
+      specific: hell_upgrade;hell_upgrade_level_1;hell_upgrade_level_3
+      icon: {fileID: 21300000, guid: 32e0da9f16ab84044b1b68ef32b4258c, type: 3}
       virtualPrice:
         name: Coins
         amount: 0
@@ -973,8 +1129,8 @@ MonoBehaviour:
       description: 
       realPrice: 
       amount: 0
-      specific: hell_bike;hell_upgrade_level_2;[NEXT]
-      icon: {fileID: 21300000, guid: 3a1b4b40e1b36a74a865faaffc31dc03, type: 3}
+      specific: hell_upgrade;hell_upgrade_level_2;[NEXT]
+      icon: {fileID: 21300000, guid: ee4f9f45abd3ae543ac5b6b2f69fc93e, type: 3}
       virtualPrice:
         name: Coins
         amount: 0
@@ -991,11 +1147,11 @@ MonoBehaviour:
       description: 
       realPrice: 
       amount: 0
-      specific: test_bike;[PREV];test_upgrade_level_2
-      icon: {fileID: 21300000, guid: 0b0b2b9d8e40c8e43931028d9f62db64, type: 3}
+      specific: test_upgrade;[PREV];test_upgrade_level_2
+      icon: {fileID: 21300000, guid: 27c9c94f1f8794c458cf000b779d5d06, type: 3}
       virtualPrice:
         name: Coins
-        amount: 3000
+        amount: 0
       req:
         entry: 
         target: 0
@@ -1009,8 +1165,8 @@ MonoBehaviour:
       description: 
       realPrice: 
       amount: 0
-      specific: test_bike;test_upgrade_level_1;test_upgrade_level_3
-      icon: {fileID: 21300000, guid: 0b0b2b9d8e40c8e43931028d9f62db64, type: 3}
+      specific: test_upgrade;test_upgrade_level_1;test_upgrade_level_3
+      icon: {fileID: 21300000, guid: b9bdfe9f8b0fb4f418ff020765155e5e, type: 3}
       virtualPrice:
         name: Coins
         amount: 0
@@ -1027,8 +1183,8 @@ MonoBehaviour:
       description: 
       realPrice: 
       amount: 0
-      specific: test_bike;test_upgrade_level_2;[NEXT]
-      icon: {fileID: 21300000, guid: 0b0b2b9d8e40c8e43931028d9f62db64, type: 3}
+      specific: test_upgrade;test_upgrade_level_2;[NEXT]
+      icon: {fileID: 21300000, guid: 797063a465325d247980a1c602c4b0dc, type: 3}
       virtualPrice:
         name: Coins
         amount: 0
@@ -1058,11 +1214,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 0}
       propertyPath: IGCs.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: currency.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IAPs.Array.data[0].items.Array.size
@@ -1078,7 +1234,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.size
-      value: 24
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[4].items.Array.size
@@ -1086,7 +1242,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[3].items.Array.size
-      value: 4
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[5].items.Array.size
@@ -1691,15 +1847,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[0].id
-      value: bike_upgrade_level_1
+      value: bike_upgrade
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[1].id
-      value: bike_upgrade_level_2
+      value: super_upgrade
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[2].id
-      value: bike_upgrade_level_3
+      value: party_upgrade
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[5].virtualPrice.name
@@ -1707,23 +1863,23 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[3].id
-      value: super_upgrade_level_1
+      value: nightmare_upgrade
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[4].id
-      value: super_upgrade_level_2
+      value: monster_upgrade
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[5].id
-      value: super_upgrade_level_3
+      value: neon_upgrade
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[6].id
-      value: party_upgrade_level_1
+      value: hell_upgrade
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[7].id
-      value: party_upgrade_level_2
+      value: test_upgrade
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[8].id
@@ -1735,35 +1891,35 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[0].title
-      value: Upgrade Level 1
+      value: Upgrade Bike
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[1].title
-      value: Upgrade Level 2
+      value: Upgrade Super
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[2].title
-      value: Upgrade Level 3
+      value: Upgrade Party
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[3].title
-      value: Upgrade Super Level 1
+      value: Upgrade Nightmare
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[4].title
-      value: Upgrade Super Level 2
+      value: Upgrade Monster
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[5].title
-      value: Upgrade Super Level 3
+      value: Upgrade Neon
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[6].title
-      value: Upgrade Party Level 1
+      value: Upgrade Hell
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[7].title
-      value: Upgrade Party Level 2
+      value: Upgrade Hell
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[8].title
@@ -1775,55 +1931,56 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[2].description
-      value: 
+      value: 'gain a speed, acc, brake boost at party bike. next upgrade: 10 points'
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[1].description
-      value: 
+      value: 'gain a speed, acc, brake boost at super super bike. next upgrade: 10
+        points'
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[0].description
-      value: 
+      value: 'gain a speed, acc, brake boost at bike. next upgrade: 10 points'
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[3].type
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[3].specific
-      value: super_bike;[PREV];super_upgrade_level_2
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[4].type
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[4].specific
-      value: super_bike;super_upgrade_level_1;super_upgrade_level_3
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[5].type
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[5].specific
-      value: super_bike;super_upgrade_level_2;[NEXT]
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[6].type
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[6].specific
-      value: party_bike;[PREV];party_upgrade_level_2
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[7].type
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[7].specific
-      value: party_bike;party_upgrade_level_1;party_upgrade_level_3
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[8].type
@@ -1831,7 +1988,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[8].specific
-      value: party_bike;party_upgrade_level_2;[NEXT]
+      value: party_upgrade;party_upgrade_level_2;[NEXT]
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[9].type
@@ -1839,7 +1996,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[9].specific
-      value: nightmare_bike;[PREV];nightmare_upgrade_level_2
+      value: nightmare_upgrade;[PREV];nightmare_upgrade_level_2
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[0].virtualPrice.amount
@@ -1855,7 +2012,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[3].virtualPrice.amount
-      value: 500
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[4].virtualPrice.amount
@@ -2159,27 +2316,27 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[0].type
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[0].specific
-      value: bike;[PREV];bike_upgrade_level_2
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[1].type
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[1].specific
-      value: bike;bike_upgrade_level_1;bike_upgrade_level_3
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[2].type
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[2].specific
-      value: bike;bike_upgrade_level_2;[NEXT]
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[0].amount
@@ -2407,7 +2564,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[1].items.Array.data[7].icon
       value: 
-      objectReference: {fileID: 21300000, guid: 3ed8f08a659106448b2b494d7d1f551f,
+      objectReference: {fileID: 21300000, guid: cbc27603f0785974c9e6951142460a74,
         type: 3}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[1].items.Array.data[7].type
@@ -2518,11 +2675,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[3].items.Array.data[0].id
-      value: box_white
+      value: bike_upgrade_level_1
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[3].items.Array.data[0].title
-      value: White Box
+      value: Upgrade Level 1
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[3].items.Array.data[0].description
@@ -2531,7 +2688,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[3].items.Array.data[0].icon
       value: 
-      objectReference: {fileID: 21300000, guid: 06722f7b05f58a54280a7f1349f1355c,
+      objectReference: {fileID: 21300000, guid: 7647d185feb260445a781d74308f8c5d,
         type: 3}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[3].items.Array.data[0].virtualPrice.amount
@@ -2547,15 +2704,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[3].items.Array.data[1].id
-      value: box_teal
+      value: bike_upgrade_level_2
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[3].items.Array.data[1].type
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[3].items.Array.data[1].title
-      value: Teal Box
+      value: Upgrade Level 2
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[3].items.Array.data[1].description
@@ -2563,12 +2720,12 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[3].items.Array.data[1].specific
-      value: category
+      value: bike_upgrade;bike_upgrade_level_1;bike_upgrade_level_3
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[3].items.Array.data[1].icon
       value: 
-      objectReference: {fileID: 21300000, guid: fac5065c5786eb04fa8b8cc6781cb6dd,
+      objectReference: {fileID: 21300000, guid: 6a315e462f420cb43905d8979c0058da,
         type: 3}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[3].items.Array.data[1].virtualPrice.amount
@@ -2588,11 +2745,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[3].items.Array.data[0].type
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[3].items.Array.data[0].specific
-      value: category
+      value: bike_upgrade;[PREV];bike_upgrade_level_2
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[3].items.Array.data[0].req.entry
@@ -2600,11 +2757,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[3].id
-      value: 1427566193.81348604
+      value: 1386019334.20801925
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[3].name
-      value: Demo
+      value: Upgrade
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[4].id
@@ -2769,15 +2926,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[3].items.Array.data[2].id
-      value: box_yellow
+      value: bike_upgrade_level_3
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[3].items.Array.data[2].type
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[3].items.Array.data[2].title
-      value: Yellow Box
+      value: Upgrade Level 3
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[3].items.Array.data[2].description
@@ -2785,12 +2942,12 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[3].items.Array.data[2].specific
-      value: category
+      value: bike_upgrade;bike_upgrade_level_2;[NEXT]
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[3].items.Array.data[2].icon
       value: 
-      objectReference: {fileID: 21300000, guid: ad4c13eb0006248449592fab19e25a17,
+      objectReference: {fileID: 21300000, guid: 989e088ca640b7f48b3c360eb1633cdc,
         type: 3}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[3].items.Array.data[2].virtualPrice.name
@@ -2802,15 +2959,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[3].items.Array.data[3].id
-      value: box_pink
+      value: super_upgrade_level_1
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[3].items.Array.data[3].type
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[3].items.Array.data[3].title
-      value: Pink Box
+      value: Upgrade Super Level 1
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[3].items.Array.data[3].description
@@ -2818,12 +2975,12 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[3].items.Array.data[3].specific
-      value: category
+      value: super_upgrade;[PREV];super_upgrade_level_2
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[3].items.Array.data[3].icon
       value: 
-      objectReference: {fileID: 21300000, guid: 23dbf6ed5fb72a842890348a825c64d2,
+      objectReference: {fileID: 21300000, guid: 85729fbe547f85b4bb0c933a9ce4fe82,
         type: 3}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[3].items.Array.data[3].virtualPrice.name
@@ -2831,7 +2988,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[3].items.Array.data[3].virtualPrice.amount
-      value: 15
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[1].items.Array.data[0].virtualPrice.amount
@@ -2840,53 +2997,53 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[1].icon
       value: 
-      objectReference: {fileID: 21300000, guid: 80dc0cc390f5d3f4f91aae55bfa2613e,
+      objectReference: {fileID: 21300000, guid: 7766d7e412f20ec458a65a78686d9701,
         type: 3}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[2].icon
       value: 
-      objectReference: {fileID: 21300000, guid: c363cc46d23e0294b967e4d6d45f1e62,
+      objectReference: {fileID: 21300000, guid: 1b69257069af7234aacae8bb2cd022a5,
         type: 3}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[6].description
-      value: 
+      value: 'gain a speed, acc, brake boost at hell bike. next upgrade: 10 points'
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[5].description
-      value: 
+      value: 'gain a speed, acc, brake boost at neon bike. next upgrade: 10 points'
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[4].description
-      value: 
+      value: 'gain a speed, acc, brake boost at monster bike. next upgrade: 10 points'
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[3].description
-      value: 
+      value: 'gain a speed, acc, brake boost at nightmare bike. next upgrade: 10 points'
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[0].icon
       value: 
-      objectReference: {fileID: 21300000, guid: 0b0b2b9d8e40c8e43931028d9f62db64,
+      objectReference: {fileID: 21300000, guid: 746d1a4298806f3478e35ce29c1f57ec,
         type: 3}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[3].icon
       value: 
-      objectReference: {fileID: 21300000, guid: d14dc9d03051f5d44acfbe62a0348fea,
+      objectReference: {fileID: 21300000, guid: 0f65b74cb6775c14e8a126d562654538,
         type: 3}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[4].icon
       value: 
-      objectReference: {fileID: 21300000, guid: ddf5e968340dcd64488ce424b99f2de8,
+      objectReference: {fileID: 21300000, guid: b0a97c75a9123ab429bbb2c91cdacb5f,
         type: 3}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[5].icon
       value: 
-      objectReference: {fileID: 21300000, guid: 18a8b45e96cb3c94b87e03adc05d5aba,
+      objectReference: {fileID: 21300000, guid: 721c930108a31344a8e2b62e775f0464,
         type: 3}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[6].icon
       value: 
-      objectReference: {fileID: 21300000, guid: 37266182dcf769645b88eedca0525287,
+      objectReference: {fileID: 21300000, guid: 629f58bc56f309a49a32d990f87e53f4,
         type: 3}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[0].items.Array.data[8].icon
@@ -2915,12 +3072,12 @@ Prefab:
         type: 3}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[7].description
-      value: 
+      value: 'gain a speed, acc, brake boost at test bike. next upgrade: 10 points'
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[7].icon
       value: 
-      objectReference: {fileID: 21300000, guid: f5ef4927c96f252439274ead637a2ceb,
+      objectReference: {fileID: 21300000, guid: 721c930108a31344a8e2b62e775f0464,
         type: 3}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[8].description
@@ -2950,7 +3107,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[10].specific
-      value: nightmare_bike;nightmare_upgrade_level_1;nightmare_upgrade_level_3
+      value: nightmare_upgrade;nightmare_upgrade_level_1;nightmare_upgrade_level_3
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[10].description
@@ -2979,7 +3136,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[11].specific
-      value: nightmare_bike;nightmare_upgrade_level_2;[NEXT]
+      value: nightmare_upgrade;nightmare_upgrade_level_2;[NEXT]
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[11].icon
@@ -3008,7 +3165,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[12].specific
-      value: monster_bike;[PREV];monster_upgrade_level_2
+      value: monster_upgrade;[PREV];monster_upgrade_level_2
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[12].icon
@@ -3037,7 +3194,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[13].specific
-      value: monster_bike;monster_upgrade_level_1;monster_upgrade_level_3
+      value: monster_upgrade;monster_upgrade_level_1;monster_upgrade_level_3
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[13].icon
@@ -3066,7 +3223,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[14].specific
-      value: monster_bike;monster_upgrade_level_2;[NEXT]
+      value: monster_upgrade;monster_upgrade_level_2;[NEXT]
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[14].icon
@@ -3095,7 +3252,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[15].specific
-      value: neon_bike;[PREV];neon_upgrade_level_2
+      value: neon_upgrade;[PREV];neon_upgrade_level_2
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[15].icon
@@ -3124,7 +3281,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[16].specific
-      value: neon_bike;neon_upgrade_level_1;neon_upgrade_level_3
+      value: neon_upgrade;neon_upgrade_level_1;neon_upgrade_level_3
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[16].icon
@@ -3153,7 +3310,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[17].specific
-      value: neon_bike;neon_upgrade_level_2;[NEXT]
+      value: neon_upgrade;neon_upgrade_level_2;[NEXT]
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[17].icon
@@ -3178,7 +3335,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[18].specific
-      value: hell_bike;[PREV];hell_upgrade_level_2
+      value: hell_upgrade;[PREV];hell_upgrade_level_2
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[18].icon
@@ -3203,7 +3360,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[19].specific
-      value: hell_bike;hell_upgrade_level_1;hell_upgrade_level_3
+      value: hell_upgrade;hell_upgrade_level_1;hell_upgrade_level_3
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[20].type
@@ -3211,7 +3368,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[20].specific
-      value: hell_bike;hell_upgrade_level_2;[NEXT]
+      value: hell_upgrade;hell_upgrade_level_2;[NEXT]
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[21].type
@@ -3219,7 +3376,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[21].specific
-      value: test_bike;[PREV];test_upgrade_level_2
+      value: test_upgrade;[PREV];test_upgrade_level_2
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[22].type
@@ -3227,7 +3384,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[22].specific
-      value: test_bike;test_upgrade_level_1;test_upgrade_level_3
+      value: test_upgrade;test_upgrade_level_1;test_upgrade_level_3
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[23].type
@@ -3235,7 +3392,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[23].specific
-      value: test_bike;test_upgrade_level_2;[NEXT]
+      value: test_upgrade;test_upgrade_level_2;[NEXT]
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[23].id
@@ -3282,7 +3439,7 @@ Prefab:
         type: 3}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[21].virtualPrice.amount
-      value: 3000
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: IGCs.Array.data[2].items.Array.data[18].title
@@ -3317,6 +3474,246 @@ Prefab:
       propertyPath: IGCs.Array.data[2].items.Array.data[23].icon
       value: 
       objectReference: {fileID: 21300000, guid: 0b0b2b9d8e40c8e43931028d9f62db64,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[2].name
+      value: Custom
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[3].items.Array.data[4].id
+      value: super_upgrade_level_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[3].items.Array.data[5].id
+      value: super_upgrade_level_3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[3].items.Array.data[6].id
+      value: party_upgrade_level_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[3].items.Array.data[7].id
+      value: party_upgrade_level_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[3].items.Array.data[4].type
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[3].items.Array.data[5].type
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[3].items.Array.data[6].type
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[3].items.Array.data[7].type
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[2].id
+      value: 1445903207.6273816
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[2].items.Array.data[10].virtualPrice.name
+      value: Coins
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[2].items.Array.data[11].virtualPrice.name
+      value: Coins
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[2].items.Array.data[12].virtualPrice.name
+      value: Coins
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[2].items.Array.data[13].virtualPrice.name
+      value: Coins
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[2].items.Array.data[14].virtualPrice.name
+      value: Coins
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[2].items.Array.data[15].virtualPrice.name
+      value: Coins
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[2].items.Array.data[16].virtualPrice.name
+      value: Coins
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[2].items.Array.data[17].virtualPrice.name
+      value: Coins
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[2].items.Array.data[18].virtualPrice.name
+      value: Coins
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[2].items.Array.data[19].virtualPrice.name
+      value: Coins
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[2].items.Array.data[20].virtualPrice.name
+      value: Coins
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[2].items.Array.data[21].virtualPrice.name
+      value: Coins
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[2].items.Array.data[22].virtualPrice.name
+      value: Coins
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[2].items.Array.data[23].virtualPrice.name
+      value: Coins
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[3].items.Array.data[4].title
+      value: Upgrade Super Level 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[3].items.Array.data[4].specific
+      value: super_upgrade;super_upgrade_level_1;super_upgrade_level_3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[3].items.Array.data[4].icon
+      value: 
+      objectReference: {fileID: 21300000, guid: 391911e46f53c8a44823f6281fe62b66,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[3].items.Array.data[5].title
+      value: Upgrade Super Level 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[3].items.Array.data[5].specific
+      value: super_upgrade;super_upgrade_level_2;[NEXT]
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[3].items.Array.data[5].icon
+      value: 
+      objectReference: {fileID: 21300000, guid: 9025f2102b8c8b34c805dcd39c89a4af,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[3].items.Array.data[6].title
+      value: Upgrade Party Level 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[3].items.Array.data[6].specific
+      value: party_upgrade;[PREV];party_upgrade_level_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[3].items.Array.data[6].icon
+      value: 
+      objectReference: {fileID: 21300000, guid: 933df44d0a581fb4997499a620f2414d,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[3].items.Array.data[7].title
+      value: Upgrade Party Level 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[3].items.Array.data[7].specific
+      value: party_upgrade;party_upgrade_level_1;party_upgrade_level_3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[3].items.Array.data[7].icon
+      value: 
+      objectReference: {fileID: 21300000, guid: be28e623de7e64641ac4ce55f89bc81e,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[3].items.Array.data[18].virtualPrice.amount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[3].items.Array.data[15].virtualPrice.amount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[3].items.Array.data[9].virtualPrice.amount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[3].items.Array.data[8].icon
+      value: 
+      objectReference: {fileID: 21300000, guid: ef6a79b48d4b2a440bd58dbc620383fc,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[3].items.Array.data[9].icon
+      value: 
+      objectReference: {fileID: 21300000, guid: 31d3e72baa853934faa18c9c516e15b6,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[3].items.Array.data[10].icon
+      value: 
+      objectReference: {fileID: 21300000, guid: 7662bf9526547c34baba439a21c41a2f,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[3].items.Array.data[11].icon
+      value: 
+      objectReference: {fileID: 21300000, guid: 31d3e72baa853934faa18c9c516e15b6,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[3].items.Array.data[12].icon
+      value: 
+      objectReference: {fileID: 21300000, guid: 993c279ac053a11488f9b9905fd550ad,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[3].items.Array.data[13].icon
+      value: 
+      objectReference: {fileID: 21300000, guid: 4dcd001ac0850a444b463780bcaa3afd,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[3].items.Array.data[14].icon
+      value: 
+      objectReference: {fileID: 21300000, guid: 0624d8defbc91784da309beec7c83301,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[3].items.Array.data[15].icon
+      value: 
+      objectReference: {fileID: 21300000, guid: 27c9c94f1f8794c458cf000b779d5d06,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[3].items.Array.data[16].icon
+      value: 
+      objectReference: {fileID: 21300000, guid: b9bdfe9f8b0fb4f418ff020765155e5e,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[3].items.Array.data[17].icon
+      value: 
+      objectReference: {fileID: 21300000, guid: 797063a465325d247980a1c602c4b0dc,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[3].items.Array.data[18].icon
+      value: 
+      objectReference: {fileID: 21300000, guid: 992330b30e3896140a7cec65bb3ad7a5,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[3].items.Array.data[19].icon
+      value: 
+      objectReference: {fileID: 21300000, guid: 32e0da9f16ab84044b1b68ef32b4258c,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[3].items.Array.data[20].icon
+      value: 
+      objectReference: {fileID: 21300000, guid: ee4f9f45abd3ae543ac5b6b2f69fc93e,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[3].items.Array.data[21].icon
+      value: 
+      objectReference: {fileID: 21300000, guid: 27c9c94f1f8794c458cf000b779d5d06,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[3].items.Array.data[22].icon
+      value: 
+      objectReference: {fileID: 21300000, guid: b9bdfe9f8b0fb4f418ff020765155e5e,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: IGCs.Array.data[3].items.Array.data[23].icon
+      value: 
+      objectReference: {fileID: 21300000, guid: 797063a465325d247980a1c602c4b0dc,
         type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

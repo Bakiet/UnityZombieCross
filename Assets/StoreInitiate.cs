@@ -13,7 +13,7 @@ using System.Collections.Generic;
 	//
 	// Various event handling methods
 	//
-	public void onGoodBalanceChanged(VirtualGood good, int balance, int amountAdded) {
+	/*public void onGoodBalanceChanged(VirtualGood good, int balance, int amountAdded) {
 		SoomlaUtils.LogDebug("TAG", good.ID + " now has a balance of " + balance);
 	}
 	public void onGrowSyncInitialized() {
@@ -26,14 +26,14 @@ using System.Collections.Generic;
 	                                IList<string> failedComponents) {
 		Debug.Log("State Sync has finished.");
 	}
-	
+	*/
 	//
 	// Initialize SOOMLA's modules
 	//
 	void Start () {
 		
 		// Setup all event handlers - Make sure to set the event handlers before you initialize
-		StoreEvents.OnGoodBalanceChanged += onGoodBalanceChanged;
+		/*StoreEvents.OnGoodBalanceChanged += onGoodBalanceChanged;
 		
 		HighwayEvents.OnGrowSyncInitialized += onGrowSyncInitialized;
 		HighwayEvents.OnModelSyncFinished += onModelSyncFinished;
@@ -54,10 +54,10 @@ using System.Collections.Generic;
 		// and across his other devices.
 		
 		// State sync and Model sync can be enabled/disabled separately.
-		GrowSync.Initialize(modelSync, stateSync);
-		
+		GrowSync.Initialize(modelSync, stateSync);*/
+	//	StoreInventory.RefreshLocalInventory();
 	//	SoomlaStore.Initialize(new IStoreAssets());
-		//StoreEvents.OnSoomlaStoreInitialized ();
+	//	StoreEvents.OnSoomlaStoreInitialized ();
 	
 
 			//StoreInventory.RefreshLocalInventory();
