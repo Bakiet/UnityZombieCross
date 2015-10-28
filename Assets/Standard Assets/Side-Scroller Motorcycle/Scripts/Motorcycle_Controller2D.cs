@@ -171,7 +171,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	public bool UserControlled = true;
 	public float MaxSpeed = 50.0f;
 
-	public int BreakMass = 0;
+	public float BreakMass = 0.0f;
 
 	public float BreakGravity = 0.0f;
 
@@ -194,40 +194,451 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	public static float axisH = 0f;
 	public static float axisV = 0f;
 
-	private float upgradeVelocity;
-	private float upgradeAcc;
-	private float upgradeBrake;
+	private float bikespeedmobile1=32f;
+	private float bikespeedmotor1=32f;
+	private float bikemaxspeed1=42f;
+	private float bikebreakmass1=170f;
+	private float bikebreakgravity1=3.5f;
+	private float bikeacceleration1=16f;
+
+	private float bikespeedmobile2=34;
+	private float bikespeedmotor2=34;
+	private float bikemaxspeed2=44;
+	private float bikebreakmass2=190;
+	private float bikebreakgravity2=4;
+	private float bikeacceleration2=17;
+
+	private float bikespeedmobile3=36;
+	private float bikespeedmotor3=36;
+	private float bikemaxspeed3=46;
+	private float bikebreakmass3=210;
+	private float bikebreakgravity3=4.5f;
+	private float bikeacceleration3=18;
+
+	private float superspeedmobile1=37;
+	private float superspeedmotor1=37;
+	private float supermaxspeed1=47;
+	private float superbreakmass1=220;
+	private float superbreakgravity1=4.5f;
+	private float superacceleration1=19;
+
+	private float superspeedmobile2=39;
+	private float superspeedmotor2=39;
+	private float supermaxspeed2=49;
+	private float superbreakmass2=240;
+	private float superbreakgravity2=5;
+	private float superacceleration2=20;
+
+	private float superspeedmobile3=41;
+	private float superspeedmotor3=41;
+	private float supermaxspeed3=51;
+	private float superbreakmass3=260;
+	private float superbreakgravity3=5.5f;
+	private float superacceleration3=21;
+
+	private float partyspeedmobile1=32;
+	private float partyspeedmotor1=32;
+	private float partymaxspeed1=42;
+	private float partybreakmass1=170;
+	private float partybreakgravity1=2.5f;
+	private float partyacceleration1=14;
+
+	private float partyspeedmobile2=34;
+	private float partyspeedmotor2=34;
+	private float partymaxspeed2=44;
+	private float partybreakmass2=190;
+	private float partybreakgravity2=3;
+	private float partyacceleration2=15;
+
+	private float partyspeedmobile3=36;
+	private float partyspeedmotor3=36;
+	private float partymaxspeed3=46;
+	private float partybreakmass3=210;
+	private float partybreakgravity3=3.5f;
+	private float partyacceleration3=16;
+
+	private float nightmarespeedmobile1=40;
+	private float nightmarespeedmotor1=40;
+	private float nightmaremaxspeed1=50;
+	private float nightmarebreakmass1=260;
+	private float nightmarebreakgravity1=3;
+	private float nightmareacceleration1=21;
+
+	private float nightmarespeedmobile2=42;
+	private float nightmarespeedmotor2=42;
+	private float nightmaremaxspeed2=52;
+	private float nightmarebreakmass2=280;
+	private float nightmarebreakgravity2=3.5f;
+	private float nightmareacceleration2=22;
+
+	private float nightmarespeedmobile3=44;
+	private float nightmarespeedmotor3=44;
+	private float nightmaremaxspeed3=54;
+	private float nightmarebreakmass3=300;
+	private float nightmarebreakgravity3=4;
+	private float nightmareacceleration3=23;
+
+	private float monsterspeedmobile1=34;
+	private float monsterspeedmotor1=34;
+	private float monstermaxspeed1=44;
+	private float monsterbreakmass1=220;
+	private float monsterbreakgravity1=5.5f;
+	private float monsteracceleration1=13;
+
+	private float monsterspeedmobile2=36;
+	private float monsterspeedmotor2=36;
+	private float monstermaxspeed2=46;
+	private float monsterbreakmass2=240;
+	private float monsterbreakgravity2=6;
+	private float monsteracceleration2=14;
+
+	private float monsterspeedmobile3=38;
+	private float monsterspeedmotor3=38;
+	private float monstermaxspeed3=48;
+	private float monsterbreakmass3=260;
+	private float monsterbreakgravity3=6.5f;
+	private float monsteracceleration3=15;
+
+	private float neonspeedmobile1=36;
+	private float neonspeedmotor1=36;
+	private float neonmaxspeed1=48;
+	private float neonbreakmass1=240;
+	private float neonbreakgravity1=3;
+	private float neonacceleration1=22;
+
+	private float neonspeedmobile2=38;
+	private float neonspeedmotor2=38;
+	private float neonmaxspeed2=50;
+	private float neonbreakmass2=260;
+	private float neonbreakgravity2=3.5f;
+	private float neonacceleration2=23;
+
+	private float neonspeedmobile3=40;
+	private float neonspeedmotor3=40;
+	private float neonmaxspeed3=52;
+	private float neonbreakmass3=280;
+	private float neonbreakgravity3=4;
+	private float neonacceleration3=24;
+
+	private float hellspeedmobile1=38;
+	private float hellspeedmotor1=38;
+	private float hellmaxspeed1=48;
+	private float hellbreakmass1=260;
+	private float hellbreakgravity1=5.5f;
+	private float hellacceleration1=21;
+	
+	private float hellspeedmobile2=40;
+	private float hellspeedmotor2=40;
+	private float hellmaxspeed2=50;
+	private float hellbreakmass2=280;
+	private float hellbreakgravity2=6;
+	private float hellacceleration2=22;
+	
+	private float hellspeedmobile3=42;
+	private float hellspeedmotor3=42;
+	private float hellmaxspeed3=52;
+	private float hellbreakmass3=300;
+	private float hellbreakgravity3=6.5f;
+	private float hellacceleration3=23;
+
+	private float testspeedmobile1=36;
+	private float testspeedmotor1=36;
+	private float testmaxspeed1=48;
+	private float testbreakmass1=240;
+	private float testbreakgravity1=3;
+	private float testacceleration1=22;
+	
+	private float testspeedmobile2=38;
+	private float testspeedmotor2=38;
+	private float testmaxspeed2=50;
+	private float testbreakmass2=260;
+	private float testbreakgravity2=3.5f;
+	private float testacceleration2=23;
+	
+	private float testspeedmobile3=40;
+	private float testspeedmotor3=40;
+	private float testmaxspeed3=52;
+	private float testbreakmass3=280;
+	private float testbreakgravity3=4;
+	private float testacceleration3=24;
 
 
 	void UpgradeInventory(){
 
-		string upgradelevel1 = StoreInventory.GetGoodCurrentUpgrade ("test_upgrade_level_1");
-		string upgradelevel2 = StoreInventory.GetGoodCurrentUpgrade ("test_upgrade_level_2");
-		string upgradelevel3 = StoreInventory.GetGoodCurrentUpgrade ("test_upgrade_level_3");
+		string bikeupgrade = StoreInventory.GetGoodCurrentUpgrade ("bike_upgrade");
+		int bikeupgradelevel = 0;
+		if (bikeupgrade != "") {
+			bikeupgradelevel = StoreInventory.GetGoodUpgradeLevel ("bike_upgrade");
+		}
+		string superupgrade = StoreInventory.GetGoodCurrentUpgrade ("super_bike_upgrade");
+		int superupgradelevel = 0;
+		if (superupgrade != "") {
+			superupgradelevel = StoreInventory.GetGoodUpgradeLevel ("super_bike_upgrade");
+		}
+		string partyupgrade = StoreInventory.GetGoodCurrentUpgrade ("party_bike_upgrade");
+		int partyupgradelevel = 0;
+		if (partyupgrade != "") {
+			partyupgradelevel = StoreInventory.GetGoodUpgradeLevel ("party_bike_upgrade");
+		}
+		string nightmareupgrade = StoreInventory.GetGoodCurrentUpgrade ("nightmare_bike_upgrade");
+		int nightmareupgradelevel = 0;
+		if (nightmareupgrade != "") {
+			nightmareupgradelevel = StoreInventory.GetGoodUpgradeLevel ("nightmare_bike_upgrade");
+		}
+		string monsterupgrade = StoreInventory.GetGoodCurrentUpgrade ("monster_bike_upgrade");
+		int monsterupgradelevel = 0;
+		if (monsterupgrade != "") {
+			monsterupgradelevel = StoreInventory.GetGoodUpgradeLevel ("monster_bike_upgrade");
+		}
+		string neonupgrade = StoreInventory.GetGoodCurrentUpgrade ("neon_bike_upgrade");
+		int neonupgradelevel = 0;
+		if (neonupgrade != "") {
+			neonupgradelevel = StoreInventory.GetGoodUpgradeLevel ("neon_bike_upgrade");
+		}
+		string hellupgrade = StoreInventory.GetGoodCurrentUpgrade ("hell_bike_upgrade");
+		int hellupgradelevel = 0;
+		if (hellupgrade != "") {
+			hellupgradelevel = StoreInventory.GetGoodUpgradeLevel ("hell_bike_upgrade");
+		}
 
-		if (upgradelevel1 != "") {
-			upgradeVelocity = 10;
-			upgradeAcc = 20;
-			upgradeBrake = 30;
-		} else if (upgradelevel2 != "") {
-			upgradeVelocity = 10;
-			upgradeAcc = 20;
-			upgradeBrake = 30;
-		} else if (upgradelevel3 != "") {
-			upgradeVelocity = 10;
-			upgradeAcc = 20;
-			upgradeBrake = 30;
+		string testupgrade = StoreInventory.GetGoodCurrentUpgrade ("test_bike_upgrade");
+		int testupgradelevel = 0;
+		if (testupgrade != "") {
+			testupgradelevel = StoreInventory.GetGoodUpgradeLevel ("test_bike_upgrade");
+		}
+		if(this.name == "bike(Clone)"){
+			if (bikeupgradelevel != 0) {
+				if(bikeupgradelevel ==1){
+					SpeedMotorMobile = bikespeedmobile1;
+					SpeedMotor = bikespeedmotor1;
+					MaxSpeed =bikemaxspeed1;
+					BreakMass = bikebreakmass1;
+					BreakGravity = bikebreakgravity1;
+					Acceleration =bikeacceleration1;}
+				if(bikeupgradelevel ==2){
+					SpeedMotorMobile = bikespeedmobile2;
+					SpeedMotor = bikespeedmotor2;
+					MaxSpeed =bikemaxspeed2;
+					BreakMass = bikebreakmass2;
+					BreakGravity = bikebreakgravity2;
+					Acceleration =bikeacceleration2;}
+				if(bikeupgradelevel ==3){
+					SpeedMotorMobile = bikespeedmobile3;
+					SpeedMotor = bikespeedmotor3;
+					MaxSpeed =bikemaxspeed3;
+					BreakMass = bikebreakmass3;
+					BreakGravity = bikebreakgravity3;
+					Acceleration =bikeacceleration3;}
+			}
+		} 
+		else if(this.name == "super_bike(Clone)"){
+			if (superupgradelevel != 0) {
+				if(superupgradelevel ==1){
+					SpeedMotorMobile = superspeedmobile1;
+					SpeedMotor = superspeedmobile1;
+					SpeedMotor = superspeedmotor1;
+					MaxSpeed =supermaxspeed1;
+					BreakMass = superbreakmass1;
+					BreakGravity = superbreakgravity1;
+					Acceleration =superacceleration1;}
+				if(superupgradelevel ==2){
+					SpeedMotorMobile = superspeedmobile2;
+					SpeedMotor = superspeedmotor2;
+					MaxSpeed =supermaxspeed2;
+					BreakMass = superbreakmass2;
+					BreakGravity = superbreakgravity2;
+					Acceleration =superacceleration2;}
+				if(superupgradelevel ==3){
+					SpeedMotorMobile = superspeedmobile3;
+					SpeedMotor = superspeedmotor3;
+					MaxSpeed =supermaxspeed3;
+					BreakMass = superbreakmass3;
+					BreakGravity = superbreakgravity3;
+					Acceleration =superacceleration3;}
+			}
+		}
+		else if (this.name == "party_bike(Clone)") {
+			if (partyupgradelevel != 0) {
+				if (partyupgradelevel == 1) {
+					SpeedMotorMobile = partyspeedmobile1;
+					SpeedMotor = partyspeedmotor1;
+					MaxSpeed = partymaxspeed1;
+					BreakMass = partybreakmass1;
+					BreakGravity = partybreakgravity1;
+					Acceleration = partyacceleration1;
+				}
+				if (partyupgradelevel == 2) {
+					SpeedMotorMobile = partyspeedmobile2;
+					SpeedMotor = partyspeedmotor2;
+					MaxSpeed = partymaxspeed2;
+					BreakMass = partybreakmass2;
+					BreakGravity = partybreakgravity2;
+					Acceleration = partyacceleration2;
+				}
+				if (partyupgradelevel == 3) {
+					SpeedMotorMobile = partyspeedmobile3;
+					SpeedMotor = partyspeedmotor3;
+					MaxSpeed = partymaxspeed3;
+					BreakMass = partybreakmass3;
+					BreakGravity = partybreakgravity3;
+					Acceleration = partyacceleration3;
+				}
+			} 
+		}
+		else if (this.name == "nightmare_bike(Clone)") {
+			if (nightmareupgradelevel != 0) {
+				if (nightmareupgradelevel == 1) {
+					SpeedMotorMobile = nightmarespeedmobile1;
+					SpeedMotor = nightmarespeedmotor1;
+					MaxSpeed = nightmaremaxspeed1;
+					BreakMass = nightmarebreakmass1;
+					BreakGravity = nightmarebreakgravity1;
+					Acceleration = nightmareacceleration1;
+				}
+				if (nightmareupgradelevel == 2) {
+					SpeedMotorMobile = nightmarespeedmobile2;
+					SpeedMotor = nightmarespeedmotor2;
+					MaxSpeed = nightmaremaxspeed2;
+					BreakMass = nightmarebreakmass2;
+					BreakGravity = nightmarebreakgravity2;
+					Acceleration = nightmareacceleration2;
+				}
+				if (nightmareupgradelevel == 3) {
+					SpeedMotorMobile = nightmarespeedmobile3;
+					SpeedMotor = nightmarespeedmobile3;
+					SpeedMotor = nightmarespeedmotor3;
+					MaxSpeed = nightmaremaxspeed3;
+					BreakMass = nightmarebreakmass3;
+					BreakGravity = nightmarebreakgravity3;
+					Acceleration = nightmareacceleration3;
+				}
+			}
+		}
+		else if (this.name == "monster_bike(Clone)") {
+			if (monsterupgradelevel != 0) {
+				if (monsterupgradelevel == 1) {
+					SpeedMotorMobile = monsterspeedmobile1;
+					SpeedMotor = monsterspeedmotor1;
+					MaxSpeed = monstermaxspeed1;
+					BreakMass = monsterbreakmass1;
+					BreakGravity = monsterbreakgravity1;
+					Acceleration = monsteracceleration1;
+				}
+				if (monsterupgradelevel == 2) {
+					SpeedMotorMobile = monsterspeedmobile2;
+					SpeedMotor = monsterspeedmotor2;
+					MaxSpeed = monstermaxspeed2;
+					BreakMass = monsterbreakmass2;
+					BreakGravity = monsterbreakgravity2;
+					Acceleration = monsteracceleration2;
+				}
+				if (monsterupgradelevel == 3) {
+					SpeedMotorMobile = monsterspeedmobile3;
+					SpeedMotor = monsterspeedmotor3;
+					MaxSpeed = monstermaxspeed3;
+					BreakMass = monsterbreakmass3;
+					BreakGravity = monsterbreakgravity3;
+					Acceleration = monsteracceleration3;
+				}
+			}
+		}
+		else if (this.name == "neon_bike(Clone)") {
+			if (neonupgradelevel != 0) {
+				if (neonupgradelevel == 1) {
+					SpeedMotorMobile = neonspeedmobile1;
+					SpeedMotor = neonspeedmotor1;
+					MaxSpeed = neonmaxspeed1;
+					BreakMass = neonbreakmass1;
+					BreakGravity = neonbreakgravity1;
+					Acceleration = neonacceleration1;
+				}
+				if (neonupgradelevel == 2) {
+					SpeedMotorMobile = neonspeedmobile2;
+					SpeedMotor = neonspeedmotor2;
+					MaxSpeed = neonmaxspeed2;
+					BreakMass = neonbreakmass2;
+					BreakGravity = neonbreakgravity2;
+					Acceleration = neonacceleration2;
+				}
+				if (neonupgradelevel == 3) {
+					SpeedMotorMobile = neonspeedmobile3;
+					SpeedMotor = neonspeedmotor3;
+					MaxSpeed = neonmaxspeed3;
+					BreakMass = neonbreakmass3;
+					BreakGravity = neonbreakgravity3;
+					Acceleration = neonacceleration3;
+				}
+			}
+		}
+		else if (this.name == "hell_bike(Clone)") {
+			if (hellupgradelevel != 0) {
+				if (hellupgradelevel == 1) {
+					SpeedMotorMobile = hellspeedmobile1;
+					SpeedMotor = hellspeedmotor1;
+					MaxSpeed = hellmaxspeed1;
+					BreakMass = hellbreakmass1;
+					BreakGravity = hellbreakgravity1;
+					Acceleration = hellacceleration1;
+				}
+				if (hellupgradelevel == 2) {
+					SpeedMotorMobile = hellspeedmobile2;
+					SpeedMotor = hellspeedmotor2;
+					MaxSpeed = hellmaxspeed2;
+					BreakMass = hellbreakmass2;
+					BreakGravity = hellbreakgravity2;
+					Acceleration = hellacceleration2;
+				}
+				if (hellupgradelevel == 3) {
+					SpeedMotorMobile = hellspeedmobile3;
+					SpeedMotor = hellspeedmotor3;
+					MaxSpeed = hellmaxspeed3;
+					BreakMass = hellbreakmass3;
+					BreakGravity = hellbreakgravity3;
+					Acceleration = hellacceleration3;
+				}
+			}
+		}
+		else if (this.name == "test_bike(Clone)") {
+			if (testupgradelevel != 0) {
+				if (testupgradelevel == 1) {
+					SpeedMotorMobile = testspeedmobile1;
+					SpeedMotor = testspeedmotor1;
+					MaxSpeed = testmaxspeed1;
+					BreakMass = testbreakmass1;
+					BreakGravity = testbreakgravity1;
+					Acceleration = testacceleration1;
+				}
+				if (testupgradelevel == 2) {
+					SpeedMotorMobile = testspeedmobile2;
+					SpeedMotor = testspeedmotor2;
+					MaxSpeed = testmaxspeed2;
+					BreakMass = testbreakmass2;
+					BreakGravity = testbreakgravity2;
+					Acceleration = testacceleration2;
+				}
+				if (testupgradelevel == 3) {
+					SpeedMotorMobile = testspeedmobile3;
+					SpeedMotor = testspeedmotor3;
+					MaxSpeed = testmaxspeed3;
+					BreakMass = testbreakmass3;
+					BreakGravity = testbreakgravity3;
+					Acceleration = testacceleration3;
+				}
+			}
 		}
 
 	}
 	
 	void Awake()
 	{
+
 		SmokeEmmiter = Smoke.GetComponent<ParticleAnimator>();
 		WheelRadius = new float[Wheels.Length];
 	}
 	void Start()
 	{
+		UpgradeInventory ();
+
 		CarBody = GameObject.Find("Body2D");
 		CenterOfMass = GameObject.Find("CoM2D");
 		Smoke = GameObject.Find("Smoke");
@@ -361,7 +772,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 						for(var i = 0; i <= (Wheels.Length-1); i++)
 						{
 
-							//Wheels[i].GetComponent.<Rigidbody2D>().AddTorque(-0.2f * (Velocity / WheelRadius[i]) * 10);
+							//Wheels[i].GetComponent<Rigidbody2D>().AddTorque(-0.2f * (30 / WheelRadius[i]) * 10);
 							Wheels[i].GetComponent<Rigidbody2D>().AddTorque(-0.2f * (Velocity / WheelRadius[i]) * 10);
 						}
 

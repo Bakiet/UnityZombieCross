@@ -35,7 +35,7 @@ public class DebugCalls : MonoBehaviour
         for (int i = 0; i < allPurchased.Length; i++)
         {
             int balance = 0;
-
+		//	IAPManager.RestoreTransactions(true);
             try { balance = StoreInventory.GetItemBalance(allPurchased[i]); }
             catch (VirtualItemNotFoundException) { }
 
@@ -83,4 +83,5 @@ public class DebugCalls : MonoBehaviour
 
         Debug.Log("Leveled up to level: " + level + "! Shop Manager tried to unlock new items.");
     }
+
 }

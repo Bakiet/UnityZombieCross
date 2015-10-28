@@ -214,8 +214,13 @@ namespace SIS
                     if (!string.IsNullOrEmpty(obj.req.entry) &&
                         IAPManager.IsRequirementMet(obj.req))
                     {
-                        //Debug.Log("Shop Manager: requirement met for: " + obj.id);
-                        item.Unlock();
+						if(StoreInventory.GetItemBalance(obj.req.entry)<=0 && item.productId == obj.req.entry + "_upgrade")
+						{
+							//still lock
+						}
+						else{
+							item.Unlock();
+						}
                     }
                 }
             }
