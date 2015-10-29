@@ -41,8 +41,8 @@ MonoBehaviour:
   ExpandCameraAPI: 0
   ShowStoreKitParams: 0
   ShowCameraAndGalleryParams: 0
-  ShowLocalNotificationParams: 0
-  ShowPushNotificationParams: 0
+  ShowLocalNotificationParams: 1
+  ShowPushNotificationParams: 1
   ThirdPartyParams: 0
   ShowPSSettings: 1
   ShowPSSettingsResources: 1
@@ -72,12 +72,23 @@ MonoBehaviour:
   ShowStoreProducts: 1
   InAppProducts: []
   ShowLeaderboards: 1
-  Leaderboards: []
+  Leaderboards:
+  - IsOpen: 1
+    _id: CgkIq6GznYALEAIQAA
+    _name: Hall of Fame
+    _description: Won more and more score
+    _Texture: {fileID: 0}
+  - IsOpen: 1
+    _id: CgkIq6GznYALEAIQAQ
+    _name: More Items
+    _description: Buy Items in store
+    _Texture: {fileID: 0}
   ShowAchievements: 1
   Achievements: []
   ShowWhenAppIsForeground: 1
-  EnableVibrationLocal: 0
-  LocalNotificationIcon: {fileID: 0}
+  EnableVibrationLocal: 1
+  LocalNotificationIcon: {fileID: 2800000, guid: a10cc4ce7372e1949b2ff1c6d5c46e08,
+    type: 3}
   LocalNotificationSound: {fileID: 0}
   UseGameThrivePushNotifications: 0
   GameThriveAppID: YOUR_ONESIGNAL_APP_ID
