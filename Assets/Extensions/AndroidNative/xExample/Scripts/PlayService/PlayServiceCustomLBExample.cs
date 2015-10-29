@@ -321,8 +321,8 @@ public class PlayServiceCustomLBExample : MonoBehaviour {
 
 
 	private void SubmitScore() {
-		GooglePlayManager.Instance.SubmitScore (LEADERBOARD_NAME, score);
-		//GooglePlayManager.instance.SubmitScoreById(LEADERBOARD_ID, score);
+		//GooglePlayManager.Instance.SubmitScore (LEADERBOARD_NAME, score);
+		GooglePlayManager.instance.SubmitScoreById(LEADERBOARD_ID, score);
 		SA_StatusBar.text = "Submitiong score: " + (score +1).ToString();
 		score ++;
 	}
