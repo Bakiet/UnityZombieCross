@@ -2,15 +2,16 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 5
+  serializedVersion: 6
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: RockyFill
-  m_Shader: {fileID: 4800000, guid: 84b65c35407eba14e9d6cc11b4ca4957, type: 3}
+  m_Shader: {fileID: 4800000, guid: f96550915e1658a4195dff70b551b70b, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
   m_CustomRenderQueue: -1
+  stringTagMap: {}
   m_SavedProperties:
     serializedVersion: 2
     m_TexEnvs:
@@ -18,10 +19,26 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: 06cae68e37d10d0499501b24781066b7, type: 3}
+          m_Texture: {fileID: 2800000, guid: af9e44901f847bf48901b35e21162b20, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
-    m_Floats: {}
+    m_Floats:
+      data:
+        first:
+          name: _WaveSizeX
+        second: .25
+      data:
+        first:
+          name: _WaveSizeY
+        second: .25
+      data:
+        first:
+          name: _WaveSpeed
+        second: 4
+      data:
+        first:
+          name: _PositionScale
+        second: 4
     m_Colors:
       data:
         first:
