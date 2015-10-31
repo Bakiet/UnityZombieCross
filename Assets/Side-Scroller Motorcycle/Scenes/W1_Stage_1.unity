@@ -3770,7 +3770,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 366952037}
   m_LocalRotation: {x: 0, y: -.173648193, z: 0, w: .984807789}
-  m_LocalPosition: {x: 376.243011, y: -23.6228962, z: -2.85999155}
+  m_LocalPosition: {x: -11.7200003, y: 1.29999995, z: -2.57999992}
   m_LocalScale: {x: .109038293, y: .682600856, z: 3.88436151}
   m_Children:
   - {fileID: 862032515}
@@ -3850,7 +3850,7 @@ Transform:
   - {fileID: 2129715446}
   - {fileID: 664253917}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
 --- !u!4 &373520513 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 91596462f558f474aa6cffc6729e72b5, type: 3}
@@ -4343,6 +4343,10 @@ Prefab:
     - target: {fileID: 496274, guid: ed3200460ddd50242bacc28c2a0cd469, type: 2}
       propertyPath: m_LocalScale.y
       value: .0567465872
+      objectReference: {fileID: 0}
+    - target: {fileID: 11417832, guid: ed3200460ddd50242bacc28c2a0cd469, type: 2}
+      propertyPath: forMobile
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ed3200460ddd50242bacc28c2a0cd469, type: 2}
@@ -6759,7 +6763,7 @@ Transform:
   - {fileID: 366952038}
   - {fileID: 1420586258}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
 --- !u!1001 &751375381
 Prefab:
   m_ObjectHideFlags: 0
@@ -6879,7 +6883,7 @@ Transform:
   - {fileID: 79950165}
   - {fileID: 1372238619}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
 --- !u!1 &776950939
 GameObject:
   m_ObjectHideFlags: 0
@@ -11023,7 +11027,7 @@ Transform:
   - {fileID: 1971272937}
   - {fileID: 2108920931}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
 --- !u!1 &1109754901
 GameObject:
   m_ObjectHideFlags: 0
@@ -11080,7 +11084,7 @@ Transform:
   - {fileID: 64160244}
   - {fileID: 542254289}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
 --- !u!4 &1110907873 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 0459dc19a61494c9ca384bfaf2dc46fb, type: 3}
@@ -12287,7 +12291,7 @@ Transform:
   - {fileID: 184703948}
   - {fileID: 2023670021}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
 --- !u!4 &1262610271 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400006, guid: e2305cf6158e01d40807b5b8a13ace70, type: 2}
@@ -16176,6 +16180,62 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d9541a81ec52f7b4c9eb95856ec82d8d, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1700030797
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1700030799}
+  - 114: {fileID: 1700030798}
+  - 114: {fileID: 1700030800}
+  m_Layer: 0
+  m_Name: _Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1700030798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1700030797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81f9e4026ce250c4b828957dff958d7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Reciver: {fileID: 1700030797}
+  MethodName: ConncetButtonPress
+  times: 1
+  endTime: 0
+--- !u!4 &1700030799
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1700030797}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 2.73949051}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!114 &1700030800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1700030797}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37dc5585fcbfe5a4e82ba6d694640194, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ad: B2Destrouy
 --- !u!4 &1724503941 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: d9541a81ec52f7b4c9eb95856ec82d8d, type: 2}
@@ -18038,7 +18098,7 @@ RectTransform:
   - {fileID: 345797170}
   - {fileID: 884299091}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}

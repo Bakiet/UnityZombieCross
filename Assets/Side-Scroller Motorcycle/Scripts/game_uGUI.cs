@@ -2,9 +2,16 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using Soomla.Profile;
+using Soomla.Store;
+using System.Collections.Generic;
+using System;
 
 public class game_uGUI : MonoBehaviour {
 
+
+
+	private const string LEADERBOARD_ID = "CgkIq6GznYALEAIQAA";
 	[SerializeField]private EventSystem my_eventSystem = null;
 
 	public int n_world;//the current world. It is need to save and load in the corret slot
@@ -99,6 +106,8 @@ public class game_uGUI : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+
 
 		my_options = options_screen.GetComponent<options_menu>();
 		normal_emoticon = perfect_target.sprite;
@@ -676,6 +685,7 @@ public class game_uGUI : MonoBehaviour {
 		stars_count.text = star_number.ToString();//update gui
 	}
 
+
 	void Update_int_score_record()
 		{
 		if (int_score > 0)
@@ -873,7 +883,7 @@ public class game_uGUI : MonoBehaviour {
 							{
 							my_game_master.world_playable[my_game_master.current_profile_selected][n_world] = true;
 							my_game_master.stage_playable[my_game_master.current_profile_selected][n_world,0] = true;
-							}
+						}
 						}
 
 
@@ -882,9 +892,11 @@ public class game_uGUI : MonoBehaviour {
 				if (show_debug_messages)
 					Debug.Log("stage score: " + star_number + " *** total score: " + my_game_master.stars_total_score[my_game_master.current_profile_selected]);
 				}
+			long score = Convert.ToInt64(long.Parse(my_game_master.stars_total_score[my_game_master.current_profile_selected].ToString()));
 
+			GooglePlayManager.instance.SubmitScoreById(LEADERBOARD_ID,score);
 			if (show_int_score && !show_star_score)
-				StartCoroutine(Int_score_animation(0.5f,0));
+				StartCoroutine(Int_score_animation(0.5f,0)); 
 
 			Invoke("Mark_win",0.1f);
 		}

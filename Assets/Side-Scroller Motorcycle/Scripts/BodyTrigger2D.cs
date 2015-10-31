@@ -4,7 +4,7 @@ using System.Collections;
 public class BodyTrigger2D : MonoBehaviour {
 
 	public static bool finish = false;
-	
+
 	//used to play sounds
 	public AudioClip bonesCrackSound;
 	public AudioClip hitSound;
@@ -82,9 +82,10 @@ public class BodyTrigger2D : MonoBehaviour {
 			//disable rear wheel rotation
 			var m = transform.root.GetComponent<Motorcycle_Controller2D>();
 			m.rearWheel.freezeRotation = true;
+			//rearWheel.freezeRotation = true;
 			//m.acceleration = 0;
 		//	m.Acceleration = 0;
-			
+
 			winText.enabled = true; //show win text				
 			
 			if(Application.loadedLevel < Application.levelCount - 1) //if won level isn't last level (levels are set in File -> Build Settings)
