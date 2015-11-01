@@ -24,7 +24,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 
 	public float explodeDuration = 5f;
 	public float explosionTime = 1;
-	
+	public bool useUpgrade=false;
 	private RaycastHit hit;
 	public float SpeedMotorMobile = 50.0f;
 	public float SpeedMotor = 3.0f;
@@ -637,8 +637,9 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	}
 	void Start()
 	{
+		if(useUpgrade){
 		UpgradeInventory ();
-
+		}
 		CarBody = GameObject.Find("Body2D");
 		CenterOfMass = GameObject.Find("CoM2D");
 		Smoke = GameObject.Find("Smoke");
@@ -646,7 +647,8 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 
 		endTime = Time.time + endTime;
 		
-		if(GameObject.FindGameObjectWithTag("_gui_").GetComponent<game_uGUI>()){
+		GameObject gui = GameObject.FindGameObjectWithTag ("_gui_");
+		if(gui != null){
 			my_game_uGUI = GameObject.FindGameObjectWithTag("_gui_").GetComponent<game_uGUI>();
 			
 		}
