@@ -8,9 +8,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a04884765aeeb4749909d668fc086f5c, type: 3}
+  m_Script: {fileID: 0}
   m_Name: AndroidNativeSettings
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::AndroidNativeSettings
   EnablePlusAPI: 1
   EnableGamesAPI: 1
   EnableAppStateAPI: 1
@@ -22,15 +22,19 @@ MonoBehaviour:
   LoadEventsIcons: 1
   ShowConnectingPopup: 1
   EnableATCSupport: 0
+  EnableSoomla: 0
+  SoomlaDownloadLink: http://goo.gl/7LYwuj
+  SoomlaDocsLink: https://goo.gl/es5j1N
+  SoomlaGameKey: 
+  SoomlaEnvKey: 
   SaveCameraImageToGallery: 0
   UseProductNameAsFolderName: 1
   GalleryFolderName: ZombieCross
   MaxImageLoadSize: 512
   CameraCaptureMode: 0
   ImageFormat: 0
-  ShowPluginSettings: 0
   ShowAppPermissions: 0
-  EnableBillingAPI: 0
+  EnableBillingAPI: 1
   EnablePSAPI: 1
   EnableSocialAPI: 1
   EnableCameraAPI: 1
@@ -39,13 +43,8 @@ MonoBehaviour:
   ExpandBillingAPI: 0
   ExpandSocialAPI: 0
   ExpandCameraAPI: 0
-  ShowStoreKitParams: 0
-  ShowCameraAndGalleryParams: 0
-  ShowLocalNotificationParams: 1
-  ShowPushNotificationParams: 1
   ThirdPartyParams: 0
-  ShowPSSettings: 1
-  ShowPSSettingsResources: 1
+  ShowPSSettingsResources: 0
   ShowActions: 0
   GCMSettingsActinve: 0
   LocalNotificationsAPI: 1
@@ -55,7 +54,7 @@ MonoBehaviour:
   PoupsandPreloadersAPI: 1
   CheckAppLicenseAPI: 1
   NetworkStateAPI: 0
-  InAppPurchasesAPI: 0
+  InAppPurchasesAPI: 1
   GooglePlayServicesAPI: 1
   PlayServicesAdvancedSignInAPI: 1
   GoogleButtonAPI: 1
@@ -68,6 +67,7 @@ MonoBehaviour:
   KeepManifestClean: 1
   GCM_SenderId: YOUR_SENDER_ID_HERE
   GooglePlayServiceAppID: 378018779307
+  ToolbarSelectedIndex: 0
   base64EncodedPublicKey: REPLACE_WITH_YOUR_PUBLIC_KEY
   ShowStoreProducts: 1
   InAppProducts: []
@@ -76,9 +76,8 @@ MonoBehaviour:
   ShowAchievements: 1
   Achievements: []
   ShowWhenAppIsForeground: 1
-  EnableVibrationLocal: 1
-  LocalNotificationIcon: {fileID: 2800000, guid: a10cc4ce7372e1949b2ff1c6d5c46e08,
-    type: 3}
+  EnableVibrationLocal: 0
+  LocalNotificationIcon: {fileID: 0}
   LocalNotificationSound: {fileID: 0}
   UseGameThrivePushNotifications: 0
   GameThriveAppID: YOUR_ONESIGNAL_APP_ID

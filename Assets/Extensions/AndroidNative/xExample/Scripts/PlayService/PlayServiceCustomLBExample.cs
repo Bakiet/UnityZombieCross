@@ -5,9 +5,7 @@ using System.Collections.Generic;
 public class PlayServiceCustomLBExample : MonoBehaviour {
 
 	//example
-	private const string LEADERBOARD_NAME = "Hall of Fame";
-	private const string LEADERBOARD_ID = "CgkIq6GznYALEAIQAA";
-	//CgkIq6GznYALEAIQAA
+	private const string LEADERBOARD_ID = "CgkIipfs2qcGEAIQAA";
 	//private const string LEADERBOARD_ID = "REPLACE_WITH_YOUR_ID";
 
 
@@ -321,7 +319,6 @@ public class PlayServiceCustomLBExample : MonoBehaviour {
 
 
 	private void SubmitScore() {
-		//GooglePlayManager.Instance.SubmitScore (LEADERBOARD_NAME, score);
 		GooglePlayManager.instance.SubmitScoreById(LEADERBOARD_ID, score);
 		SA_StatusBar.text = "Submitiong score: " + (score +1).ToString();
 		score ++;

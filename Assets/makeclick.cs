@@ -50,7 +50,7 @@ public class makeclick : MonoBehaviour {
 
 	
 	}
-	public void Connect() {
+	/*public void Connect() {
 		if(!IsAuntificated) {
 			SPFacebook.instance.Login("email,publish_actions");
 
@@ -59,14 +59,14 @@ public class makeclick : MonoBehaviour {
 
 		}
 	}
-	
-	private void OnInit() {
+	*/
+	/*private void OnInit() {
 		if(SPFacebook.instance.IsLoggedIn) {
 			IsAuntificated = true;
 		} else {
 
 		}
-	}
+	}*/
 	private void OnFocusChanged(bool focus) {
 		
 	
@@ -80,7 +80,7 @@ public class makeclick : MonoBehaviour {
 		}   
 	}
 	
-	private void OnAuth(FBResult result) {
+/*	private void OnAuth(FBResult result) {
 		if(SPFacebook.instance.IsLoggedIn) {
 			IsAuntificated = true;
 
@@ -98,10 +98,10 @@ public class makeclick : MonoBehaviour {
 
 		}
 	}
+	*/
 
 
-
-
+	/*
 	private void LogOut() {
 		IsUserInfoLoaded = false;
 		
@@ -109,7 +109,7 @@ public class makeclick : MonoBehaviour {
 		
 		SPFacebook.instance.Logout();
 	}
-
+	*/
 	public void PostNativeScreenshot() {
 		StartCoroutine(PostFBScreenshot());
 	}
