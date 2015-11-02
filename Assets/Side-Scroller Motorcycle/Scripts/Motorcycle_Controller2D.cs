@@ -22,6 +22,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	private  string INCREMENTAL_ACHIEVEMENT_ID_Assassin = "CgkIq6GznYALEAIQCg";
 	private  string INCREMENTAL_ACHIEVEMENT_ID_Sergeant = "CgkIq6GznYALEAIQCQ";
 
+	public bool Multiplayer =false;
 	public float explodeDuration = 5f;
 	public float explosionTime = 1;
 	public bool useUpgrade=false;
