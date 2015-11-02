@@ -5,6 +5,7 @@ public class CameraFollow2D : MonoBehaviour {
 	
 	public Transform target;
 	public bool IfCity;
+	public bool IfVolcan;
 
 	private Transform cam;
 	
@@ -17,7 +18,11 @@ public class CameraFollow2D : MonoBehaviour {
 	void Update () {
 		if (IfCity) {
 			cam.position = new Vector3 (target.position.x, target.position.y + 5, cam.position.z);
-		} else {
+		} 
+		else if (IfVolcan) {
+			cam.position = new Vector3 (target.position.x, target.position.y + 4, cam.position.z);
+		}
+		else {
 			cam.position = new Vector3 (target.position.x, target.position.y, cam.position.z);
 		}
 	}
