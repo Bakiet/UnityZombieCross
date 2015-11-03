@@ -22,7 +22,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	private  string INCREMENTAL_ACHIEVEMENT_ID_Assassin = "CgkIq6GznYALEAIQCg";
 	private  string INCREMENTAL_ACHIEVEMENT_ID_Sergeant = "CgkIq6GznYALEAIQCQ";
 
-	public bool Multiplayer =false;
+	
 	public float explodeDuration = 5f;
 	public float explosionTime = 1;
 	public bool useUpgrade=false;
@@ -362,7 +362,6 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	private float testbreakmass3=280;
 	private float testbreakgravity3=4;
 	private float testacceleration3=24;
-
 
 	void UpgradeInventory(){
 
@@ -899,7 +898,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		}
 		
 		if (isControllable) {
-			
+
 			//RotateVehicle ();
 			
 			
@@ -1226,6 +1225,9 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 			
 			
 		}
+
+	
+
 		Vector3 temp = SmokeEmmiter.force;
 		temp.y = (SmokeEmmiter.force.y) * 0.5f;
 		SmokeEmmiter.force = temp;

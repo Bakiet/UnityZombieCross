@@ -12,6 +12,7 @@ public class game_uGUI : MonoBehaviour {
 
 
 	private const string LEADERBOARD_ID = "CgkIq6GznYALEAIQAA";
+	private const string LEADERBOARD_MULTIPLAYER_ID = "CgkIq6GznYALEAIQAQ";
 	[SerializeField]private EventSystem my_eventSystem = null;
 
 	public int n_world;//the current world. It is need to save and load in the corret slot
@@ -899,6 +900,173 @@ public class game_uGUI : MonoBehaviour {
 				StartCoroutine(Int_score_animation(0.5f,0)); 
 
 			Invoke("Mark_win",0.1f);
+		}
+	}
+
+	public void VictoryMultiPlayer(string gameOvertext)
+	{
+		if (!stage_end)
+		{	
+			stage_end = true;
+			
+			
+			if (show_debug_messages)
+				Debug.Log("you win " + "W"+(n_world)+"_Stage_"+(n_stage));
+			allow_game_input = false;
+			in_pause = true;
+			
+			//go to win screen
+			play_screen.gameObject.SetActive(false);
+			win_screen.gameObject.SetActive(true);
+			
+			if (show_star_score)
+				StartCoroutine(	Show_star_score(star_number));
+			
+			if (my_game_master)
+			{
+				//music
+				if (my_game_master.when_win_play_selected == game_master.when_win_play.music)
+					my_game_master.Start_music(my_game_master.music_stage_win,my_game_master.play_win_music_in_loop);
+				else if (my_game_master.when_win_play_selected == game_master.when_win_play.sfx)
+					my_game_master.Gui_sfx(my_game_master.music_stage_win);
+				
+				if (my_game_master.press_start_and_go_to_selected == game_master.press_start_and_go_to.map)
+					next_stage_ico.SetActive(false);
+				else
+					next_stage_ico.SetActive(true);
+				
+				//virtual money
+				if (keep_money_taken_in_this_stage_only_if_you_win)
+				{
+					if (my_game_master.virtual_money_cap < (my_game_master.current_virtual_money[my_game_master.current_profile_selected] + temp_money_count))
+					{
+						if (my_game_master.buy_virtual_money_with_real_money_with_soomla)
+						{
+							/* //DELETE THIS LINE FOR SOOMLA
+							my_game_master.my_Soomla_billing_script.Give_virtual_money_for_free(my_game_master.current_profile_selected,temp_money_count);
+							my_game_master.current_virtual_money[my_game_master.current_profile_selected] = my_game_master.my_Soomla_billing_script.Show_how_many_virtual_money_there_is_in_this_profile(my_game_master.current_profile_selected);
+							*/ //DELETE THIS LINE FOR SOOMLA
+						}
+						else
+							my_game_master.current_virtual_money[my_game_master.current_profile_selected] += temp_money_count;
+					}
+					else
+					{
+						if (my_game_master.buy_virtual_money_with_real_money_with_soomla)
+						{
+							/* //DELETE THIS LINE FOR SOOMLA
+							my_game_master.my_Soomla_billing_script.Give_virtual_money_for_free(my_game_master.current_profile_selected,(my_game_master.virtual_money_cap-my_game_master.current_virtual_money[my_game_master.current_profile_selected]));
+							my_game_master.current_virtual_money[my_game_master.current_profile_selected] = my_game_master.my_Soomla_billing_script.Show_how_many_virtual_money_there_is_in_this_profile(my_game_master.current_profile_selected);
+							*/ //DELETE THIS LINE FOR SOOMLA
+						}
+						else
+							my_game_master.current_virtual_money[my_game_master.current_profile_selected] = my_game_master.virtual_money_cap;
+						
+						if (show_debug_messages)
+							Debug.Log("virtual money cap");
+					}
+				}
+				
+				//if you have solved this stage for the first time
+				if (!my_game_master.stage_solved[my_game_master.current_profile_selected][n_world-1,n_stage-1])
+				{
+					if (show_debug_messages)
+						Debug.Log("first time win");
+					//update stage count
+					my_game_master.total_number_of_stages_in_the_game_solved[my_game_master.current_profile_selected]++;
+					my_game_master.stage_solved[my_game_master.current_profile_selected][n_world-1,n_stage-1] = true;
+					//update star score
+					my_game_master.stage_stars_score[my_game_master.current_profile_selected][n_world-1,n_stage-1] = star_number;
+					my_game_master.star_score_in_this_world[my_game_master.current_profile_selected][n_world-1] += star_number;
+					my_game_master.stars_total_score[my_game_master.current_profile_selected] += star_number;
+					my_game_master.star_score_difference = star_number;
+					//update int score
+					Update_int_score_record();
+					
+				}
+				else //you have solved this level more than once
+				{
+					if (show_debug_messages)
+						Debug.Log("rewin same stage: " + star_number + " - " + my_game_master.stage_stars_score[my_game_master.current_profile_selected][n_world-1,n_stage-1] + " = " + (star_number - my_game_master.stage_stars_score[my_game_master.current_profile_selected][n_world-1,n_stage-1])
+						          + " *** int score = " + int_score);
+					
+					//if your star score is better than the previous
+					if (star_number > my_game_master.stage_stars_score[my_game_master.current_profile_selected][n_world-1,n_stage-1])
+					{
+						//update star score
+						my_game_master.star_score_difference = (star_number - my_game_master.stage_stars_score[my_game_master.current_profile_selected][n_world-1,n_stage-1]);
+						
+						my_game_master.stars_total_score[my_game_master.current_profile_selected] += (star_number-my_game_master.stage_stars_score[my_game_master.current_profile_selected][n_world-1,n_stage-1]);
+						my_game_master.stage_stars_score[my_game_master.current_profile_selected][n_world-1,n_stage-1] = star_number;
+						my_game_master.star_score_in_this_world[my_game_master.current_profile_selected][n_world-1] += my_game_master.star_score_difference;
+						if (show_debug_messages)
+							Debug.Log("...with better score = " + my_game_master.star_score_difference);
+					}
+					else
+					{
+						if (show_debug_messages)
+							Debug.Log("...but without better star score");
+						my_game_master.star_score_difference = 0;
+					}
+					
+					//if your int score is better than the previous
+					if (int_score > my_game_master.best_int_score_in_this_stage[my_game_master.current_profile_selected][n_world-1,n_stage-1])
+					{
+						//update int score
+						Update_int_score_record();
+					}
+					else
+					{
+						if (show_debug_messages)
+							Debug.Log("no new int_score record");
+					}
+					
+				}
+				
+				//unlock the next stage if it exist
+				if (n_stage < my_game_master.total_stages_in_world_n[n_world-1])
+				{
+					if (!my_game_master.stage_playable[my_game_master.current_profile_selected][n_world-1,n_stage])
+					{
+						my_game_master.stage_playable[my_game_master.current_profile_selected][n_world-1,n_stage] = true;
+						my_game_master.play_this_stage_to_progress_in_the_game_world[my_game_master.current_profile_selected] = n_world-1;
+						my_game_master.play_this_stage_to_progress_in_the_game_stage[my_game_master.current_profile_selected] = n_stage;
+					}
+				}
+				//unlock next world if it exist
+				else if (n_world < my_game_master.total_stages_in_world_n.Length)
+				{
+					my_game_master.play_this_stage_to_progress_in_the_game_world[my_game_master.current_profile_selected] = n_world;
+					my_game_master.play_this_stage_to_progress_in_the_game_stage[my_game_master.current_profile_selected] = 0;
+					
+					if (my_game_master.this_world_is_unlocked_after_selected[n_world] == game_master.this_world_is_unlocked_after.previous_world_is_finished)
+					{
+						my_game_master.world_playable[my_game_master.current_profile_selected][n_world] = true;
+						my_game_master.stage_playable[my_game_master.current_profile_selected][n_world,0] = true;
+					}
+					else if (my_game_master.this_world_is_unlocked_after_selected[n_world] == game_master.this_world_is_unlocked_after.reach_this_star_score)
+					{
+						if (my_game_master.stars_total_score[my_game_master.current_profile_selected] >= my_game_master.star_score_required_to_unlock_this_world[n_world])
+						{
+							my_game_master.world_playable[my_game_master.current_profile_selected][n_world] = true;
+							my_game_master.stage_playable[my_game_master.current_profile_selected][n_world,0] = true;
+						}
+					}
+					
+					
+				}
+				my_game_master.Save(my_game_master.current_profile_selected);
+				if (show_debug_messages)
+					Debug.Log("stage score: " + star_number + " *** total score: " + my_game_master.stars_total_score[my_game_master.current_profile_selected]);
+			}
+			long score = Convert.ToInt64(long.Parse(my_game_master.stars_total_score[my_game_master.current_profile_selected].ToString()));
+			
+			GooglePlayManager.instance.SubmitScoreById(LEADERBOARD_MULTIPLAYER_ID,score);
+			if (show_int_score && !show_star_score)
+				StartCoroutine(Int_score_animation(0.5f,0)); 
+			
+			Invoke("Mark_win",0.1f);
+			Application.LoadLevel ("Menu");
 		}
 	}
 

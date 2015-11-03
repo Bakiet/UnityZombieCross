@@ -16,8 +16,8 @@ public class AndroidGoogleAdsExample : MonoBehaviour {
 
 	
 	//replace with your ids
-	private const string MY_BANNERS_AD_UNIT_ID		 = "ca-app-pub-6101605888755494/1824764765"; 
-	private const string MY_INTERSTISIALS_AD_UNIT_ID =  "ca-app-pub-6101605888755494/3301497967"; 
+	private const string MY_BANNERS_AD_UNIT_ID		 = "ca-app-pub-7288875708989992/5953651462"; 
+	private const string MY_INTERSTISIALS_AD_UNIT_ID =  "ca-app-pub-7288875708989992/3000185061"; 
 
 	
 	private GoogleMobileAdBanner banner1;

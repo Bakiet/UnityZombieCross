@@ -141,7 +141,7 @@ public class MultiplayerController : RealTimeMultiplayerListener
 			ShowMPStatus ("We are connected to the room! I would probably start our game now.");
 			lobbyListener.HideLobby();
 			lobbyListener = null;
-			Application.LoadLevel("MainGame");
+			Application.LoadLevel("W1_Stage_1_M");
 		} else {
 			ShowMPStatus ("Uh-oh. Encountered some error connecting to the room.");
 		}

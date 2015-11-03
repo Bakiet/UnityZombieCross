@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections;
 
-public class manage_menu_uGUI : MonoBehaviour {
+public class manage_menu_uGUI : MonoBehaviour, MPLobbyListener {
 
 	[SerializeField]private EventSystem my_eventSystem = null;
 
@@ -193,6 +193,23 @@ public class manage_menu_uGUI : MonoBehaviour {
 
 	game_master my_game_master;
 	manage_menu_uGUI this_script;
+	private string _lobbyMessage;
+	private bool _showLobbyDialog;
+
+	public void SetLobbyStatusMessage(string message) {
+		_lobbyMessage = message;
+	}
+	public void Go_to_Multiplayer (){
+		RetainedUserPicksScript.Instance.multiplayerGame = true;
+		_lobbyMessage = "Starting a multi-player game...";
+		_showLobbyDialog = true;
+		MultiplayerController.Instance.lobbyListener = this;
+		MultiplayerController.Instance.SignInAndStartMPGame();
+	}
+	public void HideLobby() {
+		_lobbyMessage = "";
+		_showLobbyDialog = false;
+	}
 
 	void Check_internet()
 	{
