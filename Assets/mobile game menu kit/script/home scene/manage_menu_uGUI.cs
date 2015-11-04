@@ -199,13 +199,7 @@ public class manage_menu_uGUI : MonoBehaviour, MPLobbyListener {
 	public void SetLobbyStatusMessage(string message) {
 		_lobbyMessage = message;
 	}
-	public void Go_to_Multiplayer (){
-		RetainedUserPicksScript.Instance.multiplayerGame = true;
-		_lobbyMessage = "Starting a multi-player game...";
-		_showLobbyDialog = true;
-		MultiplayerController.Instance.lobbyListener = this;
-		MultiplayerController.Instance.SignInAndStartMPGame();
-	}
+
 	public void HideLobby() {
 		_lobbyMessage = "";
 		_showLobbyDialog = false;
