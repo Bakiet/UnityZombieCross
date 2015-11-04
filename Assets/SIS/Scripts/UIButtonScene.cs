@@ -17,4 +17,9 @@ public class UIButtonScene : MonoBehaviour
        // if (!string.IsNullOrEmpty(sceneName))
 			Application.LoadLevel("W1_Stage_1_M");
     }
+	public void LoadSceneWithP(string sceneName)
+	{
+		 if (!string.IsNullOrEmpty(sceneName))
+			Application.LoadLevel(sceneName);
+	}
 }
