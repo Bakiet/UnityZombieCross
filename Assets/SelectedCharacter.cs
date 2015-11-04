@@ -4,13 +4,14 @@ using Soomla.Store;
 using System.Collections.Generic;
 using GooglePlayGames.BasicApi.Multiplayer;
 
-public class SelectedCharacter : MonoBehaviour, MPUpdateListener {
+public class SelectedCharacter : MonoBehaviour, AndroidNativeExampleBase {
 
 	public bool Multiplayer;
 	private Dictionary<string, float> _finishTimes;
 	private bool _multiplayerGame;
 	private bool _multiplayerReady;
 	private string _myParticipantId;
+	public SA_PartisipantUI[] patricipants;
 
 
 	public Transform spawnPos;
@@ -88,16 +89,22 @@ public class SelectedCharacter : MonoBehaviour, MPUpdateListener {
 		}
 //		GameObject.Find ("bike").SetActive(true);
 		if (Multiplayer) {
-			MultiplayerController.Instance.updateListener = this;
+			//MultiplayerController.Instance.updateListener = this;
 			// 1
-			_myParticipantId = MultiplayerController.Instance.GetMyParticipantId ();
+			//_myParticipantId = MultiplayerController.Instance.GetMyParticipantId ();
 			// 2
-			List<Participant> allPlayers = MultiplayerController.Instance.GetAllPlayers ();
+			//List<Participant> allPlayers = MultiplayerController.Instance.GetAllPlayers ();
 			//_opponentScripts = new Dictionary<string, OpponentCarController> (allPlayers.Count - 1); 
-			_finishTimes = new Dictionary<string, float> (allPlayers.Count);
+			//_finishTimes = new Dictionary<string, float> (allPlayers.Count);
 
-			for (int i =0; i < allPlayers.Count; i++) {
-				string nextParticipantId = allPlayers [i].ParticipantId;
+			int i = 0;
+			foreach(GP_Participant p in GooglePlayRTM.instance.currentRoom.participants) {
+				patricipants[i].gameObject.SetActive(true);
+				patricipants[i].SetParticipant(p);
+				i++;
+				string nextParticipantId = patricipants[i].playerId;
+				_finishTimes [nextParticipantId] = -1;
+
 				_finishTimes [nextParticipantId] = -1;
 				Debug.Log ("Setting up car for " + nextParticipantId);
 				// 3
