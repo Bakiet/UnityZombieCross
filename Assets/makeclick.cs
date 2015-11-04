@@ -28,6 +28,7 @@ public class makeclick : MonoBehaviour {
 
 	public bool callfunction=false;
 	public string functioncalled;
+	public string Scene;
 
 	void Start () {
 
@@ -131,7 +132,9 @@ public class makeclick : MonoBehaviour {
 		Destroy(tex);
 		
 	}
-
+	public void LoadScene(string Scene){
+		Application.LoadLevel (Scene);
+	}
 	//end facebook
 	public void SENDACHIEVEMENT(string id) {
 		
