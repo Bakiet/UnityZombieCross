@@ -126,10 +126,7 @@ public class MultiplayerController : RealTimeMultiplayerListener
 			return _instance;
 		}
 	}
-	public void OnParticipantLeft (Participant participant)
-	{
-		throw new System.NotImplementedException ();
-	}
+
 	public void OnRoomSetupProgress (float percent)
 	{
 		ShowMPStatus ("We are " + percent + "% done with setup");
@@ -141,7 +138,7 @@ public class MultiplayerController : RealTimeMultiplayerListener
 			ShowMPStatus ("We are connected to the room! I would probably start our game now.");
 			lobbyListener.HideLobby();
 			lobbyListener = null;
-			Application.LoadLevel("W1_Stage_1_M");
+			Application.LoadLevel("MainGame");
 		} else {
 			ShowMPStatus ("Uh-oh. Encountered some error connecting to the room.");
 		}
