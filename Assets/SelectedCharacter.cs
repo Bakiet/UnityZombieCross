@@ -4,7 +4,7 @@ using Soomla.Store;
 using System.Collections.Generic;
 using GooglePlayGames.BasicApi.Multiplayer;
 
-public class SelectedCharacter : MonoBehaviour, AndroidNativeExampleBase {
+public class SelectedCharacter : AndroidNativeExampleBase {
 
 	public bool Multiplayer;
 	private Dictionary<string, float> _finishTimes;
@@ -101,11 +101,11 @@ public class SelectedCharacter : MonoBehaviour, AndroidNativeExampleBase {
 			foreach(GP_Participant p in GooglePlayRTM.instance.currentRoom.participants) {
 				patricipants[i].gameObject.SetActive(true);
 				patricipants[i].SetParticipant(p);
-				i++;
-				string nextParticipantId = patricipants[i].playerId;
+
+				string nextParticipantId = patricipants[i].playerId.text;
 				_finishTimes [nextParticipantId] = -1;
 
-				_finishTimes [nextParticipantId] = -1;
+				i++;
 				Debug.Log ("Setting up car for " + nextParticipantId);
 				// 3
 				if (nextParticipantId == _myParticipantId) {

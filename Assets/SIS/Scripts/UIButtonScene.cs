@@ -11,9 +11,10 @@ using UnityEngine;
 /// </summary>
 public class UIButtonScene : MonoBehaviour
 {
-    public void LoadScene(string sceneName)
+	//string sceneName = "W1_Stage_1_M";
+    public void LoadScene()
     {
-        if (!string.IsNullOrEmpty(sceneName))
-            Application.LoadLevel(sceneName);
+       // if (!string.IsNullOrEmpty(sceneName))
+			Application.LoadLevel("W1_Stage_1_M");
     }
 }
