@@ -119,7 +119,7 @@ public class BodyTrigger2D : MonoBehaviour {
 			}
 			
 		}
-		else if(obj.tag != "Checkpoint" ^ obj.tag != "ZoomOutTrigger" ^ obj.tag != "ZoomInTrigger") //if entered in any other trigger than "Finish" & "Checkpoint", that means player crashed
+		else if(obj.tag != "Checkpoint" ^ obj.tag != "ZoomOutTrigger"  ^ obj.tag != "ZoomInTrigger" ^ obj.tag == "Player") //if entered in any other trigger than "Finish" & "Checkpoint", that means player crashed
 		{
 			if(!Motorcycle_Controller2D.crash)
 			{
@@ -137,19 +137,21 @@ public class BodyTrigger2D : MonoBehaviour {
 					crashText.enabled = true;
 					
 					var m = transform.root.GetComponent<Motorcycle_Controller2D>();
-					if(m.forMobile)
-					{
-						if(Checkpoint.lastPoint)
-							crashText.text = "TAP ON SCREEN TO GO TO LAST CHECKPOINT \n TAP ON SCREEN WITH 2 FINGERS TO RESTART";
+					if(m != null){
+						if(m.forMobile)
+						{
+							if(Checkpoint.lastPoint)
+								crashText.text = "TAP ON SCREEN TO GO TO LAST CHECKPOINT \n TAP ON SCREEN WITH 2 FINGERS TO RESTART";
+							else
+								crashText.text = "TAP ON SCREEN WITH 2 FINGERS TO RESTART";
+						}
 						else
-							crashText.text = "TAP ON SCREEN WITH 2 FINGERS TO RESTART";
-					}
-					else
-					{
-						if(Checkpoint.lastPoint)
-							crashText.text = "PRESS 'C' TO GO TO LAST CHECKPOINT \n PRESS 'R' TO RESTART";
-						else
-							crashText.text = "PRESS 'R' TO RESTART";
+						{
+							if(Checkpoint.lastPoint)
+								crashText.text = "PRESS 'C' TO GO TO LAST CHECKPOINT \n PRESS 'R' TO RESTART";
+							else
+								crashText.text = "PRESS 'R' TO RESTART";
+						}
 					}
 					
 				}

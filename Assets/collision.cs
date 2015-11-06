@@ -40,7 +40,11 @@ public class collision : MonoBehaviour {
 		Hit.SetActive (false);
 		Blood.SetActive (false);
 		this.gameObject.SetActive(true);
-		my_game_uGUI = GameObject.FindGameObjectWithTag("_gui_").GetComponent<game_uGUI>();
+		GameObject gui = GameObject.FindGameObjectWithTag ("_gui_");
+		if(gui != null){
+			my_game_uGUI = GameObject.FindGameObjectWithTag("_gui_").GetComponent<game_uGUI>();
+			
+		}
 
 	}
 	void OnCollisionEnter2D(Collision2D collision)
@@ -54,7 +58,11 @@ public class collision : MonoBehaviour {
 		
 		//					Collider[] colliders = Physics.OverlapSphere (zombie, radius);
 		//	foreach (Collider hit in colliders) {  //for loop that says if we hit any colliders, then do the following below
-		my_game_uGUI = GameObject.FindGameObjectWithTag("_gui_").GetComponent<game_uGUI>();
+		GameObject gui = GameObject.FindGameObjectWithTag ("_gui_");
+		if(gui != null){
+			my_game_uGUI = GameObject.FindGameObjectWithTag("_gui_").GetComponent<game_uGUI>();
+			
+		}
 		
 		if (collision.gameObject.name == ObjectToCollided) {
 			

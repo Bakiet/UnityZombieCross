@@ -7,7 +7,7 @@ public class Bomb : MonoBehaviour {
 	
 	public GameObject Explotion;
 	public bool ExplotionWithThis;
-	public Rigidbody body;	
+	public Rigidbody2D body;	
 	public float radius = 100.0f;    //provides a radius at which the explosive will effect rigidbodies
 	public float radiusExplotion = 100.0f;
 	public float power = 100.0f;
@@ -59,7 +59,7 @@ public class Bomb : MonoBehaviour {
 	public	Action	callback	= null;		// Action To execute when slow motion ends
 	private int count = 0;
 
-	void OnTriggerEnter(Collider collider)
+	void OnTriggerEnter2D(Collider2D collider)
 	{
 		//if (triggerEnter == true) {
 			Invoke ("MyWaitingFunction", time);
@@ -73,7 +73,7 @@ public class Bomb : MonoBehaviour {
 		//}
 	}
 
-	void OnCollisionEnter (Collision collision)
+	void OnCollisionEnter2D (Collision2D collision)
 	{
 
 		if (collisionEnter == true) {
@@ -110,13 +110,24 @@ public class Bomb : MonoBehaviour {
 
 
 	}
-
+	public static void AddExplosionForce (Rigidbody2D body, float expForce, Vector3 expPosition, float expRadius)
+	{
+		var dir = (body.transform.position - expPosition);
+		//float calc = 1 - (dir.magnitude / expRadius);
+		float calc = 1 - (0.18f / expRadius);
+		if (calc <= 0) {
+			calc = 0;		
+		}
+		
+		//body.AddForce (dir.normalized * expForce * calc);
+		body.AddForce (dir.normalized * expForce * calc);
+	}
 	void TimeEffectExecute()
 	{
 		Vector3 grenadeOrigin = transform.position;
-		Collider[] colliders = Physics.OverlapSphere (grenadeOrigin, radius);
+		Collider2D[] colliders = Physics2D.OverlapCircleAll (grenadeOrigin, radius);
 
-		foreach (Collider hit in colliders) {
+		foreach (Collider2D hit in colliders) {
 			if(ObjectToCollided != null)
 			{
 				if (hit.gameObject.name == ObjectToCollided.name) {
@@ -135,8 +146,8 @@ public class Bomb : MonoBehaviour {
 						}
 					}
 					if (bomb != null) {
-						bomb.GetComponent<Rigidbody> ().isKinematic = false; 
-						bomb.GetComponent<Rigidbody> ().useGravity = true;
+						bomb.GetComponent<Rigidbody2D> ().isKinematic = false; 
+						//bomb.GetComponent<Rigidbody2D> ().useGravity = true;
 						//Destroy (bomb);
 						
 					}
@@ -150,13 +161,25 @@ public class Bomb : MonoBehaviour {
 						//CFX_SpawnSystem.Instantiate (Explotion);
 					}
 					if(isHit){
-			
-						hit.GetComponent<Rigidbody> ().AddExplosionForce (power, grenadeOrigin, radiusExplotion, 1.0f);
+						Vector3 granadeorigin = grenadeOrigin;
+						granadeorigin.z = 10;
+						granadeorigin.y = granadeorigin.y - 2.0f;
+						Vector3 objPos1 = Camera.main.ScreenToWorldPoint(granadeorigin);
+
+						AddExplosionForce(hit.GetComponent<Rigidbody2D> (), power * 100, objPos1, radius);
+						//hit.GetComponent<Rigidbody2D> ().AddForceAtPosition (power, grenadeOrigin, ForceMode2D.Force);
 					}
 					if(isBomb)
 					{
+						Vector3 granadeorigin = grenadeOrigin;
+						granadeorigin.z = 10;
+						granadeorigin.y = granadeorigin.y - 2.0f;
+						Vector3 objPos1 = Camera.main.ScreenToWorldPoint(granadeorigin);
 
-						bomb.GetComponent<Rigidbody> ().AddExplosionForce (power, grenadeOrigin, radiusExplotion, 1.0f);
+						AddExplosionForce(bomb.GetComponent<Rigidbody2D> (), power * 100, objPos1, radius);
+						//hit.GetComponent<Rigidbody2D> ().AddForceAtPosition (power, grenadeOrigin, ForceMode2D.Force);
+						//bomb.GetComponent<Rigidbody2D> ().AddForceAtPosition (power, grenadeOrigin, ForceMode2D.Force);
+						//bomb.GetComponent<Rigidbody2D> ().AddExplosionForce (power, grenadeOrigin, radiusExplotion, 1.0f);
 					}
 
 
@@ -201,29 +224,29 @@ public class Bomb : MonoBehaviour {
 
 				
 					if (wood != null) {
-						wood.GetComponent<Rigidbody> ().isKinematic = false; 
-						wood.GetComponent<Rigidbody> ().useGravity = true;
+						wood.GetComponent<Rigidbody2D> ().isKinematic = false; 
+						//wood.GetComponent<Rigidbody2D> ().useGravity = true;
 						if(DestroyLoseGravity){
-							Destroy(wood);
+						Destroy(wood);
 						}
 					}
 					if (wood2 != null) {
-						wood2.GetComponent<Rigidbody> ().isKinematic = false; 
-						wood2.GetComponent<Rigidbody> ().useGravity = true;
+						wood2.GetComponent<Rigidbody2D> ().isKinematic = false; 
+						//wood2.GetComponent<Rigidbody2D> ().useGravity = true;
 						if(DestroyLoseGravity2){
 							Destroy(wood2);
 						}
 					}
 					if (wood3 != null) {
-						wood3.GetComponent<Rigidbody> ().isKinematic = false; 
-						wood3.GetComponent<Rigidbody> ().useGravity = true;
+						wood3.GetComponent<Rigidbody2D> ().isKinematic = false; 
+						//wood3.GetComponent<Rigidbody2D> ().useGravity = true;
 						if(DestroyLoseGravity3){
 							Destroy(wood3);
 						}
 					}
 					if (wood4 != null) {
-						wood4.GetComponent<Rigidbody> ().isKinematic = false; 
-						wood4.GetComponent<Rigidbody> ().useGravity = true;
+						wood4.GetComponent<Rigidbody2D> ().isKinematic = false; 
+					//	wood4.GetComponent<Rigidbody2D> ().gravityScale = 1;
 						if(DestroyLoseGravity4){
 							Destroy(wood4);
 						}

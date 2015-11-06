@@ -128,12 +128,26 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	private bool flip = false;
 
 	private HingeJoint2D[] hingeJoints;
+	private WheelJoint2D[] wheelJoints;
+	private HingeJoint2D[] leftHandJoints;
+	private HingeJoint2D[] rightHandJoints;
+	private HingeJoint2D[] bootsJoints;
+	private HingeJoint2D[] kneeJoints;
+	private HingeJoint2D[] legJoints;
+	private HingeJoint2D[] helmetJoints;
 	public GameObject leftHand;
 	public GameObject rightHand;
 	public GameObject boots;
 	public GameObject knee;
 	public GameObject leg;
+	public GameObject helmet;
 	public GameObject Body2D;
+
+	private GameObject nubes;
+	private GameObject edif2;
+	private GameObject humo;
+	private GameObject edif1;
+
 
 	/*public HingeJoint leftHand;
 	public HingeJoint rightHand;
@@ -640,6 +654,11 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		if(useUpgrade){
 		UpgradeInventory ();
 		}
+		nubes = GameObject.Find ("Nubes");
+		edif2 = GameObject.Find ("edif 2");
+		humo = GameObject.Find ("humo");
+		edif1 = GameObject.Find ("edif 1");
+
 		CarBody = GameObject.Find("Body2D");
 		CenterOfMass = GameObject.Find("CoM2D");
 		Smoke = GameObject.Find("Smoke");
@@ -698,32 +717,22 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	}
 	
 	void DestroyBike(){
-		/*GameObject soul = Resources.Load("prefabs/CFXM2_Soul") as GameObject;
-		Instantiate(soul, CarBody.position, Quaternion.identity);
-		*/
+
 	
 		GameObject soul = (GameObject)Resources.Load("prefabs/CFXM2_Soul", typeof(GameObject));
 		Instantiate(soul, CarBody.transform.position, Quaternion.identity);
 		GameObject explotion = (GameObject)Resources.Load("prefabs/CFXM_Explosion+Text NoSmoke", typeof(GameObject));
 		Instantiate(explotion, CarBody.transform.position, Quaternion.identity);
-		/*GameObject explotion = Resources.Load("prefabs/CFXM_Explosion+Text NoSmoke") as GameObject;
-		Instantiate(explotion, CarBody.position, Quaternion.identity);*/
+		GameObject smoke = (GameObject)Resources.Load("prefabs/CFXM_GroundSmokeExplosionAlt", typeof(GameObject));
+		Instantiate(smoke, CarBody.transform.position, Quaternion.identity);
 		
-		Camera.main.GetComponent<CameraFollow2D>().target = CarBody.transform; //make camera to follow biker's hips				
 		
-		/*Destroy(leftHand);
-		Destroy(rightHand); 
-		Destroy(leftFoot);
-		Destroy(rightFoot); 
-		Destroy(hips);*/
+		Camera.main.GetComponent<CameraFollow2D>().target = CarBody.transform; //make camera to follow biker's hips	
+		
+		unhandlingToDestroy ();
+
 		CarBody.transform.Rotate (Vector3.right * 180);
-		//Destroy(body);
-		/*GameObject body2 = GameObject.Find("body");
-		Rigidbody gameObjectsRigidBody = body2.AddComponent<Rigidbody>();
-		gameObjectsRigidBody.mass = 3;
-		for (int i = 0; i < 5; i++) {
-			Instantiate (body2);
-		}*/
+
 		
 		
 		isControllable = false;
@@ -753,7 +762,14 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					//rearWheel.GetComponent.<Rigidbody2D>().AddTorque (0, parseInt(inAirRotationSpeed * 180 * Time.deltaTime));  
 					
 					if(forMobile){
-						//CurrentVelocity = Acceleration * inAirRotationSpeed * Time.deltaTime * wheelieStrength;
+
+						
+							nubes.GetComponent<Paralaxcity>().InitiateScroll();
+							edif2.GetComponent<Paralaxcity>().InitiateScroll();
+							humo.GetComponent<Paralaxcity>().InitiateScroll();
+							edif1.GetComponent<Paralaxcity>().InitiateScroll();
+					
+						
 						CurrentVelocity = Acceleration * InputGetAxis("Vertical") * Time.deltaTime * SpeedMotorMobile;
 						//CurrentVelocity = Acceleration * InputGetAxis("Vertical") * SpeedMotorMobile;
 						//	CurrentVelocity = Acceleration * Input.GetAxisRaw ("Vertical") * Time.deltaTime * 10;
@@ -765,6 +781,15 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 
 					}
 					else{
+							nubes.GetComponent<Paralaxcity>().InitiateScroll();
+							edif2.GetComponent<Paralaxcity>().InitiateScroll();
+							humo.GetComponent<Paralaxcity>().InitiateScroll();
+							edif1.GetComponent<Paralaxcity>().InitiateScroll();
+							/*nubes.GetComponent<Paralaxcity>(). = true;
+							edif2.GetComponent<Paralaxcity>().enabled = true;
+							humo.GetComponent<Paralaxcity>().enabled = true;
+							edif1.GetComponent<Paralaxcity>().enabled = true;
+							*/
 						CurrentVelocity = Acceleration * Input.GetAxis("Vertical") * Time.deltaTime * SpeedMotor;
 						//if(Velocity < MaxSpeed){
 						Velocity = Mathf.Clamp(CurrentVelocity, -MaxSpeed, MaxSpeed);
@@ -796,6 +821,17 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					} 
 				  }
 				} 
+				else{
+					nubes.GetComponent<Paralaxcity>().StopScroll();
+					edif2.GetComponent<Paralaxcity>().StopScroll();
+					humo.GetComponent<Paralaxcity>().StopScroll();
+					edif1.GetComponent<Paralaxcity>().StopScroll();
+					/*
+					nubes.GetComponent<Paralaxcity>().enabled = false;
+					edif2.GetComponent<Paralaxcity>().enabled = false;
+					humo.GetComponent<Paralaxcity>().enabled = false;
+					edif1.GetComponent<Paralaxcity>().enabled = false;*/
+				}
 				if (brake){
 					rearWheel.freezeRotation = true; //disable rotation for rear wheel if player is braking								
 				}
@@ -1170,49 +1206,24 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 			
 			if(crash && !crashed) //if player just crashed
 			{											
-				if(is2D)//if there is activated is2D checkbox on motorcycle, than you need to assign "CameraFollow2D.cs" script to camera
-				{
-					
+
 					/*	makeclick Achievement = new makeclick();
 				Achievement.SENDACHIEVEMENT(ACHIEVEMENT_ID_First_Death);
 				*/
-					GameObject soul = (GameObject)Resources.Load("prefabs/CFXM2_Soul", typeof(GameObject));
-					Instantiate(soul, CarBody.transform.position, Quaternion.identity);
-					GameObject explotion = (GameObject)Resources.Load("prefabs/CFXM_Explosion+Text NoSmoke", typeof(GameObject));
-					Instantiate(explotion, CarBody.transform.position, Quaternion.identity);
-					
-					Camera.main.GetComponent<CameraFollow2D>().target = CarBody.transform; //make camera to follow biker's hips	
-					
-					
-					//var explosionPos = transform.position;
-					
-					/*		
-				Destroy(leftHand);
-				Destroy(rightHand); 
-				Destroy(leftFoot);
-				Destroy(rightFoot); 
-				Destroy(hips);*/
-					CarBody.transform.Rotate (Vector3.right * 180);
-					//	Destroy(CarBody);
-					
-					Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Ensemble2D"), LayerMask.NameToLayer ("Ragdoll"),false);
-					
-				}
-				else
-				{
-					Camera.main.GetComponent<CameraFollow2D>().target = CarBody.transform; //make camera to follow biker's hips	
-					
-					//disable hinge joints, so biker detaches from motorcycle
-					/*	Destroy(leftHand);
-					Destroy(rightHand);
-					Destroy(leftFoot);
-					Destroy(rightFoot);
-					Destroy(hips);
-				*/
-					//turn on collision between ragdoll and motorcycle
-						Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Ensemble2D"), LayerMask.NameToLayer ("Ragdoll"),false);
-				}					
+				GameObject soul = (GameObject)Resources.Load("prefabs/CFXM2_Soul", typeof(GameObject));
+				Instantiate(soul, CarBody.transform.position, Quaternion.identity);
+				GameObject explotion = (GameObject)Resources.Load("prefabs/CFXM_Explosion+Text NoSmoke", typeof(GameObject));
+				Instantiate(explotion, CarBody.transform.position, Quaternion.identity);
+				GameObject smoke = (GameObject)Resources.Load("prefabs/CFXM_GroundSmokeExplosionAlt", typeof(GameObject));
+				Instantiate(smoke, CarBody.transform.position, Quaternion.identity);
+
+
+				Camera.main.GetComponent<CameraFollow2D>().target = CarBody.transform; //make camera to follow biker's hips	
 				
+				unhandlingToDestroy ();
+
+				CarBody.transform.Rotate (Vector3.right * 180);
+
 				
 				isControllable = false;
 				crashed = true;
@@ -1254,6 +1265,41 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		hingeJoints[1].enabled = true;
 		hingeJoints[3].enabled = true;
 		hingeJoints[4].enabled = true;
+
+	}
+	public void unhandlingToDestroy()
+	{
+
+		hingeJoints = Body2D.GetComponents<HingeJoint2D>();	
+		//boots.GetComponent<Rigidbody2D>().AddTorque (-1080,0); 
+		hingeJoints[0].enabled = false;
+		hingeJoints[1].enabled = false;
+		hingeJoints[2].enabled = false;
+		hingeJoints[3].enabled = false;
+		hingeJoints[4].enabled = false;
+		/*hingeJoints [0].limits = 1000;
+		hingeJoints [1].limits = 1000;
+		hingeJoints [2].limits = 1000;
+		hingeJoints [3].limits= 1000;
+		hingeJoints [4].limits = 1000;*/
+
+		wheelJoints = Body2D.GetComponents<WheelJoint2D>();
+		wheelJoints[0].enabled = false;
+		wheelJoints[1].enabled = false;
+
+		leftHandJoints = leftHand.GetComponents<HingeJoint2D>();	
+		rightHandJoints = rightHand.GetComponents<HingeJoint2D>();	
+		bootsJoints = boots.GetComponents<HingeJoint2D>();	
+		kneeJoints = knee.GetComponents<HingeJoint2D>();	
+		legJoints = leg.GetComponents<HingeJoint2D>();	
+		helmetJoints = helmet.GetComponents<HingeJoint2D>();	
+
+		leftHandJoints[0].enabled = false;
+		rightHandJoints[0].enabled = false;
+		bootsJoints[0].enabled = false;
+		kneeJoints[0].enabled = false;
+		legJoints[0].enabled = false;
+		helmetJoints[0].enabled = false;
 
 	}
 	private IEnumerator Coroutine (int arrayjoin,float time) 
