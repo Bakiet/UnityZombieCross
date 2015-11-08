@@ -38,7 +38,9 @@ public class SelectedCharacter : AndroidNativeExampleBase {
 		//this code runs after SOOMLA has been initialized
 		//set selected character to the first one by default
 		GameObject selectedChar = characters[0];
-		GameObject opponentselectedChar = opponentcharacters [0];
+
+		GameObject	opponentselectedChar = opponentcharacters [0];
+
 	//	StoreInventory.RefreshLocalInventory ();
 		//check for other character selections in the storage
 		if (StoreInventory.IsVirtualGoodEquipped("bike"))

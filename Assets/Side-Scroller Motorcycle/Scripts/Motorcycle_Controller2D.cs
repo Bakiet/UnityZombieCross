@@ -95,6 +95,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	
 	//used to count scores
 	public static int score = 0;
+	public static Vector3 position;
 	
 	
 	
@@ -180,6 +181,9 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	public GameObject CenterOfMass;	
 	public GameObject Smoke;	
 	public GameObject Ensemble;
+
+	public AudioClip BodyDeadSound;
+	public AudioClip MotoDeadSound;
 
 	
 	//Vehicle properties
@@ -651,6 +655,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	}
 	void Start()
 	{
+
 		if(useUpgrade){
 		UpgradeInventory ();
 		}
@@ -763,12 +768,12 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					
 					if(forMobile){
 
-						
+							if(nubes){
 							nubes.GetComponent<Paralaxcity>().InitiateScroll();
 							edif2.GetComponent<Paralaxcity>().InitiateScroll();
 							humo.GetComponent<Paralaxcity>().InitiateScroll();
 							edif1.GetComponent<Paralaxcity>().InitiateScroll();
-					
+							}
 						
 						CurrentVelocity = Acceleration * InputGetAxis("Vertical") * Time.deltaTime * SpeedMotorMobile;
 						//CurrentVelocity = Acceleration * InputGetAxis("Vertical") * SpeedMotorMobile;
@@ -781,10 +786,12 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 
 					}
 					else{
+							if(nubes){
 							nubes.GetComponent<Paralaxcity>().InitiateScroll();
 							edif2.GetComponent<Paralaxcity>().InitiateScroll();
 							humo.GetComponent<Paralaxcity>().InitiateScroll();
 							edif1.GetComponent<Paralaxcity>().InitiateScroll();
+							}
 							/*nubes.GetComponent<Paralaxcity>(). = true;
 							edif2.GetComponent<Paralaxcity>().enabled = true;
 							humo.GetComponent<Paralaxcity>().enabled = true;
@@ -822,10 +829,12 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 				  }
 				} 
 				else{
+					if(nubes){
 					nubes.GetComponent<Paralaxcity>().StopScroll();
 					edif2.GetComponent<Paralaxcity>().StopScroll();
 					humo.GetComponent<Paralaxcity>().StopScroll();
 					edif1.GetComponent<Paralaxcity>().StopScroll();
+					}
 					/*
 					nubes.GetComponent<Paralaxcity>().enabled = false;
 					edif2.GetComponent<Paralaxcity>().enabled = false;
@@ -923,6 +932,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	
 	void Update()
 	{
+
 		float timeLeft = endTime - Time.time;
 		if (timeLeft < 0) {
 			timeLeft = 0;
@@ -1217,6 +1227,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 				GameObject smoke = (GameObject)Resources.Load("prefabs/CFXM_GroundSmokeExplosionAlt", typeof(GameObject));
 				Instantiate(smoke, CarBody.transform.position, Quaternion.identity);
 
+				AudioSource.PlayClipAtPoint(BodyDeadSound,CarBody.transform.position,10.0f);
 
 				Camera.main.GetComponent<CameraFollow2D>().target = CarBody.transform; //make camera to follow biker's hips	
 				
@@ -1230,8 +1241,10 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 				//update lives
 				if(my_game_uGUI){
 					my_game_uGUI.Update_lives(-1);
+
 					//my_game_uGUI.Update_lives(live);
 				}
+
 			}
 			
 			

@@ -28,21 +28,26 @@ public class Bomb : MonoBehaviour {
 	public GameObject ObjectToCollided;
 	public GameObject ObjectToExploted;
 
+
 	public GameObject ObjectToLoseGravity;
 	public GameObject EffectLoseGravity;
 	public bool DestroyLoseGravity;
+	public AudioClip SoundLoseGravity;
 
 	public GameObject ObjectToLoseGravity2;
 	public GameObject EffectLoseGravity2;
 	public bool DestroyLoseGravity2;
+	public AudioClip SoundLoseGravity2;
 
 	public GameObject ObjectToLoseGravity3;
 	public GameObject EffectLoseGravity3;
 	public bool DestroyLoseGravity3;
+	public AudioClip SoundLoseGravity3;
 
 	public GameObject ObjectToLoseGravity4;
 	public GameObject EffectLoseGravity4;
 	public bool DestroyLoseGravity4;
+	public AudioClip SoundLoseGravity4;
 
 	GameObject bomb;
 	GameObject wood;
@@ -189,7 +194,10 @@ public class Bomb : MonoBehaviour {
 							GameObject position = ObjectToLoseGravity;
 							if(position != null){
 							EffectLoseGravity.transform.position = position.transform.position;
-								CFX_SpawnSystem.Instantiate (EffectLoseGravity);}
+								CFX_SpawnSystem.Instantiate (EffectLoseGravity);
+								AudioSource.PlayClipAtPoint(SoundLoseGravity,EffectLoseGravity.transform.position);
+								Motorcycle_Controller2D.crash = true;
+							}
 							
 						}
 						
@@ -200,6 +208,8 @@ public class Bomb : MonoBehaviour {
 							GameObject position2 = ObjectToLoseGravity2;
 							EffectLoseGravity2.transform.position = position2.transform.position;
 							CFX_SpawnSystem.Instantiate (EffectLoseGravity2);
+							AudioSource.PlayClipAtPoint(SoundLoseGravity2,EffectLoseGravity2.transform.position);
+							Motorcycle_Controller2D.crash = true;
 						}
 						
 					}
@@ -209,6 +219,8 @@ public class Bomb : MonoBehaviour {
 							GameObject position3 = ObjectToLoseGravity3;
 							EffectLoseGravity3.transform.position = position3.transform.position;
 							CFX_SpawnSystem.Instantiate (EffectLoseGravity3);
+							AudioSource.PlayClipAtPoint(SoundLoseGravity3,EffectLoseGravity3.transform.position);
+							Motorcycle_Controller2D.crash = true;
 						}
 						
 					}
@@ -218,6 +230,8 @@ public class Bomb : MonoBehaviour {
 							GameObject position4 = ObjectToLoseGravity4;
 							EffectLoseGravity4.transform.position = position4.transform.position;
 							CFX_SpawnSystem.Instantiate (EffectLoseGravity4);
+							AudioSource.PlayClipAtPoint(SoundLoseGravity4,EffectLoseGravity4.transform.position);
+							Motorcycle_Controller2D.crash = true;
 						}
 						
 					}
