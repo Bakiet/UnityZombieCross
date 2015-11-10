@@ -39,8 +39,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a21887e1cf80db49978ff567bcdd66c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fillMaterial: {fileID: 2100000, guid: 20d61511302407844bfb568c6740a9bd, type: 2}
-  edgeMaterial: {fileID: 2100000, guid: 20d61511302407844bfb568c6740a9bd, type: 2}
+  fillMaterial: {fileID: 2100000, guid: dcf63754faf26b149a00235046326111, type: 2}
+  edgeMaterial: {fileID: 2100000, guid: dcf63754faf26b149a00235046326111, type: 2}
   descriptors:
   - applyTo: 0
     zOffset: 0
@@ -59,7 +59,7 @@ MonoBehaviour:
       height: 0
     rightCap:
       serializedVersion: 2
-      x: 0
+      x: 1
       y: 0
       width: 0
       height: 0
@@ -73,10 +73,44 @@ MonoBehaviour:
     - serializedVersion: 2
       x: 0
       y: 0
-      width: 0
+      width: 1
       height: 0
     capOffset: 0
-  - applyTo: 0
+  - applyTo: 1
+    zOffset: 0
+    yOffset: 6.53000021
+    leftCap:
+      serializedVersion: 2
+      x: .0029296875
+      y: 0
+      width: 0
+      height: 0
+    innerLeftCap:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    rightCap:
+      serializedVersion: 2
+      x: 1
+      y: 0
+      width: 0
+      height: 0
+    innerRightCap:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    body:
+    - serializedVersion: 2
+      x: .0029296875
+      y: 0
+      width: .997070312
+      height: 0
+    capOffset: -0
+  - applyTo: 2
     zOffset: 0
     yOffset: 0
     leftCap:
@@ -93,7 +127,7 @@ MonoBehaviour:
       height: 0
     rightCap:
       serializedVersion: 2
-      x: 0
+      x: 1
       y: 0
       width: 0
       height: 0
@@ -107,10 +141,10 @@ MonoBehaviour:
     - serializedVersion: 2
       x: 0
       y: 0
-      width: 0
+      width: 1
       height: 0
     capOffset: 0
-  - applyTo: 0
+  - applyTo: 3
     zOffset: 0
     yOffset: 0
     leftCap:
@@ -127,7 +161,7 @@ MonoBehaviour:
       height: 0
     rightCap:
       serializedVersion: 2
-      x: 0
+      x: 1
       y: 0
       width: 0
       height: 0
@@ -141,41 +175,7 @@ MonoBehaviour:
     - serializedVersion: 2
       x: 0
       y: 0
-      width: 0
-      height: 0
-    capOffset: 0
-  - applyTo: 0
-    zOffset: 0
-    yOffset: 0
-    leftCap:
-      serializedVersion: 2
-      x: 0
-      y: 0
-      width: 0
-      height: 0
-    innerLeftCap:
-      serializedVersion: 2
-      x: 0
-      y: 0
-      width: 0
-      height: 0
-    rightCap:
-      serializedVersion: 2
-      x: 0
-      y: 0
-      width: 0
-      height: 0
-    innerRightCap:
-      serializedVersion: 2
-      x: 0
-      y: 0
-      width: 0
-      height: 0
-    body:
-    - serializedVersion: 2
-      x: 0
-      y: 0
-      width: 0
+      width: 1
       height: 0
     capOffset: 0
   isPixel: 0
@@ -189,7 +189,119 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: edgeMaterial
       value: 
-      objectReference: {fileID: 2100000, guid: aaf4802d4ba9d5642a8bf690532efeab, type: 2}
+      objectReference: {fileID: 2100000, guid: dcf63754faf26b149a00235046326111, type: 2}
+    - target: {fileID: 0}
+      propertyPath: descriptors.Array.data[0].body.Array.data[0].height
+      value: .076171875
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: descriptors.Array.data[0].rightCap.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: descriptors.Array.data[0].body.Array.data[0].width
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: descriptors.Array.data[1].applyTo
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: descriptors.Array.data[1].rightCap.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: descriptors.Array.data[1].body.Array.data[0].width
+      value: .997070312
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: descriptors.Array.data[1].body.Array.data[0].height
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: descriptors.Array.data[2].applyTo
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: descriptors.Array.data[2].rightCap.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: descriptors.Array.data[2].body.Array.data[0].width
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: descriptors.Array.data[2].body.Array.data[0].height
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: descriptors.Array.data[3].applyTo
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: descriptors.Array.data[3].rightCap.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: descriptors.Array.data[3].body.Array.data[0].width
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: descriptors.Array.data[3].body.Array.data[0].height
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: fillMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: dcf63754faf26b149a00235046326111, type: 2}
+    - target: {fileID: 0}
+      propertyPath: descriptors.Array.data[1].leftCap.width
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: descriptors.Array.data[1].leftCap.height
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: descriptors.Array.data[1].rightCap.width
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: descriptors.Array.data[1].rightCap.height
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: descriptors.Array.data[1].body.Array.data[0].x
+      value: .0029296875
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: descriptors.Array.data[1].capOffset
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: descriptors.Array.data[1].yOffset
+      value: 6.53000021
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: descriptors.Array.data[1].zOffset
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: descriptors.Array.data[1].leftCap.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: descriptors.Array.data[1].rightCap.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: descriptors.Array.data[1].body.Array.data[0].y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: descriptors.Array.data[1].leftCap.x
+      value: .0029296875
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 100000}
