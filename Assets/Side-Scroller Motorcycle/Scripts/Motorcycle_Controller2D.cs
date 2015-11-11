@@ -22,7 +22,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	private  string INCREMENTAL_ACHIEVEMENT_ID_Assassin = "CgkIq6GznYALEAIQCg";
 	private  string INCREMENTAL_ACHIEVEMENT_ID_Sergeant = "CgkIq6GznYALEAIQCQ";
 
-	
+
 	public float explodeDuration = 5f;
 	public float explosionTime = 1;
 	public bool useUpgrade=false;
@@ -733,8 +733,9 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		
 		
 		Camera.main.GetComponent<CameraFollow2D>().target = CarBody.transform; //make camera to follow biker's hips	
-		
-		unhandlingToDestroy ();
+
+			unhandlingToDestroy ();
+
 
 		CarBody.transform.Rotate (Vector3.right * 180);
 
@@ -1287,36 +1288,33 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	public void unhandlingToDestroy()
 	{
 
-		hingeJoints = Body2D.GetComponents<HingeJoint2D>();	
-		//boots.GetComponent<Rigidbody2D>().AddTorque (-1080,0); 
-		hingeJoints[0].enabled = false;
-		hingeJoints[1].enabled = false;
-		hingeJoints[2].enabled = false;
-		hingeJoints[3].enabled = false;
-		hingeJoints[4].enabled = false;
-		/*hingeJoints [0].limits = 1000;
-		hingeJoints [1].limits = 1000;
-		hingeJoints [2].limits = 1000;
-		hingeJoints [3].limits= 1000;
-		hingeJoints [4].limits = 1000;*/
+			hingeJoints = Body2D.GetComponents<HingeJoint2D> ();	
+			//boots.GetComponent<Rigidbody2D>().AddTorque (-1080,0); 
+			hingeJoints [0].enabled = false;
+			hingeJoints [1].enabled = false;
+			hingeJoints [2].enabled = false;
+			hingeJoints [3].enabled = false;
+			hingeJoints [4].enabled = false;
+			
+			wheelJoints = Body2D.GetComponents<WheelJoint2D> ();
+			wheelJoints [0].enabled = false;
+			wheelJoints [1].enabled = false;
+			
+			leftHandJoints = leftHand.GetComponents<HingeJoint2D> ();	
+			rightHandJoints = rightHand.GetComponents<HingeJoint2D> ();	
+			bootsJoints = boots.GetComponents<HingeJoint2D> ();	
+			kneeJoints = knee.GetComponents<HingeJoint2D> ();	
+			legJoints = leg.GetComponents<HingeJoint2D> ();	
+			helmetJoints = helmet.GetComponents<HingeJoint2D> ();	
+			
+			leftHandJoints [0].enabled = false;
+			rightHandJoints [0].enabled = false;
+			bootsJoints [0].enabled = false;
+			kneeJoints [0].enabled = false;
+			legJoints [0].enabled = false;
+			helmetJoints [0].enabled = false;
+	
 
-		wheelJoints = Body2D.GetComponents<WheelJoint2D>();
-		wheelJoints[0].enabled = false;
-		wheelJoints[1].enabled = false;
-
-		leftHandJoints = leftHand.GetComponents<HingeJoint2D>();	
-		rightHandJoints = rightHand.GetComponents<HingeJoint2D>();	
-		bootsJoints = boots.GetComponents<HingeJoint2D>();	
-		kneeJoints = knee.GetComponents<HingeJoint2D>();	
-		legJoints = leg.GetComponents<HingeJoint2D>();	
-		helmetJoints = helmet.GetComponents<HingeJoint2D>();	
-
-		leftHandJoints[0].enabled = false;
-		rightHandJoints[0].enabled = false;
-		bootsJoints[0].enabled = false;
-		kneeJoints[0].enabled = false;
-		legJoints[0].enabled = false;
-		helmetJoints[0].enabled = false;
 
 	}
 	private IEnumerator Coroutine (int arrayjoin,float time) 

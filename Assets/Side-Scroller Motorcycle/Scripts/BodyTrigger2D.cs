@@ -22,6 +22,14 @@ public class BodyTrigger2D : MonoBehaviour {
 	
 	//used to know if next level exists.
 	private bool nextLevel = false;
+
+	public GameObject EffectFinish;
+	public GameObject EffectFinishleft1;
+	public GameObject EffectFinishleft2;
+	public GameObject EffectFinishleft3;
+	public GameObject EffectFinishright1;
+	public GameObject EffectFinishright2;
+	public GameObject EffectFinishright3;
 	
 	
 	game_uGUI my_game_uGUI;
@@ -85,11 +93,99 @@ public class BodyTrigger2D : MonoBehaviour {
 			Motorcycle_Controller2D.isControllable = false; //disable motorcycle controlling
 			
 			//disable rear wheel rotation
-			var m = transform.root.GetComponent<Motorcycle_Controller2D>();
-			m.rearWheel.freezeRotation = true;
+			Motorcycle_Controller2D.isControllable = false;
+			//var m = transform.root.GetComponent<Motorcycle_Controller2D>();
+			//m.rearWheel.freezeRotation = true;
 			//rearWheel.freezeRotation = true;
 			//m.acceleration = 0;
 		//	m.Acceleration = 0;
+			GameObject meta = GameObject.Find ("meta");
+			
+			if (EffectFinish != null) {
+				EffectFinish.SetActive (true);
+				EffectFinishleft1.SetActive (true);
+				EffectFinishleft2.SetActive (true);
+				EffectFinishleft3.SetActive (true);
+				EffectFinishright1.SetActive (true);
+				EffectFinishright2.SetActive (true);
+				EffectFinishright3.SetActive (true);
+
+					GameObject position = meta;
+					if(position != null){
+					EffectFinish.transform.position = position.transform.position;
+
+					Vector3 temp = EffectFinish.transform.position;
+					temp.y = (EffectFinish.transform.position.y + 2.0f);
+					temp.z = (EffectFinish.transform.position.z + 0.08f);
+					EffectFinish.transform.position = temp;
+					CFX_SpawnSystem.Instantiate (EffectFinish);
+
+					EffectFinishleft1.transform.position = position.transform.position;
+					
+					Vector3 temp2 = EffectFinishleft1.transform.position;
+					temp2.y = (EffectFinishleft1.transform.position.y + 1.5f);
+					temp2.x = (EffectFinishleft1.transform.position.x - 0.7f);
+					temp2.z = (EffectFinishleft1.transform.position.z + 0.08f);
+
+					EffectFinishleft1.transform.position = temp2;					
+					CFX_SpawnSystem.Instantiate (EffectFinishleft1);
+
+					EffectFinishleft2.transform.position = position.transform.position;
+					
+					Vector3 temp3 = EffectFinishleft2.transform.position;
+					temp3.y = (EffectFinishleft2.transform.position.y + 0.8f);
+					temp3.x = (EffectFinishleft2.transform.position.x - 0.7f);
+					temp3.z = (EffectFinishleft2.transform.position.z + 0.08f);
+					
+					EffectFinishleft2.transform.position = temp3;					
+					CFX_SpawnSystem.Instantiate (EffectFinishleft2);
+
+					EffectFinishleft3.transform.position = position.transform.position;
+					
+					Vector3 temp4 = EffectFinishleft3.transform.position;
+					temp4.y = (EffectFinishleft3.transform.position.y + 0.06f);
+					temp4.x = (EffectFinishleft3.transform.position.x - 0.7f);
+					temp4.z = (EffectFinishleft3.transform.position.z + 0.08f);
+					
+					EffectFinishleft3.transform.position = temp4;					
+					CFX_SpawnSystem.Instantiate (EffectFinishleft3);
+
+					EffectFinishright1.transform.position = position.transform.position;
+					
+					Vector3 tempright2 = EffectFinishright1.transform.position;
+					tempright2.y = (EffectFinishright1.transform.position.y + 1.5f);
+					tempright2.x = (EffectFinishright1.transform.position.x + 0.7f);
+					tempright2.z = (EffectFinishright1.transform.position.z + 0.08f);
+					
+					EffectFinishright1.transform.position = tempright2;					
+					CFX_SpawnSystem.Instantiate (EffectFinishright1);
+					
+					EffectFinishright2.transform.position = position.transform.position;
+					
+					Vector3 tempright3 = EffectFinishright2.transform.position;
+					tempright3.y = (EffectFinishright2.transform.position.y + 0.8f);
+					tempright3.x = (EffectFinishright2.transform.position.x + 0.7f);
+					tempright3.z = (EffectFinishright2.transform.position.z + 0.08f);
+					
+					EffectFinishright2.transform.position = tempright3;					
+					CFX_SpawnSystem.Instantiate (EffectFinishright2);
+					
+					EffectFinishright3.transform.position = position.transform.position;
+					
+					Vector3 tempright4 = EffectFinishright3.transform.position;
+					tempright4.y = (EffectFinishright3.transform.position.y + 0.06f);
+					tempright4.x = (EffectFinishright3.transform.position.x + 0.7f);
+					tempright4.z = (EffectFinishright3.transform.position.z + 0.08f);
+					
+					EffectFinishright3.transform.position = tempright4;					
+					CFX_SpawnSystem.Instantiate (EffectFinishright3);
+					//AudioSource.PlayClipAtPoint(SoundLoseGravity,EffectLoseGravity.transform.position);
+
+
+					//EffectFinishleft3.transform.position.x + 0.7f);
+					}
+
+			}
 
 			winText.enabled = true; //show win text				
 			
@@ -97,23 +193,23 @@ public class BodyTrigger2D : MonoBehaviour {
 			{
 				nextLevel = true;
 				
-				if(m.forMobile)
-					winText.text = "CONGRATULATIONS, YOU WON! \n YOUR SCORE IS: " + Motorcycle_Controller2D.score + "\n\n TAP ON SCREEN FOR NEXT LEVEL";
+//				if(m.forMobile)
+				//	winText.text = "CONGRATULATIONS, YOU WON! \n YOUR SCORE IS: " + Motorcycle_Controller2D.score + "\n\n TAP ON SCREEN FOR NEXT LEVEL";
 				if(my_game_uGUI){
 					my_game_uGUI.Victory();
 				}
 				else
-					winText.text = "CONGRATULATIONS, YOU WON! \n YOUR SCORE IS: " + Motorcycle_Controller2D.score + "\n\n PRESS SPACE FOR NEXT LEVEL";		
+				//	winText.text = "CONGRATULATIONS, YOU WON! \n YOUR SCORE IS: " + Motorcycle_Controller2D.score + "\n\n PRESS SPACE FOR NEXT LEVEL";		
 				if(my_game_uGUI){
 					my_game_uGUI.Victory();
 				}
 			}
 			else //won level is last one
 			{
-				if(m.forMobile)
-					winText.text = "CONGRATULATIONS, YOU WON! \n YOUR SCORE IS: " + Motorcycle_Controller2D.score + "\n\n TAP ON SCREEN TO PLAY FIRST LEVEL";				
-				else
-					winText.text = "CONGRATULATIONS, YOU WON! \n YOUR SCORE IS: " + Motorcycle_Controller2D.score + "\n\n PRESS SPACE TO PLAY FIRST LEVEL";				
+				//if(m.forMobile)
+					//winText.text = "CONGRATULATIONS, YOU WON! \n YOUR SCORE IS: " + Motorcycle_Controller2D.score + "\n\n TAP ON SCREEN TO PLAY FIRST LEVEL";				
+				//else
+				//	winText.text = "CONGRATULATIONS, YOU WON! \n YOUR SCORE IS: " + Motorcycle_Controller2D.score + "\n\n PRESS SPACE TO PLAY FIRST LEVEL";				
 				
 				nextLevel = false;
 			}

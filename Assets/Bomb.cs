@@ -8,8 +8,9 @@ public class Bomb : MonoBehaviour {
 	public GameObject Explotion;
 	public bool ExplotionWithThis;
 	public Rigidbody2D body;	
-	public float radius = 100.0f;    //provides a radius at which the explosive will effect rigidbodies
-	public float radiusExplotion = 100.0f;
+	public float radius = 1.0f;    //provides a radius at which the explosive will effect rigidbodies
+	//public float radiusExplotion = 100.0f;
+	public float radiusDead = 100.0f;
 	public float power = 100.0f;
 	public static bool Collider = false;
 	public static bool Collision = false;
@@ -196,7 +197,9 @@ public class Bomb : MonoBehaviour {
 							EffectLoseGravity.transform.position = position.transform.position;
 								CFX_SpawnSystem.Instantiate (EffectLoseGravity);
 								AudioSource.PlayClipAtPoint(SoundLoseGravity,EffectLoseGravity.transform.position);
+								if (radius < radiusDead) {
 								Motorcycle_Controller2D.crash = true;
+								}
 							}
 							
 						}
@@ -209,7 +212,9 @@ public class Bomb : MonoBehaviour {
 							EffectLoseGravity2.transform.position = position2.transform.position;
 							CFX_SpawnSystem.Instantiate (EffectLoseGravity2);
 							AudioSource.PlayClipAtPoint(SoundLoseGravity2,EffectLoseGravity2.transform.position);
-							Motorcycle_Controller2D.crash = true;
+							if (radius < radiusDead) {
+								Motorcycle_Controller2D.crash = true;
+							}
 						}
 						
 					}
@@ -220,7 +225,9 @@ public class Bomb : MonoBehaviour {
 							EffectLoseGravity3.transform.position = position3.transform.position;
 							CFX_SpawnSystem.Instantiate (EffectLoseGravity3);
 							AudioSource.PlayClipAtPoint(SoundLoseGravity3,EffectLoseGravity3.transform.position);
-							Motorcycle_Controller2D.crash = true;
+							if (radius < radiusDead) {
+								Motorcycle_Controller2D.crash = true;
+							}
 						}
 						
 					}
@@ -231,7 +238,9 @@ public class Bomb : MonoBehaviour {
 							EffectLoseGravity4.transform.position = position4.transform.position;
 							CFX_SpawnSystem.Instantiate (EffectLoseGravity4);
 							AudioSource.PlayClipAtPoint(SoundLoseGravity4,EffectLoseGravity4.transform.position);
-							Motorcycle_Controller2D.crash = true;
+							if (radius < radiusDead) {
+								Motorcycle_Controller2D.crash = true;
+							}
 						}
 						
 					}
@@ -277,6 +286,7 @@ public class Bomb : MonoBehaviour {
 	
 	
 	void Start () {
+
 //		Explotion.SetActive (false);
 	//	GameObject effect= GameObject.Find ("CFXM2_GroundWoodHit Bigger Dark");
 	//	effect.SetActive (false);
