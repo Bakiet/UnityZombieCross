@@ -1124,7 +1124,9 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 						my_game_uGUI.Update_int_score (100);
 						
 					}
+					if(audioXP){
 					audioXP.Play ();
+					}
 					flip = false;				
 					backflipParticle.Emit (1);
 					
@@ -1141,7 +1143,9 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					if (my_game_uGUI) {
 						my_game_uGUI.Update_int_score (100);
 					}
+					if(audioXP){
 					audioXP.Play ();
+					}
 					flip = false;
 					frontflipParticle.Emit (1);
 					
