@@ -12,6 +12,7 @@ public class CameraFollow2D : MonoBehaviour {
 	void Start()
 	{
 		cam = transform;
+		target = Motorcycle_Controller2D.CarBodyTransformStatic;
 	}
 
 	// Update is called once per frame

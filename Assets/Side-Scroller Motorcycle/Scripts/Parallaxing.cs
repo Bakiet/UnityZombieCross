@@ -45,7 +45,39 @@ public class Parallaxing : MonoBehaviour {
 		parallaxScales = new float[backgrounds.Length];
 		for (int i = 0; i < backgrounds.Length; i++) {
 			parallaxScales[i] = backgrounds[i].position.z*-1;
+			if(i == 6){
+			backgrounds[i].GetComponent<Rigidbody2D>().velocity = new Vector2(0.1f, 0.0f);
+			}
+			if(i == 7){
+				backgrounds[i].GetComponent<Rigidbody2D>().velocity = new Vector2(0.1f, 0.0f);
+			}
+			if(i == 8){
+				backgrounds[i].GetComponent<Rigidbody2D>().velocity = new Vector2(0.1f, 0.0f);
+			}
+			if(i == 9){
+				backgrounds[i].GetComponent<Rigidbody2D>().velocity = new Vector2(0.1f, 0.0f);
+			}
+			if(i == 10){
+				backgrounds[i].GetComponent<Rigidbody2D>().velocity = new Vector2(0.1f, 0.0f);
+			}
+			if(i == 23){
+				backgrounds[i].GetComponent<Rigidbody2D>().velocity = new Vector2(0.1f, 0.0f);
+			}
+			if(i == 24){
+				backgrounds[i].GetComponent<Rigidbody2D>().velocity = new Vector2(0.1f, 0.0f);
+			}
+			if(i ==25){
+				backgrounds[i].GetComponent<Rigidbody2D>().velocity = new Vector2(0.1f, 0.0f);
+			}
+			if(i == 26){
+				backgrounds[i].GetComponent<Rigidbody2D>().velocity = new Vector2(0.1f, 0.0f);
+			}
+			if(i == 27){
+				backgrounds[i].GetComponent<Rigidbody2D>().velocity = new Vector2(0.1f, 0.0f);
+			}
 		}
+
+
 	}
 	
 	// Update is called once per frame
@@ -81,21 +113,21 @@ public class Parallaxing : MonoBehaviour {
 			if(i == 5){
 				backgrounds[i].position = Vector3.Lerp (backgrounds[i].position, backgroundTargetPos, smoothingcielo* Time.deltaTime);
 			}
-			if(i == 6){
-				backgrounds[i].position = Vector3.Lerp (backgrounds[i].position, backgroundTargetPos, smoothingnubes* Time.deltaTime);
+			/*if(i == 6){
+				backgrounds[i].position = Vector3.Lerp (backgrounds[i].position, backgroundTargetPos, smoothingnubes * Time.deltaTime);
 			}
 			if(i == 7){
-				backgrounds[i].position = Vector3.Lerp (backgrounds[i].position, backgroundTargetPos, smoothingnubes* Time.deltaTime);
+				backgrounds[i].position = Vector3.Lerp (backgrounds[i].position, backgroundTargetPos, smoothingnubes * Time.deltaTime);
 			}
 			if(i == 8){
-				backgrounds[i].position = Vector3.Lerp (backgrounds[i].position, backgroundTargetPos, smoothingnubes* Time.deltaTime);
+				backgrounds[i].position = Vector3.Lerp (backgrounds[i].position, backgroundTargetPos, smoothingnubes * Time.deltaTime);
 			}
 			if(i == 9){
-				backgrounds[i].position = Vector3.Lerp (backgrounds[i].position, backgroundTargetPos, smoothingnubes* Time.deltaTime);
+				backgrounds[i].position = Vector3.Lerp (backgrounds[i].position, backgroundTargetPos, smoothingnubes * Time.deltaTime);
 			}
 			if(i == 10){
-				backgrounds[i].position = Vector3.Lerp (backgrounds[i].position, backgroundTargetPos, smoothingnubes* Time.deltaTime);
-			}
+				backgrounds[i].position = Vector3.Lerp (backgrounds[i].position, backgroundTargetPos, smoothingnubes * Time.deltaTime);
+			}*/
 			if(i == 11){
 				backgrounds[i].position = Vector3.Lerp (backgrounds[i].position, backgroundTargetPos, smoothingedif * Time.deltaTime);
 			}
@@ -132,7 +164,7 @@ public class Parallaxing : MonoBehaviour {
 			if(i == 22){
 				backgrounds[i].position = Vector3.Lerp (backgrounds[i].position, backgroundTargetPos, smoothingediftiny * Time.deltaTime);
 			}
-			if(i == 23){
+			/*if(i == 23){
 				backgrounds[i].position = Vector3.Lerp (backgrounds[i].position, backgroundTargetPos, smoothinghumo * Time.deltaTime);
 			}
 			if(i == 24){
@@ -146,7 +178,7 @@ public class Parallaxing : MonoBehaviour {
 			}
 			if(i == 27){
 				backgrounds[i].position = Vector3.Lerp (backgrounds[i].position, backgroundTargetPos, smoothinghumo * Time.deltaTime);
-			}
+			}*/
 
 		}
 

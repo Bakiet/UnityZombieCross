@@ -171,6 +171,8 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	
 	
 	public Rigidbody2D frontWheel;
+	public GameObject frontWheelObject;
+	public static GameObject frontWheelStatic;
 	public Rigidbody2D rearWheel;
 	
 	
@@ -178,6 +180,8 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	public GameObject Car;
 	//Car = GameObject.Find("Car"); 	
 	public GameObject CarBody;	
+	public Transform CarBodyTransform;	
+	public static Transform CarBodyTransformStatic;	
 	public GameObject CenterOfMass;	
 	public GameObject Smoke;	
 	public GameObject Ensemble;
@@ -655,7 +659,8 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	}
 	void Start()
 	{
-
+		CarBodyTransformStatic = CarBodyTransform;
+		frontWheelStatic = frontWheelObject;
 		if(useUpgrade){
 		UpgradeInventory ();
 		}

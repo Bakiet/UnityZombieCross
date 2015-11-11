@@ -10,7 +10,7 @@ public class Bomb : MonoBehaviour {
 	public Rigidbody2D body;	
 	public float radius = 1.0f;    //provides a radius at which the explosive will effect rigidbodies
 	//public float radiusExplotion = 100.0f;
-	public float radiusDead = 100.0f;
+	public float radiusDead = 3.0f;
 	public float power = 100.0f;
 	public static bool Collider = false;
 	public static bool Collision = false;
@@ -92,8 +92,8 @@ public class Bomb : MonoBehaviour {
 	}	
 	void MyWaitingFunction()
 	{	
-		//ObjectToCollided = body.name;
-
+		ObjectToCollided = Motorcycle_Controller2D.frontWheelStatic;
+		ObjectToExploted = Explotion;
 		bomb = ObjectToExploted;
 
 
