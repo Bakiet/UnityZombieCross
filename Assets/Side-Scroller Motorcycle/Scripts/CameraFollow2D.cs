@@ -17,7 +17,7 @@ public class CameraFollow2D : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (IfCity) {
-			cam.position = new Vector3 (target.position.y + 5, cam.position.z);
+			cam.position = new Vector3 (target.position.x, target.position.y + 5, cam.position.z);
 		} 
 		else if (IfVolcan) {
 			cam.position = new Vector3 (target.position.x, target.position.y + 4, cam.position.z);

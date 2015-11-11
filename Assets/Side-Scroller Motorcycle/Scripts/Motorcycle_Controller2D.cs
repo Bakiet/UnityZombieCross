@@ -767,13 +767,13 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					//rearWheel.GetComponent.<Rigidbody2D>().AddTorque (0, parseInt(inAirRotationSpeed * 180 * Time.deltaTime));  
 					
 					if(forMobile){
-
+							/*
 							if(nubes){
 							nubes.GetComponent<Paralaxcity>().InitiateScroll();
 							edif2.GetComponent<Paralaxcity>().InitiateScroll();
 							humo.GetComponent<Paralaxcity>().InitiateScroll();
 							edif1.GetComponent<Paralaxcity>().InitiateScroll();
-							}
+							}*/
 						
 						CurrentVelocity = Acceleration * InputGetAxis("Vertical") * Time.deltaTime * SpeedMotorMobile;
 						//CurrentVelocity = Acceleration * InputGetAxis("Vertical") * SpeedMotorMobile;
@@ -786,12 +786,12 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 
 					}
 					else{
-							if(nubes){
+							/*if(nubes){
 							nubes.GetComponent<Paralaxcity>().InitiateScroll();
 							edif2.GetComponent<Paralaxcity>().InitiateScroll();
 							humo.GetComponent<Paralaxcity>().InitiateScroll();
 							edif1.GetComponent<Paralaxcity>().InitiateScroll();
-							}
+							}*/
 							/*nubes.GetComponent<Paralaxcity>(). = true;
 							edif2.GetComponent<Paralaxcity>().enabled = true;
 							humo.GetComponent<Paralaxcity>().enabled = true;
@@ -829,12 +829,12 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 				  }
 				} 
 				else{
-					if(nubes){
+					/*if(nubes){
 					nubes.GetComponent<Paralaxcity>().StopScroll();
 					edif2.GetComponent<Paralaxcity>().StopScroll();
 					humo.GetComponent<Paralaxcity>().StopScroll();
 					edif1.GetComponent<Paralaxcity>().StopScroll();
-					}
+					}*/
 					/*
 					nubes.GetComponent<Paralaxcity>().enabled = false;
 					edif2.GetComponent<Paralaxcity>().enabled = false;
