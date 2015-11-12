@@ -89,6 +89,8 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	//used to determine when player is crashed
 	public static bool crash = false;
 	public static bool crashed = false;
+	public static bool crashSaw = false;
+	public static bool crashSawHead = false;
 	
 	//used to enable/disable motorcycle controlling
 	public static bool isControllable = true;
@@ -1256,6 +1258,70 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 				}
 
 			}
+			if(crashSaw && !crashed) //if player just crashed
+			{											
+				
+				/*	makeclick Achievement = new makeclick();
+				Achievement.SENDACHIEVEMENT(ACHIEVEMENT_ID_First_Death);
+				*/
+				GameObject soul = (GameObject)Resources.Load("prefabs/CFXM2_Soul", typeof(GameObject));
+				Instantiate(soul, CarBody.transform.position, Quaternion.identity);
+				GameObject explotion = (GameObject)Resources.Load("prefabs/CFXM_Explosion+Text NoSmoke", typeof(GameObject));
+				Instantiate(explotion, CarBody.transform.position, Quaternion.identity);
+				GameObject smoke = (GameObject)Resources.Load("prefabs/CFXM_GroundSmokeExplosionAlt", typeof(GameObject));
+				Instantiate(smoke, CarBody.transform.position, Quaternion.identity);
+				
+				AudioSource.PlayClipAtPoint(BodyDeadSound,CarBody.transform.position,10.0f);
+				
+				Camera.main.GetComponent<CameraFollow2D>().target = CarBody.transform; //make camera to follow biker's hips	
+
+				unhandlingToDestroy ();
+				
+				CarBody.transform.Rotate (Vector3.right * 180);
+				
+				
+				isControllable = false;
+				crashed = true;
+				//update lives
+				if(my_game_uGUI){
+					my_game_uGUI.Update_lives(-1);
+					
+					//my_game_uGUI.Update_lives(live);
+				}
+				
+			}
+			if(crashSawHead && !crashed) //if player just crashed
+			{											
+				
+				/*	makeclick Achievement = new makeclick();
+				Achievement.SENDACHIEVEMENT(ACHIEVEMENT_ID_First_Death);
+				*/
+				GameObject soul = (GameObject)Resources.Load("prefabs/CFXM2_Soul", typeof(GameObject));
+				Instantiate(soul, CarBody.transform.position, Quaternion.identity);
+				GameObject explotion = (GameObject)Resources.Load("prefabs/CFXM_Explosion+Text NoSmoke", typeof(GameObject));
+				Instantiate(explotion, CarBody.transform.position, Quaternion.identity);
+				GameObject smoke = (GameObject)Resources.Load("prefabs/CFXM_GroundSmokeExplosionAlt", typeof(GameObject));
+				Instantiate(smoke, CarBody.transform.position, Quaternion.identity);
+				
+				AudioSource.PlayClipAtPoint(BodyDeadSound,CarBody.transform.position,10.0f);
+				
+				Camera.main.GetComponent<CameraFollow2D>().target = CarBody.transform; //make camera to follow biker's hips	
+				
+				unhandlingToDestroySawHead ();
+				
+				CarBody.transform.Rotate (Vector3.right * 180);
+				
+				
+				isControllable = false;
+				crashed = true;
+				//update lives
+				if(my_game_uGUI){
+					my_game_uGUI.Update_lives(-1);
+					
+					//my_game_uGUI.Update_lives(live);
+				}
+				
+			}
 			
 			
 		}
@@ -1320,6 +1386,27 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 			helmetJoints [0].enabled = false;
 	
 
+
+	}
+	public void unhandlingToDestroySawHead()
+	{
+		
+		hingeJoints = Body2D.GetComponents<HingeJoint2D> ();	
+		//boots.GetComponent<Rigidbody2D>().AddTorque (-1080,0); 
+		/*hingeJoints [0].enabled = false;
+		hingeJoints [1].enabled = false;
+		hingeJoints [2].enabled = false;
+		hingeJoints [3].enabled = false;
+		hingeJoints [4].enabled = false;
+		*/
+		leftHandJoints = leftHand.GetComponents<HingeJoint2D> ();	
+		rightHandJoints = rightHand.GetComponents<HingeJoint2D> ();	
+		bootsJoints = boots.GetComponents<HingeJoint2D> ();	
+		kneeJoints = knee.GetComponents<HingeJoint2D> ();	
+		legJoints = leg.GetComponents<HingeJoint2D> ();	
+		helmetJoints = helmet.GetComponents<HingeJoint2D> ();	
+
+		helmetJoints [0].enabled = false;
 
 	}
 	private IEnumerator Coroutine (int arrayjoin,float time) 

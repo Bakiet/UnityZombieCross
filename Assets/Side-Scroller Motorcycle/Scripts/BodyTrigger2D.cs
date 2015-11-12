@@ -4,8 +4,10 @@ using System.Collections;
 public class BodyTrigger2D : MonoBehaviour {
 
 	public static bool finish = false;
-
+	public float endTimeLose = 2.0f;
+	public float endTimeWin = 2.0f;
 	//used to play sounds
+	public AudioClip CoinSound;
 	public AudioClip bonesCrackSound;
 	public AudioClip hitSound;
 	public AudioClip oohCrowdSound;
@@ -30,6 +32,8 @@ public class BodyTrigger2D : MonoBehaviour {
 	public GameObject EffectFinishright1;
 	public GameObject EffectFinishright2;
 	public GameObject EffectFinishright3;
+
+	public GameObject EffectCoin;
 	
 	
 	game_uGUI my_game_uGUI;
@@ -77,15 +81,26 @@ public class BodyTrigger2D : MonoBehaviour {
 		//--------------------------------------------------
 	}
 	
-	void OnTriggerEnter(Collider obj)
-	{
 
-	}
 	
 	void OnTriggerEnter2D(Collider2D obj)
 	{	
-		
-		
+
+		if (obj.tag == "Coin") {
+			
+			if (my_game_uGUI) {
+				my_game_uGUI.Update_int_score (100);
+				//my_game_uGUI.Update_virtual_money(1);				
+			}
+			EffectCoin.SetActive (true);
+			GameObject position = obj.gameObject;
+			if(position != null){
+				EffectCoin.transform.position = position.transform.position;
+				CFX_SpawnSystem.Instantiate (EffectCoin);
+				AudioSource.PlayClipAtPoint(CoinSound,EffectCoin.transform.position,10.0f);
+			}
+			Destroy(obj.gameObject);
+		}
 		if(obj.gameObject.tag == "Finish" && !Motorcycle_Controller2D.crash)//if entered in finish trigger
 		{
 			finish = true;
@@ -195,17 +210,16 @@ public class BodyTrigger2D : MonoBehaviour {
 				
 //				if(m.forMobile)
 				//	winText.text = "CONGRATULATIONS, YOU WON! \n YOUR SCORE IS: " + Motorcycle_Controller2D.score + "\n\n TAP ON SCREEN FOR NEXT LEVEL";
-				if(my_game_uGUI){
-					my_game_uGUI.Victory();
-				}
-				else
+
+				Invoke ("wingui", endTimeWin);
+
+
 				//	winText.text = "CONGRATULATIONS, YOU WON! \n YOUR SCORE IS: " + Motorcycle_Controller2D.score + "\n\n PRESS SPACE FOR NEXT LEVEL";		
-				if(my_game_uGUI){
-					my_game_uGUI.Victory();
-				}
+
 			}
 			else //won level is last one
 			{
+				Invoke ("wingui", endTimeWin);
 				//if(m.forMobile)
 					//winText.text = "CONGRATULATIONS, YOU WON! \n YOUR SCORE IS: " + Motorcycle_Controller2D.score + "\n\n TAP ON SCREEN TO PLAY FIRST LEVEL";				
 				//else
@@ -215,18 +229,31 @@ public class BodyTrigger2D : MonoBehaviour {
 			}
 			
 		}
-		else if(obj.tag != "Checkpoint" ^ obj.tag != "ZoomOutTrigger"  ^ obj.tag != "ZoomInTrigger" ^ obj.tag == "Player") //if entered in any other trigger than "Finish" & "Checkpoint", that means player crashed
+		else if(obj.tag != "Checkpoint" ^ obj.tag != "ZoomOutTrigger"  ^ obj.tag != "ZoomInTrigger" ^ obj.tag == "Player"^ obj.tag == "Coin") //if entered in any other trigger than "Finish" & "Checkpoint", that means player crashed
 		{
 			if(!Motorcycle_Controller2D.crash)
 			{
-				Motorcycle_Controller2D.crash = true;
-				if(my_game_uGUI){
-					my_game_uGUI.Defeat();
+				if (obj.tag == "Saw") {
+					
+					Motorcycle_Controller2D.crashSaw = true;
 				}
+				else if(obj.tag == "SawHead"){
+					Motorcycle_Controller2D.crashSawHead = true;
+				}
+				else{
+					Motorcycle_Controller2D.crash = true;
+				}
+
+
+
+
 				//play sounds
 				bonesCrackSC.Play ();
 				hitSC.Play ();
 				oohCrowdSC.Play ();
+
+				Invoke ("endgui", endTimeLose);
+
 				
 				if(!finish) //if we haven't entered in finish make crash text visible
 				{
@@ -252,6 +279,18 @@ public class BodyTrigger2D : MonoBehaviour {
 					
 				}
 			} 
+		}
+	}
+	void endgui()
+	{
+		if(my_game_uGUI){
+			my_game_uGUI.Defeat();
+		}
+	}
+	void wingui()
+	{
+		if(my_game_uGUI){
+			my_game_uGUI.Victory();
 		}
 	}
 	
