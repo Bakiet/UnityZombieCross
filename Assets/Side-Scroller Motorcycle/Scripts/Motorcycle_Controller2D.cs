@@ -1257,6 +1257,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					//my_game_uGUI.Update_lives(live);
 				}
 
+
 			}
 			if(crashSaw && !crashed) //if player just crashed
 			{											

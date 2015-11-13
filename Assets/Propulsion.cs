@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class Propulsion : MonoBehaviour {
 
-	public Rigidbody body;	
+	public Rigidbody2D body;	
 	public static bool Collider = false;
 	public static bool Collision = false;
 	public float time = 3f;
@@ -116,8 +116,8 @@ public class Propulsion : MonoBehaviour {
 				}
 
 				if (bomb != null) {
-					bomb.GetComponent<Rigidbody> ().isKinematic = false; 
-					bomb.GetComponent<Rigidbody> ().useGravity = true;
+					bomb.GetComponent<Rigidbody2D> ().isKinematic = false; 
+					//bomb.GetComponent<Rigidbody2D> ().useGravity = true;
 					//Destroy (bomb);
 					
 				}
@@ -166,29 +166,29 @@ public class Propulsion : MonoBehaviour {
 
 			
 				if (wood != null) {
-					wood.GetComponent<Rigidbody> ().isKinematic = false; 
-					wood.GetComponent<Rigidbody> ().useGravity = true;
+					wood.GetComponent<Rigidbody2D> ().isKinematic = false; 
+					//wood.GetComponent<Rigidbody2D> ().useGravity = true;
 					if(DestroyLoseGravity){
 						Destroy(wood);
 					}
 				}
 				if (wood2 != null) {
-					wood2.GetComponent<Rigidbody> ().isKinematic = false; 
-					wood2.GetComponent<Rigidbody> ().useGravity = true;
+					wood2.GetComponent<Rigidbody2D> ().isKinematic = false; 
+					//wood2.GetComponent<Rigidbody2D> ().useGravity = true;
 					if(DestroyLoseGravity2){
 						Destroy(wood2);
 					}
 				}
 				if (wood3 != null) {
 					wood3.GetComponent<Rigidbody> ().isKinematic = false; 
-					wood3.GetComponent<Rigidbody> ().useGravity = true;
+					//wood3.GetComponent<Rigidbody> ().useGravity = true;
 					if(DestroyLoseGravity3){
 						Destroy(wood3);
 					}
 				}
 				if (wood4 != null) {
-					wood4.GetComponent<Rigidbody> ().isKinematic = false; 
-					wood4.GetComponent<Rigidbody> ().useGravity = true;
+					wood4.GetComponent<Rigidbody2D> ().isKinematic = false; 
+					//wood4.GetComponent<Rigidbody2D> ().useGravity = true;
 					if(DestroyLoseGravity4){
 						Destroy(wood4);
 					}
