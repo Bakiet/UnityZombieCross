@@ -59,6 +59,9 @@ public class Bomb : MonoBehaviour {
 	GameObject wood3;
 	GameObject wood4;
 
+	private static Collider2D hitColliderStatic;
+	private static Vector3 grenadeOrigenStatic;
+
 	public	string	identifier				= "";		// Use to identify the slow motion
 	public bool UsedSlowMotion;
 	public	float	delay					= 1;		// Delay to start Slow Motion
@@ -123,7 +126,7 @@ public class Bomb : MonoBehaviour {
 		}
 
 
-		Invoke ("TimeEffectExecute", timeEffect);
+		Invoke ("TimeEffectExecute", time);
 
 
 	}
@@ -139,11 +142,12 @@ public class Bomb : MonoBehaviour {
 		//body.AddForce (dir.normalized * expForce * calc);
 		body.AddForce (dir.normalized * expForce * calc);
 	}
+
 	void TimeEffectExecute()
 	{
 		Vector3 grenadeOrigin = transform.position;
 		Collider2D[] colliders = Physics2D.OverlapCircleAll (grenadeOrigin, radius);
-
+		grenadeOrigenStatic = grenadeOrigin;
 		foreach (Collider2D hit in colliders) {
 			if(ObjectToCollided != null)
 			{
@@ -151,143 +155,8 @@ public class Bomb : MonoBehaviour {
 
 					if(timeToTouch == countTimes){
 
-						if(UsedSlowMotion)
-						{
-							count = count + 1;
-							if(count == 1){
-								SlowMotionController.AddSlowMotion(desiredFreezeDuration, desiredTimeScale, delay);
-							}
-						}
-						if (Explotion != null) {
-							Explotion.SetActive (true);
-							if(body != null){
-								Explotion.transform.position = body.position;
-							}
-						}
-						if (bomb != null) {
-							bomb.GetComponent<Rigidbody2D> ().isKinematic = false; 
-							//bomb.GetComponent<Rigidbody2D> ().useGravity = true;
-							//Destroy (bomb);
-							
-						}
-						
-						timescollision = timescollision + 1;
-						if(ExplotionWithThis == true)
-						{
-							
-							Instantiate(Explotion);
-							
-							//CFX_SpawnSystem.Instantiate (Explotion);
-						}
-						if(isHit){
-							Vector3 granadeorigin = grenadeOrigin;
-							granadeorigin.z = 10;
-							granadeorigin.y = granadeorigin.y - 2.0f;
-							Vector3 objPos1 = Camera.main.ScreenToWorldPoint(granadeorigin);
-							
-							AddExplosionForce(hit.GetComponent<Rigidbody2D> (), power * 100, objPos1, radius);
-							//hit.GetComponent<Rigidbody2D> ().AddForceAtPosition (power, grenadeOrigin, ForceMode2D.Force);
-						}
-						if(isBomb)
-						{
-							Vector3 granadeorigin = grenadeOrigin;
-							granadeorigin.z = 10;
-							granadeorigin.y = granadeorigin.y - 2.0f;
-							Vector3 objPos1 = Camera.main.ScreenToWorldPoint(granadeorigin);
-							
-							AddExplosionForce(bomb.GetComponent<Rigidbody2D> (), power * 100, objPos1, radius);
-							//hit.GetComponent<Rigidbody2D> ().AddForceAtPosition (power, grenadeOrigin, ForceMode2D.Force);
-							//bomb.GetComponent<Rigidbody2D> ().AddForceAtPosition (power, grenadeOrigin, ForceMode2D.Force);
-							//bomb.GetComponent<Rigidbody2D> ().AddExplosionForce (power, grenadeOrigin, radiusExplotion, 1.0f);
-						}
-						
-						
-						if (EffectLoseGravity != null) {
-							EffectLoseGravity.SetActive (true);
-							if(body != null){
-								GameObject position = ObjectToLoseGravity;
-								if(position != null){
-									EffectLoseGravity.transform.position = position.transform.position;
-									CFX_SpawnSystem.Instantiate (EffectLoseGravity);
-									AudioSource.PlayClipAtPoint(SoundLoseGravity,EffectLoseGravity.transform.position);
-									if (radius < radiusDead) {
-										Motorcycle_Controller2D.crash = true;
-									}
-								}
-								
-							}
-							
-						}
-						if (EffectLoseGravity2 != null) {
-							EffectLoseGravity2.SetActive (true);
-							if(body != null){
-								GameObject position2 = ObjectToLoseGravity2;
-								EffectLoseGravity2.transform.position = position2.transform.position;
-								CFX_SpawnSystem.Instantiate (EffectLoseGravity2);
-								AudioSource.PlayClipAtPoint(SoundLoseGravity2,EffectLoseGravity2.transform.position);
-								if (radius < radiusDead) {
-									Motorcycle_Controller2D.crash = true;
-								}
-							}
-							
-						}
-						if (EffectLoseGravity3 != null) {
-							EffectLoseGravity3.SetActive (true);
-							if(body != null){
-								GameObject position3 = ObjectToLoseGravity3;
-								EffectLoseGravity3.transform.position = position3.transform.position;
-								CFX_SpawnSystem.Instantiate (EffectLoseGravity3);
-								AudioSource.PlayClipAtPoint(SoundLoseGravity3,EffectLoseGravity3.transform.position);
-								if (radius < radiusDead) {
-									Motorcycle_Controller2D.crash = true;
-								}
-							}
-							
-						}
-						if (EffectLoseGravity4 != null) {
-							EffectLoseGravity4.SetActive (true);
-							if(body != null){
-								GameObject position4 = ObjectToLoseGravity4;
-								EffectLoseGravity4.transform.position = position4.transform.position;
-								CFX_SpawnSystem.Instantiate (EffectLoseGravity4);
-								AudioSource.PlayClipAtPoint(SoundLoseGravity4,EffectLoseGravity4.transform.position);
-								if (radius < radiusDead) {
-									Motorcycle_Controller2D.crash = true;
-								}
-							}
-							
-						}
-						
-						
-						if (wood != null) {
-							wood.GetComponent<Rigidbody2D> ().isKinematic = false; 
-							//wood.GetComponent<Rigidbody2D> ().useGravity = true;
-							if(DestroyLoseGravity){
-								Destroy(wood);
-							}
-						}
-						if (wood2 != null) {
-							wood2.GetComponent<Rigidbody2D> ().isKinematic = false; 
-							//wood2.GetComponent<Rigidbody2D> ().useGravity = true;
-							if(DestroyLoseGravity2){
-								Destroy(wood2);
-							}
-						}
-						if (wood3 != null) {
-							wood3.GetComponent<Rigidbody2D> ().isKinematic = false; 
-							//wood3.GetComponent<Rigidbody2D> ().useGravity = true;
-							if(DestroyLoseGravity3){
-								Destroy(wood3);
-							}
-						}
-						if (wood4 != null) {
-							wood4.GetComponent<Rigidbody2D> ().isKinematic = false; 
-							//	wood4.GetComponent<Rigidbody2D> ().gravityScale = 1;
-							if(DestroyLoseGravity4){
-								Destroy(wood4);
-							}
-						}
-
+						hitColliderStatic = hit;
+						Invoke ("TimeEffectExecuteAll", timeEffect);
 
 					}
 					else{
@@ -300,7 +169,147 @@ public class Bomb : MonoBehaviour {
 		} 
 	}
 
-	
+	void TimeEffectExecuteAll()
+	{
+		if(UsedSlowMotion)
+		{
+			count = count + 1;
+			if(count == 1){
+				SlowMotionController.AddSlowMotion(desiredFreezeDuration, desiredTimeScale, delay);
+			}
+		}
+		if (Explotion != null) {
+			Explotion.SetActive (true);
+			if(body != null){
+				Explotion.transform.position = body.position;
+			}
+		}
+		if (bomb != null) {
+			bomb.GetComponent<Rigidbody2D> ().isKinematic = false; 
+			//bomb.GetComponent<Rigidbody2D> ().useGravity = true;
+			//Destroy (bomb);
+			
+		}
+		
+		timescollision = timescollision + 1;
+		if(ExplotionWithThis == true)
+		{
+			
+			Instantiate(Explotion);
+			
+			//CFX_SpawnSystem.Instantiate (Explotion);
+		}
+		if(isHit){
+			Vector3 granadeorigin = grenadeOrigenStatic;
+			granadeorigin.z = 10;
+			granadeorigin.y = granadeorigin.y - 2.0f;
+			Vector3 objPos1 = Camera.main.ScreenToWorldPoint(granadeorigin);
+			
+			AddExplosionForce(hitColliderStatic.GetComponent<Rigidbody2D> (), power * 100, objPos1, radius);
+			//hit.GetComponent<Rigidbody2D> ().AddForceAtPosition (power, grenadeOrigin, ForceMode2D.Force);
+		}
+		if(isBomb)
+		{
+			Vector3 granadeorigin = grenadeOrigenStatic;
+			granadeorigin.z = 10;
+			granadeorigin.y = granadeorigin.y - 2.0f;
+			Vector3 objPos1 = Camera.main.ScreenToWorldPoint(granadeorigin);
+			
+			AddExplosionForce(bomb.GetComponent<Rigidbody2D> (), power * 100, objPos1, radius);
+			//hit.GetComponent<Rigidbody2D> ().AddForceAtPosition (power, grenadeOrigin, ForceMode2D.Force);
+			//bomb.GetComponent<Rigidbody2D> ().AddForceAtPosition (power, grenadeOrigin, ForceMode2D.Force);
+			//bomb.GetComponent<Rigidbody2D> ().AddExplosionForce (power, grenadeOrigin, radiusExplotion, 1.0f);
+		}
+		
+		
+		if (EffectLoseGravity != null) {
+			EffectLoseGravity.SetActive (true);
+			if(body != null){
+				GameObject position = ObjectToLoseGravity;
+				if(position != null){
+					EffectLoseGravity.transform.position = position.transform.position;
+					CFX_SpawnSystem.Instantiate (EffectLoseGravity);
+					AudioSource.PlayClipAtPoint(SoundLoseGravity,EffectLoseGravity.transform.position);
+					if (radius < radiusDead) {
+						Motorcycle_Controller2D.crash = true;
+					}
+				}
+				
+			}
+			
+		}
+		if (EffectLoseGravity2 != null) {
+			EffectLoseGravity2.SetActive (true);
+			if(body != null){
+				GameObject position2 = ObjectToLoseGravity2;
+				EffectLoseGravity2.transform.position = position2.transform.position;
+				CFX_SpawnSystem.Instantiate (EffectLoseGravity2);
+				AudioSource.PlayClipAtPoint(SoundLoseGravity2,EffectLoseGravity2.transform.position);
+				if (radius < radiusDead) {
+					Motorcycle_Controller2D.crash = true;
+				}
+			}
+			
+		}
+		if (EffectLoseGravity3 != null) {
+			EffectLoseGravity3.SetActive (true);
+			if(body != null){
+				GameObject position3 = ObjectToLoseGravity3;
+				EffectLoseGravity3.transform.position = position3.transform.position;
+				CFX_SpawnSystem.Instantiate (EffectLoseGravity3);
+				AudioSource.PlayClipAtPoint(SoundLoseGravity3,EffectLoseGravity3.transform.position);
+				if (radius < radiusDead) {
+					Motorcycle_Controller2D.crash = true;
+				}
+			}
+			
+		}
+		if (EffectLoseGravity4 != null) {
+			EffectLoseGravity4.SetActive (true);
+			if(body != null){
+				GameObject position4 = ObjectToLoseGravity4;
+				EffectLoseGravity4.transform.position = position4.transform.position;
+				CFX_SpawnSystem.Instantiate (EffectLoseGravity4);
+				AudioSource.PlayClipAtPoint(SoundLoseGravity4,EffectLoseGravity4.transform.position);
+				if (radius < radiusDead) {
+					Motorcycle_Controller2D.crash = true;
+				}
+			}
+			
+		}
+		
+		
+		if (wood != null) {
+			wood.GetComponent<Rigidbody2D> ().isKinematic = false; 
+			//wood.GetComponent<Rigidbody2D> ().useGravity = true;
+			if(DestroyLoseGravity){
+				Destroy(wood);
+			}
+		}
+		if (wood2 != null) {
+			wood2.GetComponent<Rigidbody2D> ().isKinematic = false; 
+			//wood2.GetComponent<Rigidbody2D> ().useGravity = true;
+			if(DestroyLoseGravity2){
+				Destroy(wood2);
+			}
+		}
+		if (wood3 != null) {
+			wood3.GetComponent<Rigidbody2D> ().isKinematic = false; 
+			//wood3.GetComponent<Rigidbody2D> ().useGravity = true;
+			if(DestroyLoseGravity3){
+				Destroy(wood3);
+			}
+		}
+		if (wood4 != null) {
+			wood4.GetComponent<Rigidbody2D> ().isKinematic = false; 
+			//	wood4.GetComponent<Rigidbody2D> ().gravityScale = 1;
+			if(DestroyLoseGravity4){
+				Destroy(wood4);
+			}
+		}
+		
+		
+	}
 	
 	void Start () {
 		countTimes = 1;

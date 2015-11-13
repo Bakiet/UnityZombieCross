@@ -70,7 +70,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	//public GameObject Explosion1;
 	//public GameObject Soul;
 	//if this is activated the controlls will be got from touches else it'll be keyboard or joystick buttons
-	public bool forMobile = false;
+	public bool forMobile = true;
 	
 	
 	public bool usingAccelerometer = false;
@@ -1139,10 +1139,10 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					backflipParticle.Emit (1);
 					
 					
-					/*makeclick Achievement = new makeclick ();
+					makeclick Achievement = new makeclick ();
 				Achievement.SENDACHIEVEMENT (ACHIEVEMENT_ID_First_BackFlip);
 				Achievement.SENDACHIEVEMENTINCREMENT (INCREMENTAL_ACHIEVEMENT_ID_Two_BackFlip, 1);
-					*/
+
 					//score += 100;
 					//scoreText.text = "SCORE : " + score;
 				}
@@ -1157,10 +1157,10 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					flip = false;
 					frontflipParticle.Emit (1);
 					
-					/*				makeclick Achievement = new makeclick ();
+									makeclick Achievement = new makeclick ();
 				Achievement.SENDACHIEVEMENT (ACHIEVEMENT_ID_First_FrontFlip);
 				Achievement.SENDACHIEVEMENTINCREMENT (INCREMENTAL_ACHIEVEMENT_ID_Two_FrontFlip, 1);
-*/
+
 					//score += 150;	
 					//scoreText.text = "SCORE : " + score;					
 				}
@@ -1229,9 +1229,9 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 			if(crash && !crashed) //if player just crashed
 			{											
 
-					/*	makeclick Achievement = new makeclick();
+						makeclick Achievement = new makeclick();
 				Achievement.SENDACHIEVEMENT(ACHIEVEMENT_ID_First_Death);
-				*/
+
 				GameObject soul = (GameObject)Resources.Load("prefabs/CFXM2_Soul", typeof(GameObject));
 				Instantiate(soul, CarBody.transform.position, Quaternion.identity);
 				GameObject explotion = (GameObject)Resources.Load("prefabs/CFXM_Explosion+Text NoSmoke", typeof(GameObject));
@@ -1262,9 +1262,9 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 			if(crashSaw && !crashed) //if player just crashed
 			{											
 				
-				/*	makeclick Achievement = new makeclick();
+					makeclick Achievement = new makeclick();
 				Achievement.SENDACHIEVEMENT(ACHIEVEMENT_ID_First_Death);
-				*/
+
 				GameObject soul = (GameObject)Resources.Load("prefabs/CFXM2_Soul", typeof(GameObject));
 				Instantiate(soul, CarBody.transform.position, Quaternion.identity);
 				GameObject explotion = (GameObject)Resources.Load("prefabs/CFXM_Explosion+Text NoSmoke", typeof(GameObject));
@@ -1294,9 +1294,9 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 			if(crashSawHead && !crashed) //if player just crashed
 			{											
 				
-				/*	makeclick Achievement = new makeclick();
+					makeclick Achievement = new makeclick();
 				Achievement.SENDACHIEVEMENT(ACHIEVEMENT_ID_First_Death);
-				*/
+
 				GameObject soul = (GameObject)Resources.Load("prefabs/CFXM2_Soul", typeof(GameObject));
 				Instantiate(soul, CarBody.transform.position, Quaternion.identity);
 				GameObject explotion = (GameObject)Resources.Load("prefabs/CFXM_Explosion+Text NoSmoke", typeof(GameObject));

@@ -39164,7 +39164,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: EMOpenCloseMotion+OnCloseEndHandler, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  OpenAtStart: 0
+  OpenAtStart: 1
   openProp:
     motionType: 0
     isInside: 0
@@ -47765,9 +47765,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 945231624}
-  - 114: {fileID: 945231623}
-  - 114: {fileID: 945231622}
-  - 114: {fileID: 945231625}
   - 114: {fileID: 945231626}
   m_Layer: 0
   m_Name: _Controller
@@ -47776,81 +47773,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &945231622
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 945231621}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c361a635dfe774d0398e90ecb2466b07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  avatar: {fileID: 2144319021}
-  pieIcon: {fileID: 0}
-  connectButton: {fileID: 812708309}
-  scoreSubmit: {fileID: 363603784}
-  playerLabel: {fileID: 1639954199}
-  ConnectionDependedntButtons:
-  - {fileID: 1906300224}
-  - {fileID: 691504903}
-  - {fileID: 1536019839}
-  - {fileID: 2043300481}
-  - {fileID: 2127469851}
-  - {fileID: 123000969}
-  - {fileID: 363603784}
-  - {fileID: 257600132}
-  - {fileID: 1309751011}
-  - {fileID: 1846369752}
-  - {fileID: 1299212285}
-  - {fileID: 1352387091}
-  - {fileID: 311873173}
-  - {fileID: 1775778649}
-  - {fileID: 1536019839}
-  - {fileID: 956997824}
-  a_id: {fileID: 1653862804}
-  a_name: {fileID: 2047459334}
-  a_descr: {fileID: 867098078}
-  a_type: {fileID: 1199669719}
-  a_state: {fileID: 259645987}
-  a_steps: {fileID: 1045426799}
-  a_total: {fileID: 2018509984}
-  b_id: {fileID: 228399016}
-  b_name: {fileID: 1312785295}
-  b_all_time: {fileID: 571262919}
---- !u!114 &945231623
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 945231621}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a82342e6d4d594b28ade06ff5b80a7ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShowIntersButton: {fileID: 1772701447}
-  b1CreateButtons:
-  - {fileID: 1958083923}
-  - {fileID: 130559855}
-  - {fileID: 666587309}
-  - {fileID: 64427628}
-  - {fileID: 1323048763}
-  - {fileID: 801331112}
-  b1Hide: {fileID: 1031114186}
-  b1Show: {fileID: 1342774625}
-  b1Refresh: {fileID: 426514523}
-  ChangePost1: {fileID: 1817959624}
-  ChangePost2: {fileID: 1754171429}
-  b1Destroy: {fileID: 1889810119}
-  b2CreateButtons:
-  - {fileID: 83177090}
-  - {fileID: 1780371842}
-  b2Hide: {fileID: 203897785}
-  b2Show: {fileID: 88710139}
-  b2Refresh: {fileID: 156887357}
-  b2Destroy: {fileID: 646141777}
 --- !u!4 &945231624
 Transform:
   m_ObjectHideFlags: 0
@@ -47863,36 +47785,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &945231625
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 945231621}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e0e6b575e84d4087accdb6b06a60b8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  avatar: {fileID: 81475927}
-  connectButton: {fileID: 629322653}
-  playerLabel: {fileID: 1314168954}
-  GlobalButton: {fileID: 75256717}
-  LocalButton: {fileID: 1313108631}
-  AllTimeButton: {fileID: 662934004}
-  WeekButton: {fileID: 1183360491}
-  TodayButton: {fileID: 1057787175}
-  SubmitScoreButton: {fileID: 1330146491}
-  ConnectionDependedntButtons:
-  - {fileID: 75256717}
-  - {fileID: 1313108631}
-  - {fileID: 1183360491}
-  - {fileID: 662934004}
-  - {fileID: 1057787175}
-  - {fileID: 1330146491}
-  - {fileID: 173981663}
-  - {fileID: 1739307451}
-  lines: []
 --- !u!114 &945231626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55364,7 +55256,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1435305401}
-        m_MethodName: LoadScene
+        m_MethodName: LoadSceneWithP
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -64559,7 +64451,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: EMOpenCloseMotion+OnCloseEndHandler, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  OpenAtStart: 0
+  OpenAtStart: 1
   openProp:
     motionType: 0
     isInside: 0
@@ -79786,7 +79678,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: EMOpenCloseMotion+OnCloseEndHandler, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  OpenAtStart: 0
+  OpenAtStart: 1
   openProp:
     motionType: 0
     isInside: 0
