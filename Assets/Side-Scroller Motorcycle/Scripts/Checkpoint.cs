@@ -22,6 +22,7 @@ public class Checkpoint : MonoBehaviour {
 	void Start () {
 
 		audioSource = GetComponent<AudioSource>();
+		motorcyclePrefab = Motorcycle_Controller2D.BodyCarStatic;
 		moto = motorcyclePrefab;
 	}
 	

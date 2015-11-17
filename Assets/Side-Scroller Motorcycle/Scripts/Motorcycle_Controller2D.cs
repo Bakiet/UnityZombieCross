@@ -22,6 +22,10 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	private  string INCREMENTAL_ACHIEVEMENT_ID_Assassin = "CgkIq6GznYALEAIQCg";
 	private  string INCREMENTAL_ACHIEVEMENT_ID_Sergeant = "CgkIq6GznYALEAIQCQ";
 
+	public int StartingPitch = 1;
+	public float MaxPitch = 3.0f;
+	public float TimeToIncrease = 2.0f;
+	public float TimeToDecrease = 2.0f;
 
 	public float explodeDuration = 5f;
 	public float explosionTime = 1;
@@ -174,12 +178,15 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	
 	public Rigidbody2D frontWheel;
 	public GameObject frontWheelObject;
+	public GameObject backWheelObject;
 	public static GameObject frontWheelStatic;
+	public static GameObject backWheelStatic;
 	public Rigidbody2D rearWheel;
 	
 	
 	
 	public GameObject Car;
+	public static GameObject BodyCarStatic;
 	//Car = GameObject.Find("Car"); 	
 	public GameObject CarBody;	
 	public Transform CarBodyTransform;	
@@ -661,8 +668,14 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	}
 	void Start()
 	{
+
+		GetComponent<AudioSource>().pitch = StartingPitch;
+		GetComponent<AudioSource>().volume = 1.0f;  
+
+		BodyCarStatic = Car;
 		CarBodyTransformStatic = CarBodyTransform;
 		frontWheelStatic = frontWheelObject;
+		backWheelStatic = backWheelObject;
 		if(useUpgrade){
 		UpgradeInventory ();
 		}
@@ -702,7 +715,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		
 		Camera.main.GetComponent<CameraFollow2D>().target = CarBody.transform;	
 		
-		audioSource = CarBody.GetComponent<AudioSource>();		
+		audioSource = Car.GetComponent<AudioSource>();		
 		
 		//ORIGINAL 2D MOTOR	
 		
@@ -809,7 +822,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 						//if(Velocity < MaxSpeed){
 						Velocity = Mathf.Clamp(CurrentVelocity, -MaxSpeed, MaxSpeed);
 						//}
-					}
+						}
 
 						for(var i = 0; i <= (Wheels.Length-1); i++)
 						{
@@ -1168,12 +1181,19 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 				
 				//changing engine sound pitch depending rear wheel rotational speed
 				if (accelerate) {
-					/*pitch = rearWheel.angularVelocity.sqrMagnitude / speed;
-				pitch *= Time.deltaTime * 2;
-				pitch = Mathf.Clamp (pitch + 1, 0.5f, 1.8f);	*/		
+
+					if(GetComponent<AudioSource>().pitch < MaxPitch)
+						GetComponent<AudioSource>().pitch += ((Time.deltaTime) / TimeToIncrease);
+
+					/*pitch = rearWheel.velocity.sqrMagnitude / Velocity;
+					pitch *= Time.deltaTime * 2;
+					pitch = Mathf.Clamp (pitch + 1, 0.5f, 1.8f);	*/
 				} else {
-					//				pitch = audioSource.pitch;
-					//pitch = Mathf.Clamp (pitch - Time.deltaTime * 2, 0.5f, 1.8f);																
+					if(GetComponent<AudioSource>().pitch > StartingPitch)
+						GetComponent<AudioSource>().pitch -= ((Time.deltaTime) / TimeToDecrease);
+
+					/*pitch = audioSource.pitch;
+					pitch = Mathf.Clamp (pitch - Time.deltaTime * 2, 0.5f, 1.8f);	*/															
 				}
 				
 				//manipulating engine sound pitch

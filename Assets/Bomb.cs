@@ -28,8 +28,9 @@ public class Bomb : MonoBehaviour {
 	public bool isHit;
 	public bool isBomb;
 	public bool isAutomaticFrontWheel = true;
-
+	public bool isAutomaticBackWheel = true;
 	public GameObject ObjectToCollided;
+	public GameObject ObjectToCollided2;
 	public GameObject ObjectToExploted;
 
 
@@ -106,6 +107,13 @@ public class Bomb : MonoBehaviour {
 		else {
 			ObjectToCollided = ObjectToCollided;
 		}
+		if (isAutomaticBackWheel) {
+			ObjectToCollided2 = Motorcycle_Controller2D.backWheelStatic;
+			
+		}
+		else {
+			ObjectToCollided2 = ObjectToCollided2;
+		}
 		//ObjectToCollided = Motorcycle_Controller2D.frontWheelStatic;
 		ObjectToExploted = Explotion;
 		bomb = ObjectToExploted;
@@ -149,9 +157,9 @@ public class Bomb : MonoBehaviour {
 		Collider2D[] colliders = Physics2D.OverlapCircleAll (grenadeOrigin, radius);
 		grenadeOrigenStatic = grenadeOrigin;
 		foreach (Collider2D hit in colliders) {
-			if(ObjectToCollided != null)
-			{
-				if (hit.gameObject.name == ObjectToCollided.name) {
+			//if(ObjectToCollided != null)
+			//{
+				if (hit.gameObject.name == ObjectToCollided.name ||  hit.gameObject.name == ObjectToCollided2.name) {
 
 					if(timeToTouch == countTimes){
 
@@ -164,7 +172,7 @@ public class Bomb : MonoBehaviour {
 					}			
 				}
 				else{}
-			}
+			//}
 		
 		} 
 	}

@@ -29,7 +29,7 @@ public class ZoomCamera : MonoBehaviour {
 	
 	}
 
-	void OnTriggerEnter(Collider collider)
+	void OnTriggerEnter2D(Collider2D collider)
 	{
 		if (collider.gameObject.tag == "ZoomInTrigger")
 		{		
@@ -47,6 +47,7 @@ public class ZoomCamera : MonoBehaviour {
 				Camera.main.orthographicSize,
 				Camera.main.orthographicSize * increment,
 				timeLerp * Time.deltaTime);
+
 		}
 		else if (Camera.main.orthographicSize > camSizeLimit) {
 			shouldZoomOut = false;
@@ -59,6 +60,7 @@ public class ZoomCamera : MonoBehaviour {
 				Camera.main.orthographicSize,
 				Camera.main.orthographicSize * -increment,
 				timeLerp * Time.deltaTime);
+
 		}
 		else if (Camera.main.orthographicSize < 7.419368f) {
 			shouldZoomIn = false;
