@@ -394,6 +394,9 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	private float testbreakgravity3=4;
 	private float testacceleration3=24;
 
+
+	public GameObject effect = null;
+
 	void UpgradeInventory(){
 
 		string bikeupgrade = StoreInventory.GetGoodCurrentUpgrade ("bike_upgrade");
@@ -668,6 +671,28 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	}
 	void Start()
 	{
+
+		if (GameObject.Find ("smoke_effect_purple(Clone)")) {
+			effect = GameObject.Find ("smoke_effect_purple(Clone)");
+		}
+		if (GameObject.Find ("blood_effect(Clone)")) {
+			effect = GameObject.Find ("blood_effect(Clone)");
+		}
+		if (GameObject.Find ("fire_effect(Clone)")) {
+			effect = GameObject.Find ("fire_effect(Clone)");
+		}
+		if (GameObject.Find ("ice_effect(Clone)")) {
+			effect = GameObject.Find ("ice_effect(Clone)");
+		}
+		if (GameObject.Find ("electric_effect(Clone)")) {
+			effect = GameObject.Find ("electric_effect(Clone)");
+		}
+		if (GameObject.Find ("wave_effect(Clone)")) {
+			effect = GameObject.Find ("wave_effect(Clone)");
+		}
+		if (GameObject.Find ("neon_effect(Clone)")) {
+			effect = GameObject.Find ("neon_effect(Clone)");
+		}
 
 		GetComponent<AudioSource>().pitch = StartingPitch;
 		GetComponent<AudioSource>().volume = 1.0f;  
@@ -967,8 +992,10 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		if (isControllable) {
 
 			//RotateVehicle ();
-			
-			
+			if(effect){
+			//effect.SetActive(true);
+			effect.transform.position = rearWheel.transform.position;
+			}
 			if (!crash && !crashed) {
 			
 				//if(Physics2D.Raycast(frontWheel.position,body.transform.position, out hit, (int)DistToCollided))
@@ -1386,8 +1413,9 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 			hingeJoints [1].enabled = false;
 			hingeJoints [2].enabled = false;
 			hingeJoints [3].enabled = false;
-			hingeJoints [4].enabled = false;
-			
+			/*if (hingeJoints [4]) {
+				hingeJoints [4].enabled = false;
+			}*/
 			wheelJoints = Body2D.GetComponents<WheelJoint2D> ();
 			wheelJoints [0].enabled = false;
 			wheelJoints [1].enabled = false;

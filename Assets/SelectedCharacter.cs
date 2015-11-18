@@ -18,6 +18,7 @@ public class SelectedCharacter : AndroidNativeExampleBase {
 
 	private GameObject character;
 	private GameObject opponentcharacter;
+	private GameObject effect;
 	/// <summary>
 	/// death zone object reference
 	/// </summary>
@@ -28,6 +29,7 @@ public class SelectedCharacter : AndroidNativeExampleBase {
 	/// </summary>
 	public GameObject[] characters;
 	public GameObject[] opponentcharacters;
+	public GameObject[] effects;
 
 	// Use this for initialization
 	IEnumerator Start () {
@@ -59,6 +61,26 @@ public class SelectedCharacter : AndroidNativeExampleBase {
 			selectedChar = characters[6];
 		else if (StoreInventory.IsVirtualGoodEquipped("test_bike"))
 			selectedChar = characters[7];
+
+		GameObject selectedEffect = effects[0];
+		
+		//	StoreInventory.RefreshLocalInventory ();
+		//check for other character selections in the storage
+		if (StoreInventory.IsVirtualGoodEquipped("smoke_effect_purple"))
+			selectedEffect = effects[0];
+		else if (StoreInventory.IsVirtualGoodEquipped("blood_effect"))
+			selectedEffect = effects[1];
+		else if (StoreInventory.IsVirtualGoodEquipped("fire_effect"))
+			selectedEffect = effects[2];
+		else if (StoreInventory.IsVirtualGoodEquipped("ice_effect"))
+			selectedEffect = effects[3];
+		else if (StoreInventory.IsVirtualGoodEquipped("electric_effect"))
+			selectedEffect = effects[4];
+		else if (StoreInventory.IsVirtualGoodEquipped("wave_effect"))
+			selectedEffect = effects[5];
+		else if (StoreInventory.IsVirtualGoodEquipped("neon_effect"))
+			selectedEffect = effects[6];
+	
 
 		if (Multiplayer) {
 
@@ -130,6 +152,11 @@ public class SelectedCharacter : AndroidNativeExampleBase {
 			//instantiate the selected character in the game and set death zone reference
 			character = (GameObject)Instantiate (selectedChar, spawnPos.position, Quaternion.identity);
 			character.SetActive (true);
+			//if have effect
+			if(selectedEffect){
+				effect = (GameObject)Instantiate (selectedEffect, character.GetComponent<Motorcycle_Controller2D>().rearWheel.position, Quaternion.identity);
+				effect.SetActive (true);
+			}
 		}
 		//deathZone.GetComponent<FollowAxis>().target = character.transform;
 	
