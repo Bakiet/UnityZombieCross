@@ -395,7 +395,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	private float testacceleration3=24;
 
 
-	public GameObject effect = null;
+	private GameObject effect = null;
 	public static GameObject effectstatic = null;
 	public static bool ifnitro = false;
 	public static bool offnitro = false;
@@ -827,7 +827,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 
 						for(var i = 0; i <= (Wheels.Length-1); i++)
 						{
-							Wheels[i].GetComponent<Rigidbody2D>().AddTorque(-40f * (5000 / WheelRadius[i]) * 100);
+							Wheels[i].GetComponent<Rigidbody2D>().AddTorque(-7f * (500 / WheelRadius[i]) * 100);
 
 
 						}
@@ -916,6 +916,8 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 				
 				else{			
 					rearWheel.freezeRotation = false; //enable rotation for rear wheel if player isn't braking
+					//CarBody.GetComponent<Rigidbody2D>().AddTorque (new Vector3 (0, 0, (forMobile ? Mathf.Abs(Input.acceleration.x) : 1) * groundedWeightFactor * 100 * Time.deltaTime)); 
+					//CarBody.GetComponent<Rigidbody2D>().AddTorque (-groundedWeightFactor  * Time.deltaTime,ForceMode2D.Impulse); 
 				}
 				
 				if(left)
