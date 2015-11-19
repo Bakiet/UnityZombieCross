@@ -396,6 +396,9 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 
 
 	public GameObject effect = null;
+	public static GameObject effectstatic = null;
+	public static bool ifnitro = false;
+	public static bool offnitro = false;
 
 	void UpgradeInventory(){
 
@@ -674,24 +677,31 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 
 		if (GameObject.Find ("smoke_effect_purple(Clone)")) {
 			effect = GameObject.Find ("smoke_effect_purple(Clone)");
+			effectstatic = effect;
 		}
 		if (GameObject.Find ("blood_effect(Clone)")) {
 			effect = GameObject.Find ("blood_effect(Clone)");
+			effectstatic = effect;
 		}
 		if (GameObject.Find ("fire_effect(Clone)")) {
 			effect = GameObject.Find ("fire_effect(Clone)");
+			effectstatic = effect;
 		}
 		if (GameObject.Find ("ice_effect(Clone)")) {
 			effect = GameObject.Find ("ice_effect(Clone)");
+			effectstatic = effect;
 		}
 		if (GameObject.Find ("electric_effect(Clone)")) {
 			effect = GameObject.Find ("electric_effect(Clone)");
+			effectstatic = effect;
 		}
 		if (GameObject.Find ("wave_effect(Clone)")) {
 			effect = GameObject.Find ("wave_effect(Clone)");
+			effectstatic = effect;
 		}
 		if (GameObject.Find ("neon_effect(Clone)")) {
 			effect = GameObject.Find ("neon_effect(Clone)");
+			effectstatic = effect;
 		}
 
 		GetComponent<AudioSource>().pitch = StartingPitch;
@@ -798,7 +808,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 			RotateVehicle ();
 			if (!crash && !crashed) {	
 			  
-				if (SpeedMotorMobile > 80) {
+				/*if (SpeedMotorMobile > 80) {
 					if (fire) {
 						Instantiate (fire, CarBody.transform.position, Quaternion.identity);
 						fire.transform.position = CarBody.transform.position;
@@ -806,13 +816,33 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 				} else {
 					//Destroy(fire);
 					//fire.Stop ();
-				}
+				}*/
 				if (accelerate) {
-				  if(CurrentSpeedInKmph < MaxSpeed){
-					rearWheel.freezeRotation = false; //allow rotation to rear wheel
-					//rearWheel.GetComponent.<Rigidbody2D>().AddTorque (0, parseInt(inAirRotationSpeed * 180 * Time.deltaTime));  
-					
-					if(forMobile){
+					if(ifnitro)
+					{
+						//acce / vertical / time / speedmotor
+						CurrentVelocity = 60 * Input.GetAxis("Vertical") * Time.deltaTime * 100;
+						//-maxspeed / maxspeed
+						Velocity = Mathf.Clamp(CurrentVelocity, -100, 100);
+
+						for(var i = 0; i <= (Wheels.Length-1); i++)
+						{
+							Wheels[i].GetComponent<Rigidbody2D>().AddTorque(-40f * (5000 / WheelRadius[i]) * 100);
+
+
+						}
+
+					}
+					/*else if(offnitro){
+						for(var i = 0; i <= (Wheels.Length-1); i++)
+						{
+							Wheels[i].GetComponent<Rigidbody2D>().AddTorque(1f * (5 / WheelRadius[i]) * 10);
+						}
+						offnitro = false;
+					}*/
+					else{
+
+						if(forMobile){
 							/*
 							if(nubes){
 							nubes.GetComponent<Paralaxcity>().InitiateScroll();
@@ -820,18 +850,19 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 							humo.GetComponent<Paralaxcity>().InitiateScroll();
 							edif1.GetComponent<Paralaxcity>().InitiateScroll();
 							}*/
-						
-						CurrentVelocity = Acceleration * InputGetAxis("Vertical") * Time.deltaTime * SpeedMotorMobile;
-						//CurrentVelocity = Acceleration * InputGetAxis("Vertical") * SpeedMotorMobile;
-						//	CurrentVelocity = Acceleration * Input.GetAxisRaw ("Vertical") * Time.deltaTime * 10;
-						//Input.acceleration.x
-						//rearWheel.AddTorque (new Vector3 (0, 0, -speed * Time.deltaTime), ForceMode.Impulse);
-						//if(Velocity < MaxSpeed){
-						Velocity = Mathf.Clamp(CurrentVelocity, -MaxSpeed, MaxSpeed);
-					//	}
+							
+							CurrentVelocity = Acceleration * InputGetAxis("Vertical") * Time.deltaTime * SpeedMotorMobile;
+							//CurrentVelocity = Acceleration * InputGetAxis("Vertical") * SpeedMotorMobile;
+							//	CurrentVelocity = Acceleration * Input.GetAxisRaw ("Vertical") * Time.deltaTime * 10;
+							//Input.acceleration.x
+							//rearWheel.AddTorque (new Vector3 (0, 0, -speed * Time.deltaTime), ForceMode.Impulse);
+							//if(Velocity < MaxSpeed){
+							Velocity = Mathf.Clamp(CurrentVelocity, -MaxSpeed, MaxSpeed);
+							//	}
 
-					}
-					else{
+							
+						}
+						else{
 							/*if(nubes){
 							nubes.GetComponent<Paralaxcity>().InitiateScroll();
 							edif2.GetComponent<Paralaxcity>().InitiateScroll();
@@ -843,36 +874,28 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 							humo.GetComponent<Paralaxcity>().enabled = true;
 							edif1.GetComponent<Paralaxcity>().enabled = true;
 							*/
-						CurrentVelocity = Acceleration * Input.GetAxis("Vertical") * Time.deltaTime * SpeedMotor;
-						//if(Velocity < MaxSpeed){
-						Velocity = Mathf.Clamp(CurrentVelocity, -MaxSpeed, MaxSpeed);
-						//}
+							CurrentVelocity = Acceleration * Input.GetAxis("Vertical") * Time.deltaTime * SpeedMotor;
+							//if(Velocity < MaxSpeed){
+							Velocity = Mathf.Clamp(CurrentVelocity, -MaxSpeed, MaxSpeed);
+							//}
 						}
-
+						
 						for(var i = 0; i <= (Wheels.Length-1); i++)
 						{
-
+							
 							//Wheels[i].GetComponent<Rigidbody2D>().AddTorque(-0.2f * (30 / WheelRadius[i]) * 10);
-							Wheels[i].GetComponent<Rigidbody2D>().AddTorque(-0.2f * (Velocity / WheelRadius[i]) * 10);
+							Wheels[i].GetComponent<Rigidbody2D>().AddTorque(-0.1f * (Velocity / WheelRadius[i]) * 10);
 						}
 
-					
-					
-					//	rearWheel.GetComponent.<Rigidbody2D>().AddTorque (parseInt(-speed * Time.deltaTime),0);	
-					
-					//	rearWheel.GetComponent.<Rigidbody2D>().AddTorque (3f,0f,ForceMode2D.Impulse);						
-					//	CarBody.GetComponent.<Rigidbody2D>().AddTorque (0, parseInt(inAirRotationSpeed * 180 * Time.deltaTime));  
-					//rearWheel.AddTorque (Vector2.left -speed * Time.deltaTime), ForceMode.Impulse);	//add rotational speed to rear wheel
-					
-					
+
+					}
+
+
 					if (onGround) {//if motorcycle is standing on object tagged as "Ground"			
 						if (!dirt.isPlaying)
-							dirt.Play (); //play dirt particle
-						
-						//dirt.transform.position = rearWheel.position; //allign dirt to rear wheel
-						
+							dirt.Play (); //play dirt particle						
 					} 
-				  }
+
 				} 
 				else{
 					/*if(nubes){
@@ -995,6 +1018,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 			if(effect){
 			//effect.SetActive(true);
 			effect.transform.position = rearWheel.transform.position;
+			effectstatic.transform.position = effect.transform.position;			
 			}
 			if (!crash && !crashed) {
 			
@@ -1300,7 +1324,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 				//update lives
 				if(my_game_uGUI){
 					my_game_uGUI.Update_lives(-1);
-
+					Invoke ("endgui", 2.0f);
 					//my_game_uGUI.Update_lives(live);
 				}
 
@@ -1333,7 +1357,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 				//update lives
 				if(my_game_uGUI){
 					my_game_uGUI.Update_lives(-1);
-					
+					Invoke ("endgui", 2.0f);
 					//my_game_uGUI.Update_lives(live);
 				}
 				
@@ -1365,7 +1389,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 				//update lives
 				if(my_game_uGUI){
 					my_game_uGUI.Update_lives(-1);
-					
+					Invoke ("endgui", 2.0f);
 					//my_game_uGUI.Update_lives(live);
 				}
 				
@@ -1382,7 +1406,12 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		//	transform.Translate(Input.acceleration.x, 0, -Input.acceleration.y);
 		//SmokeEmmiter.force.y = Velocity * 20f;
 	}
-
+	void endgui()
+	{
+		if(my_game_uGUI){
+			my_game_uGUI.Defeat();
+		}
+	}
 	public void handling(string handlingName)
 	{
 		hingeJoints = Body2D.GetComponents<HingeJoint2D>();

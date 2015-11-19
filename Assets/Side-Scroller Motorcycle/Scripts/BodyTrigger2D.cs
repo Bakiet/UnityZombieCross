@@ -8,6 +8,7 @@ public class BodyTrigger2D : MonoBehaviour {
 	public float endTimeWin = 2.0f;
 	//used to play sounds
 	public AudioClip CoinSound;
+	public AudioClip NitroSound;
 	public AudioClip bonesCrackSound;
 	public AudioClip hitSound;
 	public AudioClip oohCrowdSound;
@@ -100,6 +101,18 @@ public class BodyTrigger2D : MonoBehaviour {
 				AudioSource.PlayClipAtPoint(CoinSound,EffectCoin.transform.position,10.0f);
 			}
 			Destroy(obj.gameObject);
+		}
+
+		if (obj.tag == "nitro") {
+			Motorcycle_Controller2D.ifnitro = true;
+			Motorcycle_Controller2D.offnitro = false;
+			//Motorcycle_Controller2D.effectstatic.transform.position = Motorcycle_Controller2D.backWheelStatic.transform.position;
+			//SelectedCharacter.effectstatic.transform.position = position.transform.position;
+			//CFX_SpawnSystem.Instantiate (Motorcycle_Controller2D.effectstatic);
+			AudioSource.PlayClipAtPoint(NitroSound,Motorcycle_Controller2D.backWheelStatic.transform.position,10.0f);
+			Destroy(obj.gameObject);
+			Invoke ("NitroOff", 8);
+
 		}
 		if(obj.gameObject.tag == "Finish" && !Motorcycle_Controller2D.crash)//if entered in finish trigger
 		{
@@ -229,7 +242,7 @@ public class BodyTrigger2D : MonoBehaviour {
 			}
 			
 		}
-		else if(obj.tag != "Checkpoint" ^ obj.tag != "ZoomOutTrigger"  ^ obj.tag != "ZoomInTrigger" ^ obj.tag == "Player"^ obj.tag == "Coin"^ obj.tag == "Ground") //if entered in any other trigger than "Finish" & "Checkpoint", that means player crashed
+		else if(obj.tag != "Checkpoint" ^ obj.tag != "ZoomOutTrigger"  ^ obj.tag != "ZoomInTrigger" ^ obj.tag == "Player"^ obj.tag == "Coin"^ obj.tag == "Ground"^ obj.tag == "nitro") //if entered in any other trigger than "Finish" & "Checkpoint", that means player crashed
 		{
 			if(!Motorcycle_Controller2D.crash)
 			{
@@ -292,6 +305,12 @@ public class BodyTrigger2D : MonoBehaviour {
 		if(my_game_uGUI){
 			my_game_uGUI.Victory();
 		}
+	}
+
+	void NitroOff()
+	{
+		Motorcycle_Controller2D.ifnitro = false;
+		Motorcycle_Controller2D.offnitro = true;
 	}
 	
 	void Update()

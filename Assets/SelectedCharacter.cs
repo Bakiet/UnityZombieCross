@@ -81,6 +81,20 @@ public class SelectedCharacter : AndroidNativeExampleBase {
 		else if (StoreInventory.IsVirtualGoodEquipped("neon_effect"))
 			selectedEffect = effects[6];
 	
+		if (selectedChar == null) {
+			//we didn't select a character yet, meaning this app runs for the first time
+			//give and equip the white box by default and refresh shop
+			StoreInventory.GiveItem("bike", 1);
+			StoreInventory.EquipVirtualGood("bike");
+			SIS.ShopManager.SetItemState();
+		}
+		if (selectedEffect == null) {
+			/*StoreInventory.GiveItem("fire_effect", 1);
+			StoreInventory.EquipVirtualGood("fire_effect");
+			SIS.ShopManager.SetItemState();*/
+			selectedEffect = effects[0];
+
+		}
 
 		if (Multiplayer) {
 
@@ -105,11 +119,7 @@ public class SelectedCharacter : AndroidNativeExampleBase {
 		}
 		else
 		{
-			//we didn't select a character yet, meaning this app runs for the first time
-			//give and equip the white box by default and refresh shop
-			StoreInventory.GiveItem("bike", 1);
-			StoreInventory.EquipVirtualGood("bike");
-			SIS.ShopManager.SetItemState();
+
 		}
 //		GameObject.Find ("bike").SetActive(true);
 		if (Multiplayer) {
