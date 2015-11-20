@@ -61,6 +61,14 @@ public class SelectedCharacter : AndroidNativeExampleBase {
 			selectedChar = characters[6];
 		else if (StoreInventory.IsVirtualGoodEquipped("test_bike"))
 			selectedChar = characters[7];
+		else if (StoreInventory.IsVirtualGoodEquipped("blue_bike"))
+			selectedChar = characters[8];
+		else if (StoreInventory.IsVirtualGoodEquipped("summer_bike"))
+			selectedChar = characters[9];
+		else if (StoreInventory.IsVirtualGoodEquipped("peace_bike"))
+			selectedChar = characters[10];
+		else if (StoreInventory.IsVirtualGoodEquipped("sunshine_bike"))
+			selectedChar = characters[11];
 
 		GameObject selectedEffect = effects[0];
 		
@@ -116,6 +124,14 @@ public class SelectedCharacter : AndroidNativeExampleBase {
 				opponentselectedChar = opponentcharacters [6];
 			else if (StoreInventory.IsVirtualGoodEquipped ("test_bike"))
 				opponentselectedChar = opponentcharacters [7];
+			else if (StoreInventory.IsVirtualGoodEquipped ("blue_bike"))
+				opponentselectedChar = opponentcharacters [8];
+			else if (StoreInventory.IsVirtualGoodEquipped ("summer_bike"))
+				opponentselectedChar = opponentcharacters [9];
+			else if (StoreInventory.IsVirtualGoodEquipped ("peace_bike"))
+				opponentselectedChar = opponentcharacters [10];
+			else if (StoreInventory.IsVirtualGoodEquipped ("sunshine_bike"))
+				opponentselectedChar = opponentcharacters [11];
 		}
 		else
 		{

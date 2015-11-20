@@ -249,16 +249,19 @@ public class BodyTrigger2D : MonoBehaviour {
 		{
 			if(!Motorcycle_Controller2D.crash)
 			{
-				if (obj.tag == "Saw") {
-					
+				if (obj.tag == "Saw") {					
 					Motorcycle_Controller2D.crashSaw = true;
 				}
 				else if(obj.tag == "SawHead"){
 					Motorcycle_Controller2D.crashSawHead = true;
 				}
+				else if(obj.tag == "DynamicParticle"){
+					Motorcycle_Controller2D.crashBurned = true;
+				}
 				else{
 					Motorcycle_Controller2D.crash = true;
 				}
+
 
 
 
