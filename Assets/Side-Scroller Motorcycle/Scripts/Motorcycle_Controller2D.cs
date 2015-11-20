@@ -396,7 +396,9 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 
 
 	private GameObject effect = null;
+	private GameObject effectnitro = null;
 	public static GameObject effectstatic = null;
+	public static GameObject effectnitrostatic = null;
 	public static bool ifnitro = false;
 	public static bool offnitro = false;
 
@@ -443,6 +445,8 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		if (testupgrade != "") {
 			testupgradelevel = StoreInventory.GetGoodUpgradeLevel ("test_bike_upgrade");
 		}
+
+
 		if(this.name == "bike(Clone)"){
 			if (bikeupgradelevel != 0) {
 				if(bikeupgradelevel ==1){
@@ -663,6 +667,106 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 				}
 			}
 		}
+		else if (this.name == "blue_bike(Clone)") {
+			if (bikeupgradelevel != 0) {
+				if(bikeupgradelevel ==1){
+					SpeedMotorMobile = bikespeedmobile1;
+					SpeedMotor = bikespeedmotor1;
+					MaxSpeed =bikemaxspeed1;
+					BreakMass = bikebreakmass1;
+					BreakGravity = bikebreakgravity1;
+					Acceleration =bikeacceleration1;}
+				if(bikeupgradelevel ==2){
+					SpeedMotorMobile = bikespeedmobile2;
+					SpeedMotor = bikespeedmotor2;
+					MaxSpeed =bikemaxspeed2;
+					BreakMass = bikebreakmass2;
+					BreakGravity = bikebreakgravity2;
+					Acceleration =bikeacceleration2;}
+				if(bikeupgradelevel ==3){
+					SpeedMotorMobile = bikespeedmobile3;
+					SpeedMotor = bikespeedmotor3;
+					MaxSpeed =bikemaxspeed3;
+					BreakMass = bikebreakmass3;
+					BreakGravity = bikebreakgravity3;
+					Acceleration =bikeacceleration3;}
+			}
+		}
+		else if (this.name == "summer_bike(Clone)") {
+			if (bikeupgradelevel != 0) {
+				if(bikeupgradelevel ==1){
+					SpeedMotorMobile = bikespeedmobile1;
+					SpeedMotor = bikespeedmotor1;
+					MaxSpeed =bikemaxspeed1;
+					BreakMass = bikebreakmass1;
+					BreakGravity = bikebreakgravity1;
+					Acceleration =bikeacceleration1;}
+				if(bikeupgradelevel ==2){
+					SpeedMotorMobile = bikespeedmobile2;
+					SpeedMotor = bikespeedmotor2;
+					MaxSpeed =bikemaxspeed2;
+					BreakMass = bikebreakmass2;
+					BreakGravity = bikebreakgravity2;
+					Acceleration =bikeacceleration2;}
+				if(bikeupgradelevel ==3){
+					SpeedMotorMobile = bikespeedmobile3;
+					SpeedMotor = bikespeedmotor3;
+					MaxSpeed =bikemaxspeed3;
+					BreakMass = bikebreakmass3;
+					BreakGravity = bikebreakgravity3;
+					Acceleration =bikeacceleration3;}
+			}
+		}
+		else if (this.name == "peace_bike(Clone)") {
+			if (bikeupgradelevel != 0) {
+				if(bikeupgradelevel ==1){
+					SpeedMotorMobile = bikespeedmobile1;
+					SpeedMotor = bikespeedmotor1;
+					MaxSpeed =bikemaxspeed1;
+					BreakMass = bikebreakmass1;
+					BreakGravity = bikebreakgravity1;
+					Acceleration =bikeacceleration1;}
+				if(bikeupgradelevel ==2){
+					SpeedMotorMobile = bikespeedmobile2;
+					SpeedMotor = bikespeedmotor2;
+					MaxSpeed =bikemaxspeed2;
+					BreakMass = bikebreakmass2;
+					BreakGravity = bikebreakgravity2;
+					Acceleration =bikeacceleration2;}
+				if(bikeupgradelevel ==3){
+					SpeedMotorMobile = bikespeedmobile3;
+					SpeedMotor = bikespeedmotor3;
+					MaxSpeed =bikemaxspeed3;
+					BreakMass = bikebreakmass3;
+					BreakGravity = bikebreakgravity3;
+					Acceleration =bikeacceleration3;}
+			}
+		}
+		else if (this.name == "sunshine_bike(Clone)") {
+			if (bikeupgradelevel != 0) {
+				if(bikeupgradelevel ==1){
+					SpeedMotorMobile = bikespeedmobile1;
+					SpeedMotor = bikespeedmotor1;
+					MaxSpeed =bikemaxspeed1;
+					BreakMass = bikebreakmass1;
+					BreakGravity = bikebreakgravity1;
+					Acceleration =bikeacceleration1;}
+				if(bikeupgradelevel ==2){
+					SpeedMotorMobile = bikespeedmobile2;
+					SpeedMotor = bikespeedmotor2;
+					MaxSpeed =bikemaxspeed2;
+					BreakMass = bikebreakmass2;
+					BreakGravity = bikebreakgravity2;
+					Acceleration =bikeacceleration2;}
+				if(bikeupgradelevel ==3){
+					SpeedMotorMobile = bikespeedmobile3;
+					SpeedMotor = bikespeedmotor3;
+					MaxSpeed =bikemaxspeed3;
+					BreakMass = bikebreakmass3;
+					BreakGravity = bikebreakgravity3;
+					Acceleration =bikeacceleration3;}
+			}
+		}
 
 	}
 	
@@ -703,6 +807,13 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 			effect = GameObject.Find ("neon_effect(Clone)");
 			effectstatic = effect;
 		}
+
+		if (GameObject.Find ("nitro_effect")) {
+			effectnitro = GameObject.Find ("nitro_effect");
+			effectnitrostatic = effectnitro;
+		}
+
+
 
 		GetComponent<AudioSource>().pitch = StartingPitch;
 		GetComponent<AudioSource>().volume = 1.0f;  
@@ -821,13 +932,16 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					if(ifnitro)
 					{
 						//acce / vertical / time / speedmotor
-						CurrentVelocity = 60 * Input.GetAxis("Vertical") * Time.deltaTime * 100;
+						CurrentVelocity = 20 * Input.GetAxis("Vertical") * Time.deltaTime * 10;
 						//-maxspeed / maxspeed
-						Velocity = Mathf.Clamp(CurrentVelocity, -100, 100);
+						Velocity = Mathf.Clamp(CurrentVelocity, -20, 100);
 
+						effectnitro.transform.position = rearWheel.transform.position;
+						effectnitrostatic.transform.position = effectnitro.transform.position;	
+						
 						for(var i = 0; i <= (Wheels.Length-1); i++)
 						{
-							Wheels[i].GetComponent<Rigidbody2D>().AddTorque(-7f * (500 / WheelRadius[i]) * 100);
+							Wheels[i].GetComponent<Rigidbody2D>().AddTorque(-1f * (Velocity / WheelRadius[i]) * 10);
 
 
 						}
@@ -916,7 +1030,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 				
 				else{			
 					rearWheel.freezeRotation = false; //enable rotation for rear wheel if player isn't braking
-					//CarBody.GetComponent<Rigidbody2D>().AddTorque (new Vector3 (0, 0, (forMobile ? Mathf.Abs(Input.acceleration.x) : 1) * groundedWeightFactor * 100 * Time.deltaTime)); 
+					//CarBody.GetComponent<Rigidbody2D>().AddTorque (new Vector2 ((forMobile ? Mathf.Abs(Input.acceleration.x) : 1),0 * groundedWeightFactor * 100 * Time.deltaTime)); 
 					//CarBody.GetComponent<Rigidbody2D>().AddTorque (-groundedWeightFactor  * Time.deltaTime,ForceMode2D.Impulse); 
 				}
 				
@@ -1132,7 +1246,12 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					if (rightTexture.HitTest (touch.position)) //right button is touched
 						
 						right = true;
-					
+
+
+					/*if (nitroTexture.HitTest (touch.position)) //if touch position is inside throttle texture
+						
+						ifnitro = true;
+					*/
 					
 					//if (left || right) //left or right button is touched
 					//	leftORright = true;						
@@ -1174,6 +1293,13 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					} else {
 						//setVerticalAxis(-1);
 						left = false;
+					}
+					if (Input.GetKeyDown (KeyCode.Q)) {
+						ifnitro = true;
+
+					} else {
+
+						ifnitro = false;
 					}
 					if (Input.GetAxisRaw ("Vertical") > 0 || Input.GetKey (KeyCode.Joystick1Button2))
 						accelerate = true;

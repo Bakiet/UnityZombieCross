@@ -36,7 +36,8 @@ public class BodyTrigger2D : MonoBehaviour {
 
 	public GameObject EffectCoin;
 	
-	
+
+
 	game_uGUI my_game_uGUI;
 	
 	void Start()
@@ -106,9 +107,11 @@ public class BodyTrigger2D : MonoBehaviour {
 		if (obj.tag == "nitro") {
 			Motorcycle_Controller2D.ifnitro = true;
 			Motorcycle_Controller2D.offnitro = false;
+
+
 			//Motorcycle_Controller2D.effectstatic.transform.position = Motorcycle_Controller2D.backWheelStatic.transform.position;
-			//SelectedCharacter.effectstatic.transform.position = position.transform.position;
-			//CFX_SpawnSystem.Instantiate (Motorcycle_Controller2D.effectstatic);
+			//Motorcycle_Controller2D.effectstatic.transform.position = position.transform.position;
+			CFX_SpawnSystem.Instantiate (Motorcycle_Controller2D.effectnitrostatic);
 			AudioSource.PlayClipAtPoint(NitroSound,Motorcycle_Controller2D.backWheelStatic.transform.position,10.0f);
 			Destroy(obj.gameObject);
 			Invoke ("NitroOff", 8);
