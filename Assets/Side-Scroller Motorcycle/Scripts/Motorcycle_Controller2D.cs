@@ -199,6 +199,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	public AudioClip BodyDeadSound;
 	public AudioClip BodyDeadBurnSound;
 	public AudioClip MotoDeadSound;
+	public AudioClip BrakeSound;
 
 	
 	//Vehicle properties
@@ -1032,7 +1033,8 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					edif1.GetComponent<Paralaxcity>().enabled = false;*/
 				}
 				if (brake){
-					rearWheel.freezeRotation = true; //disable rotation for rear wheel if player is braking								
+					rearWheel.freezeRotation = true; //disable rotation for rear wheel if player is braking	
+					//AudioSource.PlayClipAtPoint(BrakeSound,CarBody.transform.position,10.0f);
 				}
 				
 				else{			
@@ -1749,6 +1751,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 				rearWheel.GetComponent<Rigidbody2D>().mass= BreakMass;
 				rearWheel.GetComponent<Rigidbody2D>().gravityScale= BreakGravity;
 			}
+			AudioSource.PlayClipAtPoint(BrakeSound,CarBody.transform.position,5.0f);
 		}
 		
 		
