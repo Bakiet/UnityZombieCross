@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using Soomla.Store;
+using System;
 
 public class Info_bar : MonoBehaviour {
 
@@ -9,12 +11,39 @@ public class Info_bar : MonoBehaviour {
 	public Transform my_tokens;
 	public Transform my_virtual_money;
 
+	private game_uGUI my_game_uGUI; 
+
 	game_master my_game_master;
 	public manage_menu_uGUI my_manage_menu_uGUI;
 	public store_tabs my_store_tabs;
-
+	private int healtcount = 0;
 	// Use this for initialization
 	void Start () {
+
+		GameObject gui = GameObject.FindGameObjectWithTag ("_gui_");
+		if(gui != null){
+			my_game_uGUI = GameObject.FindGameObjectWithTag("_gui_").GetComponent<game_uGUI>();
+			
+		}
+
+		int health = StoreInventory.GetItemBalance ("health");
+
+		if (health != 0) {
+			healtcount = StoreInventory.GetItemBalance ("health");
+		}
+		int healthx2 = StoreInventory.GetItemBalance ("healthx2");
+		int healtcountx2 = 0;
+		if (healthx2 != 0) {
+			healtcount = StoreInventory.GetItemBalance ("healthx2");
+		}
+		int healthx3 = StoreInventory.GetItemBalance ("healthx3");
+		int healtcountx3 = 0;
+		if (healthx3 != 0) {
+			healtcount = StoreInventory.GetItemBalance ("healthx3");
+		}
+
+
+
 		if (game_master.game_master_obj)
 			my_game_master = (game_master)game_master.game_master_obj.GetComponent("game_master");
 	}
@@ -49,7 +78,10 @@ public class Info_bar : MonoBehaviour {
 			else
 				{
 				my_lives.gameObject.SetActive(true);
+
 				my_lives.GetChild(0).GetComponent<Text>().text = my_game_master.current_lives[my_game_master.current_profile_selected].ToString();
+
+				//my_lives.GetChild(0).GetComponent<Text>().text = my_lives.GetChild(0).GetComponent<Text>().text + Convert.ToString(healtcount);
 
 				if ((my_game_master.continue_rule_selected == game_master.continue_rule.continue_cost_a_continue_token) && (!my_game_master.my_ads_master.ads_when_continue_screen_appear.this_ad_is_enabled))
 					{

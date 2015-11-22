@@ -96,7 +96,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	public static bool crashSaw = false;
 	public static bool crashSawHead = false;
 	public static bool crashBurned = false;
-	
+	public static bool crashBurn = false;
 	//used to enable/disable motorcycle controlling
 	public static bool isControllable = true;
 	
@@ -406,6 +406,8 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	public static bool ifnitro = false;
 	public static bool offnitro = false;
 	private int time = 0;
+
+	private int healtcount = 0;
 
 	void UpgradeInventory(){
 
@@ -783,6 +785,24 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	}
 	void Start()
 	{
+		int health = StoreInventory.GetItemBalance ("health");
+		
+		if (health != 0) {
+			healtcount = StoreInventory.GetItemBalance ("health");
+		}
+		int healthx2 = StoreInventory.GetItemBalance ("healthx2");
+		int healtcountx2 = 0;
+		if (healthx2 != 0) {
+			healtcount = StoreInventory.GetItemBalance ("healthx2");
+		}
+		int healthx3 = StoreInventory.GetItemBalance ("healthx3");
+		int healtcountx3 = 0;
+		if (healthx3 != 0) {
+			healtcount = StoreInventory.GetItemBalance ("healthx3");
+		}
+
+		my_game_uGUI.Update_lives(healtcount);
+		crashBurned = false;
 		time =0;
 		if (GameObject.Find ("smoke_effect_purple(Clone)")) {
 			effect = GameObject.Find ("smoke_effect_purple(Clone)");
@@ -1137,7 +1157,18 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 				isControllable = false;
 			}
 		} else {
-			isControllable = true;
+			float timeLeft = 0 - Time.time;
+			if (timeLeft < 0) {
+				timeLeft = 0;
+			}
+			if (timeLeft <= 0) {
+				isControllable = true;
+			} else {
+				isControllable = false;
+			}
+		}
+		if (crashBurned) {
+			isControllable = false;
 		}
 		
 		if (isControllable) {
@@ -1463,14 +1494,14 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 				crashed = true;
 				//update lives
 				if(my_game_uGUI){
-					my_game_uGUI.Update_lives(-1);
+					//my_game_uGUI.Update_lives(-1);
 					Invoke ("endgui", 2.0f);
 					//my_game_uGUI.Update_lives(live);
 				}
 
 
 			}
-			if(crashBurned && !crashed) //if player just crashed
+			if(crashBurn && !crashed) //if player just crashed
 			{											
 				time = time + 1;
 				effectburn.transform.position = CarBody.transform.position;
@@ -1501,7 +1532,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					//crashed = true;
 					//update lives
 					if(my_game_uGUI){
-						my_game_uGUI.Update_lives(-1);
+						//my_game_uGUI.Update_lives(-1);
 						Invoke ("endguiburn", 2.0f);
 
 					}
@@ -1533,7 +1564,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 				crashed = true;
 				//update lives
 				if(my_game_uGUI){
-					my_game_uGUI.Update_lives(-1);
+					//my_game_uGUI.Update_lives(-1);
 					Invoke ("endgui", 2.0f);
 					//my_game_uGUI.Update_lives(live);
 				}
@@ -1565,7 +1596,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 				crashed = true;
 				//update lives
 				if(my_game_uGUI){
-					my_game_uGUI.Update_lives(-1);
+					//my_game_uGUI.Update_lives(-1);
 					Invoke ("endgui", 2.0f);
 					//my_game_uGUI.Update_lives(live);
 				}
@@ -1592,9 +1623,13 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	void endguiburn()
 	{
 		if(my_game_uGUI){
-			isControllable = false;
+			crashBurn = false;
+			crashBurned = true;
 			//crashed = true;
 			my_game_uGUI.Defeat();
+			brake = true;
+
+
 		}
 	}
 	public void handling(string handlingName)
@@ -1751,7 +1786,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 				rearWheel.GetComponent<Rigidbody2D>().mass= BreakMass;
 				rearWheel.GetComponent<Rigidbody2D>().gravityScale= BreakGravity;
 			}
-			AudioSource.PlayClipAtPoint(BrakeSound,CarBody.transform.position,5.0f);
+			//AudioSource.PlayClipAtPoint(BrakeSound,CarBody.transform.position,5.0f);
 		}
 		
 		

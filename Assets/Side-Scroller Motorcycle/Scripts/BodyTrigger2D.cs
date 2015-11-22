@@ -90,10 +90,10 @@ public class BodyTrigger2D : MonoBehaviour {
 
 		if (obj.tag == "Coin") {
 			
-			if (my_game_uGUI) {
+			/*if (my_game_uGUI) {
 				//my_game_uGUI.Update_int_score (100);
 				my_game_uGUI.Update_virtual_money(1);				
-			}
+			}*/
 			EffectCoin.SetActive (true);
 			GameObject position = obj.gameObject;
 			if(position != null){
@@ -101,6 +101,7 @@ public class BodyTrigger2D : MonoBehaviour {
 				CFX_SpawnSystem.Instantiate (EffectCoin);
 				AudioSource.PlayClipAtPoint(CoinSound,EffectCoin.transform.position,10.0f);
 			}
+			my_game_uGUI.Update_virtual_money(1);
 			Destroy(obj.gameObject);
 		}
 
@@ -251,14 +252,18 @@ public class BodyTrigger2D : MonoBehaviour {
 			{
 				if (obj.tag == "Saw") {					
 					Motorcycle_Controller2D.crashSaw = true;
+					oohCrowdSC.Play ();
 				}
 				else if(obj.tag == "SawHead"){
 					Motorcycle_Controller2D.crashSawHead = true;
+					oohCrowdSC.Play ();
 				}
 				else if(obj.tag == "DynamicParticle"){
-					Motorcycle_Controller2D.crashBurned = true;
+					Motorcycle_Controller2D.crashBurn = true;
+					oohCrowdSC.Play ();
 				}
 				else{
+					oohCrowdSC.Play ();
 					Motorcycle_Controller2D.crash = true;
 				}
 
@@ -267,14 +272,14 @@ public class BodyTrigger2D : MonoBehaviour {
 
 
 				//play sounds
-				bonesCrackSC.Play ();
-				hitSC.Play ();
-				oohCrowdSC.Play ();
+				//bonesCrackSC.Play ();
+				//hitSC.Play ();
+				//oohCrowdSC.Play ();
 
 				Invoke ("endgui", endTimeLose);
 
 				
-				if(!finish) //if we haven't entered in finish make crash text visible
+				/*if(!finish) //if we haven't entered in finish make crash text visible
 				{
 					crashText.enabled = true;
 					
@@ -296,7 +301,7 @@ public class BodyTrigger2D : MonoBehaviour {
 						}
 					}
 					
-				}
+				}*/
 			} 
 		}
 	}
