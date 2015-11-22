@@ -157,8 +157,8 @@ public class Bomb : MonoBehaviour {
 		Collider2D[] colliders = Physics2D.OverlapCircleAll (grenadeOrigin, radius);
 		grenadeOrigenStatic = grenadeOrigin;
 		foreach (Collider2D hit in colliders) {
-			//if(ObjectToCollided != null)
-			//{
+			if(ObjectToCollided != null || ObjectToCollided2 !=null)
+			{
 				if (hit.gameObject.name == ObjectToCollided.name ||  hit.gameObject.name == ObjectToCollided2.name) {
 
 					if(timeToTouch == countTimes){
@@ -172,7 +172,7 @@ public class Bomb : MonoBehaviour {
 					}			
 				}
 				else{}
-			//}
+			}
 		
 		} 
 	}

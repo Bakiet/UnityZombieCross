@@ -102,6 +102,7 @@ public class BodyTrigger2D : MonoBehaviour {
 				AudioSource.PlayClipAtPoint(CoinSound,EffectCoin.transform.position,10.0f);
 			}
 			my_game_uGUI.Update_virtual_money(1);
+		
 			Destroy(obj.gameObject);
 		}
 

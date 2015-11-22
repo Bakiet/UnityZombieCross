@@ -22,6 +22,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	private  string INCREMENTAL_ACHIEVEMENT_ID_Assassin = "CgkIq6GznYALEAIQCg";
 	private  string INCREMENTAL_ACHIEVEMENT_ID_Sergeant = "CgkIq6GznYALEAIQCQ";
 
+	public int setscore=100;
 	public int StartingPitch = 1;
 	public float MaxPitch = 3.0f;
 	public float TimeToIncrease = 2.0f;
@@ -408,6 +409,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	private int time = 0;
 
 	private int healtcount = 0;
+	private int virtualmoneycount = 0;
 
 	void UpgradeInventory(){
 
@@ -785,23 +787,39 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	}
 	void Start()
 	{
-		int health = StoreInventory.GetItemBalance ("health");
-		
-		if (health != 0) {
-			healtcount = StoreInventory.GetItemBalance ("health");
-		}
-		int healthx2 = StoreInventory.GetItemBalance ("healthx2");
-		int healtcountx2 = 0;
-		if (healthx2 != 0) {
-			healtcount = StoreInventory.GetItemBalance ("healthx2");
-		}
-		int healthx3 = StoreInventory.GetItemBalance ("healthx3");
-		int healtcountx3 = 0;
-		if (healthx3 != 0) {
-			healtcount = StoreInventory.GetItemBalance ("healthx3");
+		GameObject gui = GameObject.FindGameObjectWithTag ("_gui_");
+		if(gui != null){
+			my_game_uGUI = GameObject.FindGameObjectWithTag("_gui_").GetComponent<game_uGUI>();
+			
 		}
 
-		my_game_uGUI.Update_lives(healtcount);
+		if (my_game_uGUI) {
+			int health = StoreInventory.GetItemBalance ("health");
+			
+			if (health != 0) {
+				healtcount = StoreInventory.GetItemBalance ("health");
+			}
+			int healthx2 = StoreInventory.GetItemBalance ("healthx2");
+			int healtcountx2 = 0;
+			if (healthx2 != 0) {
+				healtcount = StoreInventory.GetItemBalance ("healthx2");
+			}
+			int healthx3 = StoreInventory.GetItemBalance ("healthx3");
+			int healtcountx3 = 0;
+			if (healthx3 != 0) {
+				healtcount = StoreInventory.GetItemBalance ("healthx3");
+			}
+
+
+			virtualmoneycount = virtualmoneycount + StoreInventory.GetItemBalance(StoreInfo.Currencies[0].ItemId);
+		
+
+			my_game_uGUI.Update_lives(healtcount);
+
+			my_game_uGUI.Update_virtual_money(virtualmoneycount);
+		}
+
+
 		crashBurned = false;
 		time =0;
 		if (GameObject.Find ("smoke_effect_purple(Clone)")) {
@@ -850,6 +868,8 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		CarBodyTransformStatic = CarBodyTransform;
 		frontWheelStatic = frontWheelObject;
 		backWheelStatic = backWheelObject;
+
+	
 		if(useUpgrade){
 		UpgradeInventory ();
 		}
@@ -865,11 +885,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 
 		endTime = Time.time + endTime;
 		
-		GameObject gui = GameObject.FindGameObjectWithTag ("_gui_");
-		if(gui != null){
-			my_game_uGUI = GameObject.FindGameObjectWithTag("_gui_").GetComponent<game_uGUI>();
-			
-		}
+
 		
 		crash = false;
 		crashed = false;
@@ -1364,7 +1380,8 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 				
 				if (CarBody.transform.rotation.eulerAngles.z > 320 && flip) { //backflip is done
 					if (my_game_uGUI) {
-						my_game_uGUI.Update_int_score (100);
+						my_game_uGUI.Update_int_score (setscore);
+				
 						
 					}
 					if(audioXP){
@@ -1384,7 +1401,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 				
 				if (CarBody.transform.rotation.eulerAngles.z < 30 && flip) { //frontflip is done			
 					if (my_game_uGUI) {
-						my_game_uGUI.Update_int_score (100);
+						my_game_uGUI.Update_int_score (setscore);
 					}
 					if(audioXP){
 					audioXP.Play ();
