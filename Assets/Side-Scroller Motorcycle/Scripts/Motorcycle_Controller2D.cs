@@ -4,7 +4,7 @@ using Soomla.Store;
 
 public class Motorcycle_Controller2D : MonoBehaviour {
 	//public GameObject Reciver;
-
+	public bool testing = false;
 	private  string ACHIEVEMENT_ID_First_Freeze = "CgkIq6GznYALEAIQDg";
 	private  string ACHIEVEMENT_ID_First_Buy = "CgkIq6GznYALEAIQDQ";
 	private  string ACHIEVEMENT_ID_First_Burn = "CgkIq6GznYALEAIQDA";
@@ -792,34 +792,34 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 			my_game_uGUI = GameObject.FindGameObjectWithTag("_gui_").GetComponent<game_uGUI>();
 			
 		}
-
-		if (my_game_uGUI) {
-			int health = StoreInventory.GetItemBalance ("health");
+		if (!testing) {
+			if (my_game_uGUI) {
+				int health = StoreInventory.GetItemBalance ("health");
 			
-			if (health != 0) {
-				healtcount = StoreInventory.GetItemBalance ("health");
-			}
-			int healthx2 = StoreInventory.GetItemBalance ("healthx2");
-			int healtcountx2 = 0;
-			if (healthx2 != 0) {
-				healtcount = StoreInventory.GetItemBalance ("healthx2");
-			}
-			int healthx3 = StoreInventory.GetItemBalance ("healthx3");
-			int healtcountx3 = 0;
-			if (healthx3 != 0) {
-				healtcount = StoreInventory.GetItemBalance ("healthx3");
-			}
+				if (health != 0) {
+					healtcount = StoreInventory.GetItemBalance ("health");
+				}
+				int healthx2 = StoreInventory.GetItemBalance ("healthx2");
+				int healtcountx2 = 0;
+				if (healthx2 != 0) {
+					healtcount = StoreInventory.GetItemBalance ("healthx2");
+				}
+				int healthx3 = StoreInventory.GetItemBalance ("healthx3");
+				int healtcountx3 = 0;
+				if (healthx3 != 0) {
+					healtcount = StoreInventory.GetItemBalance ("healthx3");
+				}
 
 
-			virtualmoneycount = virtualmoneycount + StoreInventory.GetItemBalance(StoreInfo.Currencies[0].ItemId);
+				virtualmoneycount = virtualmoneycount + StoreInventory.GetItemBalance (StoreInfo.Currencies [0].ItemId);
 		
 
-			my_game_uGUI.Update_lives(healtcount);
+				my_game_uGUI.Update_lives (healtcount);
 
-			my_game_uGUI.Update_virtual_money(virtualmoneycount);
+				my_game_uGUI.Update_virtual_money (virtualmoneycount);
+			}
+
 		}
-
-
 		crashBurned = false;
 		time =0;
 		if (GameObject.Find ("smoke_effect_purple(Clone)")) {
