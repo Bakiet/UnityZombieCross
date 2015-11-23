@@ -3,7 +3,7 @@ using System.Collections;
 using Soomla.Store;
 
 public class Motorcycle_Controller2D : MonoBehaviour {
-	
+	//public GameObject Reciver;
 
 	private  string ACHIEVEMENT_ID_First_Freeze = "CgkIq6GznYALEAIQDg";
 	private  string ACHIEVEMENT_ID_First_Buy = "CgkIq6GznYALEAIQDQ";
@@ -1353,13 +1353,13 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 						//setVerticalAxis(-1);
 						left = false;
 					}
-					if (Input.GetKeyDown (KeyCode.Q)) {
+					/*if (Input.GetKeyDown (KeyCode.Q)) {
 						ifnitro = true;
 
 					} else {
 
 						ifnitro = false;
-					}
+					}*/
 					if (Input.GetAxisRaw ("Vertical") > 0 || Input.GetKey (KeyCode.Joystick1Button2))
 						accelerate = true;
 					else
@@ -1395,6 +1395,8 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 				Achievement.SENDACHIEVEMENT (ACHIEVEMENT_ID_First_BackFlip);
 				Achievement.SENDACHIEVEMENTINCREMENT (INCREMENTAL_ACHIEVEMENT_ID_Two_BackFlip, 1);
 
+					//Reciver.SendMessage ("revealAchievement", ACHIEVEMENT_ID_First_BackFlip,SendMessageOptions.DontRequireReceiver);
+
 					//score += 100;
 					//scoreText.text = "SCORE : " + score;
 				}
@@ -1412,7 +1414,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 									makeclick Achievement = new makeclick ();
 				Achievement.SENDACHIEVEMENT (ACHIEVEMENT_ID_First_FrontFlip);
 				Achievement.SENDACHIEVEMENTINCREMENT (INCREMENTAL_ACHIEVEMENT_ID_Two_FrontFlip, 1);
-
+				//	Reciver.SendMessage ("revealAchievement", INCREMENTAL_ACHIEVEMENT_ID_Two_FrontFlip,SendMessageOptions.DontRequireReceiver);
 					//score += 150;	
 					//scoreText.text = "SCORE : " + score;					
 				}
@@ -1490,6 +1492,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 
 				makeclick Achievement = new makeclick();
 				Achievement.SENDACHIEVEMENT(ACHIEVEMENT_ID_First_Death);
+			//	Reciver.SendMessage ("revealAchievement", ACHIEVEMENT_ID_First_Death,SendMessageOptions.DontRequireReceiver);
 
 				GameObject soul = (GameObject)Resources.Load("prefabs/CFXM2_Soul", typeof(GameObject));
 				Instantiate(soul, CarBody.transform.position, Quaternion.identity);
@@ -1525,6 +1528,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 				if(time == 1){
 					makeclick Achievement = new makeclick();
 					Achievement.SENDACHIEVEMENT(ACHIEVEMENT_ID_First_Burn);
+				//	Reciver.SendMessage ("revealAchievement", ACHIEVEMENT_ID_First_Burn,SendMessageOptions.DontRequireReceiver);
 					/*
 					GameObject soul = (GameObject)Resources.Load("prefabs/CFXM2_Soul", typeof(GameObject));
 					Instantiate(soul, CarBody.transform.position, Quaternion.identity);
@@ -1560,6 +1564,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 				
 					makeclick Achievement = new makeclick();
 				Achievement.SENDACHIEVEMENT(ACHIEVEMENT_ID_First_Death);
+			//	Reciver.SendMessage ("revealAchievement", ACHIEVEMENT_ID_First_Death,SendMessageOptions.DontRequireReceiver);
 
 				GameObject soul = (GameObject)Resources.Load("prefabs/CFXM2_Soul", typeof(GameObject));
 				Instantiate(soul, CarBody.transform.position, Quaternion.identity);
@@ -1592,6 +1597,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 				
 					makeclick Achievement = new makeclick();
 				Achievement.SENDACHIEVEMENT(ACHIEVEMENT_ID_First_Death);
+				//Reciver.SendMessage ("revealAchievement", ACHIEVEMENT_ID_First_Death,SendMessageOptions.DontRequireReceiver);
 
 				GameObject soul = (GameObject)Resources.Load("prefabs/CFXM2_Soul", typeof(GameObject));
 				Instantiate(soul, CarBody.transform.position, Quaternion.identity);
