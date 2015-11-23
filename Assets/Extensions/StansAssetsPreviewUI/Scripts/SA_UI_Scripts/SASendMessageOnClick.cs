@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Soomla.Store;
 
 public class SASendMessageOnClick : SAOnClickAction {
 
@@ -8,6 +9,8 @@ public class SASendMessageOnClick : SAOnClickAction {
 
 
 	protected override void OnClick() {
-		Reciver.SendMessage(MethodName, SendMessageOptions.DontRequireReceiver);
+		if (StoreInventory.GetItemBalance ("no_ads") <= 0) {
+			Reciver.SendMessage (MethodName, SendMessageOptions.DontRequireReceiver);
+		}
 	}
 }

@@ -113,7 +113,7 @@ public class BodyTrigger2D : MonoBehaviour {
 
 			//Motorcycle_Controller2D.effectstatic.transform.position = Motorcycle_Controller2D.backWheelStatic.transform.position;
 			//Motorcycle_Controller2D.effectstatic.transform.position = position.transform.position;
-			CFX_SpawnSystem.Instantiate (Motorcycle_Controller2D.effectnitrostatic);
+			//CFX_SpawnSystem.Instantiate (Motorcycle_Controller2D.effectnitrostatic);
 			AudioSource.PlayClipAtPoint(NitroSound,Motorcycle_Controller2D.backWheelStatic.transform.position,10.0f);
 			Destroy(obj.gameObject);
 			Invoke ("NitroOff", 8);
