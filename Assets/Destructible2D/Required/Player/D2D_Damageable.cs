@@ -1,9 +1,21 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
+using System.Collections.Generic;
 
 [AddComponentMenu(D2D_Helper.ComponentMenuPrefix + "Damageable")]
 public class D2D_Damageable : MonoBehaviour
 {
+
+	public	string	identifier				= "";		// Use to identify the slow motion
+	public bool UsedSlowMotion;
+	public	float	delay					= 1;		// Delay to start Slow Motion
+	public	float	desiredFreezeDuration	= 5;		// Duration in seconds of the slow motion
+	public	float desiredTimeScale		= 0.5f;		    // Desired game speed 0 stops game, 1 full speed
+	public	float desiredEndTimeScale		= 1;		// Desired game speed when slow motion ends 0 stops game, 1 full speed
+	public	Action	callback	= null;		// Action To execute when slow motion ends
+	private int count = 0;
+
 	public float Damage;
 	
 	public float Age;
