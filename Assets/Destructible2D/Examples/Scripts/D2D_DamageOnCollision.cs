@@ -9,7 +9,7 @@ public class D2D_DamageOnCollision : MonoBehaviour
 {
 	//private int countTimes = 0;
 	//public int timeToTouch = 1;
-	//public float time = 0f;
+	public float time = 0f;
 	public bool isColliderwithMoto = false;
 	public bool isAutomaticFrontWheel = false;
 	public bool isAutomaticBackWheel = false;
@@ -75,8 +75,7 @@ public class D2D_DamageOnCollision : MonoBehaviour
 						if (damageable == null)
 							damageable = GetComponent<D2D_Damageable> ();
 						
-						damageable.InflictDamage (damage);
-						//AudioSource.PlayClipAtPoint (Sound, gameObject.transform.position);
+						Invoke ("MyWaitingFunction", time);
 					}
 				} else {
 				}
@@ -95,13 +94,17 @@ public class D2D_DamageOnCollision : MonoBehaviour
 			if (damage >= DamageThreshold) {
 				if (damageable == null)
 					damageable = GetComponent<D2D_Damageable> ();
-				
-				damageable.InflictDamage (damage);
-				//AudioSource.PlayClipAtPoint (Sound, gameObject.transform.position);
+
+				Invoke ("MyWaitingFunction", time);
+
 			}
 		}
 
 
+	}
+	void MyWaitingFunction(){
+		damageable.InflictDamage (damage);
+		AudioSource.PlayClipAtPoint (Sound, gameObject.transform.position);
 	}
 
 }
