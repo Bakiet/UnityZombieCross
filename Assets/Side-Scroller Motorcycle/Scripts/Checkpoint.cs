@@ -25,7 +25,7 @@ public class Checkpoint : MonoBehaviour {
 		motorcyclePrefab = Motorcycle_Controller2D.BodyCarStatic;
 		moto = motorcyclePrefab;
 	}
-	
+
 	void OnTriggerEnter2D(Collider2D col)
 	{
 		if(lastPoint != transform && col.tag == tagToCheck)
@@ -34,13 +34,16 @@ public class Checkpoint : MonoBehaviour {
 			objectToChangeColor.material.color = activatedColor;
 			audioSource.Play ();
 			scoreAtLastPoint = Motorcycle_Controller.score;
+			motorcyclePrefab = Motorcycle_Controller2D.BodyCarStatic;
+			moto = motorcyclePrefab;
 		}
 	}
 
 	public static void Reset()
 	{
 		Instantiate (moto, lastPoint.position, Quaternion.identity);
-		Motorcycle_Controller.score = scoreAtLastPoint;
+		Motorcycle_Controller2D.score = scoreAtLastPoint;
+		Motorcycle_Controller2D.crash = false;
 
 	}
 }

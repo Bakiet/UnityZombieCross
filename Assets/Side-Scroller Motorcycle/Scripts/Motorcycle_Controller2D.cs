@@ -865,6 +865,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		GetComponent<AudioSource>().volume = 1.0f;  
 
 		BodyCarStatic = Car;
+	
 		CarBodyTransformStatic = CarBodyTransform;
 		frontWheelStatic = frontWheelObject;
 		backWheelStatic = backWheelObject;

@@ -3,6 +3,7 @@ using System.Collections;
 
 public class BodyTrigger2D : MonoBehaviour {
 
+	public bool ifbody=false;
 	public static bool finish = false;
 	public float endTimeLose = 2.0f;
 	public float endTimeWin = 2.0f;
@@ -96,14 +97,14 @@ public class BodyTrigger2D : MonoBehaviour {
 			}*/
 			EffectCoin.SetActive (true);
 			GameObject position = obj.gameObject;
-			if(position != null){
+			if (position != null) {
 				EffectCoin.transform.position = position.transform.position;
 				CFX_SpawnSystem.Instantiate (EffectCoin);
-				AudioSource.PlayClipAtPoint(CoinSound,EffectCoin.transform.position,10.0f);
+				AudioSource.PlayClipAtPoint (CoinSound, EffectCoin.transform.position, 10.0f);
 			}
-			my_game_uGUI.Update_virtual_money(1);
+			my_game_uGUI.Update_virtual_money (1);
 		
-			Destroy(obj.gameObject);
+			Destroy (obj.gameObject);
 		}
 
 		if (obj.tag == "nitro") {
@@ -114,13 +115,12 @@ public class BodyTrigger2D : MonoBehaviour {
 			//Motorcycle_Controller2D.effectstatic.transform.position = Motorcycle_Controller2D.backWheelStatic.transform.position;
 			//Motorcycle_Controller2D.effectstatic.transform.position = position.transform.position;
 			//CFX_SpawnSystem.Instantiate (Motorcycle_Controller2D.effectnitrostatic);
-			AudioSource.PlayClipAtPoint(NitroSound,Motorcycle_Controller2D.backWheelStatic.transform.position,10.0f);
-			Destroy(obj.gameObject);
+			AudioSource.PlayClipAtPoint (NitroSound, Motorcycle_Controller2D.backWheelStatic.transform.position, 10.0f);
+			Destroy (obj.gameObject);
 			Invoke ("NitroOff", 8);
 
 		}
-		if(obj.gameObject.tag == "Finish" && !Motorcycle_Controller2D.crash)//if entered in finish trigger
-		{
+		if (obj.gameObject.tag == "Finish" && !Motorcycle_Controller2D.crash) {//if entered in finish trigger
 			finish = true;
 			
 			Motorcycle_Controller2D.isControllable = false; //disable motorcycle controlling
@@ -131,7 +131,7 @@ public class BodyTrigger2D : MonoBehaviour {
 			//m.rearWheel.freezeRotation = true;
 			//rearWheel.freezeRotation = true;
 			//m.acceleration = 0;
-		//	m.Acceleration = 0;
+			//	m.Acceleration = 0;
 			GameObject meta = GameObject.Find ("meta");
 			
 			if (EffectFinish != null) {
@@ -143,8 +143,8 @@ public class BodyTrigger2D : MonoBehaviour {
 				EffectFinishright2.SetActive (true);
 				EffectFinishright3.SetActive (true);
 
-					GameObject position = meta;
-					if(position != null){
+				GameObject position = meta;
+				if (position != null) {
 					EffectFinish.transform.position = position.transform.position;
 
 					Vector3 temp = EffectFinish.transform.position;
@@ -216,14 +216,13 @@ public class BodyTrigger2D : MonoBehaviour {
 
 
 					//EffectFinishleft3.transform.position.x + 0.7f);
-					}
+				}
 
 			}
 
 			winText.enabled = true; //show win text				
 			
-			if(Application.loadedLevel < Application.levelCount - 1) //if won level isn't last level (levels are set in File -> Build Settings)
-			{
+			if (Application.loadedLevel < Application.levelCount - 1) { //if won level isn't last level (levels are set in File -> Build Settings)
 				nextLevel = true;
 				
 //				if(m.forMobile)
@@ -234,44 +233,32 @@ public class BodyTrigger2D : MonoBehaviour {
 
 				//	winText.text = "CONGRATULATIONS, YOU WON! \n YOUR SCORE IS: " + Motorcycle_Controller2D.score + "\n\n PRESS SPACE FOR NEXT LEVEL";		
 
-			}
-			else //won level is last one
-			{
+			} else { //won level is last one
 				Invoke ("wingui", endTimeWin);
 				//if(m.forMobile)
-					//winText.text = "CONGRATULATIONS, YOU WON! \n YOUR SCORE IS: " + Motorcycle_Controller2D.score + "\n\n TAP ON SCREEN TO PLAY FIRST LEVEL";				
+				//winText.text = "CONGRATULATIONS, YOU WON! \n YOUR SCORE IS: " + Motorcycle_Controller2D.score + "\n\n TAP ON SCREEN TO PLAY FIRST LEVEL";				
 				//else
 				//	winText.text = "CONGRATULATIONS, YOU WON! \n YOUR SCORE IS: " + Motorcycle_Controller2D.score + "\n\n PRESS SPACE TO PLAY FIRST LEVEL";				
 				
 				nextLevel = false;
 			}
 			
-		}
-		else if(obj.tag != "Checkpoint" ^ obj.tag != "ZoomOutTrigger"  ^ obj.tag != "ZoomInTrigger" ^ obj.tag == "Player"^ obj.tag == "Coin"^ obj.tag == "Ground"^ obj.tag == "nitro") //if entered in any other trigger than "Finish" & "Checkpoint", that means player crashed
-		{
-			if(!Motorcycle_Controller2D.crash)
-			{
+		} else if (obj.tag != "Checkpoint" ^ obj.tag != "ZoomOutTrigger" ^ obj.tag != "ZoomInTrigger" ^ obj.tag == "Player" ^ obj.tag == "Coin" ^ obj.tag == "Ground" ^ obj.tag == "nitro") 
+			{ //if entered in any other trigger than "Finish" & "Checkpoint", that means player crashed
+			if (!Motorcycle_Controller2D.crash) {
 				if (obj.tag == "Saw") {					
 					Motorcycle_Controller2D.crashSaw = true;
 					oohCrowdSC.Play ();
-				}
-				else if(obj.tag == "SawHead"){
+				} else if (obj.tag == "SawHead") {
 					Motorcycle_Controller2D.crashSawHead = true;
 					oohCrowdSC.Play ();
-				}
-				else if(obj.tag == "DynamicParticle"){
+				} else if (obj.tag == "DynamicParticle") {
 					Motorcycle_Controller2D.crashBurn = true;
 					oohCrowdSC.Play ();
-				}
-				else{
+				} else {
 					oohCrowdSC.Play ();
 					Motorcycle_Controller2D.crash = true;
 				}
-
-
-
-
-
 				//play sounds
 				//bonesCrackSC.Play ();
 				//hitSC.Play ();
@@ -306,6 +293,8 @@ public class BodyTrigger2D : MonoBehaviour {
 			} 
 		}
 	}
+
+
 	void endgui()
 	{
 		if(my_game_uGUI){

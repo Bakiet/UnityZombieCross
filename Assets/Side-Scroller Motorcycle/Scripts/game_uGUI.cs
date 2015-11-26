@@ -495,6 +495,10 @@ public class game_uGUI : MonoBehaviour {
 			}
 	}
 
+	public void Go_to_Checkpoint()
+	{
+		Checkpoint.Reset ();
+	}
 	public void Go_to_stage_screen()
 	{
 		if (my_game_master)
