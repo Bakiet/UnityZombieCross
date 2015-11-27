@@ -53,7 +53,7 @@ public class ZombieController : MonoBehaviour {
 
 		if (Input.GetButtonDown ("Attack")){
 			anim.SetBool ("IsAggro", true);
-			Invoke("NotAggro",0.7f);
+			//Invoke("NotAggro",0.7f);
 		} 
 
 
