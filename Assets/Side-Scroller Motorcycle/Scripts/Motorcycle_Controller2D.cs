@@ -22,6 +22,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	private  string INCREMENTAL_ACHIEVEMENT_ID_Assassin = "CgkIq6GznYALEAIQCg";
 	private  string INCREMENTAL_ACHIEVEMENT_ID_Sergeant = "CgkIq6GznYALEAIQCQ";
 
+	public static bool checkpoint = false;
 	public int setscore=100;
 	public int StartingPitch = 1;
 	public float MaxPitch = 3.0f;
@@ -189,6 +190,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	
 	public GameObject Car;
 	public static GameObject BodyCarStatic;
+
 	//Car = GameObject.Find("Car"); 	
 	public GameObject CarBody;	
 	public Transform CarBodyTransform;	
@@ -787,6 +789,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	}
 	void Start()
 	{
+		Motorcycle_Controller2D.checkpoint = false;
 		GameObject gui = GameObject.FindGameObjectWithTag ("_gui_");
 		if(gui != null){
 			my_game_uGUI = GameObject.FindGameObjectWithTag("_gui_").GetComponent<game_uGUI>();
@@ -865,7 +868,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		GetComponent<AudioSource>().volume = 1.0f;  
 
 		BodyCarStatic = Car;
-	
+		
 		CarBodyTransformStatic = CarBodyTransform;
 		frontWheelStatic = frontWheelObject;
 		backWheelStatic = backWheelObject;
@@ -1163,6 +1166,19 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	
 	void Update()
 	{
+		frontWheelStatic = frontWheelObject;
+		backWheelStatic = backWheelObject;
+
+		if (Checkpoint.lastPoint) {
+			//if ((Input.GetKeyDown (KeyCode.C) || (Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Began)) && crashed) {
+			if (checkpoint) {
+				Checkpoint.Reset ();
+				Destroy (gameObject);
+				crash = false;
+				crashed=false;
+			}
+		}
+
 		if (Application.loadedLevelName == "W1_Stage_1") {
 			float timeLeft = endTime - Time.time;
 			if (timeLeft < 0) {
@@ -1479,13 +1495,13 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					else
 						Time.timeScale = 1;
 				}
-				if (Checkpoint.lastPoint) {
-					if ((Input.GetKeyDown (KeyCode.C) || (Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Began)) && crashed) {
-						Checkpoint.Reset ();
-						
-						Destroy (gameObject);
+				/*if (Checkpoint.lastPoint) {
+					//if ((Input.GetKeyDown (KeyCode.C) || (Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Began)) && crashed) {
+					if (checkpoint) {
+					Checkpoint.Reset ();
+					Destroy (gameObject);
 					}
-				}
+				}*/
 			}
 			
 			if(crash && !crashed) //if player just crashed
@@ -1519,6 +1535,8 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					Invoke ("endgui", 2.0f);
 					//my_game_uGUI.Update_lives(live);
 				}
+
+
 
 
 			}

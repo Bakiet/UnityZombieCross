@@ -67,7 +67,7 @@ public class Patrulla : MonoBehaviour {
 			//walkingDirection = -1.0f;
 			yRotation += Input.GetAxis("Horizontal");
 			transform.eulerAngles = new Vector2(360,0);
-			walkingDirection = -1.0f;
+			walkingDirection = 1.0f;
 			
 		//} else if (walkingDirection < 0.0f && transform.position.x <= wallLeft) {
 		/*

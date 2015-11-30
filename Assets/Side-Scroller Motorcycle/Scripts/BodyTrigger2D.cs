@@ -243,7 +243,7 @@ public class BodyTrigger2D : MonoBehaviour {
 				nextLevel = false;
 			}
 			
-		} else if (obj.tag != "Checkpoint" ^ obj.tag != "ZoomOutTrigger" ^ obj.tag != "ZoomInTrigger" ^ obj.tag == "Player" ^ obj.tag == "Coin" ^ obj.tag == "Ground" ^ obj.tag == "nitro"^ obj.tag == "Zombie") 
+		} else if (obj.tag != "Checkpoint" ^ obj.tag != "ZoomOutTrigger" ^ obj.tag != "ZoomInTrigger" ^ obj.tag == "Player" ^ obj.tag == "Coin" ^ obj.tag == "Ground" ^ obj.tag == "nitro"^ obj.tag == "Zombie"^ obj.tag == "ZombieFat"^ obj.tag == "ZombieMid") 
 			{ //if entered in any other trigger than "Finish" & "Checkpoint", that means player crashed
 			if (!Motorcycle_Controller2D.crash) {
 				if (obj.tag == "Saw") {					

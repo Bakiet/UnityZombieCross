@@ -17,10 +17,10 @@ public class TestNotifier : MonoBehaviour {
       //  bl_NotifierManager.Instance.NewNotifier("Notifier In Top", "You can create / display a new notification with just one line of code.", PlaceScreen.Top);
 		bl_NotifierManager.Instance.NewNotifier("Notifier In Middle", "Use your cell to move the bike from left to right.", PlaceScreen.Middle,this.gameObject,"SeeTarget");
        // bl_NotifierManager.Instance.NewNotifier("Notifier In Middle Left", "It is useful for any type of genre of games like FPS, RPG, MMO, etc ... all need something like this.", PlaceScreen.MiddleLeft);
-		bl_NotifierManager.Instance.NewNotifier("Notifier In Middle Right", "Press the green button to speed.", PlaceScreen.MiddleRight, this.gameObject, "SeeTargetRight");
-		bl_NotifierManager.Instance.NewNotifier("Notifier In Botton", "Press the red button to brake.", PlaceScreen.Botton,  this.gameObject, "SeeTargetLeft");
+		bl_NotifierManager.Instance.NewNotifier("Notifier In Middle Right", "Press the green and red button to speed and brake.", PlaceScreen.Botton, this.gameObject, "SeeTargetRight");
+		bl_NotifierManager.Instance.NewNotifier("Notifier In Botton", "Press the left and right to make flips.", PlaceScreen.Botton,  this.gameObject, "SeeTargetLeft");
        // bl_NotifierManager.Instance.NewNotifier("Notifier In Botton Left", "Sounds for notificasion? ... Is also included :D", PlaceScreen.BottonLeft,1);
-		bl_NotifierManager.Instance.NewNotifier("Notifier In Botton Right", "                    KILL zombies and survive!", PlaceScreen.Botton,this.gameObject,"Finished");
+		bl_NotifierManager.Instance.NewNotifier("Notifier In Botton Right", "                NOW KILL zombies and survive!", PlaceScreen.Botton,this.gameObject,"Finished");
 	}
 	public void SeeTarget()
 	{

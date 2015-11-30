@@ -497,7 +497,9 @@ public class game_uGUI : MonoBehaviour {
 
 	public void Go_to_Checkpoint()
 	{
-		Checkpoint.Reset ();
+		Motorcycle_Controller2D.checkpoint = true;
+		lose_screen.gameObject.SetActive(false);
+
 	}
 	public void Go_to_stage_screen()
 	{
@@ -541,8 +543,8 @@ public class game_uGUI : MonoBehaviour {
 	public void Update_virtual_money(int money)
 	{
 		Debug.Log("money: " + money);
-		Debug.Log(my_game_master.current_virtual_money[my_game_master.current_profile_selected]);
-		Debug.Log((my_game_master.current_virtual_money[my_game_master.current_profile_selected] + money));
+	/*	Debug.Log(my_game_master.current_virtual_money[my_game_master.current_profile_selected]);
+		Debug.Log((my_game_master.current_virtual_money[my_game_master.current_profile_selected] + money));*/
 		if (keep_money_taken_in_this_stage_only_if_you_win)
 			{
 			temp_money_count += money;
