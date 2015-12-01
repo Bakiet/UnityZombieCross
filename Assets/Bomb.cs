@@ -70,6 +70,10 @@ public class Bomb : MonoBehaviour {
 	public	float desiredTimeScale		= 0.5f;		    // Desired game speed 0 stops game, 1 full speed
 	public	float desiredEndTimeScale		= 1;		// Desired game speed when slow motion ends 0 stops game, 1 full speed
 	public	Action	callback	= null;		// Action To execute when slow motion ends
+
+	private const string ACHIEVEMENT_ID_First_Explotion = "CgkIq6GznYALEAIQBg";
+	game_uGUI my_game_uGUI;
+
 	private int count = 0;
 
 	void OnTriggerEnter2D(Collider2D collider)
@@ -179,6 +183,9 @@ public class Bomb : MonoBehaviour {
 
 	void TimeEffectExecuteAll()
 	{
+		makeclick Achievement = new makeclick();
+		Achievement.SENDACHIEVEMENT(ACHIEVEMENT_ID_First_Explotion);
+
 		if(UsedSlowMotion)
 		{
 			count = count + 1;
@@ -320,6 +327,13 @@ public class Bomb : MonoBehaviour {
 	}
 	
 	void Start () {
+
+		GameObject gui = GameObject.FindGameObjectWithTag ("_gui_");
+		if(gui != null){
+			my_game_uGUI = GameObject.FindGameObjectWithTag("_gui_").GetComponent<game_uGUI>();
+			
+		}
+
 		countTimes = 1;
 //		Explotion.SetActive (false);
 	//	GameObject effect= GameObject.Find ("CFXM2_GroundWoodHit Bigger Dark");

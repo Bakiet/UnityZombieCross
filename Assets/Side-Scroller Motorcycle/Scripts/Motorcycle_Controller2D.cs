@@ -99,6 +99,8 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	public static bool crashSawHead = false;
 	public static bool crashBurned = false;
 	public static bool crashBurn = false;
+	public static bool crashDrowned = false;
+	public static bool crashDrown = false;
 	//used to enable/disable motorcycle controlling
 	public static bool isControllable = true;
 	
@@ -201,6 +203,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 
 	public AudioClip BodyDeadSound;
 	public AudioClip BodyDeadBurnSound;
+	public AudioClip BodyDeadDrownSound;
 	public AudioClip MotoDeadSound;
 	public AudioClip BrakeSound;
 
@@ -824,6 +827,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 
 		}
 		crashBurned = false;
+		crashDrowned = false;
 		time =0;
 		if (GameObject.Find ("smoke_effect_purple(Clone)")) {
 			effect = GameObject.Find ("smoke_effect_purple(Clone)");
@@ -1203,6 +1207,9 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		if (crashBurned) {
 			isControllable = false;
 		}
+		if (crashDrowned) {
+			isControllable = false;
+		}
 		
 		if (isControllable) {
 
@@ -1578,6 +1585,44 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					}
 				}
 			}
+			if(crashDrown && !crashed) //if player just crashed
+			{											
+				time = time + 1;
+				//effectburn.transform.position = CarBody.transform.position;
+				if(time == 1){
+					makeclick Achievement = new makeclick();
+					Achievement.SENDACHIEVEMENT(ACHIEVEMENT_ID_First_Drown);
+					//	Reciver.SendMessage ("revealAchievement", ACHIEVEMENT_ID_First_Burn,SendMessageOptions.DontRequireReceiver);
+					/*
+					GameObject soul = (GameObject)Resources.Load("prefabs/CFXM2_Soul", typeof(GameObject));
+					Instantiate(soul, CarBody.transform.position, Quaternion.identity);
+					GameObject explotion = (GameObject)Resources.Load("prefabs/CFXM_Explosion+Text NoSmoke", typeof(GameObject));
+					Instantiate(explotion, CarBody.transform.position, Quaternion.identity);
+					GameObject smoke = (GameObject)Resources.Load("prefabs/CFXM_GroundSmokeExplosionAlt", typeof(GameObject));
+					Instantiate(smoke, CarBody.transform.position, Quaternion.identity);
+					*/
+					
+					
+					//CFX_SpawnSystem.Instantiate (effectburn);
+					AudioSource.PlayClipAtPoint(BodyDeadDrownSound,CarBody.transform.position,10.0f);
+					
+					Camera.main.GetComponent<CameraFollow2D>().target = CarBody.transform; //make camera to follow biker's hips	
+					
+					//unhandlingToDestroy ();
+					
+					//CarBody.transform.Rotate (Vector3.right * 180);
+					
+					
+					//isControllable = false;
+					//crashed = true;
+					//update lives
+					if(my_game_uGUI){
+
+						Invoke ("endguidrown", 2.0f);
+						
+					}
+				}
+			}
 			if(crashSaw && !crashed) //if player just crashed
 			{											
 				
@@ -1672,6 +1717,18 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 			brake = true;
 
 
+		}
+	}
+	void endguidrown()
+	{
+		if(my_game_uGUI){
+			crashDrown = false;
+			crashDrowned = true;
+			//crashed = true;
+			my_game_uGUI.Defeat();
+			brake = true;
+			
+			
 		}
 	}
 	public void handling(string handlingName)

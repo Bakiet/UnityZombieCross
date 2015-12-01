@@ -29,8 +29,34 @@ public class EnemyAI : MonoBehaviour
 	public float range2 =10f;
 	public float stop =0;
 	private bool zombiedead=false;
+
+	game_uGUI my_game_uGUI;
+
+	private const string INCREMENTAL_ACHIEVEMENT_ID_Veteran = "CgkIq6GznYALEAIQCw";
+	private const string INCREMENTAL_ACHIEVEMENT_ID_Assassin = "CgkIq6GznYALEAIQCg";
+	private const string INCREMENTAL_ACHIEVEMENT_ID_Sergeant = "CgkIq6GznYALEAIQCQ";
+	
+	private const string ACHIEVEMENT_ID_First_Freeze = "CgkIq6GznYALEAIQDg";
+	private const string ACHIEVEMENT_ID_First_Buy = "CgkIq6GznYALEAIQDQ";
+	private const string ACHIEVEMENT_ID_First_Burn = "CgkIq6GznYALEAIQDA";
+	
+	private const string ACHIEVEMENT_ID_First_Drown = "CgkIq6GznYALEAIQCA";
+	private const string ACHIEVEMENT_ID_First_Death = "CgkIq6GznYALEAIQBw";
+	private const string ACHIEVEMENT_ID_First_Explotion = "CgkIq6GznYALEAIQBg";
+	private const string ACHIEVEMENT_ID_First_FrontFlip = "CgkIq6GznYALEAIQBA";
+	private const string ACHIEVEMENT_ID_First_BackFlip = "CgkIq6GznYALEAIQAg";
+	
+	private const string INCREMENTAL_ACHIEVEMENT_ID_Two_FrontFlip = "CgkIq6GznYALEAIQBQ";
+	private const string INCREMENTAL_ACHIEVEMENT_ID_Two_BackFlip = "CgkIq6GznYALEAIQAw";
+
 	//Transform myTransform; //current transform data of this enemy
 	void Start () {
+
+		GameObject gui = GameObject.FindGameObjectWithTag ("_gui_");
+		if(gui != null){
+			my_game_uGUI = GameObject.FindGameObjectWithTag("_gui_").GetComponent<game_uGUI>();
+			
+		}
 
 		zombiedead=false;
 		anim = GetComponent<Animator>();
@@ -69,6 +95,16 @@ public class EnemyAI : MonoBehaviour
 					rb2d.velocity = new Vector2 (10f, hitForce);
 					rb2d.velocity = new Vector3 (0f, 3f, 0f) * hitForce;
 					AudioSource.PlayClipAtPoint (DeadSound, gameObject.transform.position, 10.0f);
+
+					makeclick Achievement = new makeclick();
+					Achievement.SENDACHIEVEMENTINCREMENT(INCREMENTAL_ACHIEVEMENT_ID_Veteran,1);
+					Achievement.SENDACHIEVEMENTINCREMENT(INCREMENTAL_ACHIEVEMENT_ID_Assassin,1);
+					Achievement.SENDACHIEVEMENTINCREMENT(INCREMENTAL_ACHIEVEMENT_ID_Sergeant,1);
+
+					if (my_game_uGUI) {
+						my_game_uGUI.Update_int_score (100);			
+					}
+
 					if(gameObject.tag =="ZombieFat"){
 						gameObject.GetComponent<Rigidbody2D>().mass =0.2f;
 					}
