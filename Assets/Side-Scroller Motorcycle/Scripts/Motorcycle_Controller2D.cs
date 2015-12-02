@@ -866,7 +866,8 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 			effectburn = GameObject.Find ("burn_effect");
 		}
 
-
+		effect = GameObject.Find ("fire_effect");
+		effectstatic = effect;
 
 		GetComponent<AudioSource>().pitch = StartingPitch;
 		GetComponent<AudioSource>().volume = 1.0f;  
@@ -988,7 +989,8 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 						//-maxspeed / maxspeed
 						Velocity = Mathf.Clamp(CurrentVelocity, -20, 100);
 
-						effectnitro.transform.position = rearWheel.transform.position;
+					//	effectnitro.transform.position = rearWheel.transform.position;
+						effectnitro.transform.position = Body2D.transform.position;
 						effectnitrostatic.transform.position = effectnitro.transform.position;	
 						
 						for(var i = 0; i <= (Wheels.Length-1); i++)
@@ -1215,7 +1217,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 
 			//RotateVehicle ();
 			if(effect){
-			//effect.SetActive(true);
+			effect.SetActive(true);
 			effect.transform.position = rearWheel.transform.position;
 			effectstatic.transform.position = effect.transform.position;			
 			}

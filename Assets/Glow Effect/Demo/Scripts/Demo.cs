@@ -42,7 +42,7 @@ namespace GlowEffect
 
         public void OnGUI()
         {
-            GUILayout.BeginArea((showGlowControls ? glowControlsVisibleRect : glowControlsNotVisibleRect));
+          /*  GUILayout.BeginArea((showGlowControls ? glowControlsVisibleRect : glowControlsNotVisibleRect));
             GUILayout.BeginVertical("box");
 
             GUILayout.BeginHorizontal();
@@ -154,7 +154,7 @@ namespace GlowEffect
             }
 
             GUILayout.EndVertical();
-            GUILayout.EndArea();
+            GUILayout.EndArea();*/
         }
 
         private void UpdateGlow()
