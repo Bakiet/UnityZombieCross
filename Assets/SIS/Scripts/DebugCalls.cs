@@ -1,7 +1,8 @@
 ﻿/*  This file is part of the "Simple IAP System for SOOMLA" project by Rebound Games.
- *  You are only allowed to use these resources if you've bought them from the Unity Asset Store.
- * 	You shall not license, sublicense, sell, resell, transfer, assign, distribute or
- * 	otherwise make available to any third party the Service or the Content. */
+ *  You are only allowed to use these resources if you've bought them directly or indirectly
+ *  from Rebound Games. You shall not license, sublicense, sell, resell, transfer, assign,
+ *  distribute or otherwise make available to any third party the Service or the Content. 
+ */
 
 using UnityEngine;
 using System.Collections;
@@ -34,7 +35,7 @@ public class DebugCalls : MonoBehaviour
         for (int i = 0; i < allPurchased.Length; i++)
         {
             int balance = 0;
-
+		//	IAPManager.RestoreTransactions(true);
             try { balance = StoreInventory.GetItemBalance(allPurchased[i]); }
             catch (VirtualItemNotFoundException) { }
 
@@ -82,4 +83,5 @@ public class DebugCalls : MonoBehaviour
 
         Debug.Log("Leveled up to level: " + level + "! Shop Manager tried to unlock new items.");
     }
+
 }

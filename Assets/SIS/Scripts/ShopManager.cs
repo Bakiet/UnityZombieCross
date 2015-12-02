@@ -1,7 +1,8 @@
 ﻿/*  This file is part of the "Simple IAP System for SOOMLA" project by Rebound Games.
- *  You are only allowed to use these resources if you've bought them from the Unity Asset Store.
- * 	You shall not license, sublicense, sell, resell, transfer, assign, distribute or
- * 	otherwise make available to any third party the Service or the Content. */
+ *  You are only allowed to use these resources if you've bought them directly or indirectly
+ *  from Rebound Games. You shall not license, sublicense, sell, resell, transfer, assign,
+ *  distribute or otherwise make available to any third party the Service or the Content. 
+ */
 
 using UnityEngine;
 using System;
@@ -87,6 +88,7 @@ namespace SIS
         //instantiates shop item prefabs
         void InitShop()
         {
+
             //reset
             IAPItems.Clear();
 
@@ -212,8 +214,13 @@ namespace SIS
                     if (!string.IsNullOrEmpty(obj.req.entry) &&
                         IAPManager.IsRequirementMet(obj.req))
                     {
-                        //Debug.Log("Shop Manager: requirement met for: " + obj.id);
-                        item.Unlock();
+						if(StoreInventory.GetItemBalance(obj.req.entry)<=0 && item.productId == obj.req.entry + "_upgrade")
+						{
+							//still lock
+						}
+						else{
+							item.Unlock();
+						}
                     }
                 }
             }
