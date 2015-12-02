@@ -989,8 +989,8 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 						//-maxspeed / maxspeed
 						Velocity = Mathf.Clamp(CurrentVelocity, -20, 100);
 
-					//	effectnitro.transform.position = rearWheel.transform.position;
-						effectnitro.transform.position = Body2D.transform.position;
+						effectnitro.transform.position = rearWheel.transform.position;
+						//effectnitro.transform.position = Body2D.transform.position;
 						effectnitrostatic.transform.position = effectnitro.transform.position;	
 						
 						for(var i = 0; i <= (Wheels.Length-1); i++)
