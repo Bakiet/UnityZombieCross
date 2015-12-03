@@ -255,6 +255,9 @@ public class BodyTrigger2D : MonoBehaviour {
 				} else if (obj.tag == "DynamicParticle") {
 					Motorcycle_Controller2D.crashBurn = true;
 					oohCrowdSC.Play ();
+				}	else if (obj.tag == "Drown") {
+					Motorcycle_Controller2D.crashDrown = true;
+					//oohCrowdSC.Play ();
 				} else {
 					oohCrowdSC.Play ();
 					Motorcycle_Controller2D.crash = true;

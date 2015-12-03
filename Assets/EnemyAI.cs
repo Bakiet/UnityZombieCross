@@ -14,6 +14,7 @@ public class EnemyAI : MonoBehaviour
 	private bool isGrounded = false;
 	
 	public AudioClip DeadSound;
+	public AudioClip ZombieSound;
 	public bool isAutomaticFrontWheel = true;
 	public bool isAutomaticBackWheel = true;
 	public GameObject ObjectToCollided;
@@ -49,9 +50,10 @@ public class EnemyAI : MonoBehaviour
 	private const string INCREMENTAL_ACHIEVEMENT_ID_Two_FrontFlip = "CgkIq6GznYALEAIQBQ";
 	private const string INCREMENTAL_ACHIEVEMENT_ID_Two_BackFlip = "CgkIq6GznYALEAIQAw";
 
+	int count = 0;
 	//Transform myTransform; //current transform data of this enemy
 	void Start () {
-
+		count = 0;
 		GameObject gui = GameObject.FindGameObjectWithTag ("_gui_");
 		if(gui != null){
 			my_game_uGUI = GameObject.FindGameObjectWithTag("_gui_").GetComponent<game_uGUI>();
@@ -156,7 +158,10 @@ public class EnemyAI : MonoBehaviour
 				enemyTransform.position += -transform.right * maxSpeed * Time.deltaTime;
 				
 				anim.SetBool ("IsDisturbed", true);
-				
+				count = count +1;
+				if(count == 1){
+				AudioSource.PlayClipAtPoint (ZombieSound, gameObject.transform.position, 10.0f);
+				}
 			}
 			
 			else  {
