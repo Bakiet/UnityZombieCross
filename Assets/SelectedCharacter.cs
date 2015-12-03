@@ -18,7 +18,7 @@ public class SelectedCharacter : AndroidNativeExampleBase {
 
 	private GameObject character;
 	private GameObject opponentcharacter;
-	private GameObject effect;
+	//private GameObject effect;
 	/// <summary>
 	/// death zone object reference
 	/// </summary>
@@ -29,7 +29,14 @@ public class SelectedCharacter : AndroidNativeExampleBase {
 	/// </summary>
 	public GameObject[] characters;
 	public GameObject[] opponentcharacters;
-	public GameObject[] effects;
+	//public GameObject[] effects;
+
+	public static bool super_bike_effect =false;
+	public static bool party_effect =false;
+	public static bool nightmare_effect =false;
+	public static bool monster_effect =false;
+	public static bool neon_effect =false;
+	public static bool hell_effect =false;
 
 	// Use this for initialization
 	IEnumerator Start () {
@@ -70,24 +77,41 @@ public class SelectedCharacter : AndroidNativeExampleBase {
 		else if (StoreInventory.IsVirtualGoodEquipped("sunshine_bike"))
 			selectedChar = characters[11];
 
-		GameObject selectedEffect = effects[0];
+		//GameObject selectedEffect = effects[0];
 		
 		//	StoreInventory.RefreshLocalInventory ();
 		//check for other character selections in the storage
-		if (StoreInventory.IsVirtualGoodEquipped("smoke_effect_purple"))
-			selectedEffect = effects[0];
-		else if (StoreInventory.IsVirtualGoodEquipped("blood_effect"))
-			selectedEffect = effects[1];
-		else if (StoreInventory.IsVirtualGoodEquipped("fire_effect"))
-			selectedEffect = effects[2];
-		else if (StoreInventory.IsVirtualGoodEquipped("ice_effect"))
-			selectedEffect = effects[3];
-		else if (StoreInventory.IsVirtualGoodEquipped("electric_effect"))
-			selectedEffect = effects[4];
-		else if (StoreInventory.IsVirtualGoodEquipped("wave_effect"))
-			selectedEffect = effects[5];
-		else if (StoreInventory.IsVirtualGoodEquipped("neon_effect"))
-			selectedEffect = effects[6];
+		if (StoreInventory.IsVirtualGoodEquipped ("super_bike_effect")) {
+			super_bike_effect = true;
+		} else {
+			super_bike_effect = false;
+		}
+		if (StoreInventory.IsVirtualGoodEquipped("party_effect")){
+			party_effect = true;
+		}else{
+			party_effect = false;
+		}
+		if (StoreInventory.IsVirtualGoodEquipped ("nightmare_effect")) {
+			nightmare_effect = true;
+		} else {
+			nightmare_effect = false;
+		}
+		if (StoreInventory.IsVirtualGoodEquipped ("monster_effect")) {
+			monster_effect = true;
+		} else {
+			monster_effect = false;
+		}
+		if (StoreInventory.IsVirtualGoodEquipped ("neon_effect")) {
+			neon_effect = true;
+		} else {
+			neon_effect = false;
+		}
+		if (StoreInventory.IsVirtualGoodEquipped ("hell_effect")) {
+			hell_effect = true;
+		} else {
+			hell_effect = false;
+		}
+
 	
 		if (selectedChar == null) {
 			//we didn't select a character yet, meaning this app runs for the first time
@@ -96,13 +120,11 @@ public class SelectedCharacter : AndroidNativeExampleBase {
 			StoreInventory.EquipVirtualGood("bike");
 			SIS.ShopManager.SetItemState();
 		}
-		if (selectedEffect == null) {
-			/*StoreInventory.GiveItem("fire_effect", 1);
-			StoreInventory.EquipVirtualGood("fire_effect");
-			SIS.ShopManager.SetItemState();*/
+	/*	if (selectedEffect == null) {
+
 			selectedEffect = effects[0];
 
-		}
+		}*/
 
 		if (Multiplayer) {
 
@@ -179,10 +201,10 @@ public class SelectedCharacter : AndroidNativeExampleBase {
 			character = (GameObject)Instantiate (selectedChar, spawnPos.position, Quaternion.identity);
 			character.SetActive (true);
 			//if have effect
-			if(selectedEffect){
+			/*if(selectedEffect){
 				effect = (GameObject)Instantiate (selectedEffect, character.GetComponent<Motorcycle_Controller2D>().rearWheel.position, Quaternion.identity);
 				effect.SetActive (true);
-			}
+			}*/
 		}
 		//deathZone.GetComponent<FollowAxis>().target = character.transform;
 	

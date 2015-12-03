@@ -80,9 +80,9 @@ public class EnemyAI : MonoBehaviour
 	}
 	
 	void FixedUpdate(){
-		
-		target = GameObject.FindWithTag ("Player").transform;
-
+		if (GameObject.FindWithTag ("Player").transform) {
+			target = GameObject.FindWithTag ("Player").transform;
+		}
 	}
 
 	void OnCollisionEnter2D (Collision2D collision)

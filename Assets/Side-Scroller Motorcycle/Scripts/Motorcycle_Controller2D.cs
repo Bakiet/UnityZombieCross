@@ -790,8 +790,87 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		SmokeEmmiter = Smoke.GetComponent<ParticleAnimator>();
 		WheelRadius = new float[Wheels.Length];
 	}
+
+	private GameObject AuraModular;
+	private GameObject GroundModular2;
+	private GameObject SpinningModular;
+	private GameObject SpinningModular2;
+	private GameObject SkullRotate;
+	private GameObject LifeImpact1;
+	private GameObject LifeImpact2;
+	private GameObject SpinningFire;
+	private GameObject SpinningFire1;
+
 	void Start()
 	{
+		if (this.name == "super_bike(Clone)") {
+			AuraModular = GameObject.Find ("AuraModular");
+			AuraModular.SetActive (false);
+			GroundModular2 = GameObject.Find ("GroundModular2");
+			GroundModular2.SetActive (false);
+		}
+		if (this.name == "party_bike(Clone)") {
+			SpinningModular = GameObject.Find ("SpinningModular");
+			SpinningModular.SetActive (false);
+			SpinningModular2 = GameObject.Find ("SpinningModular (1)");
+			SpinningModular2.SetActive (false);
+		}
+		if (this.name == "nightmare_bike(Clone)") {
+			SkullRotate = GameObject.Find ("SkullRotate");
+			SkullRotate.SetActive (false);
+		}
+		if (this.name == "monster_bike(Clone)") {
+			LifeImpact1 = GameObject.Find ("LifeImpact1");
+			LifeImpact1.SetActive (false);
+			LifeImpact2 = GameObject.Find ("LifeImpact2");
+			LifeImpact2.SetActive (false);
+		}
+		if (this.name == "hell_bike(Clone)") {
+			SpinningFire = GameObject.Find ("SpinningFire (2)");
+			SpinningFire.SetActive (false);
+			SpinningFire1 = GameObject.Find ("SpinningFire (1)");
+			SpinningFire1.SetActive (false);
+		}
+
+		if (SelectedCharacter.super_bike_effect) {
+			if(this.name == "super_bike(Clone)"){
+				AuraModular.SetActive(true);
+				GroundModular2.SetActive (true);
+			}
+		} 
+		if (SelectedCharacter.party_effect) {
+			if(this.name == "party_bike(Clone)"){
+			SpinningModular.SetActive(true);
+			SpinningModular2.SetActive(true);
+			}
+		}
+		if (SelectedCharacter.nightmare_effect) {
+			if(this.name == "nightmare_bike(Clone)"){
+			SkullRotate.SetActive(true);
+			}
+		}
+		if (SelectedCharacter.monster_effect) {
+			if(this.name == "monster_bike(Clone)"){
+				LifeImpact1.SetActive(true);
+				LifeImpact2.SetActive(true);
+			}
+		}
+		if (SelectedCharacter.neon_effect) {
+			if(this.name == "neon_bike(Clone)"){
+				GameObject.Find ("Main Camera").GetComponent<GlowEffect.GlowEffect> ().enabled = true;
+			}
+		} else {
+			if(this.name == "neon_bike(Clone)"){
+				GameObject.Find ("Main Camera").GetComponent<GlowEffect.GlowEffect> ().enabled = false;
+			}
+		}
+		if (SelectedCharacter.hell_effect) {
+			if(this.name == "hell_bike(Clone)"){
+				SpinningFire.SetActive(true);
+				SpinningFire1.SetActive(true);
+			}
+		}
+
 		Motorcycle_Controller2D.checkpoint = false;
 		GameObject gui = GameObject.FindGameObjectWithTag ("_gui_");
 		if(gui != null){
@@ -829,7 +908,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		crashBurned = false;
 		crashDrowned = false;
 		time =0;
-		if (GameObject.Find ("smoke_effect_purple(Clone)")) {
+		/*if (GameObject.Find ("smoke_effect_purple(Clone)")) {
 			effect = GameObject.Find ("smoke_effect_purple(Clone)");
 			effectstatic = effect;
 		}
@@ -857,7 +936,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 			effect = GameObject.Find ("neon_effect(Clone)");
 			effectstatic = effect;
 		}
-
+		*/
 		if (GameObject.Find ("nitro_effect")) {
 			effectnitro = GameObject.Find ("nitro_effect");
 			effectnitrostatic = effectnitro;
@@ -1169,7 +1248,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	void setVerticalAxis(int vertical){
 		this.vertical = vertical;
 	}
-	
+
 	void Update()
 	{
 		frontWheelStatic = frontWheelObject;
