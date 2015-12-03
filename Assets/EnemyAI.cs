@@ -91,7 +91,7 @@ public class EnemyAI : MonoBehaviour
 	{
 		if (!zombiedead) {
 			if (ObjectToCollided != null || ObjectToCollided2 != null) {
-				if (ObjectToCollided.name == collision.gameObject.name) {
+				if (ObjectToCollided.name == collision.gameObject.name || ObjectToCollided2.name == collision.gameObject.name) {
 					anim.SetBool ("IsKilled", true);
 					anim.SetBool ("IsAggro", false);
 					rb2d.velocity = new Vector2 (10f, hitForce);
