@@ -40,11 +40,12 @@ public class Checkpoint : MonoBehaviour {
 
 	public static void Reset()
 	{
-		Motorcycle_Controller2D.lastcheckpoint = lastPoint;
-		Application.LoadLevel (Application.loadedLevel);
-		Motorcycle_Controller2D.checkpoint = true;
 		//Motorcycle_Controller2D.lastcheckpoint = lastPoint;
-		//Instantiate (moto, lastPoint.position, Quaternion.identity);
+		//Application.LoadLevel (Application.loadedLevel);
+		Destroy (motorcyclePrefab);
+		Motorcycle_Controller2D.checkpoint = true;
+		Motorcycle_Controller2D.lastcheckpoint = lastPoint;
+		Instantiate (moto, lastPoint.position, Quaternion.identity);
 		//Motorcycle_Controller2D.score = scoreAtLastPoint;
 		//Motorcycle_Controller2D.crash = false;
 
