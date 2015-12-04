@@ -23,6 +23,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	private  string INCREMENTAL_ACHIEVEMENT_ID_Sergeant = "CgkIq6GznYALEAIQCQ";
 
 	public static bool checkpoint = false;
+	public static Transform lastcheckpoint;
 	public int setscore=100;
 	public int StartingPitch = 1;
 	public float MaxPitch = 3.0f;
@@ -791,7 +792,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	void Awake()
 	{
 
-		SmokeEmmiter = Smoke.GetComponent<ParticleAnimator>();
+//		SmokeEmmiter = Smoke.GetComponent<ParticleAnimator>();
 		WheelRadius = new float[Wheels.Length];
 	}
 
@@ -875,7 +876,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 			}
 		}
 
-		Motorcycle_Controller2D.checkpoint = false;
+		//Motorcycle_Controller2D.checkpoint = false;
 		GameObject gui = GameObject.FindGameObjectWithTag ("_gui_");
 		if(gui != null){
 			my_game_uGUI = GameObject.FindGameObjectWithTag("_gui_").GetComponent<game_uGUI>();
@@ -972,12 +973,12 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		edif2 = GameObject.Find ("edif 2");
 		humo = GameObject.Find ("humo");
 		edif1 = GameObject.Find ("edif 1");
-
+		/*
 		CarBody = GameObject.Find("Body2D");
 		CenterOfMass = GameObject.Find("CoM2D");
 		Smoke = GameObject.Find("Smoke");
 		Ensemble = GameObject.Find("Ensemble2D");
-
+		*/
 		endTime = Time.time + endTime;
 		
 
@@ -1022,7 +1023,18 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		{
 			WheelRadius[i] = Wheels[i].GetComponent<CircleCollider2D>().radius;
 		}
-		
+
+		if (lastcheckpoint) {
+			//if ((Input.GetKeyDown (KeyCode.C) || (Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Began)) && crashed) {
+			if (checkpoint) {
+				//Checkpoint.Reset ();
+				//Destroy (gameObject);
+				
+				Car.transform.position = lastcheckpoint.position;
+				crash = false;
+				crashed=false;
+			}
+		}
 		//CalculateVelocity();
 	}
 	
@@ -1048,6 +1060,8 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		
 		isControllable = false;
 		crashed = true;
+
+
 	}
 	
 	void FixedUpdate ()
@@ -1261,15 +1275,6 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		frontWheelStatic = frontWheelObject;
 		backWheelStatic = backWheelObject;
 
-		if (Checkpoint.lastPoint) {
-			//if ((Input.GetKeyDown (KeyCode.C) || (Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Began)) && crashed) {
-			if (checkpoint) {
-				Checkpoint.Reset ();
-				Destroy (gameObject);
-				crash = false;
-				crashed=false;
-			}
-		}
 
 		if (Application.loadedLevelName == "W1_Stage_1") {
 			float timeLeft = endTime - Time.time;
@@ -1782,10 +1787,10 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		}
 
 	
-
+		/*
 		Vector3 temp = SmokeEmmiter.force;
 		temp.y = (SmokeEmmiter.force.y) * 0.5f;
-		SmokeEmmiter.force = temp;
+		SmokeEmmiter.force = temp;*/
 		//	transform.Translate(Input.acceleration.x, 0, -Input.acceleration.y);
 		//SmokeEmmiter.force.y = Velocity * 20f;
 	}

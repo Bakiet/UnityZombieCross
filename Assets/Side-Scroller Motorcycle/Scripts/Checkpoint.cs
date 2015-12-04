@@ -12,7 +12,6 @@ public class Checkpoint : MonoBehaviour {
 	private AudioSource audioSource;
 
 	public static Transform lastPoint;
-	public static Transform spawn;
 	private static GameObject moto;
 
 
@@ -33,7 +32,7 @@ public class Checkpoint : MonoBehaviour {
 			lastPoint = transform;
 			objectToChangeColor.material.color = activatedColor;
 			audioSource.Play ();
-			scoreAtLastPoint = Motorcycle_Controller.score;
+			scoreAtLastPoint = Motorcycle_Controller2D.score;
 			motorcyclePrefab = Motorcycle_Controller2D.BodyCarStatic;
 			moto = motorcyclePrefab;
 		}
@@ -41,9 +40,13 @@ public class Checkpoint : MonoBehaviour {
 
 	public static void Reset()
 	{
-		Instantiate (moto, lastPoint.position, Quaternion.identity);
-		Motorcycle_Controller2D.score = scoreAtLastPoint;
-		Motorcycle_Controller2D.crash = false;
+		Motorcycle_Controller2D.lastcheckpoint = lastPoint;
+		Application.LoadLevel (Application.loadedLevel);
+		Motorcycle_Controller2D.checkpoint = true;
+		//Motorcycle_Controller2D.lastcheckpoint = lastPoint;
+		//Instantiate (moto, lastPoint.position, Quaternion.identity);
+		//Motorcycle_Controller2D.score = scoreAtLastPoint;
+		//Motorcycle_Controller2D.crash = false;
 
 	}
 }

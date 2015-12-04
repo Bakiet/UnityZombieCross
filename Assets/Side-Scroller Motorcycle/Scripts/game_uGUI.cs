@@ -498,7 +498,8 @@ public class game_uGUI : MonoBehaviour {
 
 	public void Go_to_Checkpoint()
 	{
-		Motorcycle_Controller2D.checkpoint = true;
+		Checkpoint.Reset ();
+		//Motorcycle_Controller2D.checkpoint = true;
 		lose_screen.gameObject.SetActive(false);
 
 	}
