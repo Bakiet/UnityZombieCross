@@ -195,6 +195,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 
 	//Car = GameObject.Find("Car"); 	
 	public GameObject CarBody;	
+	public static GameObject CarBodyStatic;	
 	public Transform CarBodyTransform;	
 	public static Transform CarBodyTransformStatic;	
 	public GameObject CenterOfMass;	
@@ -952,6 +953,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		GetComponent<AudioSource>().volume = 1.0f;  
 
 		BodyCarStatic = Car;
+		CarBodyStatic = CarBody;
 		
 		CarBodyTransformStatic = CarBodyTransform;
 		frontWheelStatic = frontWheelObject;

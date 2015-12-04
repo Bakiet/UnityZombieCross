@@ -9,10 +9,13 @@ public class D2D_DamageOnCollision : MonoBehaviour
 {
 	//private int countTimes = 0;
 	//public int timeToTouch = 1;
+	public bool usedtime = false;
 	public float time = 0f;
-	public bool isColliderwithMoto = false;
-	public bool isAutomaticFrontWheel = false;
-	public bool isAutomaticBackWheel = false;
+	public bool isColliderwithMoto = true;
+	public bool isAutomaticBody = true;
+	public bool isAutomaticFrontWheel = true;
+	public bool isAutomaticBackWheel = true;
+	public GameObject BodyToCollided;
 	public GameObject ObjectToCollided;
 	public GameObject ObjectToCollided2;
 
@@ -34,10 +37,14 @@ public class D2D_DamageOnCollision : MonoBehaviour
 
 	private float damage;
 
-	void Start(){
-
-		//countTimes = 1;
-
+	void Update(){
+		
+		if (isAutomaticBody) {
+			BodyToCollided = Motorcycle_Controller2D.CarBodyStatic;			
+		}
+		else {
+			BodyToCollided = BodyToCollided;
+		}
 		if (isAutomaticFrontWheel) {
 			ObjectToCollided = Motorcycle_Controller2D.frontWheelStatic;
 			
@@ -53,14 +60,20 @@ public class D2D_DamageOnCollision : MonoBehaviour
 			ObjectToCollided2 = ObjectToCollided2;
 		}
 	}
+
+	void Start(){
+
+		//countTimes = 1;
+
+	}
 	
 	protected virtual void OnCollisionEnter2D(Collision2D collision)
 	{
 		damage = collision.relativeVelocity.magnitude * DamageScale;
 
 		if (isColliderwithMoto) {
-			if (ObjectToCollided != null || ObjectToCollided2 != null) {
-				if (collision.gameObject.name == ObjectToCollided.name || collision.gameObject.name == ObjectToCollided2.name) {
+			if (ObjectToCollided != null || ObjectToCollided2 != null || BodyToCollided != null) {
+				if (ObjectToCollided.name == collision.gameObject.name || ObjectToCollided2.name == collision.gameObject.name || BodyToCollided.name == collision.gameObject.name) {
 					
 
 					
@@ -75,7 +88,15 @@ public class D2D_DamageOnCollision : MonoBehaviour
 						if (damageable == null)
 							damageable = GetComponent<D2D_Damageable> ();
 						
-						Invoke ("MyWaitingFunction", time);
+						//if(usedtime){
+							Invoke ("MyWaitingFunction", time);
+						/*}else{
+							damageable.InflictDamage (damage);
+							AudioSource.PlayClipAtPoint (Sound, gameObject.transform.position);
+							Physics2D.IgnoreCollision(BodyToCollided.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+							Physics2D.IgnoreCollision(ObjectToCollided.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+							Physics2D.IgnoreCollision(ObjectToCollided2.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+						}*/
 					}
 				} else {
 				}
@@ -94,8 +115,15 @@ public class D2D_DamageOnCollision : MonoBehaviour
 			if (damage >= DamageThreshold) {
 				if (damageable == null)
 					damageable = GetComponent<D2D_Damageable> ();
-
+			//	if(usedtime){
 				Invoke ("MyWaitingFunction", time);
+				/*}else{
+					damageable.InflictDamage (damage);
+					AudioSource.PlayClipAtPoint (Sound, gameObject.transform.position);
+					Physics2D.IgnoreCollision(BodyToCollided.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+					Physics2D.IgnoreCollision(ObjectToCollided.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+					Physics2D.IgnoreCollision(ObjectToCollided2.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+				}*/
 
 			}
 		}
@@ -105,6 +133,10 @@ public class D2D_DamageOnCollision : MonoBehaviour
 	void MyWaitingFunction(){
 		damageable.InflictDamage (damage);
 		AudioSource.PlayClipAtPoint (Sound, gameObject.transform.position);
+		Physics2D.IgnoreCollision(BodyToCollided.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+		Physics2D.IgnoreCollision(ObjectToCollided.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+		Physics2D.IgnoreCollision(ObjectToCollided2.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+		GetComponent<Collider2D> ().isTrigger = true;
 	}
 
 }
