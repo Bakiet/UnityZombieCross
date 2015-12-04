@@ -91,6 +91,7 @@ public class game_uGUI : MonoBehaviour {
 	[HideInInspector]public int int_score;
 	public Sprite perfect_emoticon;
 	[HideInInspector]public Image perfect_target;
+	//public Image perfect_target;
 	Sprite normal_emoticon;
 
 	public static bool allow_game_input;//this is false when a menu is open
@@ -109,7 +110,7 @@ public class game_uGUI : MonoBehaviour {
 	void Start () {
 
 
-
+		perfect_target.sprite = perfect_emoticon;
 		my_options = options_screen.GetComponent<options_menu>();
 		normal_emoticon = perfect_target.sprite;
 

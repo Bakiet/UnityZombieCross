@@ -9,6 +9,7 @@ public class D2D_DamageOnCollision : MonoBehaviour
 {
 	//private int countTimes = 0;
 	//public int timeToTouch = 1;
+	public bool iftrash = false;
 	public bool usedtime = false;
 	public float time = 0f;
 	public bool isColliderwithMoto = true;
@@ -18,6 +19,8 @@ public class D2D_DamageOnCollision : MonoBehaviour
 	public GameObject BodyToCollided;
 	public GameObject ObjectToCollided;
 	public GameObject ObjectToCollided2;
+	public bool isAutomaticPoli = true;
+	public GameObject PoliToCollided;
 
 	public AudioClip Sound;
 	private	string	identifier				= "";		// Use to identify the slow motion
@@ -38,7 +41,12 @@ public class D2D_DamageOnCollision : MonoBehaviour
 	private float damage;
 
 	void Update(){
-		
+		if (isAutomaticPoli) {
+			PoliToCollided = Motorcycle_Controller2D.PoliStatic;			
+		}
+		else {
+			PoliToCollided = PoliToCollided;
+		}
 		if (isAutomaticBody) {
 			BodyToCollided = Motorcycle_Controller2D.CarBodyStatic;			
 		}
@@ -62,7 +70,7 @@ public class D2D_DamageOnCollision : MonoBehaviour
 	}
 
 	void Start(){
-
+		count = 0;
 		//countTimes = 1;
 
 	}
@@ -72,8 +80,8 @@ public class D2D_DamageOnCollision : MonoBehaviour
 		damage = collision.relativeVelocity.magnitude * DamageScale;
 
 		if (isColliderwithMoto) {
-			if (ObjectToCollided != null || ObjectToCollided2 != null || BodyToCollided != null) {
-				if (ObjectToCollided.name == collision.gameObject.name || ObjectToCollided2.name == collision.gameObject.name || BodyToCollided.name == collision.gameObject.name) {
+			if (ObjectToCollided != null || ObjectToCollided2 != null || BodyToCollided != null || PoliToCollided != null) {
+				if (ObjectToCollided.name == collision.gameObject.name || ObjectToCollided2.name == collision.gameObject.name || BodyToCollided.name == collision.gameObject.name || PoliToCollided.name == collision.gameObject.name) {
 					
 
 					
@@ -132,11 +140,23 @@ public class D2D_DamageOnCollision : MonoBehaviour
 	}
 	void MyWaitingFunction(){
 		damageable.InflictDamage (damage);
-		AudioSource.PlayClipAtPoint (Sound, gameObject.transform.position);
+		count = count + 1;
+		if (count == 1) {
+			AudioSource.PlayClipAtPoint (Sound, gameObject.transform.position);
+		}
+		if (iftrash) {
+			Physics2D.IgnoreCollision(PoliToCollided.GetComponent<Collider2D>(),gameObject.transform.GetChild (0).GetComponent<Collider2D>());
+			Physics2D.IgnoreCollision(BodyToCollided.GetComponent<Collider2D>(),gameObject.transform.GetChild (0).GetComponent<Collider2D>());
+			Physics2D.IgnoreCollision(ObjectToCollided.GetComponent<Collider2D>(),gameObject.transform.GetChild (0).GetComponent<Collider2D>());
+			Physics2D.IgnoreCollision(ObjectToCollided2.GetComponent<Collider2D>(),gameObject.transform.GetChild (0).GetComponent<Collider2D>());
+		}
+		Physics2D.IgnoreCollision(PoliToCollided.GetComponent<Collider2D>(), GetComponent<Collider2D>());
 		Physics2D.IgnoreCollision(BodyToCollided.GetComponent<Collider2D>(), GetComponent<Collider2D>());
 		Physics2D.IgnoreCollision(ObjectToCollided.GetComponent<Collider2D>(), GetComponent<Collider2D>());
 		Physics2D.IgnoreCollision(ObjectToCollided2.GetComponent<Collider2D>(), GetComponent<Collider2D>());
-		GetComponent<Collider2D> ().isTrigger = true;
+		//gameObject.transform.GetChild (1).GetComponent<Collider2D>().isTrigger = false;
+
+
 	}
 
 }

@@ -196,6 +196,9 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	//Car = GameObject.Find("Car"); 	
 	public GameObject CarBody;	
 	public static GameObject CarBodyStatic;	
+	public GameObject Poli;	
+	public static GameObject PoliStatic;	
+
 	public Transform CarBodyTransform;	
 	public static Transform CarBodyTransformStatic;	
 	public GameObject CenterOfMass;	
@@ -909,6 +912,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		crashBurned = false;
 		crashDrowned = false;
 		time =0;
+		ifnitro = false;
 		/*if (GameObject.Find ("smoke_effect_purple(Clone)")) {
 			effect = GameObject.Find ("smoke_effect_purple(Clone)");
 			effectstatic = effect;
@@ -954,6 +958,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 
 		BodyCarStatic = Car;
 		CarBodyStatic = CarBody;
+		PoliStatic = Poli;
 		
 		CarBodyTransformStatic = CarBodyTransform;
 		frontWheelStatic = frontWheelObject;
