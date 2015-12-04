@@ -25,9 +25,12 @@ public class SendAdtoLoad : MonoBehaviour {
 		}
 		if (timeLeft <= 0) {
 			if (times == 1) {
-				if (StoreInventory.GetItemBalance ("no_ads") <= 0) {
-				Reciver.SendMessage (MethodName, SendMessageOptions.DontRequireReceiver);
-				times = 0;
+				if (MethodName == "SmartBottom" || MethodName == "StartInterstitialAd") {
+					if (StoreInventory.GetItemBalance ("no_ads") <= 0) {
+						Reciver.SendMessage (MethodName, SendMessageOptions.DontRequireReceiver);
+					}
+				} else {
+					Reciver.SendMessage (MethodName, SendMessageOptions.DontRequireReceiver);
 				}
 			}
 		} else {
