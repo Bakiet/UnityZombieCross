@@ -75,6 +75,7 @@ public class game_uGUI : MonoBehaviour {
 	public bool show_stage_record;
 	[HideInInspector]public GameObject stars_ico;
 	[HideInInspector]public Text stars_count;
+	[HideInInspector]public Text zombies_count;
 	
 	[HideInInspector]public GameObject lose_screen_lives_ico;
 	[HideInInspector]public Text lose_screen_lives_count;
@@ -708,13 +709,13 @@ public class game_uGUI : MonoBehaviour {
 	{
 		zombie_number += quantity;//add star
 		//star_number = star_number + 1;
-		stars_count.text = zombie_number.ToString();//update gui
+		zombies_count.text = zombie_number.ToString();//update gui
 	}
 	public void New_zombie_score(int zombie_total)
 	{
 		zombie_number = zombie_total;//add star
 		//star_number = star_number + 1;
-		stars_count.text = zombie_number.ToString();//update gui
+		zombies_count.text = zombie_number.ToString();//update gui
 	}
 
 
