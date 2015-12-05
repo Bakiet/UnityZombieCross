@@ -37,12 +37,13 @@ public class BodyTrigger2D : MonoBehaviour {
 
 	public GameObject EffectCoin;
 	
-
+	private int count;
 
 	game_uGUI my_game_uGUI;
 	
 	void Start()
 	{
+		count = 0;
 		GameObject gui = GameObject.FindGameObjectWithTag ("_gui_");
 		if(gui != null){
 			my_game_uGUI = GameObject.FindGameObjectWithTag("_gui_").GetComponent<game_uGUI>();
@@ -246,15 +247,24 @@ public class BodyTrigger2D : MonoBehaviour {
 		} else if (obj.tag != "Checkpoint" ^ obj.tag != "ZoomOutTrigger" ^ obj.tag != "ZoomInTrigger" ^ obj.tag == "Player" ^ obj.tag == "Coin" ^ obj.tag == "Ground" ^ obj.tag == "nitro"^ obj.tag == "Zombie"^ obj.tag == "ZombieFat"^ obj.tag == "ZombieMid") 
 			{ //if entered in any other trigger than "Finish" & "Checkpoint", that means player crashed
 			if (!Motorcycle_Controller2D.crash) {
-				if (obj.tag == "Saw") {					
+				if (obj.tag == "Saw") {		
+					count = count +1;
+					if(count == 1){
 					Motorcycle_Controller2D.crashSaw = true;
 					oohCrowdSC.Play ();
+					}
 				} else if (obj.tag == "SawHead") {
+					count = count +1;
+					if(count == 1){
 					Motorcycle_Controller2D.crashSawHead = true;
 					oohCrowdSC.Play ();
+					}
 				} else if (obj.tag == "DynamicParticle") {
+					count = count +1;
+					if(count == 1){
 					Motorcycle_Controller2D.crashBurn = true;
 					oohCrowdSC.Play ();
+					}
 				}	else if (obj.tag == "Drown") {
 					Motorcycle_Controller2D.crashDrown = true;
 					//oohCrowdSC.Play ();

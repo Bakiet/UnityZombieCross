@@ -1178,7 +1178,7 @@ public class game_uGUI : MonoBehaviour {
 	{		
 		if (!stage_end)
 			{	
-			stage_end = true;
+			stage_end = false;
 			if (show_debug_messages)
 				Debug.Log("you lose");
 

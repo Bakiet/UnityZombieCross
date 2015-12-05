@@ -198,7 +198,8 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	public GameObject CarBody;	
 	public static GameObject CarBodyStatic;	
 	public GameObject Poli;	
-	public static GameObject PoliStatic;	
+	public static GameObject PoliStatic;
+	public static GameObject HelmetStatic;
 
 	public Transform CarBodyTransform;	
 	public static Transform CarBodyTransformStatic;	
@@ -960,6 +961,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		BodyCarStatic = Car;
 		CarBodyStatic = CarBody;
 		PoliStatic = Poli;
+		HelmetStatic = helmet;
 		
 		CarBodyTransformStatic = CarBodyTransform;
 		frontWheelStatic = frontWheelObject;
@@ -981,7 +983,8 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		*/
 		endTime = Time.time + endTime;
 		
-
+		crashSaw = false;
+		crashSawHead = false;
 		
 		crash = false;
 		crashed = false;
@@ -1081,6 +1084,16 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					//Destroy(fire);
 					//fire.Stop ();
 				}*/
+				if(ifnitro)
+				{
+					effectnitro.SetActive(true);
+					effectnitro.transform.position = rearWheel.transform.position;
+					//effectnitro.transform.position = Body2D.transform.position;
+					effectnitrostatic.transform.position = effectnitro.transform.position;	
+				}else{
+					effectnitro.SetActive(false);
+				}
+
 				if (accelerate) {
 					if(ifnitro)
 					{
@@ -1089,9 +1102,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 						//-maxspeed / maxspeed
 						Velocity = Mathf.Clamp(CurrentVelocity, -20, 100);
 
-						effectnitro.transform.position = rearWheel.transform.position;
-						//effectnitro.transform.position = Body2D.transform.position;
-						effectnitrostatic.transform.position = effectnitro.transform.position;	
+
 						
 						for(var i = 0; i <= (Wheels.Length-1); i++)
 						{
@@ -1111,37 +1122,15 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					else{
 
 						if(forMobile){
-							/*
-							if(nubes){
-							nubes.GetComponent<Paralaxcity>().InitiateScroll();
-							edif2.GetComponent<Paralaxcity>().InitiateScroll();
-							humo.GetComponent<Paralaxcity>().InitiateScroll();
-							edif1.GetComponent<Paralaxcity>().InitiateScroll();
-							}*/
-							
-							CurrentVelocity = Acceleration * InputGetAxis("Vertical") * Time.deltaTime * SpeedMotorMobile;
-							//CurrentVelocity = Acceleration * InputGetAxis("Vertical") * SpeedMotorMobile;
-							//	CurrentVelocity = Acceleration * Input.GetAxisRaw ("Vertical") * Time.deltaTime * 10;
-							//Input.acceleration.x
-							//rearWheel.AddTorque (new Vector3 (0, 0, -speed * Time.deltaTime), ForceMode.Impulse);
-							//if(Velocity < MaxSpeed){
-							Velocity = Mathf.Clamp(CurrentVelocity, -MaxSpeed, MaxSpeed);
-							//	}
 
 							
+							CurrentVelocity = Acceleration * InputGetAxis("Vertical") * Time.deltaTime * SpeedMotorMobile;
+
+							Velocity = Mathf.Clamp(CurrentVelocity, -MaxSpeed, MaxSpeed);
+
 						}
 						else{
-							/*if(nubes){
-							nubes.GetComponent<Paralaxcity>().InitiateScroll();
-							edif2.GetComponent<Paralaxcity>().InitiateScroll();
-							humo.GetComponent<Paralaxcity>().InitiateScroll();
-							edif1.GetComponent<Paralaxcity>().InitiateScroll();
-							}*/
-							/*nubes.GetComponent<Paralaxcity>(). = true;
-							edif2.GetComponent<Paralaxcity>().enabled = true;
-							humo.GetComponent<Paralaxcity>().enabled = true;
-							edif1.GetComponent<Paralaxcity>().enabled = true;
-							*/
+
 							CurrentVelocity = Acceleration * Input.GetAxis("Vertical") * Time.deltaTime * SpeedMotor;
 							//if(Velocity < MaxSpeed){
 							Velocity = Mathf.Clamp(CurrentVelocity, -MaxSpeed, MaxSpeed);
@@ -1296,6 +1285,9 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 			} else {
 				isControllable = false;
 			}
+		}
+		if (crashed) {
+			isControllable = false;
 		}
 		if (crashBurned) {
 			isControllable = false;
@@ -1707,7 +1699,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					
 					
 					//isControllable = false;
-					//crashed = true;
+					crashed = true;
 					//update lives
 					if(my_game_uGUI){
 
@@ -1797,6 +1789,10 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	void endgui()
 	{
 		if(my_game_uGUI){
+			crashSaw = false;
+			crashSawHead = false;
+			crash = false;
+			crashed = true;
 			my_game_uGUI.Defeat();
 		}
 	}
