@@ -127,8 +127,9 @@ public class EnemyAI : MonoBehaviour
 					if (my_game_uGUI) {
 						my_game_uGUI.Update_int_score (100);
 						zombie_count = zombie_count + 1;
-						my_game_uGUI.Add_zombies (1);
-
+						//my_game_uGUI.Add_zombies (1);
+						my_game_uGUI.star_number = 1;
+						//my_game_uGUI.Add_stars (1);
 
 					}
 
