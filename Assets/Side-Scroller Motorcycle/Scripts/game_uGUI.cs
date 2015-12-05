@@ -88,6 +88,7 @@ public class game_uGUI : MonoBehaviour {
 	[HideInInspector]public GameObject[] stars_on;
 	int invoke_count = 0;
 	[HideInInspector]public int star_number;
+	[HideInInspector]public int zombie_number;
 	[HideInInspector]public int int_score;
 	public Sprite perfect_emoticon;
 	[HideInInspector]public Image perfect_target;
@@ -109,10 +110,12 @@ public class game_uGUI : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-
-		perfect_target.sprite = perfect_emoticon;
+		if (perfect_target != null) {
+			perfect_target.sprite = perfect_emoticon;
+			normal_emoticon = perfect_target.sprite;
+		}
 		my_options = options_screen.GetComponent<options_menu>();
-		normal_emoticon = perfect_target.sprite;
+
 
 		if (game_master.game_master_obj)
 			{
@@ -248,6 +251,7 @@ public class game_uGUI : MonoBehaviour {
 
 		//reset star score
 		star_number = 0;
+		zombie_number = 0;
 		if (show_star_count)
 			{
 			stars_count.text = (0).ToString();
@@ -258,7 +262,9 @@ public class game_uGUI : MonoBehaviour {
 
 		//reset win screen
 		win_screen.gameObject.SetActive(false);
-		perfect_target.sprite = normal_emoticon;
+		if (perfect_target != null) {
+			perfect_target.sprite = normal_emoticon;
+		}
 		for (int i = 0; i < 3; i++)
 			{
 			stars_on[i].transform.localScale = Vector3.zero;
@@ -449,6 +455,7 @@ public class game_uGUI : MonoBehaviour {
 			Reset_me();
 			}
 		else
+
 			Application.LoadLevel (Application.loadedLevel); 
 	}
 
@@ -671,27 +678,43 @@ public class game_uGUI : MonoBehaviour {
 	{
 		int_score += points;
 		int_score_count.text = int_score.ToString("N0");
-		if (show_progress_bar && progress_bar_use_score)
+		if (show_progress_bar && progress_bar_use_score) {
 			my_progress_bar.Update_fill (int_score);
+		}
 	}
 
 	public void Update_int_score()
 	{
 		int_score_count.text = int_score.ToString("N0");
-		if (show_progress_bar && progress_bar_use_score)
+		if (show_progress_bar && progress_bar_use_score) {
 			my_progress_bar.Update_fill (int_score);
+		}
 	}
 
 	public void Add_stars(int quantity)
 	{
 		star_number += quantity;//add star
+		//star_number = star_number + 1;
 		stars_count.text = star_number.ToString();//update gui
 	}
 
 	public void New_star_score(int star_total)
 	{
 		star_number = star_total;//add star
+		//star_number = star_number + 1;
 		stars_count.text = star_number.ToString();//update gui
+	}
+	public void Add_zombies(int quantity)
+	{
+		zombie_number += quantity;//add star
+		//star_number = star_number + 1;
+		stars_count.text = zombie_number.ToString();//update gui
+	}
+	public void New_zombie_score(int zombie_total)
+	{
+		zombie_number = zombie_total;//add star
+		//star_number = star_number + 1;
+		stars_count.text = zombie_number.ToString();//update gui
 	}
 
 

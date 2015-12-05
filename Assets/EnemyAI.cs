@@ -57,6 +57,8 @@ public class EnemyAI : MonoBehaviour
 	private const string INCREMENTAL_ACHIEVEMENT_ID_Two_BackFlip = "CgkIq6GznYALEAIQAw";
 
 	int count = 0;
+	int zombie_count = 0;
+
 	//Transform myTransform; //current transform data of this enemy
 	void Start () {
 		count = 0;
@@ -123,7 +125,11 @@ public class EnemyAI : MonoBehaviour
 					Achievement.SENDACHIEVEMENTINCREMENT(INCREMENTAL_ACHIEVEMENT_ID_Sergeant,1);
 
 					if (my_game_uGUI) {
-						my_game_uGUI.Update_int_score (100);			
+						my_game_uGUI.Update_int_score (100);
+						zombie_count = zombie_count + 1;
+						my_game_uGUI.Add_zombies (1);
+
+
 					}
 
 					if(gameObject.tag =="ZombieFat"){
@@ -196,31 +202,36 @@ public class EnemyAI : MonoBehaviour
 		else {
 			ObjectToCollided2 = ObjectToCollided2;
 		}
+		float distance = 0;
 		//rotate to look at the player
-		var distance = Vector3.Distance(enemyTransform.position, target.position);
+		if (target != null) {
+			distance = Vector3.Distance (enemyTransform.position, target.position);
+		}
 	
 		if (zombiedead) {
 			anim.SetBool ("IsDisturbed", false);
 		} else {
-			if(distance<=range && distance>stop){
-				
-				transform.LookAt (target.position, upAxis);
-				transform.eulerAngles = new Vector2 (0f, 0f);
-				
-				//move towards the player
-				enemyTransform.position += -transform.right * maxSpeed * Time.deltaTime;
-				
-				anim.SetBool ("IsDisturbed", true);
-				count = count +1;
-				if(count == 1){
-				AudioSource.PlayClipAtPoint (ZombieSound, gameObject.transform.position, 10.0f);
+			if(distance != 0){
+				if(distance<=range && distance>stop){
+					
+					transform.LookAt (target.position, upAxis);
+					transform.eulerAngles = new Vector2 (0f, 0f);
+					
+					//move towards the player
+					enemyTransform.position += -transform.right * maxSpeed * Time.deltaTime;
+					
+					anim.SetBool ("IsDisturbed", true);
+					count = count +1;
+					if(count == 1){
+					AudioSource.PlayClipAtPoint (ZombieSound, gameObject.transform.position, 10.0f);
+					}
 				}
-			}
-			
-			else  {
-				anim.SetBool ("IsDisturbed", false);
-				//anim.SetBool ("IsKilled", false);
 				
+				else  {
+					anim.SetBool ("IsDisturbed", false);
+					//anim.SetBool ("IsKilled", false);
+					
+				}
 			}
 
 		}

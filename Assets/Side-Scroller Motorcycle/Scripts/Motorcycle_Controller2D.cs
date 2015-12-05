@@ -178,7 +178,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	
 	
 	private AudioSource audioSource;
-	public AudioSource audioXP;
+	public AudioClip audioXP;
 	private float pitch;
 	
 	
@@ -912,6 +912,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 
 		}
 		crashBurned = false;
+		crashDrown = false;
 		crashDrowned = false;
 		time =0;
 		ifnitro = false;
@@ -1493,9 +1494,11 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 				
 						
 					}
-					if(audioXP){
+					/*if(audioXP){
 					audioXP.Play ();
-					}
+					}*/
+					AudioSource.PlayClipAtPoint (audioXP, gameObject.transform.position, 10.0f);
+
 					flip = false;				
 					backflipParticle.Emit (1);
 					
@@ -1514,9 +1517,10 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					if (my_game_uGUI) {
 						my_game_uGUI.Update_int_score (setscore);
 					}
-					if(audioXP){
+					/*if(audioXP){
 					audioXP.Play ();
-					}
+					}*/
+					AudioSource.PlayClipAtPoint (audioXP, gameObject.transform.position, 10.0f);
 					flip = false;
 					frontflipParticle.Emit (1);
 					
@@ -1698,8 +1702,8 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					//CarBody.transform.Rotate (Vector3.right * 180);
 					
 					
-					//isControllable = false;
-					crashed = true;
+					isControllable = false;
+					//crashed = true;
 					//update lives
 					if(my_game_uGUI){
 
@@ -1815,7 +1819,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 			crashDrowned = true;
 			//crashed = true;
 			my_game_uGUI.Defeat();
-			brake = true;
+			//brake = true;
 			
 			
 		}

@@ -46,10 +46,11 @@ public class progress_bar : MonoBehaviour {
 				}
 			else
 				star_sprites[i].sprite = star_off;
+
 		}
 
-		if(my_game_uGUI)
-			my_game_uGUI.New_star_score (star_count);
+		//if (my_game_uGUI)
+			//my_game_uGUI.New_star_score (star_count);
 
 	}
 

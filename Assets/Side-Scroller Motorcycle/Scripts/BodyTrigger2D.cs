@@ -266,7 +266,10 @@ public class BodyTrigger2D : MonoBehaviour {
 					oohCrowdSC.Play ();
 					}
 				}	else if (obj.tag == "Drown") {
+					count = count +1;
+					if(count == 1){
 					Motorcycle_Controller2D.crashDrown = true;
+					}
 					//oohCrowdSC.Play ();
 				} else {
 					oohCrowdSC.Play ();
