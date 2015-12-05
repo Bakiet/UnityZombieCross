@@ -71,6 +71,19 @@ public class EnemyAI : MonoBehaviour
 
 		
 		Flip ();
+		if(gameObject.tag =="ZombieFat"){
+			gameObject.GetComponent<Rigidbody2D>().mass =0.2f;
+
+			
+		}
+		if(gameObject.tag =="Zombie"){
+			gameObject.GetComponent<Rigidbody2D>().mass =0.01f;
+
+		}
+		if(gameObject.tag =="ZombieMid"){
+			gameObject.GetComponent<Rigidbody2D>().mass =1f;
+
+		}
 		
 		//this.originalX = this.transform.position.x;
 	/*	yRotation += Input.GetAxis("Horizontal");
