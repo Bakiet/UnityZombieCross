@@ -201,6 +201,15 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	public static GameObject PoliStatic;
 	public static GameObject HelmetStatic;
 
+
+	public GameObject trunk;
+
+	public static GameObject legStatic;
+	public static GameObject trunkStatic;
+	public static GameObject leftarmStatic;
+	public static GameObject rightarmStatic;
+
+
 	public Transform CarBodyTransform;	
 	public static Transform CarBodyTransformStatic;	
 	public GameObject CenterOfMass;	
@@ -963,6 +972,11 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		CarBodyStatic = CarBody;
 		PoliStatic = Poli;
 		HelmetStatic = helmet;
+
+		rightarmStatic = rightHand;
+		leftarmStatic = leftHand;
+		legStatic = leg;
+		trunkStatic = trunk;
 		
 		CarBodyTransformStatic = CarBodyTransform;
 		frontWheelStatic = frontWheelObject;

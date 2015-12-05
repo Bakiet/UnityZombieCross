@@ -16,7 +16,15 @@ public class D2D_DamageOnCollision : MonoBehaviour
 	public bool isAutomaticBody = true;
 	public bool isAutomaticFrontWheel = true;
 	public bool isAutomaticBackWheel = true;
+	public bool isAutomaticleg = true;
+	public bool isAutomatictrunk = true;
+	public bool isAutomaticleftarm = true;
+	public bool isAutomaticrightarm = true;
 	public GameObject HelmetToCollided;
+	public GameObject legToCollided;
+	public GameObject trunkToCollided;
+	public GameObject leftarmToCollided;
+	public GameObject rightarmToCollided;
 	public GameObject BodyToCollided;
 	public GameObject ObjectToCollided;
 	public GameObject ObjectToCollided2;
@@ -43,6 +51,30 @@ public class D2D_DamageOnCollision : MonoBehaviour
 	private float damage;
 
 	void Update(){
+		if (isAutomaticleg) {
+			legToCollided = Motorcycle_Controller2D.legStatic;			
+		}
+		else {
+			legToCollided = legToCollided;
+		}
+		if (isAutomatictrunk) {
+			trunkToCollided = Motorcycle_Controller2D.trunkStatic;			
+		}
+		else {
+			trunkToCollided = trunkToCollided;
+		}
+		if (isAutomaticleftarm) {
+			leftarmToCollided = Motorcycle_Controller2D.leftarmStatic;			
+		}
+		else {
+			leftarmToCollided = leftarmToCollided;
+		}
+		if (isAutomaticrightarm) {
+			rightarmToCollided = Motorcycle_Controller2D.rightarmStatic;			
+		}
+		else {
+			rightarmToCollided = rightarmToCollided;
+		}
 		if (isAutomaticHelmet) {
 			HelmetToCollided = Motorcycle_Controller2D.HelmetStatic;			
 		}
@@ -78,6 +110,7 @@ public class D2D_DamageOnCollision : MonoBehaviour
 	}
 
 	void Start(){
+
 		count = 0;
 		//countTimes = 1;
 
@@ -146,6 +179,7 @@ public class D2D_DamageOnCollision : MonoBehaviour
 
 
 	}
+
 	void MyWaitingFunction(){
 		damageable.InflictDamage (damage);
 		count = count + 1;
@@ -153,17 +187,29 @@ public class D2D_DamageOnCollision : MonoBehaviour
 			AudioSource.PlayClipAtPoint (Sound, gameObject.transform.position);
 		}
 		if (iftrash) {
-			Physics2D.IgnoreCollision(HelmetToCollided.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+
+			Physics2D.IgnoreCollision(HelmetToCollided.GetComponent<Collider2D>(), gameObject.transform.GetChild (0).GetComponent<Collider2D>());
 			Physics2D.IgnoreCollision(PoliToCollided.GetComponent<Collider2D>(),gameObject.transform.GetChild (0).GetComponent<Collider2D>());
 			Physics2D.IgnoreCollision(BodyToCollided.GetComponent<Collider2D>(),gameObject.transform.GetChild (0).GetComponent<Collider2D>());
 			Physics2D.IgnoreCollision(ObjectToCollided.GetComponent<Collider2D>(),gameObject.transform.GetChild (0).GetComponent<Collider2D>());
 			Physics2D.IgnoreCollision(ObjectToCollided2.GetComponent<Collider2D>(),gameObject.transform.GetChild (0).GetComponent<Collider2D>());
+
+			Physics2D.IgnoreCollision(legToCollided.GetComponent<Collider2D>(),gameObject.transform.GetChild (0).GetComponent<Collider2D>());
+			Physics2D.IgnoreCollision(trunkToCollided.GetComponent<Collider2D>(),gameObject.transform.GetChild (0).GetComponent<Collider2D>());
+			Physics2D.IgnoreCollision(leftarmToCollided.GetComponent<Collider2D>(),gameObject.transform.GetChild (0).GetComponent<Collider2D>());
+			Physics2D.IgnoreCollision(rightarmToCollided.GetComponent<Collider2D>(),gameObject.transform.GetChild (0).GetComponent<Collider2D>());
 		}
+			
 		Physics2D.IgnoreCollision(HelmetToCollided.GetComponent<Collider2D>(), GetComponent<Collider2D>());
 		Physics2D.IgnoreCollision(PoliToCollided.GetComponent<Collider2D>(), GetComponent<Collider2D>());
 		Physics2D.IgnoreCollision(BodyToCollided.GetComponent<Collider2D>(), GetComponent<Collider2D>());
 		Physics2D.IgnoreCollision(ObjectToCollided.GetComponent<Collider2D>(), GetComponent<Collider2D>());
 		Physics2D.IgnoreCollision(ObjectToCollided2.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+		Physics2D.IgnoreCollision(legToCollided.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+		Physics2D.IgnoreCollision(trunkToCollided.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+		Physics2D.IgnoreCollision(leftarmToCollided.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+		Physics2D.IgnoreCollision(rightarmToCollided.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+
 		//gameObject.transform.GetChild (1).GetComponent<Collider2D>().isTrigger = false;
 
 
