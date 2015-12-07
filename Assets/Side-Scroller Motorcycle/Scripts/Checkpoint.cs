@@ -22,7 +22,7 @@ public class Checkpoint : MonoBehaviour {
 	void Start () {
 
 		audioSource = GetComponent<AudioSource>();
-		motorcyclePrefab = Motorcycle_Controller2D.BodyCarStatic;
+		//motorcyclePrefab = Motorcycle_Controller2D.BodyCarStatic;
 		moto = motorcyclePrefab;
 	}
 
@@ -45,8 +45,10 @@ public class Checkpoint : MonoBehaviour {
 		//Application.LoadLevel (Application.loadedLevel);
 	//	Destroy (GameObject.Find(Motorcycle_Controller2D.BodyCarStatic.name));
 
-		PrefabUtility.ResetToPrefabState (Motorcycle_Controller2D.BodyCarStatic);
-		//Instantiate (moto, lastPoint.position, Quaternion.identity);
+		//PrefabUtility.ResetToPrefabState (Motorcycle_Controller2D.BodyCarStatic);
+		Instantiate (moto, lastPoint.position, Quaternion.identity);
+
+		//Motorcycle_Controller2D.score = scoreAtLastPoint;
 
 		Motorcycle_Controller2D.checkpoint = true;
 		Motorcycle_Controller2D.lastcheckpoint = lastPoint;
