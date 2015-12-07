@@ -15,7 +15,7 @@ public class Checkpoint : MonoBehaviour {
 	public static Transform lastPoint;
 	private static GameObject moto;
 
-
+	private static int count;
 	private static int scoreAtLastPoint = 0;
 
 	// Use this for initialization
@@ -44,7 +44,7 @@ public class Checkpoint : MonoBehaviour {
 		//Motorcycle_Controller2D.lastcheckpoint = lastPoint;
 		//Application.LoadLevel (Application.loadedLevel);
 	//	Destroy (GameObject.Find(Motorcycle_Controller2D.BodyCarStatic.name));
-
+		moto.tag = "Spawn";
 		//PrefabUtility.ResetToPrefabState (Motorcycle_Controller2D.BodyCarStatic);
 		Instantiate (moto, lastPoint.position, Quaternion.identity);
 
@@ -52,7 +52,27 @@ public class Checkpoint : MonoBehaviour {
 
 		Motorcycle_Controller2D.checkpoint = true;
 		Motorcycle_Controller2D.lastcheckpoint = lastPoint;
-		//Motorcycle_Controller2D.score = scoreAtLastPoint;
+
+
+
+		GameObject lastspawn = GameObject.Find("Spawn");
+		GameObject[] lastspawnclone = GameObject.FindGameObjectsWithTag("Spawn");
+
+		if(lastspawn){
+		Destroy (lastspawn);
+
+		}
+		foreach (GameObject spawn in lastspawnclone) {
+			count++;
+			if(count > 1){
+				count = count -2;
+				Destroy(spawn);
+			}
+		}
+
+	
+		Motorcycle_Controller2D.score = scoreAtLastPoint;
+
 		//Motorcycle_Controller2D.crash = false;
 
 	}

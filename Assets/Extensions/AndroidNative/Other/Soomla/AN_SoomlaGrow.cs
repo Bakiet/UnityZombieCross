@@ -42,15 +42,15 @@ public class AN_SoomlaGrow : SA_Singleton<AN_SoomlaGrow> {
 		AndroidTwitterManager.Instance.OnPostingCompleteAction += TW_PostCompleted;
 
 		#if FACEBOOK_ENABLED
-		/*
-		SPFacebook.Instance.OnLoginStarted += FB_OnLoginStarted;
-		SPFacebook.Instance.OnLogOut += FB_OnLogOut;
-		SPFacebook.Instance.OnAuthCompleteAction += FB_OnAuthCompleteAction;
-		SPFacebook.Instance.OnPostStarted += FB_PostStarted;
-		SPFacebook.Instance.OnPostingCompleteAction += FB_PostCompleted;
-		SPFacebook.Instance.OnFriendsDataRequestCompleteAction += FB_HandleOnFriendsDataRequestCompleteAction;
-		SPFacebook.Instance.OnFriendsRequestStarted += FB_OnFriendsRequestStarted;
-		*/
+
+		SPFacebook.OnLoginStarted += FB_OnLoginStarted;
+		SPFacebook.OnLogOut += FB_OnLogOut;
+		SPFacebook.OnAuthCompleteAction += FB_OnAuthCompleteAction;
+		SPFacebook.OnPostStarted += FB_PostStarted;
+		SPFacebook.OnPostingCompleteAction += FB_PostCompleted;
+		SPFacebook.OnFriendsDataRequestCompleteAction += FB_HandleOnFriendsDataRequestCompleteAction;
+		SPFacebook.OnFriendsRequestStarted += FB_OnFriendsRequestStarted;
+
 		#endif
 
 		_IsInitialized = true;
@@ -137,13 +137,13 @@ public class AN_SoomlaGrow : SA_Singleton<AN_SoomlaGrow> {
 	// --------------------------------------
 
 	#if FACEBOOK_ENABLED
-/*
+
 	private static void FB_OnFriendsRequestStarted() {
 		FriendsRequest(AN_SoomlaEventType.SOOMLA_EVENT_STARTED, AN_SoomlaSocialProvider.FACEBOOK);
 	}
 
 
-	private static void FB_HandleOnFriendsDataRequestCompleteAction (FB_APIResult res){
+	private static void FB_HandleOnFriendsDataRequestCompleteAction (FB_Result res){
 		if(res.IsSucceeded) {
 			FriendsRequest(AN_SoomlaEventType.SOOMLA_EVENT_FINISHED, AN_SoomlaSocialProvider.FACEBOOK);
 		} else {
@@ -152,7 +152,7 @@ public class AN_SoomlaGrow : SA_Singleton<AN_SoomlaGrow> {
 	}
 	
 
-	private static void FB_OnAuthCompleteAction (FB_APIResult res) {
+	private static void FB_OnAuthCompleteAction (FB_Result res) {
 		if(res.IsSucceeded) {
 			SocialLoginFinished(AN_SoomlaSocialProvider.FACEBOOK, SPFacebook.Instance.UserId);
 		} else {
@@ -173,7 +173,7 @@ public class AN_SoomlaGrow : SA_Singleton<AN_SoomlaGrow> {
 		SocialShare(AN_SoomlaEventType.SOOMLA_EVENT_STARTED, AN_SoomlaSocialProvider.FACEBOOK);
 	}
 
-	private static void FB_PostCompleted (FBPostResult res) {
+	private static void FB_PostCompleted (FB_PostResult res) {
 		Debug.Log("FB_PostCompleted");
 		if(res.IsSucceeded) {
 			Debug.Log("SOOMLA_EVENT_FINISHED");
@@ -184,7 +184,7 @@ public class AN_SoomlaGrow : SA_Singleton<AN_SoomlaGrow> {
 		}
 
 	}
-*/
+
 	#endif
 	
 	// --------------------------------------

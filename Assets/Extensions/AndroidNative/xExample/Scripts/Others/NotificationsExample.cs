@@ -28,14 +28,8 @@ public class NotificationsExample : MonoBehaviour {
 
 		GoogleCloudMessageService.ActionCMDRegistrationResult += HandleActionCMDRegistrationResult;
 		GoogleCloudMessageService.ActionCouldMessageLoaded += OnMessageLoaded;
-
-
-		//GoogleCloudMessageService.instance.InitPushNotifications ();
-		//GoogleCloudMessageService.instance.InitOneSignalNotifications ();
-		//GoogleCloudMessageService.instance.InitParsePushNotifications ();
+		GoogleCloudMessageService.Instance.Init();
 	}
-
-
 
 	//--------------------------------------
 	//  PUBLIC METHODS

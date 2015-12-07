@@ -165,15 +165,15 @@ public class QuestAndEventsExample : MonoBehaviour {
 	}
 
 	private void OnQuestsAccepted (GP_QuestResult result) {
-		AN_PoupsProxy.showMessage ("On Quests Accepted", "Quests Accepted, ID: " + result.questId);
+		AN_PoupsProxy.showMessage ("On Quests Accepted", "Quests Accepted, ID: " + result.GetQuest().Id);
 
 		SA_StatusBar.text = "OnQuestsAccepted:  " + result.response.ToString();
 	}
 
 	private void OnQuestsCompleted (GP_QuestResult result) {
-		Debug.Log ("Quests Completed, Reward: " + result.reward);
+		Debug.Log ("Quests Completed, Reward: " + result.GetQuest().RewardData);
 
-		AN_PoupsProxy.showMessage ("On Quests Completed", "Quests Completed, Reward: " + result.reward);
+		AN_PoupsProxy.showMessage ("On Quests Completed", "Quests Completed, Reward: " + result.GetQuest().RewardData);
 
 		SA_StatusBar.text = "OnQuestsCompleted:  " + result.response.ToString();
 	}

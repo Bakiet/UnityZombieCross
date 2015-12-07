@@ -64,35 +64,51 @@ public class PluginsInstalationUtil : MonoBehaviour {
 
 
 
-	private static string AN_SoomlaGrowContent = "Extensions/AndroidNative/Other/Soomla/AN_SoomlaGrow.cs";
 
-
+	public static void Remove_FB_SDK_WithDialog() {
+		bool result = EditorUtility.DisplayDialog(
+			"Removing Facebook SDK",
+			"Are you sure you want to remove Facebook OAuth API?",
+			"Remove",
+			"Cansel");
+		
+		if(result) {
+			Remove_FB_SDK();
+		}
+	}
 	public static void Remove_FB_SDK() {
 
 
 		FileStaticAPI.DeleteFolder(PluginsInstalationUtil.ANDROID_DESTANATION_PATH + "facebook");
-		FileStaticAPI.DeleteFolder("Facebook");
-		FileStaticAPI.DeleteFolder("Extensions/GooglePlayCommon/Social/Facebook");
-
-
-		//AM
-		FileStaticAPI.DeleteFile("Extensions/AndroidNative/xExample/Scripts/Social/FacebookAndroidUseExample.cs");
-		FileStaticAPI.DeleteFile("Extensions/AndroidNative/xExample/Scripts/Social/FacebookAnalyticsExample.cs");
-		FileStaticAPI.DeleteFile("Extensions/AndroidNative/xExample/Scripts/Social/FacebookAndroidTurnBasedAndGiftsExample.cs");
-
+		FileStaticAPI.DeleteFolder("Plugins/facebook", false);
+		FileStaticAPI.DeleteFolder("Facebook", false);
 
 		//MSP
-		FileStaticAPI.DeleteFile("Extensions/MobileSocialPlugin/Example/Scripts/MSPFacebookUseExample.cs");
-		FileStaticAPI.DeleteFile("Extensions/MobileSocialPlugin/Example/Scripts/MSP_FacebookAnalyticsExample.cs");
-		FileStaticAPI.DeleteFile("Extensions/MobileSocialPlugin/Example/Scripts/MSP_FacebookAndroidTurnBasedAndGiftsExample.cs");
+		FileStaticAPI.DeleteFile("Extensions/MobileSocialPlugin/Example/Scripts/MSPFacebookUseExample.cs", false);
+		FileStaticAPI.DeleteFile("Extensions/MobileSocialPlugin/Example/Scripts/MSP_FacebookAnalyticsExample.cs", false);
+		FileStaticAPI.DeleteFile("Extensions/MobileSocialPlugin/Example/Scripts/MSP_FacebookAndroidTurnBasedAndGiftsExample.cs", false);
 
+		//FB v7
+		FileStaticAPI.DeleteFolder("Examples", false);
+		FileStaticAPI.DeleteFolder(PluginsInstalationUtil.IOS_DESTANATION_PATH + "Facebook", false);
+
+
+		FileStaticAPI.DeleteFolder(PluginsInstalationUtil.ANDROID_DESTANATION_PATH + "libs/bolts-android-1.2.0.jar");
+		FileStaticAPI.DeleteFolder(PluginsInstalationUtil.ANDROID_DESTANATION_PATH + "libs/facebook-android-sdk-4.7.0.jar");
+		FileStaticAPI.DeleteFolder(PluginsInstalationUtil.ANDROID_DESTANATION_PATH + "libs/facebook-android-wrapper-release.jar");
+
+		AssetDatabase.Refresh();
+	}
+
+
+	private static string AN_SoomlaGrowContent = "Extensions/AndroidNative/Other/Soomla/AN_SoomlaGrow.cs";
+	public static void DisableSoomlaFB() {
 		ChnageDefineState(AN_SoomlaGrowContent, "FACEBOOK_ENABLED", false);
-
-
 	}
 
 
 
+	
 
 	private static void ChnageDefineState(string file, string tag, bool IsEnabled) {
 
@@ -352,30 +368,33 @@ public class PluginsInstalationUtil : MonoBehaviour {
 		
 		
 		string file;
-		file = "res/values/" + "analytics.xml";
+		file = "AN_Res/res/values/analytics.xml";
 		if(!FileStaticAPI.IsFileExists(ANDROID_DESTANATION_PATH + file)) {
 			FileStaticAPI.CopyFile(ANDROID_SOURCE_PATH + file, 	ANDROID_DESTANATION_PATH + file);
 		}
 		
 		
-		file = "res/values/" + "ids.xml";
+		file = "AN_Res/res/values/ids.xml";
 		if(!FileStaticAPI.IsFileExists(ANDROID_DESTANATION_PATH + file)) {
 			FileStaticAPI.CopyFile(ANDROID_SOURCE_PATH + file, 	ANDROID_DESTANATION_PATH + file);
 		}
 		
-		file = "res/xml/" + "file_paths.xml";
+		file = "AN_Res/res/xml/file_paths.xml";
 		if(!FileStaticAPI.IsFileExists(ANDROID_DESTANATION_PATH + file)) {
 			FileStaticAPI.CopyFile(ANDROID_SOURCE_PATH + file, 	ANDROID_DESTANATION_PATH + file);
 		}
 		
 		
-		file = "res/values/" + "version.xml";
+		file = "AN_Res/res/values/version.xml";
+		FileStaticAPI.CopyFile(ANDROID_SOURCE_PATH + file, 	ANDROID_DESTANATION_PATH + file);
+
+		file = "AN_Res/project.properties";
 		FileStaticAPI.CopyFile(ANDROID_SOURCE_PATH + file, 	ANDROID_DESTANATION_PATH + file);
 		
+		file = "AN_Res/AndroidManifest.xml";
+		FileStaticAPI.CopyFile(ANDROID_SOURCE_PATH + file, 	ANDROID_DESTANATION_PATH + file);
 		
-		
-		//First install dependense
-		
+		//First install dependense		
 		
 		file = "AndroidManifest.xml";
 		if(!FileStaticAPI.IsFileExists(ANDROID_DESTANATION_PATH + file)) {
@@ -385,4 +404,14 @@ public class PluginsInstalationUtil : MonoBehaviour {
 		AssetDatabase.Refresh();
 		
 	}
+
+
+
+	public static bool IsFacebookInstalled {
+		get {
+			return FileStaticAPI.IsFileExists("Facebook/Scripts/FB.cs");
+		}
+	}
+
+
 }

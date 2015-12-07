@@ -1,3 +1,5 @@
+//#define ONE_SIGNAL_ENABLED
+
 ////////////////////////////////////////////////////////////////////////////////
 //  
 // @module Android Native Plugin for Unity3D 
@@ -12,19 +14,16 @@ using System.Collections.Generic;
 
 public class GoogleCloudMessageService : SA_Singleton<GoogleCloudMessageService> {
 
-
 	//Actions
 	public static event Action<string> ActionCouldMessageLoaded 						 						= delegate {};
-	public static event Action<GP_GCM_RegistrationResult> ActionCMDRegistrationResult  						= delegate {};
-	public static event Action<string, Dictionary<string, object>, bool> ActionGameThriveNotificationReceived	= delegate {};
+	public static event Action<GP_GCM_RegistrationResult> ActionCMDRegistrationResult  							= delegate {};
 
+	public static event Action<string, Dictionary<string, object>> ActionGCMPushReceived						= delegate {};
+	public static event Action<string, Dictionary<string, object>, bool> ActionGameThriveNotificationReceived	= delegate {};
+	public static event Action<string, Dictionary<string, object>> ActionParsePushReceived 						= delegate {};
 
 	private string _lastMessage = string.Empty;
 	private string _registrationId = string.Empty;
-
-
-	
-	
 	
 	//--------------------------------------
 	// INITIALIZE
@@ -34,12 +33,28 @@ public class GoogleCloudMessageService : SA_Singleton<GoogleCloudMessageService>
 		DontDestroyOnLoad(gameObject);
 	}
 
+	public void Init() {
+		switch(AndroidNativeSettings.Instance.PushService) {
+		case AN_PushNotificationService.Google:
+			InitPushNotifications();
+			break;
+		case AN_PushNotificationService.OneSignal:
+			InitOneSignalNotifications();
+			break;
+		case AN_PushNotificationService.Parse:
+			InitParsePushNotifications();
+			break;
+		}
+	}
+
 	//--------------------------------------
 	// PUBLIC METHODS
 	//--------------------------------------
 
 	public void InitOneSignalNotifications() {
-		OneSignal.Init(AndroidNativeSettings.Instance.GameThriveAppID, AndroidNativeSettings.Instance.GCM_SenderId, HandleNotification);
+		#if ONE_SIGNAL_ENABLED
+		OneSignal.Init(AndroidNativeSettings.Instance.OneSignalAppID, AndroidNativeSettings.Instance.GCM_SenderId, HandleNotification);
+		#endif
 	}
 
 	// Gets called when the player opens the notification.
@@ -60,7 +75,8 @@ public class GoogleCloudMessageService : SA_Singleton<GoogleCloudMessageService>
 	}
 
 	public void InitParsePushNotifications() {
-		AN_NotificationProxy.InitParsePushNotifications (AndroidNativeSettings.Instance.ParseAppId, AndroidNativeSettings.Instance.DotNetKey);
+		ParsePushesStub.InitParse();
+		ParsePushesStub.OnPushReceived += HandleOnPushReceived;
 	}
 
 	public void RgisterDevice() {
@@ -75,7 +91,18 @@ public class GoogleCloudMessageService : SA_Singleton<GoogleCloudMessageService>
 		AN_NotificationProxy.GCMRemoveLastMessageInfo();
 	}
 
+	//--------------------------------------
+	// HANDLER
+	//--------------------------------------
 
+	private void HandleOnPushReceived (string stringPayload, Dictionary<string, object> payload)
+	{
+		ActionParsePushReceived(stringPayload, payload);
+	}
+
+	private void GCMNotificationCallback(string data) {
+		Debug.Log("[GCMNotificationCallback] JSON Data: " + data);
+	}
 	
 	//--------------------------------------
 	// GET / SET
@@ -92,7 +119,6 @@ public class GoogleCloudMessageService : SA_Singleton<GoogleCloudMessageService>
 			return _lastMessage;
 		}
 	}
-	
 	
 	//--------------------------------------
 	// EVENTS

@@ -16,7 +16,10 @@ public class AnOtherFeaturesPreview : MonoBehaviour {
 
 	}
 
+
 	public void SaveScreenshot() {
+	
+
 		AndroidCamera.instance.OnImageSaved += OnImageSaved;
 		AndroidCamera.instance.SaveScreenshotToGallery();
 

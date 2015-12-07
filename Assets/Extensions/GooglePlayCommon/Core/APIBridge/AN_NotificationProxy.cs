@@ -53,10 +53,6 @@ public class AN_NotificationProxy {
 	public static void InitPushNotifications(string icon, string sound, bool vibration, bool showWhenAppForeground, bool replaceOldNotificationWithNew) {
 		CallActivityFunction ("InitPushNotifications", icon, sound, vibration.ToString(), showWhenAppForeground.ToString(), replaceOldNotificationWithNew.ToString());
 	}
-
-	public static void InitParsePushNotifications(string appId, string dotNetKey) {
-		CallActivityFunction ("InitParsePushNotifications", appId, dotNetKey);
-	}
 	
 	public static void GCMRgisterDevice(string senderId) {
 		CallActivityFunction("GCMRgisterDevice", senderId);

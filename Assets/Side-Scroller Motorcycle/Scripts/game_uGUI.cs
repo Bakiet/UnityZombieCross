@@ -1243,7 +1243,7 @@ public class game_uGUI : MonoBehaviour {
 			}
 
 			//go to lose screen
-			play_screen.gameObject.SetActive(false);
+			//play_screen.gameObject.SetActive(false);
 			lose_screen.gameObject.SetActive(true);
 
 			if (my_game_master)

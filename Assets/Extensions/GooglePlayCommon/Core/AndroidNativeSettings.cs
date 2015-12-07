@@ -18,7 +18,7 @@ using UnityEditor;
 public class AndroidNativeSettings : ScriptableObject {
 
 	public const string VERSION_NUMBER = "7.1.1";
-	public const string GOOGLE_PLAY_SDK_VERSION_NUMBER = "8115000";
+	public const string GOOGLE_PLAY_SDK_VERSION_NUMBER = "8298000";
 
 
 	public bool EnablePlusAPI 		= true;
@@ -38,12 +38,36 @@ public class AndroidNativeSettings : ScriptableObject {
 	public bool EnableATCSupport = false;
 
 
+	//One Signal
+	public bool OneSignalEnabled = false;
+	public string OneSignalAppID = "YOUR_ONESIGNAL_APP_ID";
+	public string OneSignalDownloadLink = "https://goo.gl/Vc6tfK";
+	public string OneSignalDocLink =  "https://goo.gl/aZjkxV";
+
+
+	//Parce
+	public bool UseParsePushNotifications = false;
+	public string ParseAppId = "YOUR_PARSE_APP_ID";
+	public string DotNetKey = "YOUR_PARSE_DOT_NET_KEY";
+	public string ParseDocLink =  "http://goo.gl/9BgQ8r";
+	public string ParseDownloadLink =  "https://goo.gl/dm7jYL";
+
+
 	//Soomla
 	public bool EnableSoomla = false;
 	public string SoomlaDownloadLink = "http://goo.gl/7LYwuj";
 	public string SoomlaDocsLink =  "https://goo.gl/es5j1N";
 	public string SoomlaGameKey = "" ;
 	public string SoomlaEnvKey = "" ;
+
+	
+
+
+
+	//Google Push
+	public string GCM_SenderId = "YOUR_SENDER_ID_HERE";
+	public AN_PushNotificationService PushService = AN_PushNotificationService.Google;
+
 
 	public bool SaveCameraImageToGallery = false;
 	public bool UseProductNameAsFolderName = true;
@@ -101,7 +125,7 @@ public class AndroidNativeSettings : ScriptableObject {
 	public bool KeepManifestClean = true;
 	
 
-	public string GCM_SenderId = "YOUR_SENDER_ID_HERE";
+
 
 
 	public string GooglePlayServiceAppID = "0";
@@ -129,12 +153,9 @@ public class AndroidNativeSettings : ScriptableObject {
 	public Texture2D LocalNotificationIcon = null;
 	public AudioClip LocalNotificationSound = null;
 
-	public bool UseGameThrivePushNotifications = false;
-	public string GameThriveAppID = "YOUR_ONESIGNAL_APP_ID";
 
-	public bool UseParsePushNotifications = false;
-	public string ParseAppId = "YOUR_PARSE_APP_ID";
-	public string DotNetKey = "YOUR_PARSE_DOT_NET_KEY";
+
+
 
 	public bool ReplaceOldNotificationWithNew = false;
 	public bool ShowPushWhenAppIsForeground = true;

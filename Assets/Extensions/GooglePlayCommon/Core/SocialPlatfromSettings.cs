@@ -86,22 +86,7 @@ public class SocialPlatfromSettings : ScriptableObject {
 			return instance;
 		}
 	}
-
-
-	public string fb_scopes {
-		get {
-			string scopes = "";
-			foreach(string s in fb_scopes_list) {
-				scopes+= s + ",";
-			}
-
-			if(scopes.Length > 0) {
-				scopes = scopes.Substring(0, scopes.Length - 1);
-			}
-
-			return scopes;
-		}
-	}
+	
 
 	public void AddDefaultScopes() {
 	

@@ -11,17 +11,15 @@ using System.Xml;
 public class AndroidNativeSettingsEditor : Editor {
 
 
-	GUIContent PlusApiLabel   = new GUIContent("Enable Plus API [?]:", "API used for account managment");
-	GUIContent GamesApiLabel   = new GUIContent("Enable Games API [?]:", "API used for achivements and leaderboards");
-	GUIContent AppSateApiLabel = new GUIContent("Enable App State API [?]:", "API used for cloud data save");
-	GUIContent DriveApiLabel = new GUIContent("Enable Drive API [?]:", "API used for saved games");
+	GUIContent PlusApiLabel   	= new GUIContent("Enable Plus API [?]:", "API used for account managment");
+	GUIContent GamesApiLabel   	= new GUIContent("Enable Games API [?]:", "API used for achivements and leaderboards");
+	GUIContent AppSateApiLabel 	= new GUIContent("Enable App State API [?]:", "API used for cloud data save");
+	GUIContent DriveApiLabel 	= new GUIContent("Enable Drive API [?]:", "API used for saved games");
 
 
-	GUIContent Base64KeyLabel = new GUIContent("Base64 Key[?]:", "Base64 Key app key.");
-	GUIContent SdkVersion   = new GUIContent("Plugin Version [?]", "This is Plugin version.  If you have problems or compliments please include this so we know exactly what version to look out for.");
-	GUIContent GPSdkVersion   = new GUIContent("Google Play SDK Version [?]", "Version of Google Play SDK used by the plugin");
-	GUIContent FBdkVersion   = new GUIContent("Facebook SDK Version [?]", "Version of Unity Facebook SDK Plugin");
-	GUIContent SupportEmail = new GUIContent("Support [?]", "If you have any technical quastion, feel free to drop an e-mail");
+	GUIContent Base64KeyLabel 	= new GUIContent("Base64 Key[?]:", "Base64 Key app key.");
+	GUIContent SdkVersion   	= new GUIContent("Plugin Version [?]", "This is Plugin version.  If you have problems or compliments please include this so we know exactly what version to look out for.");
+	GUIContent GPSdkVersion   	= new GUIContent("Google Play SDK Version [?]", "Version of Google Play SDK used by the plugin");
 
 
 	private AndroidNativeSettings settings;
@@ -35,37 +33,28 @@ public class AndroidNativeSettingsEditor : Editor {
 		}
 
 		#if !UNITY_WEBPLAYER
-		UpdatePluginSettings();
+		UpdatePluginDefines();
 		#endif
 
 	}
 
-	public static void UpdatePluginSettings() {
-		string AndroidNativeSettingsContent = FileStaticAPI.Read("Extensions/GooglePlayCommon/Core/AndroidNativeSettings.cs");
-	
-		
-		
-		int endlineIndex;
-		endlineIndex = AndroidNativeSettingsContent.IndexOf(System.Environment.NewLine);
-		if(endlineIndex == -1) {
-			endlineIndex = AndroidNativeSettingsContent.IndexOf("\n");
-		}
-
-		string ANS_Line = AndroidNativeSettingsContent.Substring(0, endlineIndex);
-		
 
 
-		
+	public static string AndroidNativeSettings_Path = "Extensions/GooglePlayCommon/Core/AndroidNativeSettings.cs";
+	public static string GoogleCloudMessageService_Path = "Extensions/AndroidNative/PlayService/Manage/GoogleCloudMessageService.cs";
+	public static string ParseCloudMessageService_Path = "Extensions/AndroidNative/Other/Notifications/ParsePushesStub.cs";
 
+	public static void UpdatePluginDefines() {
 
-		if(AndroidNativeSettings.Instance.EnableATCSupport) {
-			AndroidNativeSettingsContent 	= AndroidNativeSettingsContent.Replace(ANS_Line, "#define ATC_SUPPORT_ENABLED");
-		} else {
-			AndroidNativeSettingsContent 	= AndroidNativeSettingsContent.Replace(ANS_Line, "//#define ATC_SUPPORT_ENABLED");
-		}
-		
-		FileStaticAPI.Write("Extensions/GooglePlayCommon/Core/AndroidNativeSettings.cs", AndroidNativeSettingsContent);
+		SA_EditorTool.ChnageDefineState(AndroidNativeSettings_Path, 	"ATC_SUPPORT_ENABLED", 	AndroidNativeSettings.Instance.EnableATCSupport);
+		SA_EditorTool.ChnageDefineState(GoogleCloudMessageService_Path, "ONE_SIGNAL_ENABLED", 	AndroidNativeSettings.Instance.OneSignalEnabled);
+		SA_EditorTool.ChnageDefineState(ParseCloudMessageService_Path, "PARSE_PUSH_ENABLED", 	AndroidNativeSettings.Instance.UseParsePushNotifications);
+
+		SocialPlatfromSettingsEditor.UpdatePluginDefines();
 	}
+
+
+
 
 
 	private Texture[] _ToolbarImages = null;
@@ -172,9 +161,7 @@ public class AndroidNativeSettingsEditor : Editor {
 			break;
 
 		case 4:
-			SocialPlatfromSettingsEditor.FacebookSettings();
-			EditorGUILayout.Space();
-			SocialPlatfromSettingsEditor.TwitterSettings();
+			SocialSettings();
 			break;
 		case 5:
 			CameraAndGalleryParams();
@@ -221,19 +208,7 @@ public class AndroidNativeSettingsEditor : Editor {
 			return SA_VersionsManager.ParceMagorVersion(AndroidNativeSettings.VERSION_NUMBER);
 		}
 	}
-
-
-
-	public static bool IsFacebookInstalled {
-		get {
-			if(!FileStaticAPI.IsFolderExists("Facebook")) {
-				return false;
-			} else {
-				return true;
-			}
-		}
-	}
-
+	
 
 	public static void UpdateVersionInfo() {
 		FileStaticAPI.Write(SA_VersionsManager.AN_VERSION_INFO_PATH, AndroidNativeSettings.VERSION_NUMBER);
@@ -336,7 +311,7 @@ public class AndroidNativeSettingsEditor : Editor {
  		EditorGUILayout.LabelField("More Actions", EditorStyles.boldLabel);
 
 
-		if(!IsFacebookInstalled) {
+		if(!PluginsInstalationUtil.IsFacebookInstalled) {
 			GUI.enabled = false;
 		}	
 
@@ -344,16 +319,8 @@ public class AndroidNativeSettingsEditor : Editor {
 		EditorGUILayout.Space();
 
 		if(GUILayout.Button("Remove Facebook SDK",  GUILayout.Width(160))) {
-			bool result = EditorUtility.DisplayDialog(
-				"Removing Facebook SDK",
-				"Warning action can not be undone without reimporting the plugin",
-				"Remove",
-				"Cansel");
-
-			if(result) {
-				PluginsInstalationUtil.Remove_FB_SDK();
-			}
-
+			PluginsInstalationUtil.Remove_FB_SDK_WithDialog();
+			UpdatePluginDefines();
 		}
 
 		GUI.enabled = true;
@@ -850,64 +817,92 @@ public class AndroidNativeSettingsEditor : Editor {
 			Manifest.RemoveProperty(permission_C2D_MESSAGE_Old);
 		}
 
-
+		AN_PropertyTemplate permission_C2D_MESSAGE = Manifest.GetOrCreatePropertyWithName("permission", PlayerSettings.bundleIdentifier + ".permission.C2D_MESSAGE");
+		permission_C2D_MESSAGE.SetValue("android:protectionLevel", "signature");
 
 		AN_PropertyTemplate GcmBroadcastReceiver = application.GetOrCreatePropertyWithName("receiver",  "com.androidnative.gcm.GcmBroadcastReceiver");
 		AN_PropertyTemplate GcmIntentService = application.GetOrCreatePropertyWithName("service",  "com.androidnative.gcm.GcmIntentService");
-		AN_PropertyTemplate permission_C2D_MESSAGE = Manifest.GetOrCreatePropertyWithName("permission", PlayerSettings.bundleIdentifier + ".permission.C2D_MESSAGE");
-
-		AN_PropertyTemplate ParseBroadcastReceiver = application.GetOrCreatePropertyWithName ("receiver",  "com.parse.ParsePushBroadcastReceiver");
-		
-		if(AndroidNativeSettings.Instance.PushNotificationsAPI) {
-			GcmBroadcastReceiver.SetValue("android:permission", "com.google.android.c2dm.permission.SEND");
-			
-			AN_PropertyTemplate intent_filter = GcmBroadcastReceiver.GetOrCreateIntentFilterWithName("com.google.android.c2dm.intent.RECEIVE");
-			AN_PropertyTemplate category = intent_filter.GetOrCreatePropertyWithTag("category");
-			category.SetValue("android:name", PlayerSettings.bundleIdentifier);
-
-			permission_C2D_MESSAGE.SetValue("android:protectionLevel", "signature");
-		} else {
-			application.RemoveProperty(GcmBroadcastReceiver);
-			application.RemoveProperty(GcmIntentService);
-			Manifest.RemoveProperty(permission_C2D_MESSAGE);
-		}
 
 		AN_ActivityTemplate gameThriveActivity = application.GetOrCreateActivityWithName ("com.onesignal.NotificationOpenedActivity");
 		AN_PropertyTemplate gameThriveService = application.GetOrCreatePropertyWithName("service", "com.onesignal.GcmIntentService");
 		AN_PropertyTemplate gameThriveReceiver = application.GetOrCreatePropertyWithName ("receiver", "com.onesignal.GcmBroadcastReceiver");
-		if (AndroidNativeSettings.Instance.UseGameThrivePushNotifications) {
-			FileStaticAPI.CopyFile(PluginsInstalationUtil.ANDROID_SOURCE_PATH + "OneSignalSDK.txt",
-			                       PluginsInstalationUtil.ANDROID_DESTANATION_PATH + "OneSignalSDK.jar");
 
-			gameThriveReceiver.SetValue("android:permission", "com.google.android.c2dm.permission.SEND");
-			AN_PropertyTemplate gameThriveIntentFilter = gameThriveReceiver.GetOrCreateIntentFilterWithName("com.google.android.c2dm.intent.RECEIVE");
-			gameThriveIntentFilter.GetOrCreatePropertyWithName("category", PlayerSettings.bundleIdentifier);
+		AN_PropertyTemplate ParseBroadcastReceiver = application.GetOrCreatePropertyWithName ("receiver",  "com.parse.ParsePushBroadcastReceiver");
+		AN_PropertyTemplate ParsePushService = application.GetOrCreatePropertyWithName ("service", "com.parse.ParsePushService");
 
-			//Remove GcmBroadcastReceiver from AndroidManifest if it exists
-			AN_PropertyTemplate property = application.GetOrCreatePropertyWithName("receiver",  "com.androidnative.gcm.GcmBroadcastReceiver");
-			application.RemoveProperty(property);
-			//Remove GcmIntentService from AndroidManifest if it exists
-			property = application.GetOrCreatePropertyWithName("service", "com.androidnative.gcm.GcmIntentService");
-			application.RemoveProperty(property);
+		if (AndroidNativeSettings.Instance.PushNotificationsAPI) {
+
+			switch (AndroidNativeSettings.Instance.PushService) {
+			case AN_PushNotificationService.Google:
+
+				GcmBroadcastReceiver.SetValue("android:exported", "true");
+				GcmBroadcastReceiver.SetValue("android:permission", "com.google.android.c2dm.permission.SEND");
+				
+				AN_PropertyTemplate intent_filter = GcmBroadcastReceiver.GetOrCreateIntentFilterWithName("com.google.android.c2dm.intent.RECEIVE");
+				AN_PropertyTemplate category = intent_filter.GetOrCreatePropertyWithTag("category");
+				category.SetValue("android:name", PlayerSettings.bundleIdentifier);
+				
+				//Clean Up other push notifications providers
+				application.RemoveActivity(gameThriveActivity);
+				application.RemoveProperty(gameThriveService);
+				application.RemoveProperty(gameThriveReceiver);
+				
+				application.RemoveProperty(ParseBroadcastReceiver);
+				application.RemoveProperty(ParsePushService);
+				
+				break;
+			case AN_PushNotificationService.OneSignal:
+
+				gameThriveActivity.SetValue("android:theme", "@android:style/Theme.NoDisplay");
+
+				gameThriveReceiver.SetValue("android:permission", "com.google.android.c2dm.permission.SEND");
+
+				AN_PropertyTemplate gameThriveIntentFilter = gameThriveReceiver.GetOrCreateIntentFilterWithName("com.google.android.c2dm.intent.RECEIVE");
+				gameThriveIntentFilter.GetOrCreatePropertyWithName("category", PlayerSettings.bundleIdentifier);
+
+				//Clean Up other push notifications providers
+				application.RemoveProperty(GcmBroadcastReceiver);
+				application.RemoveProperty(GcmIntentService);
+				
+				application.RemoveProperty(ParseBroadcastReceiver);
+				application.RemoveProperty(ParsePushService);
+
+				break;
+			case AN_PushNotificationService.Parse:
+
+				ParseBroadcastReceiver.SetValue("android:permission", "com.google.android.c2dm.permission.SEND");
+
+				AN_PropertyTemplate parseIntentFilter = ParseBroadcastReceiver.GetOrCreateIntentFilterWithName("com.google.android.c2dm.intent.RECEIVE");
+				parseIntentFilter.GetOrCreatePropertyWithName("action", "com.google.android.c2dm.intent.REGISTRATION");
+				parseIntentFilter.GetOrCreatePropertyWithName("category", PlayerSettings.bundleIdentifier);
+
+				//Clean Up other push notifications providers
+				application.RemoveProperty(GcmBroadcastReceiver);
+				application.RemoveProperty(GcmIntentService);
+				
+				application.RemoveActivity(gameThriveActivity);
+				application.RemoveProperty(gameThriveService);
+				application.RemoveProperty(gameThriveReceiver);
+
+				break;
+			default: break;
+			}
+
 		} else {
-			FileStaticAPI.DeleteFile(PluginsInstalationUtil.ANDROID_DESTANATION_PATH + "OneSignalSDK.jar");
+			//Clean Up ALL push notifications providers,
+			// if Push Notifications APIs desabled in Android Native Settings
+			application.RemoveProperty(GcmBroadcastReceiver);
+			application.RemoveProperty(GcmIntentService);
 
 			application.RemoveActivity(gameThriveActivity);
 			application.RemoveProperty(gameThriveService);
-			//application.RemoveProperty(gameThriveReceiver);
-		}
-
-		if (AndroidNativeSettings.Instance.UseParsePushNotifications) {
-			ParseBroadcastReceiver.SetValue("android:exported", "false");
+			application.RemoveProperty(gameThriveReceiver);
 			
-			AN_PropertyTemplate parseIntentFilter = ParseBroadcastReceiver.GetOrCreateIntentFilterWithName("com.parse.push.intent.RECEIVE");
-			parseIntentFilter.GetOrCreatePropertyWithName("action", "com.parse.push.intent.DELETE");
-			parseIntentFilter.GetOrCreatePropertyWithName("action", "com.parse.push.intent.OPEN");
-		} else {
 			application.RemoveProperty(ParseBroadcastReceiver);
+			application.RemoveProperty(ParsePushService);
+
+			Manifest.RemoveProperty(permission_C2D_MESSAGE);
 		}
-
-
 
 		////////////////////////
 		//In App Purchases API
@@ -1131,15 +1126,15 @@ public class AndroidNativeSettingsEditor : Editor {
 	}
 
 	private static void UpdateAppID() {
-		if (!FileStaticAPI.IsFolderExists("Plugins/Android/res/values")) {
+		if (!FileStaticAPI.IsFolderExists("Plugins/Android/AN_Res/res/values")) {
 			EditorGUILayout.HelpBox("Android resource folder DOESN'T exist", MessageType.Warning);
 		} else {
-			if (!FileStaticAPI.IsFileExists ("Plugins/Android/res/values/ids.xml")) {
+			if (!FileStaticAPI.IsFileExists ("Plugins/Android/AN_Res/res/values/ids.xml")) {
 				EditorGUILayout.HelpBox("XML file with PlayService ID's DOESN'T exist", MessageType.Warning);
 			} else {
 				//Parse XML file with PlayService Settings ID's
 				XmlDocument doc = new XmlDocument();
-				doc.Load(Application.dataPath + "/Plugins/Android/res/values/ids.xml");
+				doc.Load(Application.dataPath + "/Plugins/Android/AN_Res/res/values/ids.xml");
 				
 				bool bAppIdNodeExists = false;
 				string appId = string.Empty;
@@ -1182,15 +1177,15 @@ public class AndroidNativeSettingsEditor : Editor {
 	}
 
 	private void PlayServiceDrawXmlIDs() {
-		if (!FileStaticAPI.IsFolderExists("Plugins/Android/res/values")) {
+		if (!FileStaticAPI.IsFolderExists("Plugins/Android/AN_Res/res/values")) {
 			EditorGUILayout.HelpBox("Android resource folder DOESN'T exist", MessageType.Warning);
 		} else {
-			if (!FileStaticAPI.IsFileExists ("Plugins/Android/res/values/ids.xml")) {
+			if (!FileStaticAPI.IsFileExists ("Plugins/Android/AN_Res/res/values/ids.xml")) {
 				EditorGUILayout.HelpBox("XML file with PlayService ID's DOESN'T exist", MessageType.Warning);
 			} else {
 				//Parse XML file with PlayService Settings ID's
 				XmlDocument doc = new XmlDocument();
-				doc.Load(Application.dataPath + "/Plugins/Android/res/values/ids.xml");
+				doc.Load(Application.dataPath + "/Plugins/Android/AN_Res/res/values/ids.xml");
 
 				bool bAppIdNodeExists = false;
 				string appId = string.Empty;
@@ -1699,6 +1694,30 @@ public class AndroidNativeSettingsEditor : Editor {
 		
 		return r;
 	}
+
+	private void SocialSettings () {
+		SocialPlatfromSettingsHelper.FacebookSettings();
+		if(!PluginsInstalationUtil.IsFacebookInstalled) {
+			EditorGUILayout.BeginHorizontal();
+			EditorGUILayout.Space();
+
+			
+			if(GUILayout.Button("Native Sharing",  GUILayout.Width(150))) {
+				Application.OpenURL("https://goo.gl/5Hv5zD");
+			}
+			
+			if(GUILayout.Button("Download FB SDK",  GUILayout.Width(150))) {
+				Application.OpenURL("https://goo.gl/tDmNO3");
+			}
+			
+			EditorGUILayout.EndHorizontal();
+		}
+
+
+
+		EditorGUILayout.Space ();
+		SocialPlatfromSettingsHelper.TwitterSettings();
+	}
 	
 	private void NotificationsSettings() {
 		EditorGUILayout.Space ();
@@ -1736,7 +1755,7 @@ public class AndroidNativeSettingsEditor : Editor {
 			EditorGUILayout.EndHorizontal ();
 			
 			if(EditorGUI.EndChangeCheck()) {
-				UpdatePluginSettings();
+				UpdatePluginDefines();
 			}
 			
 			
@@ -1749,6 +1768,119 @@ public class AndroidNativeSettingsEditor : Editor {
 			
 			EditorGUILayout.EndHorizontal ();
 		} EditorGUI.indentLevel--;
+
+		EditorGUILayout.Space();
+		EditorGUILayout.LabelField("One Signal Configuration", EditorStyles.boldLabel);
+
+		EditorGUI.indentLevel++; {
+
+			EditorGUI.BeginChangeCheck(); 
+			bool prevSoomlaState = AndroidNativeSettings.Instance.OneSignalEnabled;
+			AndroidNativeSettings.Instance.OneSignalEnabled = ToggleFiled("Enable One Signal", AndroidNativeSettings.Instance.OneSignalEnabled);
+			if(EditorGUI.EndChangeCheck())  {
+
+				if(AndroidNativeSettings.Instance.OneSignalEnabled) {
+					if(!FileStaticAPI.IsFolderExists("Plugins/OneSignal")) {
+						bool res = EditorUtility.DisplayDialog("One Signal not found", "Android Native wasn't able to find One Signal libraryes in your project. Would you like to donwload and install it?", "Download", "No Thanks");
+						if(res) {
+							Application.OpenURL(AndroidNativeSettings.Instance.OneSignalDownloadLink);
+						}
+						AndroidNativeSettings.Instance.OneSignalEnabled = false;
+					}
+				}
+
+				UpdateManifest();
+				UpdatePluginDefines();
+			}
+			
+			if(!prevSoomlaState && AndroidNativeSettings.Instance.OneSignalEnabled) {
+				bool res = EditorUtility.DisplayDialog("One Signal", "Make sure you have read the Documentation before you proceed with the implementation", "Documentation", "Got it");
+				if(res) {
+					Application.OpenURL(AndroidNativeSettings.Instance.OneSignalDocLink);
+				}
+			}
+
+			GUI.enabled = AndroidNativeSettings.Instance.OneSignalEnabled;
+
+			EditorGUILayout.BeginHorizontal();
+			EditorGUILayout.LabelField("OneSignal App ID");
+			AndroidNativeSettings.Instance.OneSignalAppID = EditorGUILayout.TextField(AndroidNativeSettings.Instance.OneSignalAppID);
+			EditorGUILayout.EndHorizontal();
+
+
+
+			GUI.enabled = true;
+				
+		} EditorGUI.indentLevel--;
+
+		EditorGUILayout.BeginHorizontal ();
+		EditorGUILayout.Space ();
+		if (GUILayout.Button("[?] Read More", GUILayout.Width(100.0f))) {
+			Application.OpenURL(AndroidNativeSettings.Instance.OneSignalDocLink);
+		}
+		
+		EditorGUILayout.EndHorizontal ();
+
+
+
+
+		
+		EditorGUILayout.Space();
+		EditorGUILayout.LabelField("Parse Configuration", EditorStyles.boldLabel);
+		
+		EditorGUI.indentLevel++; {
+			
+			EditorGUI.BeginChangeCheck(); 
+			bool prevSoomlaState = AndroidNativeSettings.Instance.UseParsePushNotifications;
+			AndroidNativeSettings.Instance.UseParsePushNotifications = ToggleFiled("Enable Parse", AndroidNativeSettings.Instance.UseParsePushNotifications);
+			if(EditorGUI.EndChangeCheck())  {				
+				if(AndroidNativeSettings.Instance.UseParsePushNotifications) {
+					if(!FileStaticAPI.IsFolderExists("Parse")) {
+						bool res = EditorUtility.DisplayDialog("Parse SDK not found", "Android Native wasn't able to find Parse SDK libraries in your project. Would you like to donwload and install it?", "Download", "No Thanks");
+						if(res) {
+							Application.OpenURL(AndroidNativeSettings.Instance.ParseDownloadLink);
+						}
+						AndroidNativeSettings.Instance.UseParsePushNotifications = false;
+					}
+				}
+				
+				UpdateManifest();
+				UpdatePluginDefines();
+			}
+			
+			if(!prevSoomlaState && AndroidNativeSettings.Instance.UseParsePushNotifications) {
+				bool res = EditorUtility.DisplayDialog("Parse SDK", "Make sure you have read the Documentation before you proceed with the implementation", "Documentation", "Got it");
+				if(res) {
+					Application.OpenURL(AndroidNativeSettings.Instance.ParseDocLink);
+				}
+			}
+			
+			GUI.enabled = AndroidNativeSettings.Instance.UseParsePushNotifications;
+			
+			EditorGUILayout.BeginHorizontal();
+			EditorGUILayout.LabelField("Parse Application ID");
+			AndroidNativeSettings.Instance.ParseAppId = EditorGUILayout.TextField(AndroidNativeSettings.Instance.ParseAppId);
+			EditorGUILayout.EndHorizontal();
+			
+			EditorGUILayout.BeginHorizontal();
+			EditorGUILayout.LabelField("Parse .NET Key");
+			AndroidNativeSettings.Instance.DotNetKey = EditorGUILayout.TextField(AndroidNativeSettings.Instance.DotNetKey);
+			EditorGUILayout.EndHorizontal();
+			
+			
+			
+			GUI.enabled = true;
+			
+		} EditorGUI.indentLevel--;
+		
+		EditorGUILayout.BeginHorizontal ();
+		EditorGUILayout.Space ();
+		if (GUILayout.Button("[?] Read More", GUILayout.Width(100.0f))) {
+			Application.OpenURL(AndroidNativeSettings.Instance.ParseDocLink);
+		}
+		EditorGUILayout.EndHorizontal();
+
+
 
 
 		EditorGUILayout.Space();
@@ -1805,194 +1937,192 @@ public class AndroidNativeSettingsEditor : Editor {
 			
 		}EditorGUI.indentLevel--;
 
+		EditorGUILayout.BeginHorizontal ();
+		EditorGUILayout.Space ();
+		if (GUILayout.Button("[?] Read More", GUILayout.Width(100.0f))) {
+			Application.OpenURL(AndroidNativeSettings.Instance.SoomlaDocsLink);
+		}
+		
+		EditorGUILayout.EndHorizontal ();
+
 	}
 
 	public static void LocalNotificationParams() {
 		EditorGUI.BeginChangeCheck ();
-		EditorGUILayout.BeginHorizontal ();
-		EditorGUILayout.LabelField ("Show when App is foreground");
-		AndroidNativeSettings.Instance.ShowWhenAppIsForeground = EditorGUILayout.Toggle ("", AndroidNativeSettings.Instance.ShowWhenAppIsForeground);
-		EditorGUILayout.EndHorizontal ();
 
-		AndroidNativeSettings.Instance.EnableVibrationLocal = EditorGUILayout.Toggle ("Enable Vibration", AndroidNativeSettings.Instance.EnableVibrationLocal);
+		AndroidNativeSettings.Instance.ShowWhenAppIsForeground = ToggleFiled("Show in foreground", AndroidNativeSettings.Instance.ShowWhenAppIsForeground);
+		AndroidNativeSettings.Instance.EnableVibrationLocal = SA_EditorTool.ToggleFiled("Vibration", AndroidNativeSettings.Instance.EnableVibrationLocal);
 
-		Texture2D icon = (Texture2D)EditorGUILayout.ObjectField ("Local Notification Icon", AndroidNativeSettings.Instance.LocalNotificationIcon, typeof(Texture2D), false);
+
+		EditorGUILayout.BeginHorizontal();
+		EditorGUILayout.LabelField("Notification Icon");
+
+		Texture2D icon = (Texture2D)EditorGUILayout.ObjectField (AndroidNativeSettings.Instance.LocalNotificationIcon, typeof(Texture2D), false);
 		if (EditorGUI.EndChangeCheck ()) {
 			if (AndroidNativeSettings.Instance.LocalNotificationIcon != null) {
 				string path = AssetDatabase.GetAssetPath(AndroidNativeSettings.Instance.LocalNotificationIcon);
 				if (AndroidNativeSettings.Instance.PushNotificationIcon != null) {
 					if (!AndroidNativeSettings.Instance.PushNotificationIcon.name.Equals(AndroidNativeSettings.Instance.LocalNotificationIcon.name)) {
-						FileStaticAPI.DeleteFile("Plugins/Android/res/drawable/" + AndroidNativeSettings.Instance.LocalNotificationIcon.name.ToLower() + Path.GetExtension(path));
+						FileStaticAPI.DeleteFile("Plugins/Android/AN_Res/res/drawable/" + AndroidNativeSettings.Instance.LocalNotificationIcon.name.ToLower() + Path.GetExtension(path));
 					}
 				} else {
-					FileStaticAPI.DeleteFile("Plugins/Android/res/drawable/" + AndroidNativeSettings.Instance.LocalNotificationIcon.name.ToLower() + Path.GetExtension(path));
+					FileStaticAPI.DeleteFile("Plugins/Android/AN_Res/res/drawable/" + AndroidNativeSettings.Instance.LocalNotificationIcon.name.ToLower() + Path.GetExtension(path));
 				}
 			}
 			
 			if (icon != null) {
 				string path = AssetDatabase.GetAssetPath(icon);
 				FileStaticAPI.CopyFile(path.Substring(path.IndexOf("/"), path.Length - path.IndexOf("/")),
-				                       "Plugins/Android/res/drawable/" + icon.name.ToLower() + Path.GetExtension(path));
+				                       "Plugins/Android/AN_Res/res/drawable/" + icon.name.ToLower() + Path.GetExtension(path));
 			}
 			AndroidNativeSettings.Instance.LocalNotificationIcon = icon;
 		}
-		
-		EditorGUILayout.Space ();
+
+		EditorGUILayout.EndHorizontal();
+
+
+
 		EditorGUI.BeginChangeCheck ();
-		AudioClip sound = (AudioClip)EditorGUILayout.ObjectField ("Local Notification Sound", AndroidNativeSettings.Instance.LocalNotificationSound, typeof(AudioClip), false);
+		EditorGUILayout.BeginHorizontal();
+		EditorGUILayout.LabelField("Notification Sound");
+		AudioClip sound = (AudioClip)EditorGUILayout.ObjectField (AndroidNativeSettings.Instance.LocalNotificationSound, typeof(AudioClip), false);
 		if (EditorGUI.EndChangeCheck ()) {
 			if (AndroidNativeSettings.Instance.LocalNotificationSound != null) {
 				string path = AssetDatabase.GetAssetPath(AndroidNativeSettings.Instance.LocalNotificationSound);
 				if (AndroidNativeSettings.Instance.PushNotificationSound != null) {
 					if (!AndroidNativeSettings.Instance.PushNotificationSound.name.Equals(AndroidNativeSettings.Instance.LocalNotificationSound.name)) {
-						FileStaticAPI.DeleteFile("Plugins/Android/res/raw/" + AndroidNativeSettings.Instance.LocalNotificationSound.name.ToLower() + Path.GetExtension(path));
+						FileStaticAPI.DeleteFile("Plugins/Android/AN_Res/res/raw/" + AndroidNativeSettings.Instance.LocalNotificationSound.name.ToLower() + Path.GetExtension(path));
 					}
 				} else {
-					FileStaticAPI.DeleteFile("Plugins/Android/res/raw/" + AndroidNativeSettings.Instance.LocalNotificationSound.name.ToLower() + Path.GetExtension(path));
+					FileStaticAPI.DeleteFile("Plugins/Android/AN_Res/res/raw/" + AndroidNativeSettings.Instance.LocalNotificationSound.name.ToLower() + Path.GetExtension(path));
 				}
 			}
 			
 			if (sound != null) {
 				string path = AssetDatabase.GetAssetPath(sound);
 				FileStaticAPI.CopyFile(path.Substring(path.IndexOf("/"), path.Length - path.IndexOf("/")),
-				                       "Plugins/Android/res/raw/" + sound.name.ToLower() + Path.GetExtension(path));
+				                       "Plugins/Android/AN_Res/res/raw/" + sound.name.ToLower() + Path.GetExtension(path));
 			}
 			AndroidNativeSettings.Instance.LocalNotificationSound = sound;
 		}
+
+		EditorGUILayout.EndHorizontal();
 	}
 
 	public static void PushNotificationParams() {
 		EditorGUI.BeginChangeCheck ();
 
+
+
+		AndroidNativeSettings.Instance.ShowPushWhenAppIsForeground = ToggleFiled("Show in foreground", AndroidNativeSettings.Instance.ShowPushWhenAppIsForeground);
+		AndroidNativeSettings.Instance.ReplaceOldNotificationWithNew = ToggleFiled("Replace old notification with new one", AndroidNativeSettings.Instance.ReplaceOldNotificationWithNew);
+		AndroidNativeSettings.Instance.EnableVibrationPush =  SA_EditorTool.ToggleFiled("Vibration", AndroidNativeSettings.Instance.EnableVibrationPush);
+
 		EditorGUILayout.BeginHorizontal();
-		EditorGUILayout.LabelField("Sender Id");
-		AndroidNativeSettings.Instance.GCM_SenderId	 	= EditorGUILayout.TextField(AndroidNativeSettings.Instance.GCM_SenderId);
-		if(AndroidNativeSettings.Instance.GCM_SenderId.Length > 0) {
-			AndroidNativeSettings.Instance.GCM_SenderId		= AndroidNativeSettings.Instance.GCM_SenderId.Trim();
-		}
-		EditorGUILayout.EndHorizontal();
+		EditorGUILayout.LabelField("Notification Icon");
 
-		EditorGUILayout.BeginHorizontal ();
-		EditorGUILayout.LabelField ("Show when App is foreground");
-		AndroidNativeSettings.Instance.ShowPushWhenAppIsForeground = EditorGUILayout.Toggle ("", AndroidNativeSettings.Instance.ShowPushWhenAppIsForeground);
-		EditorGUILayout.EndHorizontal ();
-
-		EditorGUILayout.BeginHorizontal ();
-		EditorGUILayout.LabelField ("Replace old notification with new one");
-		AndroidNativeSettings.Instance.ReplaceOldNotificationWithNew = EditorGUILayout.Toggle ("", AndroidNativeSettings.Instance.ReplaceOldNotificationWithNew);
-		EditorGUILayout.EndHorizontal ();
-
-		AndroidNativeSettings.Instance.EnableVibrationPush = EditorGUILayout.Toggle ("Enable Vibration", AndroidNativeSettings.Instance.EnableVibrationPush);
-
-		Texture2D icon = (Texture2D)EditorGUILayout.ObjectField ("Push Notification Icon", AndroidNativeSettings.Instance.PushNotificationIcon, typeof(Texture2D), false);
+		Texture2D icon = (Texture2D)EditorGUILayout.ObjectField (AndroidNativeSettings.Instance.PushNotificationIcon, typeof(Texture2D), false);
 		if (EditorGUI.EndChangeCheck ()) {
 			if (AndroidNativeSettings.Instance.PushNotificationIcon != null) {
 				string path = AssetDatabase.GetAssetPath(AndroidNativeSettings.Instance.PushNotificationIcon);
 				if (AndroidNativeSettings.Instance.LocalNotificationIcon != null) {
 					if (!AndroidNativeSettings.Instance.PushNotificationIcon.name.Equals(AndroidNativeSettings.Instance.LocalNotificationIcon.name)) {
-						FileStaticAPI.DeleteFile("Plugins/Android/res/drawable/" + AndroidNativeSettings.Instance.PushNotificationIcon.name.ToLower() + Path.GetExtension(path));
+						FileStaticAPI.DeleteFile("Plugins/Android/AN_Res/res/drawable/" + AndroidNativeSettings.Instance.PushNotificationIcon.name.ToLower() + Path.GetExtension(path));
 					}
 				} else {
-					FileStaticAPI.DeleteFile("Plugins/Android/res/drawable/" + AndroidNativeSettings.Instance.PushNotificationIcon.name.ToLower() + Path.GetExtension(path));
+					FileStaticAPI.DeleteFile("Plugins/Android/AN_Res/res/drawable/" + AndroidNativeSettings.Instance.PushNotificationIcon.name.ToLower() + Path.GetExtension(path));
 				}
 			}
 
 			if (icon != null) {
 				string path = AssetDatabase.GetAssetPath(icon);
 				FileStaticAPI.CopyFile(path.Substring(path.IndexOf("/"), path.Length - path.IndexOf("/")),
-				                       "Plugins/Android/res/drawable/" + icon.name.ToLower() + Path.GetExtension(path));
+				                       "Plugins/Android/AN_Res/res/drawable/" + icon.name.ToLower() + Path.GetExtension(path));
 			}
 			AndroidNativeSettings.Instance.PushNotificationIcon = icon;
 		}
+		EditorGUILayout.EndHorizontal();
 
-		EditorGUILayout.Space ();
+
 		EditorGUI.BeginChangeCheck ();
-		AudioClip sound = (AudioClip)EditorGUILayout.ObjectField ("Push Notification Sound", AndroidNativeSettings.Instance.PushNotificationSound, typeof(AudioClip), false);
+		EditorGUILayout.BeginHorizontal();
+		EditorGUILayout.LabelField("Notification Sound");
+		AudioClip sound = (AudioClip)EditorGUILayout.ObjectField (AndroidNativeSettings.Instance.PushNotificationSound, typeof(AudioClip), false);
 		if (EditorGUI.EndChangeCheck ()) {
 			if (AndroidNativeSettings.Instance.PushNotificationSound != null) {
 				string path = AssetDatabase.GetAssetPath(AndroidNativeSettings.Instance.PushNotificationSound);
 				if (AndroidNativeSettings.Instance.LocalNotificationSound != null) {
 					if (!AndroidNativeSettings.Instance.PushNotificationSound.name.Equals(AndroidNativeSettings.Instance.LocalNotificationSound.name)) {
-						FileStaticAPI.DeleteFile("Plugins/Android/res/raw/" + AndroidNativeSettings.Instance.PushNotificationSound.name.ToLower() + Path.GetExtension(path));
+						FileStaticAPI.DeleteFile("Plugins/Android/AN_Res/res/raw/" + AndroidNativeSettings.Instance.PushNotificationSound.name.ToLower() + Path.GetExtension(path));
 					}
 				} else {
-					FileStaticAPI.DeleteFile("Plugins/Android/res/raw/" + AndroidNativeSettings.Instance.PushNotificationSound.name.ToLower() + Path.GetExtension(path));
+					FileStaticAPI.DeleteFile("Plugins/Android/AN_Res/res/raw/" + AndroidNativeSettings.Instance.PushNotificationSound.name.ToLower() + Path.GetExtension(path));
 				}
 			}
 
 			if (sound != null) {
 				string path = AssetDatabase.GetAssetPath(sound);
 				FileStaticAPI.CopyFile(path.Substring(path.IndexOf("/"), path.Length - path.IndexOf("/")),
-				                       "Plugins/Android/res/raw/" + sound.name.ToLower() + Path.GetExtension(path));
+				                       "Plugins/Android/AN_Res/res/raw/" + sound.name.ToLower() + Path.GetExtension(path));
 			}
 			AndroidNativeSettings.Instance.PushNotificationSound = sound;
 		}
+		EditorGUILayout.EndHorizontal();
 
-		EditorGUILayout.Space ();
-		EditorGUILayout.LabelField ("OneSignal Push Notifications", EditorStyles.boldLabel);
-		EditorGUILayout.BeginHorizontal ();
-		EditorGUILayout.LabelField ("Use OneSignal Push Notifications");
-		
-		EditorGUI.BeginChangeCheck ();
-		AndroidNativeSettings.Instance.UseGameThrivePushNotifications = EditorGUILayout.Toggle (AndroidNativeSettings.Instance.UseGameThrivePushNotifications);
-		if (EditorGUI.EndChangeCheck ()) {
-			UpdateManifest();
-		}
-		
-		EditorGUILayout.EndHorizontal ();
-		
-		if (AndroidNativeSettings.Instance.UseGameThrivePushNotifications) {
-			EditorGUI.indentLevel++;
+
+		if(AndroidNativeSettings.Instance.PushService == AN_PushNotificationService.Google) {
 			EditorGUILayout.BeginHorizontal();
-			EditorGUILayout.LabelField("OneSignal App ID");
-			AndroidNativeSettings.Instance.GameThriveAppID = EditorGUILayout.TextField(AndroidNativeSettings.Instance.GameThriveAppID);
-			EditorGUILayout.EndHorizontal();
-			
-			EditorGUILayout.BeginHorizontal();
-			EditorGUILayout.Space ();
-			if (GUILayout.Button("[?] How To SetUp OneSignal Push Notifications?", GUILayout.Width(300.0f))) {
-				Application.OpenURL("http://goo.gl/tfmbMF");
+			EditorGUILayout.LabelField("Sender Id");
+			AndroidNativeSettings.Instance.GCM_SenderId	 	= EditorGUILayout.TextField(AndroidNativeSettings.Instance.GCM_SenderId);
+			if(AndroidNativeSettings.Instance.GCM_SenderId.Length > 0) {
+				AndroidNativeSettings.Instance.GCM_SenderId		= AndroidNativeSettings.Instance.GCM_SenderId.Trim();
 			}
-			EditorGUILayout.Space ();
 			EditorGUILayout.EndHorizontal();
-			EditorGUILayout.Space ();
 		}
 
-		EditorGUILayout.Space ();
-		EditorGUILayout.LabelField ("Parse Push Notifications", EditorStyles.boldLabel);
-		EditorGUILayout.BeginHorizontal ();
-		EditorGUILayout.LabelField ("Use Parse Push Notifications");
-
-		EditorGUI.BeginChangeCheck ();
-		AndroidNativeSettings.Instance.UseParsePushNotifications = EditorGUILayout.Toggle (AndroidNativeSettings.Instance.UseParsePushNotifications);
-		if (EditorGUI.EndChangeCheck ()) {
+		EditorGUI.BeginChangeCheck();
+		EditorGUILayout.BeginHorizontal();
+		EditorGUILayout.LabelField("Push Service");
+		AndroidNativeSettings.Instance.PushService = (AN_PushNotificationService) EditorGUILayout.EnumPopup(AndroidNativeSettings.Instance.PushService);
+		EditorGUILayout.EndHorizontal();
+		if (EditorGUI.EndChangeCheck()) {
 			UpdateManifest();
 		}
 
-		EditorGUILayout.EndHorizontal ();
+		switch(AndroidNativeSettings.Instance.PushService) {
+		case AN_PushNotificationService.OneSignal:
+			if(!AndroidNativeSettings.Instance.OneSignalEnabled) {
+				EditorGUILayout.Space();
+				EditorGUILayout.HelpBox("One Signal SDK isn't Configured", MessageType.Error);
 
-		if (AndroidNativeSettings.Instance.UseParsePushNotifications) {
-			EditorGUI.indentLevel++;
-			EditorGUILayout.BeginHorizontal();
-			EditorGUILayout.LabelField("Parse Application ID");
-			AndroidNativeSettings.Instance.ParseAppId = EditorGUILayout.TextField(AndroidNativeSettings.Instance.ParseAppId);
-			EditorGUILayout.EndHorizontal();
-
-			EditorGUILayout.BeginHorizontal();
-			EditorGUILayout.LabelField("Parse .NET Key");
-			AndroidNativeSettings.Instance.DotNetKey = EditorGUILayout.TextField(AndroidNativeSettings.Instance.DotNetKey);
-			EditorGUILayout.EndHorizontal();
-			EditorGUI.indentLevel--;
-
-			EditorGUILayout.BeginHorizontal();
-			EditorGUILayout.Space ();
-			if (GUILayout.Button("[?] How To SetUp Parse Push Notifications?", GUILayout.Width(300.0f))) {
-				Application.OpenURL("http://goo.gl/9BgQ8r");
+				EditorGUILayout.BeginHorizontal ();
+				EditorGUILayout.Space ();
+				if (GUILayout.Button("One Signal SDK Settings", GUILayout.Width(150.0f))) {
+					AndroidNativeSettings.Instance.ToolbarSelectedIndex = 6;
+				}
+				
+				EditorGUILayout.EndHorizontal ();
 			}
-			EditorGUILayout.Space ();
-			EditorGUILayout.EndHorizontal();
-			EditorGUILayout.Space ();
+			break;
+
+		case AN_PushNotificationService.Parse:
+			if(!AndroidNativeSettings.Instance.UseParsePushNotifications) {
+				EditorGUILayout.Space();
+				EditorGUILayout.HelpBox("Parse SDK isn't Configured", MessageType.Error);
+				
+				EditorGUILayout.BeginHorizontal ();
+				EditorGUILayout.Space ();
+				if (GUILayout.Button("Parse SDK Settings", GUILayout.Width(150.0f))) {
+					AndroidNativeSettings.Instance.ToolbarSelectedIndex = 6;
+				}
+				
+				EditorGUILayout.EndHorizontal ();
+			}
+			break;
 		}
+
+
+
 	}
 
 	public static void CameraAndGalleryParams() {
@@ -2057,25 +2187,16 @@ public class AndroidNativeSettingsEditor : Editor {
 
 		EditorGUILayout.HelpBox("About the Plugin", MessageType.None);
 		
-		SelectableLabelField(SdkVersion,   AndroidNativeSettings.VERSION_NUMBER);
-		if(IsFacebookInstalled) {
-			SelectableLabelField(FBdkVersion, SocialPlatfromSettings.FB_SDK_VERSION_NUMBER);
-		}	
-		SelectableLabelField(GPSdkVersion, AndroidNativeSettings.GOOGLE_PLAY_SDK_VERSION_NUMBER);
+		SA_EditorTool.SelectableLabelField(SdkVersion,   AndroidNativeSettings.VERSION_NUMBER);
+		SA_EditorTool.SelectableLabelField(GPSdkVersion, AndroidNativeSettings.GOOGLE_PLAY_SDK_VERSION_NUMBER);
 
 
-
-		SelectableLabelField(SupportEmail, "support@stansassets.com");
+		SA_EditorTool.FBSdkVersionLabel();
+		SA_EditorTool.SupportMail();
 		
 		
 	}
-	
-	private void SelectableLabelField(GUIContent label, string value) {
-		EditorGUILayout.BeginHorizontal();
-		EditorGUILayout.LabelField(label, GUILayout.Width(180), GUILayout.Height(16));
-		EditorGUILayout.SelectableLabel(value, GUILayout.Height(16));
-		EditorGUILayout.EndHorizontal();
-	}
+
 
 	private void ApplaySettings() {
 		if(AndroidNativeSettings.Instance.UseProductNameAsFolderName) {
@@ -2088,7 +2209,7 @@ public class AndroidNativeSettingsEditor : Editor {
 		AndroidNativeSettingsEditor.UpdateAPIsInstalation();
 	}
 
-	private bool ToggleFiled(string titile, bool value) {
+	private static bool ToggleFiled(string titile, bool value) {
 		
 		AN_Bool initialValue = AN_Bool.Yes;
 		if(!value) {
