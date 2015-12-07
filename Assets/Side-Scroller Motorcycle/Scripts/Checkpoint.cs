@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEditor;
 using System.Collections;
 
 public class Checkpoint : MonoBehaviour {
@@ -33,8 +34,8 @@ public class Checkpoint : MonoBehaviour {
 			objectToChangeColor.material.color = activatedColor;
 			audioSource.Play ();
 			scoreAtLastPoint = Motorcycle_Controller2D.score;
-			motorcyclePrefab = Motorcycle_Controller2D.BodyCarStatic;
-			moto = motorcyclePrefab;
+			//motorcyclePrefab = Motorcycle_Controller2D.BodyCarStatic;
+			//moto = motorcyclePrefab;
 		}
 	}
 
@@ -42,10 +43,13 @@ public class Checkpoint : MonoBehaviour {
 	{
 		//Motorcycle_Controller2D.lastcheckpoint = lastPoint;
 		//Application.LoadLevel (Application.loadedLevel);
-		//Destroy (motorcyclePrefab);
+	//	Destroy (GameObject.Find(Motorcycle_Controller2D.BodyCarStatic.name));
+
+		PrefabUtility.ResetToPrefabState (Motorcycle_Controller2D.BodyCarStatic);
+		//Instantiate (moto, lastPoint.position, Quaternion.identity);
+
 		Motorcycle_Controller2D.checkpoint = true;
 		Motorcycle_Controller2D.lastcheckpoint = lastPoint;
-		Instantiate (moto, lastPoint.position, Quaternion.identity);
 		//Motorcycle_Controller2D.score = scoreAtLastPoint;
 		//Motorcycle_Controller2D.crash = false;
 
