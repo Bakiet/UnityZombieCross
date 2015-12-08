@@ -20,6 +20,16 @@ public class EnemyAI : MonoBehaviour
 	public bool isAutomaticBackWheel = true;
 	public bool isAutomaticPoli = true;
 	public bool isAutomaticHelmet = true;
+	public bool isAutomaticleg = true;
+	public bool isAutomatictrunk = true;
+	public bool isAutomaticleftarm = true;
+	public bool isAutomaticrightarm = true;
+
+	public GameObject legToCollided;
+	public GameObject trunkToCollided;
+	public GameObject leftarmToCollided;
+	public GameObject rightarmToCollided;
+
 	public GameObject HelmetToCollided;
 	public GameObject PoliToCollided;
 	public GameObject BodyToCollided;
@@ -141,6 +151,11 @@ public class EnemyAI : MonoBehaviour
 						Physics2D.IgnoreCollision(ObjectToCollided.GetComponent<Collider2D>(), GetComponent<Collider2D>());
 						Physics2D.IgnoreCollision(ObjectToCollided2.GetComponent<Collider2D>(), GetComponent<Collider2D>());
 
+						Physics2D.IgnoreCollision(legToCollided.GetComponent<Collider2D>(),GetComponent<Collider2D>());
+						Physics2D.IgnoreCollision(trunkToCollided.GetComponent<Collider2D>(),GetComponent<Collider2D>());
+						Physics2D.IgnoreCollision(leftarmToCollided.GetComponent<Collider2D>(),GetComponent<Collider2D>());
+						Physics2D.IgnoreCollision(rightarmToCollided.GetComponent<Collider2D>(),GetComponent<Collider2D>());
+
 					}
 					if(gameObject.tag =="Zombie"){
 						gameObject.GetComponent<Rigidbody2D>().mass =0.01f;
@@ -149,6 +164,11 @@ public class EnemyAI : MonoBehaviour
 						Physics2D.IgnoreCollision(BodyToCollided.GetComponent<Collider2D>(), GetComponent<Collider2D>());
 						Physics2D.IgnoreCollision(ObjectToCollided.GetComponent<Collider2D>(), GetComponent<Collider2D>());
 						Physics2D.IgnoreCollision(ObjectToCollided2.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+
+						Physics2D.IgnoreCollision(legToCollided.GetComponent<Collider2D>(),GetComponent<Collider2D>());
+						Physics2D.IgnoreCollision(trunkToCollided.GetComponent<Collider2D>(),GetComponent<Collider2D>());
+						Physics2D.IgnoreCollision(leftarmToCollided.GetComponent<Collider2D>(),GetComponent<Collider2D>());
+						Physics2D.IgnoreCollision(rightarmToCollided.GetComponent<Collider2D>(),GetComponent<Collider2D>());
 					}
 					if(gameObject.tag =="ZombieMid"){
 						gameObject.GetComponent<Rigidbody2D>().mass =1f;
@@ -157,6 +177,11 @@ public class EnemyAI : MonoBehaviour
 						Physics2D.IgnoreCollision(BodyToCollided.GetComponent<Collider2D>(), GetComponent<Collider2D>());
 						Physics2D.IgnoreCollision(ObjectToCollided.GetComponent<Collider2D>(), GetComponent<Collider2D>());
 						Physics2D.IgnoreCollision(ObjectToCollided2.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+
+						Physics2D.IgnoreCollision(legToCollided.GetComponent<Collider2D>(),GetComponent<Collider2D>());
+						Physics2D.IgnoreCollision(trunkToCollided.GetComponent<Collider2D>(),GetComponent<Collider2D>());
+						Physics2D.IgnoreCollision(leftarmToCollided.GetComponent<Collider2D>(),GetComponent<Collider2D>());
+						Physics2D.IgnoreCollision(rightarmToCollided.GetComponent<Collider2D>(),GetComponent<Collider2D>());
 					}
 
 					zombiedead = true;
@@ -171,6 +196,30 @@ public class EnemyAI : MonoBehaviour
 
 	
 	void Update(){
+		if (isAutomaticleg) {
+			legToCollided = Motorcycle_Controller2D.legStatic;			
+		}
+		else {
+			legToCollided = legToCollided;
+		}
+		if (isAutomatictrunk) {
+			trunkToCollided = Motorcycle_Controller2D.trunkStatic;			
+		}
+		else {
+			trunkToCollided = trunkToCollided;
+		}
+		if (isAutomaticleftarm) {
+			leftarmToCollided = Motorcycle_Controller2D.leftarmStatic;			
+		}
+		else {
+			leftarmToCollided = leftarmToCollided;
+		}
+		if (isAutomaticrightarm) {
+			rightarmToCollided = Motorcycle_Controller2D.rightarmStatic;			
+		}
+		else {
+			rightarmToCollided = rightarmToCollided;
+		}
 		if (isAutomaticHelmet) {
 			HelmetToCollided = Motorcycle_Controller2D.HelmetStatic;			
 		}
