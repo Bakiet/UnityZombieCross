@@ -9,6 +9,7 @@ public class D2D_DamageOnCollision : MonoBehaviour
 {
 	//private int countTimes = 0;
 	//public int timeToTouch = 1;
+	public bool ifkinematic = false;
 	public bool iftrash = false;
 	public bool usedtime = false;
 	public float time = 0f;
@@ -118,13 +119,16 @@ public class D2D_DamageOnCollision : MonoBehaviour
 	
 	protected virtual void OnCollisionEnter2D(Collision2D collision)
 	{
+
 		damage = collision.relativeVelocity.magnitude * DamageScale;
 
 		if (isColliderwithMoto) {
 			if (ObjectToCollided != null || ObjectToCollided2 != null || BodyToCollided != null || PoliToCollided != null || HelmetToCollided != null) {
 				if (ObjectToCollided.name == collision.gameObject.name || ObjectToCollided2.name == collision.gameObject.name || BodyToCollided.name == collision.gameObject.name || PoliToCollided.name == collision.gameObject.name || HelmetToCollided.name == collision.gameObject.name) {
 					
-
+					if(ifkinematic){
+						gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
+					}
 					
 					if (UsedSlowMotion) {
 						count = count + 1;
@@ -186,8 +190,10 @@ public class D2D_DamageOnCollision : MonoBehaviour
 		if (count == 1) {
 			AudioSource.PlayClipAtPoint (Sound, gameObject.transform.position);
 		}
-		if (iftrash) {
 
+		if (iftrash) {
+			if(ifkinematic){
+			}
 			Physics2D.IgnoreCollision(HelmetToCollided.GetComponent<Collider2D>(), gameObject.transform.GetChild (0).GetComponent<Collider2D>());
 			Physics2D.IgnoreCollision(PoliToCollided.GetComponent<Collider2D>(),gameObject.transform.GetChild (0).GetComponent<Collider2D>());
 			Physics2D.IgnoreCollision(BodyToCollided.GetComponent<Collider2D>(),gameObject.transform.GetChild (0).GetComponent<Collider2D>());
