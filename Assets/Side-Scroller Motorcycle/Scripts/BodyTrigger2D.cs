@@ -103,8 +103,9 @@ public class BodyTrigger2D : MonoBehaviour {
 				CFX_SpawnSystem.Instantiate (EffectCoin);
 				AudioSource.PlayClipAtPoint (CoinSound, EffectCoin.transform.position, 10.0f);
 			}
+			if(my_game_uGUI){
 			my_game_uGUI.Update_virtual_money (1);
-		
+			}
 			Destroy (obj.gameObject);
 		}
 
