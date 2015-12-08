@@ -2,6 +2,7 @@
 using System.Collections;
 using Soomla.Store;
 
+
 public class Motorcycle_Controller2D : MonoBehaviour {
 	//public GameObject Reciver;
 	public bool testing = false;
@@ -1616,7 +1617,11 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 			
 			if(crash && !crashed) //if player just crashed
 			{											
+				if(ifnitro)
+				{
+					effectnitro.SetActive(false);
 
+				}
 				makeclick Achievement = new makeclick();
 				Achievement.SENDACHIEVEMENT(ACHIEVEMENT_ID_First_Death);
 			//	Reciver.SendMessage ("revealAchievement", ACHIEVEMENT_ID_First_Death,SendMessageOptions.DontRequireReceiver);
@@ -1651,7 +1656,11 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 
 			}
 			if(crashBurn && !crashed) //if player just crashed
-			{											
+			{		
+				if(ifnitro)
+				{
+					effectnitro.SetActive(false);
+				}
 				time = time + 1;
 				effectburn.transform.position = CarBody.transform.position;
 				if(time == 1){
@@ -1689,7 +1698,11 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 				}
 			}
 			if(crashDrown && !crashed) //if player just crashed
-			{											
+			{	
+				if(ifnitro)
+				{
+					effectnitro.SetActive(false);
+				}
 				time = time + 1;
 				//effectburn.transform.position = CarBody.transform.position;
 				if(time == 1){

@@ -333,6 +333,10 @@ public class BodyTrigger2D : MonoBehaviour {
 	
 	void Update()
 	{
+		if (Motorcycle_Controller2D.crash) {
+
+			//AudioClip.Destroy(NitroSound);
+		}
 		/*if(finish && (Input.GetKeyDown(KeyCode.Space) || (Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Began))) //if motorcycle entered in finish and space is pressed
 		{
 			if(nextLevel)
