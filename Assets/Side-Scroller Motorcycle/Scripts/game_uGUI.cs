@@ -107,7 +107,7 @@ public class game_uGUI : MonoBehaviour {
 	void Start () {
 		
 		my_options = options_screen.GetComponent<options_menu>();
-		normal_emoticon = perfect_target.sprite;
+		//normal_emoticon = perfect_target.sprite;
 		
 		if (game_master.game_master_obj)
 		{
@@ -250,7 +250,7 @@ public class game_uGUI : MonoBehaviour {
 		
 		//reset win screen
 		win_screen.gameObject.SetActive(false);
-		perfect_target.sprite = normal_emoticon;
+		//perfect_target.sprite = normal_emoticon;
 		for (int i = 0; i < 3; i++)
 		{
 			stars_on[i].transform.localScale = Vector3.zero;
@@ -885,8 +885,10 @@ public class game_uGUI : MonoBehaviour {
 				if (show_debug_messages)
 					Debug.Log("stage score: " + star_number + " *** total score: " + my_game_master.stars_total_score[my_game_master.current_profile_selected]);
 			}
-			long score = Convert.ToInt64(long.Parse(my_game_master.stars_total_score[my_game_master.current_profile_selected].ToString()));
-
+			long score = 0;
+			if(my_game_master){
+			score = Convert.ToInt64(long.Parse(my_game_master.stars_total_score[my_game_master.current_profile_selected].ToString()));
+			}
 			GooglePlayManager.instance.SubmitScoreById(LEADERBOARD_ID,score);
 			if (show_int_score && !show_star_score)
 				StartCoroutine(Int_score_animation(0.5f,0));
