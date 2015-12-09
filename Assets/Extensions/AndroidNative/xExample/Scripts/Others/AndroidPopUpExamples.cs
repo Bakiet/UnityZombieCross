@@ -14,11 +14,11 @@ using System.Collections.Generic;
 public class AndroidPopUpExamples : MonoBehaviour {
 
 
-	private string rateText = "If you enjoy using Google Earth, please take a moment to rate it. Thanks for your support!";
+	private string rateText = "If you enjoy Play Zombie Cross, please take a moment to rate it. Thanks for your support!";
 
 
 	//example link to your app on android market
-	private string rateUrl = "market://details?id=com.unionassets.android.plugin.preview";
+	private string rateUrl = "market://details?id=unity.zombiecross";
 
 
 
