@@ -38,6 +38,8 @@ public class EnemyAI : MonoBehaviour
 
 	Transform target;
 	Transform enemyTransform;
+
+	Vector2 walkAmount;
 	public float speed = 3f;
 	public float rotationSpeed=10f;
 	Vector3 upAxis = new Vector3 (0f, 0f, -1f);
@@ -68,6 +70,9 @@ public class EnemyAI : MonoBehaviour
 
 	int count = 0;
 	int zombie_count = 0;
+
+	public float yRotation = 5.0F;
+	public float walkingDirectionnew = -1.0f;
 
 	//Transform myTransform; //current transform data of this enemy
 	void Start () {
@@ -136,9 +141,9 @@ public class EnemyAI : MonoBehaviour
 
 					if (my_game_uGUI) {
 						my_game_uGUI.Update_int_score (100);
-						zombie_count = zombie_count + 1;
+						//zombie_count = zombie_count + 1;
 						//my_game_uGUI.Add_zombies (1);
-						my_game_uGUI.star_number = 1;
+						//my_game_uGUI.star_number = 1;
 						//my_game_uGUI.Add_stars (1);
 
 					}
@@ -265,11 +270,21 @@ public class EnemyAI : MonoBehaviour
 				if(distance<=range && distance>stop){
 					
 					transform.LookAt (target.position, upAxis);
-					transform.eulerAngles = new Vector2 (0f, 0f);
+					transform.eulerAngles = new Vector3 (0f, 0f);
 					
 					//move towards the player
-					enemyTransform.position += -transform.right * maxSpeed * Time.deltaTime;
-					
+					//enemyTransform.position += -transform.position * maxSpeed * Time.deltaTime;
+					//enemyTransform.position += transform.right * maxSpeed * Time.deltaTime;
+
+					//enemyTransform.position = Vector3.MoveTowards(transform.position , target.position ,Time.deltaTime * maxSpeed);
+					//test
+					gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
+					walkAmount.x = walkingDirectionnew * maxSpeed * Time.deltaTime;
+					yRotation += Input.GetAxis("Horizontal");
+					transform.eulerAngles = new Vector2(360,0);
+					//walkingDirection = -4.0f;
+					transform.Translate(walkAmount);
+
 					anim.SetBool ("IsDisturbed", true);
 					count = count +1;
 					if(count == 1){
@@ -278,6 +293,7 @@ public class EnemyAI : MonoBehaviour
 				}
 				
 				else  {
+					gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
 					anim.SetBool ("IsDisturbed", false);
 					//anim.SetBool ("IsKilled", false);
 					

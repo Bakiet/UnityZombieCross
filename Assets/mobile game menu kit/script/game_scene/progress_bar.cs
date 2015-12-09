@@ -50,7 +50,7 @@ public class progress_bar : MonoBehaviour {
 		}
 
 		//if (my_game_uGUI)
-			//my_game_uGUI.New_star_score (star_count);
+			my_game_uGUI.New_star_score (star_count);
 
 	}
 
