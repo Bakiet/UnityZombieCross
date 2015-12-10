@@ -251,168 +251,168 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	public static float axisH = 0f;
 	public static float axisV = 0f;
 
-	private float bikespeedmobile1=32f;
+	private float bikespeedmobile1=42f;
 	private float bikespeedmotor1=32f;
 	private float bikemaxspeed1=42f;
 	private float bikebreakmass1=170f;
 	private float bikebreakgravity1=3.5f;
 	private float bikeacceleration1=16f;
 
-	private float bikespeedmobile2=34;
+	private float bikespeedmobile2=44;
 	private float bikespeedmotor2=34;
 	private float bikemaxspeed2=44;
 	private float bikebreakmass2=190;
 	private float bikebreakgravity2=4;
 	private float bikeacceleration2=17;
 
-	private float bikespeedmobile3=36;
+	private float bikespeedmobile3=46;
 	private float bikespeedmotor3=36;
 	private float bikemaxspeed3=46;
 	private float bikebreakmass3=210;
 	private float bikebreakgravity3=4.5f;
 	private float bikeacceleration3=18;
 
-	private float superspeedmobile1=37;
+	private float superspeedmobile1=47;
 	private float superspeedmotor1=37;
 	private float supermaxspeed1=47;
 	private float superbreakmass1=220;
 	private float superbreakgravity1=4.5f;
 	private float superacceleration1=19;
 
-	private float superspeedmobile2=39;
+	private float superspeedmobile2=49;
 	private float superspeedmotor2=39;
 	private float supermaxspeed2=49;
 	private float superbreakmass2=240;
 	private float superbreakgravity2=5;
 	private float superacceleration2=20;
 
-	private float superspeedmobile3=41;
+	private float superspeedmobile3=51;
 	private float superspeedmotor3=41;
 	private float supermaxspeed3=51;
 	private float superbreakmass3=260;
 	private float superbreakgravity3=5.5f;
 	private float superacceleration3=21;
 
-	private float partyspeedmobile1=32;
+	private float partyspeedmobile1=42;
 	private float partyspeedmotor1=32;
 	private float partymaxspeed1=42;
 	private float partybreakmass1=170;
 	private float partybreakgravity1=2.5f;
 	private float partyacceleration1=14;
 
-	private float partyspeedmobile2=34;
+	private float partyspeedmobile2=44;
 	private float partyspeedmotor2=34;
 	private float partymaxspeed2=44;
 	private float partybreakmass2=190;
 	private float partybreakgravity2=3;
 	private float partyacceleration2=15;
 
-	private float partyspeedmobile3=36;
+	private float partyspeedmobile3=46;
 	private float partyspeedmotor3=36;
 	private float partymaxspeed3=46;
 	private float partybreakmass3=210;
 	private float partybreakgravity3=3.5f;
 	private float partyacceleration3=16;
 
-	private float nightmarespeedmobile1=40;
+	private float nightmarespeedmobile1=50;
 	private float nightmarespeedmotor1=40;
 	private float nightmaremaxspeed1=50;
 	private float nightmarebreakmass1=260;
 	private float nightmarebreakgravity1=3;
 	private float nightmareacceleration1=21;
 
-	private float nightmarespeedmobile2=42;
+	private float nightmarespeedmobile2=84;
 	private float nightmarespeedmotor2=42;
 	private float nightmaremaxspeed2=52;
 	private float nightmarebreakmass2=280;
 	private float nightmarebreakgravity2=3.5f;
 	private float nightmareacceleration2=22;
 
-	private float nightmarespeedmobile3=44;
+	private float nightmarespeedmobile3=88;
 	private float nightmarespeedmotor3=44;
 	private float nightmaremaxspeed3=54;
 	private float nightmarebreakmass3=300;
 	private float nightmarebreakgravity3=4;
 	private float nightmareacceleration3=23;
 
-	private float monsterspeedmobile1=34;
+	private float monsterspeedmobile1=44;
 	private float monsterspeedmotor1=34;
 	private float monstermaxspeed1=44;
 	private float monsterbreakmass1=220;
 	private float monsterbreakgravity1=5.5f;
 	private float monsteracceleration1=13;
 
-	private float monsterspeedmobile2=36;
+	private float monsterspeedmobile2=46;
 	private float monsterspeedmotor2=36;
 	private float monstermaxspeed2=46;
 	private float monsterbreakmass2=240;
 	private float monsterbreakgravity2=6;
 	private float monsteracceleration2=14;
 
-	private float monsterspeedmobile3=38;
+	private float monsterspeedmobile3=48;
 	private float monsterspeedmotor3=38;
 	private float monstermaxspeed3=48;
 	private float monsterbreakmass3=260;
 	private float monsterbreakgravity3=6.5f;
 	private float monsteracceleration3=15;
 
-	private float neonspeedmobile1=36;
+	private float neonspeedmobile1=46;
 	private float neonspeedmotor1=36;
 	private float neonmaxspeed1=48;
 	private float neonbreakmass1=240;
 	private float neonbreakgravity1=3;
 	private float neonacceleration1=22;
 
-	private float neonspeedmobile2=38;
+	private float neonspeedmobile2=48;
 	private float neonspeedmotor2=38;
 	private float neonmaxspeed2=50;
 	private float neonbreakmass2=260;
 	private float neonbreakgravity2=3.5f;
 	private float neonacceleration2=23;
 
-	private float neonspeedmobile3=40;
+	private float neonspeedmobile3=50;
 	private float neonspeedmotor3=40;
 	private float neonmaxspeed3=52;
 	private float neonbreakmass3=280;
 	private float neonbreakgravity3=4;
 	private float neonacceleration3=24;
 
-	private float hellspeedmobile1=38;
+	private float hellspeedmobile1=48;
 	private float hellspeedmotor1=38;
 	private float hellmaxspeed1=48;
 	private float hellbreakmass1=260;
 	private float hellbreakgravity1=5.5f;
 	private float hellacceleration1=21;
 	
-	private float hellspeedmobile2=40;
+	private float hellspeedmobile2=50;
 	private float hellspeedmotor2=40;
 	private float hellmaxspeed2=50;
 	private float hellbreakmass2=280;
 	private float hellbreakgravity2=6;
 	private float hellacceleration2=22;
 	
-	private float hellspeedmobile3=42;
+	private float hellspeedmobile3=52;
 	private float hellspeedmotor3=42;
 	private float hellmaxspeed3=52;
 	private float hellbreakmass3=300;
 	private float hellbreakgravity3=6.5f;
 	private float hellacceleration3=23;
 
-	private float testspeedmobile1=36;
+	private float testspeedmobile1=46;
 	private float testspeedmotor1=36;
 	private float testmaxspeed1=48;
 	private float testbreakmass1=240;
 	private float testbreakgravity1=3;
 	private float testacceleration1=22;
 	
-	private float testspeedmobile2=38;
+	private float testspeedmobile2=48;
 	private float testspeedmotor2=38;
 	private float testmaxspeed2=50;
 	private float testbreakmass2=260;
 	private float testbreakgravity2=3.5f;
 	private float testacceleration2=23;
 	
-	private float testspeedmobile3=40;
+	private float testspeedmobile3=50;
 	private float testspeedmotor3=40;
 	private float testmaxspeed3=52;
 	private float testbreakmass3=280;
@@ -1139,7 +1139,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 
 						if(forMobile){
 
-							
+							SpeedMotorMobile = SpeedMotorMobile * 2;
 							CurrentVelocity = Acceleration * InputGetAxis("Vertical") * Time.deltaTime * SpeedMotorMobile;
 
 							Velocity = Mathf.Clamp(CurrentVelocity, -MaxSpeed, MaxSpeed);

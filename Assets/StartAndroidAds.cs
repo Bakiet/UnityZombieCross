@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Soomla.Store;
 
 public class StartAndroidAds : MonoBehaviour {
 
@@ -32,35 +33,37 @@ public class StartAndroidAds : MonoBehaviour {
 	private DefaultPreviewButton b2Destroy;
 	// Use this for initialization
 	void Start () {
+		if (ad == "SmartBottom" || ad == "StartInterstitialAd" || ad == "B2Hide") {
+			if (StoreInventory.GetItemBalance ("no_ads") <= 0) {
+				AndroidAdMobController.instance.Init (MY_BANNERS_AD_UNIT_ID);
+			
+				//If yoi whant to use Interstisial ad also, you need to set additional ad unin id for Interstisial as well
+				AndroidAdMobController.instance.SetInterstisialsUnitID (MY_INTERSTISIALS_AD_UNIT_ID);
+			
+			
+				//Optional, add data for better ad targeting
+				AndroidAdMobController.instance.SetGender (GoogleGender.Male);
+				AndroidAdMobController.instance.AddKeyword ("game");
+				AndroidAdMobController.instance.SetBirthday (1989, AndroidMonth.MARCH, 18);
+				AndroidAdMobController.instance.TagForChildDirectedTreatment (false);
+		
+				//Causes a device to receive test ads. The deviceId can be obtained by viewing the logcat output after creating a new ad
+				//AndroidAdMobController.instance.AddTestDevice("6B9FA8031AEFDC4758B7D8987F77A5A6");
+			
+			
+			
+				AndroidAdMobController.instance.OnInterstitialLoaded += OnInterstisialsLoaded; 
+				AndroidAdMobController.instance.OnInterstitialOpened += OnInterstisialsOpen;
+			
+			
+			
+				//listening for InApp Event
+				//You will only receive in-app purchase (IAP) ads if you specifically configure an IAP ad campaign in the AdMob front end.
+				AndroidAdMobController.instance.OnAdInAppRequest += OnInAppRequest;
 
-		AndroidAdMobController.instance.Init(MY_BANNERS_AD_UNIT_ID);
-		
-		//If yoi whant to use Interstisial ad also, you need to set additional ad unin id for Interstisial as well
-		AndroidAdMobController.instance.SetInterstisialsUnitID(MY_INTERSTISIALS_AD_UNIT_ID);
-		
-		
-		//Optional, add data for better ad targeting
-		AndroidAdMobController.instance.SetGender(GoogleGender.Male);
-		AndroidAdMobController.instance.AddKeyword("game");
-		AndroidAdMobController.instance.SetBirthday(1989, AndroidMonth.MARCH, 18);
-		AndroidAdMobController.instance.TagForChildDirectedTreatment(false);
-	
-		//Causes a device to receive test ads. The deviceId can be obtained by viewing the logcat output after creating a new ad
-		//AndroidAdMobController.instance.AddTestDevice("6B9FA8031AEFDC4758B7D8987F77A5A6");
-		
-		
-		
-		AndroidAdMobController.instance.OnInterstitialLoaded += OnInterstisialsLoaded; 
-		AndroidAdMobController.instance.OnInterstitialOpened += OnInterstisialsOpen;
-		
-		
-		
-		//listening for InApp Event
-		//You will only receive in-app purchase (IAP) ads if you specifically configure an IAP ad campaign in the AdMob front end.
-		AndroidAdMobController.instance.OnAdInAppRequest += OnInAppRequest;
-
-		Invoke(ad, 1);
-	
+				Invoke (ad, 1);
+			}
+		}
 	}
 
 	public void StartInterstitialAd() {

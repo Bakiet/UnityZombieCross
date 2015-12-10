@@ -25,7 +25,7 @@ public class SendAdtoLoad : MonoBehaviour {
 		}
 		if (timeLeft <= 0) {
 			if (times == 1) {
-				if (MethodName == "SmartBottom" || MethodName == "StartInterstitialAd") {
+				if (MethodName == "SmartBottom" || MethodName == "StartInterstitialAd" || MethodName == "B2Hide") {
 					if (StoreInventory.GetItemBalance ("no_ads") <= 0) {
 						Reciver.SendMessage (MethodName, SendMessageOptions.DontRequireReceiver);
 					}
