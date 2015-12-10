@@ -92,10 +92,8 @@ public class BodyTrigger2D : MonoBehaviour {
 
 		if (obj.tag == "Coin") {
 			
-			if (my_game_uGUI) {
-				//my_game_uGUI.Update_int_score (100);
-				my_game_uGUI.Update_virtual_money(1);				
-			}
+
+
 			EffectCoin.SetActive (true);
 			GameObject position = obj.gameObject;
 			if (position != null) {

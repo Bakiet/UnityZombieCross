@@ -12,7 +12,7 @@ public class EnemyAI : MonoBehaviour
 	public LayerMask whatIsGround;
 	public bool lookingRight = true;
 	private bool isGrounded = false;
-	
+
 	public AudioClip DeadSound;
 	public AudioClip ZombieSound;
 	public bool isAutomaticBody = true;
@@ -36,7 +36,7 @@ public class EnemyAI : MonoBehaviour
 	public GameObject ObjectToCollided;
 	public GameObject ObjectToCollided2;
 
-	Transform target;
+	private static Transform target;
 	Transform enemyTransform;
 
 	Vector2 walkAmount;
@@ -73,10 +73,15 @@ public class EnemyAI : MonoBehaviour
 
 	public float yRotation = 5.0F;
 	public float walkingDirectionnew = -1.0f;
+	float distance = 0;
 
 	//Transform myTransform; //current transform data of this enemy
 	void Start () {
 		count = 0;
+		distance = 0;
+
+		gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
+
 		GameObject gui = GameObject.FindGameObjectWithTag ("_gui_");
 		if(gui != null){
 			my_game_uGUI = GameObject.FindGameObjectWithTag("_gui_").GetComponent<game_uGUI>();
@@ -118,9 +123,9 @@ public class EnemyAI : MonoBehaviour
 	}
 	
 	void FixedUpdate(){
-		if (GameObject.FindWithTag ("Player").transform) {
+		/*if (GameObject.FindWithTag ("Player").transform) {
 			target = GameObject.FindWithTag ("Player").transform;
-		}
+		}*/
 	}
 
 	void OnCollisionEnter2D (Collision2D collision)
@@ -257,14 +262,21 @@ public class EnemyAI : MonoBehaviour
 		else {
 			ObjectToCollided2 = ObjectToCollided2;
 		}
-		float distance = 0;
-		//rotate to look at the player
-		if (target != null) {
-			distance = Vector3.Distance (enemyTransform.position, target.position);
+		if (GameObject.FindWithTag ("Player").transform) {
+			target = GameObject.FindWithTag ("Player").transform;
 		}
-	
+
+		//rotate to look at the player
+		//if (target == null) {
+			distance = Vector3.Distance (enemyTransform.position, target.position);
+		//}
+	if(target.tag != "Player")
+		{
+			string i = "here";
+		}
 		if (zombiedead) {
 			anim.SetBool ("IsDisturbed", false);
+			gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
 		} else {
 			if(distance != 0){
 				if(distance<=range && distance>stop){
@@ -278,7 +290,9 @@ public class EnemyAI : MonoBehaviour
 
 					//enemyTransform.position = Vector3.MoveTowards(transform.position , target.position ,Time.deltaTime * maxSpeed);
 					//test
+
 					gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
+
 					walkAmount.x = walkingDirectionnew * maxSpeed * Time.deltaTime;
 					yRotation += Input.GetAxis("Horizontal");
 					transform.eulerAngles = new Vector2(360,0);
@@ -293,7 +307,9 @@ public class EnemyAI : MonoBehaviour
 				}
 				
 				else  {
+
 					gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
+
 					anim.SetBool ("IsDisturbed", false);
 					//anim.SetBool ("IsKilled", false);
 					
