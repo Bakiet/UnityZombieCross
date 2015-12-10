@@ -1,8 +1,7 @@
 ﻿/*  This file is part of the "Simple IAP System for SOOMLA" project by Rebound Games.
- *  You are only allowed to use these resources if you've bought them directly or indirectly
- *  from Rebound Games. You shall not license, sublicense, sell, resell, transfer, assign,
- *  distribute or otherwise make available to any third party the Service or the Content. 
- */
+ *  You are only allowed to use these resources if you've bought them from the Unity Asset Store.
+ * 	You shall not license, sublicense, sell, resell, transfer, assign, distribute or
+ * 	otherwise make available to any third party the Service or the Content. */
 
 using UnityEngine;
 using System.Collections;
@@ -67,8 +66,8 @@ namespace SIS
             switch (id)
             {
                 //section for in app purchases
-			case "coins":
-				ShopManager.ShowMessage("1000 coins to unlock items.");
+                case "coins":
+                    ShopManager.ShowMessage("1000 coins were added to your balance!");
 
                     //you could also get the information from the VirtualItem directly:
                     /*
@@ -77,102 +76,72 @@ namespace SIS
                                 " were added to your balance!");
                     */
                     break;
-				case "coin_pack":
-				ShopManager.ShowMessage("2500 coins! saving of 10%");
+                case "coin_pack":
+                    ShopManager.ShowMessage("2500 coins were added to your balance!");
                     break;
-			case "big_coin_pack":
-				ShopManager.ShowMessage("6000 coins! big saving of 20%");
+                case "big_coin_pack":
+                    ShopManager.ShowMessage("6000 coins were added to your balance!");
                     break;
                 case "huge_coin_pack":
-				ShopManager.ShowMessage("12000 coins! huge saving of 30% ");
+                    ShopManager.ShowMessage("12000 coins were added to your balance!");
                     break;
-			case "rich_coin_pack":
-				ShopManager.ShowMessage("24000 coins! huge saving of 40%");
-				break;
-			case "millionaire_coin_pack":
-				ShopManager.ShowMessage("48000 coins! huge saving of 50%");
-				break;
                 case "no_ads":
                     ShopManager.ShowMessage("Ads disabled!");
                     break;
-             /*   case "abo_monthly":
+                case "abo_monthly":
                     ShopManager.ShowMessage("Subscribed to monthly abo!");
-                    break;*/
+                    break;
 
                 //section for in game content
                 //items section
-			case "health":
-				ShopManager.ShowMessage("A pack of 5 lives");
+                case "bullets":
+                    ShopManager.ShowMessage("Bullets were added to your inventory!");
                     break;
-			case "healthx2":
-				ShopManager.ShowMessage("A pack of 10 lives");
+                case "health":
+                    ShopManager.ShowMessage("Medikits were added to your inventory!");
                     break;
-			case "healthx3":
-				ShopManager.ShowMessage("A pack of 15 lives");
+                case "energy":
+                    ShopManager.ShowMessage("Energy was added to your inventory!");
                     break;
                 case "bonus":
                     ShopManager.ShowMessage("Bonus level unlocked!");
                     break;
-
-			case "smoke_effect_purple":
-				ShopManager.ShowMessage("Push your bike with purple smoke");
-				break;
-			case "blood_effect":
-				ShopManager.ShowMessage("Push your bike with zombie blood");
-				break;
-			case "fire_effect":
-				ShopManager.ShowMessage("Push your bike with flame of fire ");
-				break;
-			case "ice_effect":
-				ShopManager.ShowMessage("Push your bike with frozen ice");
-				break;
-			case "electric_effect":
-				ShopManager.ShowMessage("Push your bike with electric ray");
-				break;
-			case "wave_effect":
-				ShopManager.ShowMessage("BPush your bike with power wave");
-				break;
-			case "neon_effect":
-				ShopManager.ShowMessage("Push your bike with neon glow");
-				break;
-             /*   case "speed":
+                case "speed":
                     ShopManager.ShowMessage("Speed boost bought!");
                     break;
                 case "speed_up1":
                 case "speed_up2":
                 case "speed_up3":
                     ShopManager.ShowMessage("Speed boost upgraded!");
-                    break;*/
+                    break;
 
                 //armory section
-			case "bike":
-                    ShopManager.ShowMessage("Bike unlocked!");
+                case "uzi":
+                    ShopManager.ShowMessage("Uzi unlocked!");
                     break;
-			case "super_bike":
-				ShopManager.ShowMessage("Super bike unlocked!");
+                case "ak47":
+                    ShopManager.ShowMessage("AK47 unlocked!");
                     break;
-			case "party_bike":
-				ShopManager.ShowMessage("Nightmare bike unlocked!");
-				break;
-			case "nightmare_bike":
-				ShopManager.ShowMessage("Nightmare bike unlocked!");
+                case "m4":
+                    ShopManager.ShowMessage("M4 unlocked!");
                     break;
 
                 //customize section
-			case "hell_bike":
-				ShopManager.ShowMessage("Hell bike unlocked!");
+                case "hat":
+                    ShopManager.ShowMessage("Hat unlocked!");
                     break;
-			case "monster_bike":
-				ShopManager.ShowMessage("Brutal bike unlocked!");
+                case "backpack":
+                    ShopManager.ShowMessage("Backpack unlocked!");
                     break;
-			case "neon_bike":
-				ShopManager.ShowMessage("Neon bike unlocked!");
+                case "belt":
+                    ShopManager.ShowMessage("Ammo belt unlocked!");
                     break;
-
-			case "test_bike":
-				ShopManager.ShowMessage("Neon bike unlocked!");
-				break;
-
+                case "jetpack":
+                    ShopManager.ShowMessage("Jetpack unlocked!");
+                    break;
+                case "booster":
+                    ShopManager.ShowMessage("Double XP unlocked!");
+                    break;
             }
         }
 
@@ -184,7 +153,7 @@ namespace SIS
             if (debug) Debug.Log("IAPListener: Game started for the first time.");
 
             //we should start with the pistol equipped already
-            StoreInventory.EquipVirtualGood("bike");
+            StoreInventory.EquipVirtualGood("pistol");
         }
 
 

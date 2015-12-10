@@ -8,13 +8,13 @@ public class SlowMotionController : SingletonMonoBehaviour<SlowMotionController>
 	[System.Serializable]
 	private class SlowMotionClass
 	{
-		public string identifier = "";
-		public float delay = 0;
-		public float desiredFreezeDuration = 0;
-		public float desiredTimeScale = 0;
-		public float desiredEndTimeScale = 0;
+		public	string				identifier				= "";
+		public	float				delay					= 0;
+		public	float				desiredFreezeDuration	= 0;
+		public	float				desiredTimeScale		= 0;
+		public	float				desiredEndTimeScale		= 0;
 
-		public	Action callback	= null;
+		public	Action				callback				= null;
 
 		public SlowMotionClass(float pDesiredFreezeDuration = 0, float pDesiredTimeScale = 0, string pIdentifier = "", Action pCallback = null ,float pDelay = 0, float pDesiredEndTimeScale = 1){
 			this.identifier				= pIdentifier;
