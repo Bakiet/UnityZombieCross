@@ -36,7 +36,7 @@ public class EnemyAI : MonoBehaviour
 	public GameObject ObjectToCollided;
 	public GameObject ObjectToCollided2;
 
-	private static Transform target;
+	private Transform target;
 	Transform enemyTransform;
 
 	Vector2 walkAmount;
@@ -123,6 +123,7 @@ public class EnemyAI : MonoBehaviour
 	}
 	
 	void FixedUpdate(){
+
 		/*if (GameObject.FindWithTag ("Player").transform) {
 			target = GameObject.FindWithTag ("Player").transform;
 		}*/
@@ -206,6 +207,8 @@ public class EnemyAI : MonoBehaviour
 
 	
 	void Update(){
+	
+
 		if (isAutomaticleg) {
 			legToCollided = Motorcycle_Controller2D.legStatic;			
 		}
@@ -262,17 +265,17 @@ public class EnemyAI : MonoBehaviour
 		else {
 			ObjectToCollided2 = ObjectToCollided2;
 		}
-		if (GameObject.FindWithTag ("Player").transform) {
-			target = GameObject.FindWithTag ("Player").transform;
+		if (GameObject.FindGameObjectWithTag ("Ragdoll").transform) {
+			target = GameObject.FindGameObjectWithTag ("Ragdoll").transform;
 		}
 
 		//rotate to look at the player
 		//if (target == null) {
-			distance = Vector3.Distance (enemyTransform.position, target.position);
+		distance = Vector3.Distance (enemyTransform.position, target.position);
 		//}
-	if(target.tag != "Player")
+		if(target.name == "Spawn")
 		{
-			string i = "here";
+			//Debug.LogError("here: " + target.name);
 		}
 		if (zombiedead) {
 			anim.SetBool ("IsDisturbed", false);
@@ -280,7 +283,7 @@ public class EnemyAI : MonoBehaviour
 		} else {
 			if(distance != 0){
 				if(distance<=range && distance>stop){
-					
+
 					transform.LookAt (target.position, upAxis);
 					transform.eulerAngles = new Vector3 (0f, 0f);
 					
