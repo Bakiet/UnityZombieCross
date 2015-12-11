@@ -251,168 +251,168 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	public static float axisH = 0f;
 	public static float axisV = 0f;
 
-	private float bikespeedmobile1=42f;
+	private float bikespeedmobile1=32f;
 	private float bikespeedmotor1=32f;
 	private float bikemaxspeed1=42f;
 	private float bikebreakmass1=170f;
 	private float bikebreakgravity1=3.5f;
 	private float bikeacceleration1=16f;
 
-	private float bikespeedmobile2=44;
+	private float bikespeedmobile2=34;
 	private float bikespeedmotor2=34;
 	private float bikemaxspeed2=44;
 	private float bikebreakmass2=190;
 	private float bikebreakgravity2=4;
 	private float bikeacceleration2=17;
 
-	private float bikespeedmobile3=46;
+	private float bikespeedmobile3=36;
 	private float bikespeedmotor3=36;
 	private float bikemaxspeed3=46;
 	private float bikebreakmass3=210;
 	private float bikebreakgravity3=4.5f;
 	private float bikeacceleration3=18;
 
-	private float superspeedmobile1=47;
+	private float superspeedmobile1=37;
 	private float superspeedmotor1=37;
 	private float supermaxspeed1=47;
 	private float superbreakmass1=220;
 	private float superbreakgravity1=4.5f;
 	private float superacceleration1=19;
 
-	private float superspeedmobile2=49;
+	private float superspeedmobile2=39;
 	private float superspeedmotor2=39;
 	private float supermaxspeed2=49;
 	private float superbreakmass2=240;
 	private float superbreakgravity2=5;
 	private float superacceleration2=20;
 
-	private float superspeedmobile3=51;
+	private float superspeedmobile3=41;
 	private float superspeedmotor3=41;
 	private float supermaxspeed3=51;
 	private float superbreakmass3=260;
 	private float superbreakgravity3=5.5f;
 	private float superacceleration3=21;
 
-	private float partyspeedmobile1=42;
+	private float partyspeedmobile1=32;
 	private float partyspeedmotor1=32;
 	private float partymaxspeed1=42;
 	private float partybreakmass1=170;
 	private float partybreakgravity1=2.5f;
 	private float partyacceleration1=14;
 
-	private float partyspeedmobile2=44;
+	private float partyspeedmobile2=34;
 	private float partyspeedmotor2=34;
 	private float partymaxspeed2=44;
 	private float partybreakmass2=190;
 	private float partybreakgravity2=3;
 	private float partyacceleration2=15;
 
-	private float partyspeedmobile3=46;
+	private float partyspeedmobile3=36;
 	private float partyspeedmotor3=36;
 	private float partymaxspeed3=46;
 	private float partybreakmass3=210;
 	private float partybreakgravity3=3.5f;
 	private float partyacceleration3=16;
 
-	private float nightmarespeedmobile1=50;
+	private float nightmarespeedmobile1=40;
 	private float nightmarespeedmotor1=40;
 	private float nightmaremaxspeed1=50;
 	private float nightmarebreakmass1=260;
 	private float nightmarebreakgravity1=3;
 	private float nightmareacceleration1=21;
 
-	private float nightmarespeedmobile2=84;
+	private float nightmarespeedmobile2=42;
 	private float nightmarespeedmotor2=42;
 	private float nightmaremaxspeed2=52;
 	private float nightmarebreakmass2=280;
 	private float nightmarebreakgravity2=3.5f;
 	private float nightmareacceleration2=22;
 
-	private float nightmarespeedmobile3=88;
+	private float nightmarespeedmobile3=44;
 	private float nightmarespeedmotor3=44;
 	private float nightmaremaxspeed3=54;
 	private float nightmarebreakmass3=300;
 	private float nightmarebreakgravity3=4;
 	private float nightmareacceleration3=23;
 
-	private float monsterspeedmobile1=44;
+	private float monsterspeedmobile1=34;
 	private float monsterspeedmotor1=34;
 	private float monstermaxspeed1=44;
 	private float monsterbreakmass1=220;
 	private float monsterbreakgravity1=5.5f;
 	private float monsteracceleration1=13;
 
-	private float monsterspeedmobile2=46;
+	private float monsterspeedmobile2=36;
 	private float monsterspeedmotor2=36;
 	private float monstermaxspeed2=46;
 	private float monsterbreakmass2=240;
 	private float monsterbreakgravity2=6;
 	private float monsteracceleration2=14;
 
-	private float monsterspeedmobile3=48;
+	private float monsterspeedmobile3=38;
 	private float monsterspeedmotor3=38;
 	private float monstermaxspeed3=48;
 	private float monsterbreakmass3=260;
 	private float monsterbreakgravity3=6.5f;
 	private float monsteracceleration3=15;
 
-	private float neonspeedmobile1=46;
+	private float neonspeedmobile1=36;
 	private float neonspeedmotor1=36;
 	private float neonmaxspeed1=48;
 	private float neonbreakmass1=240;
 	private float neonbreakgravity1=3;
 	private float neonacceleration1=22;
 
-	private float neonspeedmobile2=48;
+	private float neonspeedmobile2=38;
 	private float neonspeedmotor2=38;
 	private float neonmaxspeed2=50;
 	private float neonbreakmass2=260;
 	private float neonbreakgravity2=3.5f;
 	private float neonacceleration2=23;
 
-	private float neonspeedmobile3=50;
+	private float neonspeedmobile3=40;
 	private float neonspeedmotor3=40;
 	private float neonmaxspeed3=52;
 	private float neonbreakmass3=280;
 	private float neonbreakgravity3=4;
 	private float neonacceleration3=24;
 
-	private float hellspeedmobile1=48;
+	private float hellspeedmobile1=38;
 	private float hellspeedmotor1=38;
 	private float hellmaxspeed1=48;
 	private float hellbreakmass1=260;
 	private float hellbreakgravity1=5.5f;
 	private float hellacceleration1=21;
 	
-	private float hellspeedmobile2=50;
+	private float hellspeedmobile2=40;
 	private float hellspeedmotor2=40;
 	private float hellmaxspeed2=50;
 	private float hellbreakmass2=280;
 	private float hellbreakgravity2=6;
 	private float hellacceleration2=22;
 	
-	private float hellspeedmobile3=52;
+	private float hellspeedmobile3=42;
 	private float hellspeedmotor3=42;
 	private float hellmaxspeed3=52;
 	private float hellbreakmass3=300;
 	private float hellbreakgravity3=6.5f;
 	private float hellacceleration3=23;
 
-	private float testspeedmobile1=46;
+	private float testspeedmobile1=36;
 	private float testspeedmotor1=36;
 	private float testmaxspeed1=48;
 	private float testbreakmass1=240;
 	private float testbreakgravity1=3;
 	private float testacceleration1=22;
 	
-	private float testspeedmobile2=48;
+	private float testspeedmobile2=38;
 	private float testspeedmotor2=38;
 	private float testmaxspeed2=50;
 	private float testbreakmass2=260;
 	private float testbreakgravity2=3.5f;
 	private float testacceleration2=23;
 	
-	private float testspeedmobile3=50;
+	private float testspeedmobile3=40;
 	private float testspeedmotor3=40;
 	private float testmaxspeed3=52;
 	private float testbreakmass3=280;
@@ -480,21 +480,21 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		if(this.name == "bike(Clone)"){
 			if (bikeupgradelevel != 0) {
 				if(bikeupgradelevel ==1){
-					SpeedMotorMobile = bikespeedmobile1;
+					SpeedMotorMobile = bikespeedmobile1 + 10f;
 					SpeedMotor = bikespeedmotor1;
 					MaxSpeed =bikemaxspeed1;
 					BreakMass = bikebreakmass1;
 					BreakGravity = bikebreakgravity1;
 					Acceleration =bikeacceleration1;}
 				if(bikeupgradelevel ==2){
-					SpeedMotorMobile = bikespeedmobile2;
+					SpeedMotorMobile = bikespeedmobile2 + 10f;
 					SpeedMotor = bikespeedmotor2;
 					MaxSpeed =bikemaxspeed2;
 					BreakMass = bikebreakmass2;
 					BreakGravity = bikebreakgravity2;
 					Acceleration =bikeacceleration2;}
 				if(bikeupgradelevel ==3){
-					SpeedMotorMobile = bikespeedmobile3;
+					SpeedMotorMobile = bikespeedmobile3 + 10f;
 					SpeedMotor = bikespeedmotor3;
 					MaxSpeed =bikemaxspeed3;
 					BreakMass = bikebreakmass3;
@@ -505,7 +505,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		else if(this.name == "super_bike(Clone)"){
 			if (superupgradelevel != 0) {
 				if(superupgradelevel ==1){
-					SpeedMotorMobile = superspeedmobile1;
+					SpeedMotorMobile = superspeedmobile1 + 10f;
 					SpeedMotor = superspeedmobile1;
 					SpeedMotor = superspeedmotor1;
 					MaxSpeed =supermaxspeed1;
@@ -513,14 +513,14 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					BreakGravity = superbreakgravity1;
 					Acceleration =superacceleration1;}
 				if(superupgradelevel ==2){
-					SpeedMotorMobile = superspeedmobile2;
+					SpeedMotorMobile = superspeedmobile2 + 10f;
 					SpeedMotor = superspeedmotor2;
 					MaxSpeed =supermaxspeed2;
 					BreakMass = superbreakmass2;
 					BreakGravity = superbreakgravity2;
 					Acceleration =superacceleration2;}
 				if(superupgradelevel ==3){
-					SpeedMotorMobile = superspeedmobile3;
+					SpeedMotorMobile = superspeedmobile3 + 10f;
 					SpeedMotor = superspeedmotor3;
 					MaxSpeed =supermaxspeed3;
 					BreakMass = superbreakmass3;
@@ -531,7 +531,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		else if (this.name == "party_bike(Clone)") {
 			if (partyupgradelevel != 0) {
 				if (partyupgradelevel == 1) {
-					SpeedMotorMobile = partyspeedmobile1;
+					SpeedMotorMobile = partyspeedmobile1 + 10f;
 					SpeedMotor = partyspeedmotor1;
 					MaxSpeed = partymaxspeed1;
 					BreakMass = partybreakmass1;
@@ -539,7 +539,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					Acceleration = partyacceleration1;
 				}
 				if (partyupgradelevel == 2) {
-					SpeedMotorMobile = partyspeedmobile2;
+					SpeedMotorMobile = partyspeedmobile2 + 10f;
 					SpeedMotor = partyspeedmotor2;
 					MaxSpeed = partymaxspeed2;
 					BreakMass = partybreakmass2;
@@ -547,7 +547,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					Acceleration = partyacceleration2;
 				}
 				if (partyupgradelevel == 3) {
-					SpeedMotorMobile = partyspeedmobile3;
+					SpeedMotorMobile = partyspeedmobile3 + 10f;
 					SpeedMotor = partyspeedmotor3;
 					MaxSpeed = partymaxspeed3;
 					BreakMass = partybreakmass3;
@@ -559,7 +559,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		else if (this.name == "nightmare_bike(Clone)") {
 			if (nightmareupgradelevel != 0) {
 				if (nightmareupgradelevel == 1) {
-					SpeedMotorMobile = nightmarespeedmobile1;
+					SpeedMotorMobile = nightmarespeedmobile1 + 10f;
 					SpeedMotor = nightmarespeedmotor1;
 					MaxSpeed = nightmaremaxspeed1;
 					BreakMass = nightmarebreakmass1;
@@ -567,7 +567,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					Acceleration = nightmareacceleration1;
 				}
 				if (nightmareupgradelevel == 2) {
-					SpeedMotorMobile = nightmarespeedmobile2;
+					SpeedMotorMobile = nightmarespeedmobile2 + 10f;
 					SpeedMotor = nightmarespeedmotor2;
 					MaxSpeed = nightmaremaxspeed2;
 					BreakMass = nightmarebreakmass2;
@@ -575,7 +575,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					Acceleration = nightmareacceleration2;
 				}
 				if (nightmareupgradelevel == 3) {
-					SpeedMotorMobile = nightmarespeedmobile3;
+					SpeedMotorMobile = nightmarespeedmobile3 + 10f;
 					SpeedMotor = nightmarespeedmobile3;
 					SpeedMotor = nightmarespeedmotor3;
 					MaxSpeed = nightmaremaxspeed3;
@@ -588,7 +588,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		else if (this.name == "monster_bike(Clone)") {
 			if (monsterupgradelevel != 0) {
 				if (monsterupgradelevel == 1) {
-					SpeedMotorMobile = monsterspeedmobile1;
+					SpeedMotorMobile = monsterspeedmobile1 + 10f;
 					SpeedMotor = monsterspeedmotor1;
 					MaxSpeed = monstermaxspeed1;
 					BreakMass = monsterbreakmass1;
@@ -596,7 +596,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					Acceleration = monsteracceleration1;
 				}
 				if (monsterupgradelevel == 2) {
-					SpeedMotorMobile = monsterspeedmobile2;
+					SpeedMotorMobile = monsterspeedmobile2 + 10f;
 					SpeedMotor = monsterspeedmotor2;
 					MaxSpeed = monstermaxspeed2;
 					BreakMass = monsterbreakmass2;
@@ -604,7 +604,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					Acceleration = monsteracceleration2;
 				}
 				if (monsterupgradelevel == 3) {
-					SpeedMotorMobile = monsterspeedmobile3;
+					SpeedMotorMobile = monsterspeedmobile3 + 10f;
 					SpeedMotor = monsterspeedmotor3;
 					MaxSpeed = monstermaxspeed3;
 					BreakMass = monsterbreakmass3;
@@ -616,7 +616,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		else if (this.name == "neon_bike(Clone)") {
 			if (neonupgradelevel != 0) {
 				if (neonupgradelevel == 1) {
-					SpeedMotorMobile = neonspeedmobile1;
+					SpeedMotorMobile = neonspeedmobile1 + 10f;
 					SpeedMotor = neonspeedmotor1;
 					MaxSpeed = neonmaxspeed1;
 					BreakMass = neonbreakmass1;
@@ -624,7 +624,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					Acceleration = neonacceleration1;
 				}
 				if (neonupgradelevel == 2) {
-					SpeedMotorMobile = neonspeedmobile2;
+					SpeedMotorMobile = neonspeedmobile2 + 10f;
 					SpeedMotor = neonspeedmotor2;
 					MaxSpeed = neonmaxspeed2;
 					BreakMass = neonbreakmass2;
@@ -632,7 +632,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					Acceleration = neonacceleration2;
 				}
 				if (neonupgradelevel == 3) {
-					SpeedMotorMobile = neonspeedmobile3;
+					SpeedMotorMobile = neonspeedmobile3 + 10f;
 					SpeedMotor = neonspeedmotor3;
 					MaxSpeed = neonmaxspeed3;
 					BreakMass = neonbreakmass3;
@@ -644,7 +644,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		else if (this.name == "hell_bike(Clone)") {
 			if (hellupgradelevel != 0) {
 				if (hellupgradelevel == 1) {
-					SpeedMotorMobile = hellspeedmobile1;
+					SpeedMotorMobile = hellspeedmobile1 + 10f;
 					SpeedMotor = hellspeedmotor1;
 					MaxSpeed = hellmaxspeed1;
 					BreakMass = hellbreakmass1;
@@ -652,7 +652,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					Acceleration = hellacceleration1;
 				}
 				if (hellupgradelevel == 2) {
-					SpeedMotorMobile = hellspeedmobile2;
+					SpeedMotorMobile = hellspeedmobile2 + 10f;
 					SpeedMotor = hellspeedmotor2;
 					MaxSpeed = hellmaxspeed2;
 					BreakMass = hellbreakmass2;
@@ -660,7 +660,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					Acceleration = hellacceleration2;
 				}
 				if (hellupgradelevel == 3) {
-					SpeedMotorMobile = hellspeedmobile3;
+					SpeedMotorMobile = hellspeedmobile3 + 10f;
 					SpeedMotor = hellspeedmotor3;
 					MaxSpeed = hellmaxspeed3;
 					BreakMass = hellbreakmass3;
@@ -672,7 +672,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		else if (this.name == "test_bike(Clone)") {
 			if (testupgradelevel != 0) {
 				if (testupgradelevel == 1) {
-					SpeedMotorMobile = testspeedmobile1;
+					SpeedMotorMobile = testspeedmobile1 + 10f;
 					SpeedMotor = testspeedmotor1;
 					MaxSpeed = testmaxspeed1;
 					BreakMass = testbreakmass1;
@@ -680,7 +680,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					Acceleration = testacceleration1;
 				}
 				if (testupgradelevel == 2) {
-					SpeedMotorMobile = testspeedmobile2;
+					SpeedMotorMobile = testspeedmobile2 + 10f;
 					SpeedMotor = testspeedmotor2;
 					MaxSpeed = testmaxspeed2;
 					BreakMass = testbreakmass2;
@@ -688,7 +688,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					Acceleration = testacceleration2;
 				}
 				if (testupgradelevel == 3) {
-					SpeedMotorMobile = testspeedmobile3;
+					SpeedMotorMobile = testspeedmobile3 + 10f;
 					SpeedMotor = testspeedmotor3;
 					MaxSpeed = testmaxspeed3;
 					BreakMass = testbreakmass3;
@@ -700,21 +700,21 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		else if (this.name == "blue_bike(Clone)") {
 			if (bikeupgradelevel != 0) {
 				if(bikeupgradelevel ==1){
-					SpeedMotorMobile = bikespeedmobile1;
+					SpeedMotorMobile = bikespeedmobile1 + 10f;
 					SpeedMotor = bikespeedmotor1;
 					MaxSpeed =bikemaxspeed1;
 					BreakMass = bikebreakmass1;
 					BreakGravity = bikebreakgravity1;
 					Acceleration =bikeacceleration1;}
 				if(bikeupgradelevel ==2){
-					SpeedMotorMobile = bikespeedmobile2;
+					SpeedMotorMobile = bikespeedmobile2 + 10f;
 					SpeedMotor = bikespeedmotor2;
 					MaxSpeed =bikemaxspeed2;
 					BreakMass = bikebreakmass2;
 					BreakGravity = bikebreakgravity2;
 					Acceleration =bikeacceleration2;}
 				if(bikeupgradelevel ==3){
-					SpeedMotorMobile = bikespeedmobile3;
+					SpeedMotorMobile = bikespeedmobile3 + 10f;
 					SpeedMotor = bikespeedmotor3;
 					MaxSpeed =bikemaxspeed3;
 					BreakMass = bikebreakmass3;
@@ -725,21 +725,21 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		else if (this.name == "summer_bike(Clone)") {
 			if (bikeupgradelevel != 0) {
 				if(bikeupgradelevel ==1){
-					SpeedMotorMobile = bikespeedmobile1;
+					SpeedMotorMobile = bikespeedmobile1 + 10f;
 					SpeedMotor = bikespeedmotor1;
 					MaxSpeed =bikemaxspeed1;
 					BreakMass = bikebreakmass1;
 					BreakGravity = bikebreakgravity1;
 					Acceleration =bikeacceleration1;}
 				if(bikeupgradelevel ==2){
-					SpeedMotorMobile = bikespeedmobile2;
+					SpeedMotorMobile = bikespeedmobile2 + 10f;
 					SpeedMotor = bikespeedmotor2;
 					MaxSpeed =bikemaxspeed2;
 					BreakMass = bikebreakmass2;
 					BreakGravity = bikebreakgravity2;
 					Acceleration =bikeacceleration2;}
 				if(bikeupgradelevel ==3){
-					SpeedMotorMobile = bikespeedmobile3;
+					SpeedMotorMobile = bikespeedmobile3 + 10f;
 					SpeedMotor = bikespeedmotor3;
 					MaxSpeed =bikemaxspeed3;
 					BreakMass = bikebreakmass3;
@@ -750,21 +750,21 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		else if (this.name == "peace_bike(Clone)") {
 			if (bikeupgradelevel != 0) {
 				if(bikeupgradelevel ==1){
-					SpeedMotorMobile = bikespeedmobile1;
+					SpeedMotorMobile = bikespeedmobile1 + 10f;
 					SpeedMotor = bikespeedmotor1;
 					MaxSpeed =bikemaxspeed1;
 					BreakMass = bikebreakmass1;
 					BreakGravity = bikebreakgravity1;
 					Acceleration =bikeacceleration1;}
 				if(bikeupgradelevel ==2){
-					SpeedMotorMobile = bikespeedmobile2;
+					SpeedMotorMobile = bikespeedmobile2 + 10f;
 					SpeedMotor = bikespeedmotor2;
 					MaxSpeed =bikemaxspeed2;
 					BreakMass = bikebreakmass2;
 					BreakGravity = bikebreakgravity2;
 					Acceleration =bikeacceleration2;}
 				if(bikeupgradelevel ==3){
-					SpeedMotorMobile = bikespeedmobile3;
+					SpeedMotorMobile = bikespeedmobile3 + 10f;
 					SpeedMotor = bikespeedmotor3;
 					MaxSpeed =bikemaxspeed3;
 					BreakMass = bikebreakmass3;
@@ -775,21 +775,21 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		else if (this.name == "sunshine_bike(Clone)") {
 			if (bikeupgradelevel != 0) {
 				if(bikeupgradelevel ==1){
-					SpeedMotorMobile = bikespeedmobile1;
+					SpeedMotorMobile = bikespeedmobile1 + 10f;
 					SpeedMotor = bikespeedmotor1;
 					MaxSpeed =bikemaxspeed1;
 					BreakMass = bikebreakmass1;
 					BreakGravity = bikebreakgravity1;
 					Acceleration =bikeacceleration1;}
 				if(bikeupgradelevel ==2){
-					SpeedMotorMobile = bikespeedmobile2;
+					SpeedMotorMobile = bikespeedmobile2 + 10f;
 					SpeedMotor = bikespeedmotor2;
 					MaxSpeed =bikemaxspeed2;
 					BreakMass = bikebreakmass2;
 					BreakGravity = bikebreakgravity2;
 					Acceleration =bikeacceleration2;}
 				if(bikeupgradelevel ==3){
-					SpeedMotorMobile = bikespeedmobile3;
+					SpeedMotorMobile = bikespeedmobile3 + 10f;
 					SpeedMotor = bikespeedmotor3;
 					MaxSpeed =bikemaxspeed3;
 					BreakMass = bikebreakmass3;
@@ -819,6 +819,8 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 
 	void Start()
 	{
+		//SpeedMotorMobile = SpeedMotorMobile + 10;
+
 		if (this.name == "super_bike(Clone)") {
 			AuraModular = GameObject.Find ("AuraModular");
 			AuraModular.SetActive (false);
@@ -1138,8 +1140,8 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					else{
 
 						if(forMobile){
+							SpeedMotorMobile = SpeedMotorMobile + 0.8f;
 
-							SpeedMotorMobile = SpeedMotorMobile * 2;
 							CurrentVelocity = Acceleration * InputGetAxis("Vertical") * Time.deltaTime * SpeedMotorMobile;
 
 							Velocity = Mathf.Clamp(CurrentVelocity, -MaxSpeed, MaxSpeed);
@@ -1624,6 +1626,9 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 				}
 				makeclick Achievement = new makeclick();
 				Achievement.SENDACHIEVEMENT(ACHIEVEMENT_ID_First_Death);
+				AndroidJavaObject ajc = new AndroidJavaObject("com.zeljkosassets.notifications.Notifier");
+				ajc.CallStatic("sendNotification", "Zombie Cross", "Achievement unlocked", "You Firts Death", 1);
+				//AN_PoupsProxy.showMessage ("Achievement unlocked","You Firts Death","Ok");
 			//	Reciver.SendMessage ("revealAchievement", ACHIEVEMENT_ID_First_Death,SendMessageOptions.DontRequireReceiver);
 
 				GameObject soul = (GameObject)Resources.Load("prefabs/CFXM2_Soul", typeof(GameObject));
@@ -1742,8 +1747,9 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 			if(crashSaw && !crashed) //if player just crashed
 			{											
 				
-					makeclick Achievement = new makeclick();
+				makeclick Achievement = new makeclick();
 				Achievement.SENDACHIEVEMENT(ACHIEVEMENT_ID_First_Death);
+
 			//	Reciver.SendMessage ("revealAchievement", ACHIEVEMENT_ID_First_Death,SendMessageOptions.DontRequireReceiver);
 
 				GameObject soul = (GameObject)Resources.Load("prefabs/CFXM2_Soul", typeof(GameObject));

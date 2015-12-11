@@ -265,12 +265,14 @@ public class EnemyAI : MonoBehaviour
 		else {
 			ObjectToCollided2 = ObjectToCollided2;
 		}
-		if (GameObject.FindGameObjectWithTag ("Ragdoll").transform) {
+		if (GameObject.FindGameObjectWithTag ("Ragdoll") != null) {
 			target = GameObject.FindGameObjectWithTag ("Ragdoll").transform;
 		}
 
 		//rotate to look at the player
-		//if (target == null) {
+		if (target == null) {
+			target = enemyTransform.transform;
+		}
 		distance = Vector3.Distance (enemyTransform.position, target.position);
 		//}
 		if(target.name == "Spawn")

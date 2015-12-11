@@ -7,9 +7,20 @@ public class makeclick : MonoBehaviour {
 	private static bool IsFrindsInfoLoaded = false;
 	private static bool IsAuntificated = false;
 
+	private string rateText = "If you enjoy playing Zombie Cross, please take a moment to rate it. Thanks for your support!";
+	//example link to your app on android market
+	private string rateUrl = "https://play.google.com/store/apps/details?id=unity.zombiecross";
 
+	private string title="Zombie Cross";
+	private string message="Like this game? Please Rate us";
+	private string yes ="YES";
+	private string later="LATER";
+	private string no="NO";
+	private string url="https://play.google.com/store/apps/details?id=unity.zombiecross";
+	//public event Action<AndroidDialogResult> ActionComplete = delegate{};
 
-	private string LEADERBOARD_ID;
+	//private string LEADERBOARD_ID;
+	private const string LEADERBOARD_ID = "CgkIipfs2qcGEAIQAA";
 
 	private const string ACHIEVEMENT_ID_First_Freeze = "CgkIq6GznYALEAIQDg";
 	private const string ACHIEVEMENT_ID_First_Buy = "CgkIq6GznYALEAIQDQ";
@@ -26,14 +37,26 @@ public class makeclick : MonoBehaviour {
 	private const string INCREMENTAL_ACHIEVEMENT_ID_Two_FrontFlip = "CgkIq6GznYALEAIQBQ";
 	private const string INCREMENTAL_ACHIEVEMENT_ID_Two_BackFlip = "CgkIq6GznYALEAIQAw";
 
+	private const string MY_BANNERS_AD_UNIT_ID		 = "ca-app-pub-7288875708989992/5953651462"; 
+	private const string MY_INTERSTISIALS_AD_UNIT_ID =  "ca-app-pub-7288875708989992/3000185061"; 
+
 	public bool callfunction=false;
-	public string functioncalled;
+	public string functioncalled="";
 	public string Scene;
+	//public bool isClick=false;
+	private GoogleMobileAdBanner banner2;
+
+
+
 
 	void Start () {
 
-		if (callfunction) {
-			Invoke(functioncalled,0);
+	
+
+		if (functioncalled != "ShareFB" || functioncalled != "LikePage" || functioncalled != "RateDialogPopUp"  || functioncalled !="showAchievementsUI") {
+			if (callfunction) {
+				Invoke (functioncalled, 0);
+			}
 		}
 	//	SPFacebook.instance.OnInitCompleteAction += OnInit;
 	//	SPFacebook.instance.OnFocusChangedAction += OnFocusChanged;
@@ -68,6 +91,9 @@ public class makeclick : MonoBehaviour {
 
 		}
 	}*/
+
+
+
 	private void OnFocusChanged(bool focus) {
 		
 	
@@ -127,11 +153,61 @@ public class makeclick : MonoBehaviour {
 		tex.ReadPixels( new Rect(0, 0, width, height), 0, 0 );
 		tex.Apply();
 		
-		AndroidSocialGate.StartShareIntent("Hello Share Intent", "This is my text to share", tex,  "facebook.katana");
+
+		AndroidSocialGate.StartShareIntent("Zombie Cross", "download zombie cross, and becomes the best survivor of the zombie apocalypse, https://play.google.com/store/apps/details?id=unity.zombiecross", tex,  "facebook.katana");
 		
 		Destroy(tex);
 		
 	}
+	/*public void rate(){
+		AN_PoupsProxy.showRateDialog(title, message, yes, later, no);
+		Create (title, message,url);
+	}*/
+	public void RateDialogPopUp() {
+		AndroidRateUsPopUp rate = AndroidRateUsPopUp.Create("Rate Us", rateText, rateUrl);
+		rate.ActionComplete += OnRatePopUpClose;
+	}
+	private void OnRatePopUpClose(AndroidDialogResult result) {
+		
+		switch(result) {
+		case AndroidDialogResult.RATED:
+			AN_PoupsProxy.showMessage("Thanks", "for rate Zombie Cross");
+			break;
+		case AndroidDialogResult.REMIND:
+			AN_PoupsProxy.showMessage("Thanks", "soon know about us");
+			break;
+		case AndroidDialogResult.DECLINED:
+			AN_PoupsProxy.showMessage("Thanks", "remember, your opinion is important to us");
+			break;
+			
+		}
+		//AN_PoupsProxy.showMessage("Result", result.ToString() + " button pressed");
+	}
+	public void PageBKT() {
+		Application.OpenURL("https://www.facebook.com/BKT-Games-762018407240812/");
+	}
+	public void LikePage() {
+		Application.OpenURL("https://www.facebook.com/zombiecrossgame/");
+	}
+	public static AndroidRateUsPopUp Create(string title, string message, string url) {
+		return Create(title, message, url, "Rate app", "Later", "No, thanks");
+	}
+	
+	public static AndroidRateUsPopUp Create(string title, string message, string url, string yes, string later, string no) {
+		AndroidRateUsPopUp rate = new GameObject("AndroidRateUsPopUp").AddComponent<AndroidRateUsPopUp>();
+		rate.title = title;
+		rate.message = message;
+		rate.url = url;
+		
+		rate.yes = yes;
+		rate.later = later;
+		rate.no = no;
+		
+		rate.init();
+		
+		return rate;
+	}
+
 	public void LoadScene(string Scene){
 		Application.LoadLevel (Scene);
 	}
@@ -165,10 +241,20 @@ public class makeclick : MonoBehaviour {
 	    GooglePlayConnection.Instance.connect ();
 	}
 	// Update is called once per frame
-	void Update () {
-	
+
+	public void SmartBottom() {
+		banner2 = AndroidAdMobController.instance.CreateAdBanner(TextAnchor.LowerCenter, GADBannerSize.SMART_BANNER);
+		banner2.Show();
 	}
-
-
+	
+	
+	public void B2Hide() {
+		banner2.Hide();
+	}
+	
+	
+	public void B2Show() {
+		banner2.Show();
+	}
 
 }

@@ -108,7 +108,7 @@ public class game_uGUI : MonoBehaviour {
 		
 		my_options = options_screen.GetComponent<options_menu>();
 		//normal_emoticon = perfect_target.sprite;
-		
+
 		if (game_master.game_master_obj)
 		{
 			my_game_master = (game_master)game_master.game_master_obj.GetComponent("game_master");
@@ -122,7 +122,7 @@ public class game_uGUI : MonoBehaviour {
 			my_game_master.my_ads_master.my_feedback_window = my_feedback_window;
 			my_game_master.my_ads_master.my_gift_manager = my_gift_manager;
 			my_gift_manager.my_game_master = my_game_master;
-			
+			my_game_master.Start_music(stage_music,true);
 			//star score
 			if (!ignore_game_master_preferences)
 			{
