@@ -105,7 +105,12 @@ public class game_uGUI : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		
+
+		GooglePlayConnection.ActionPlayerConnected +=  OnPlayerConnected;
+		GooglePlayConnection.ActionPlayerDisconnected += OnPlayerDisconnected;		
+		GooglePlayConnection.ActionConnectionResultReceived += OnConnectionResult;
+		GooglePlayManager.ActionScoreSubmited += OnScoreSbumitted;
+
 		my_options = options_screen.GetComponent<options_menu>();
 		//normal_emoticon = perfect_target.sprite;
 
@@ -182,7 +187,26 @@ public class game_uGUI : MonoBehaviour {
 		
 		Reset_me();
 	}
+	private void OnPlayerDisconnected() {
+		
+	}
 	
+	private void OnPlayerConnected() {
+		
+	}
+	
+	private void OnConnectionResult(GooglePlayConnectionResult result) {
+		
+	}
+	public void LoadScore() {
+		
+		
+	}
+	
+	void OnScoreSbumitted (GP_LeaderboardResult result) {
+		//SA_StatusBar.text = "Score Submit Resul:  " + result.message;
+		LoadScore();
+	}
 	public void Reset_me()
 	{
 		if (show_debug_messages)
@@ -733,7 +757,7 @@ public class game_uGUI : MonoBehaviour {
 	{
 		if (!stage_end)
 		{	
-			stage_end = true;
+			//stage_end = true;
 			
 			
 			if (show_debug_messages)
@@ -885,11 +909,11 @@ public class game_uGUI : MonoBehaviour {
 				if (show_debug_messages)
 					Debug.Log("stage score: " + star_number + " *** total score: " + my_game_master.stars_total_score[my_game_master.current_profile_selected]);
 			}
-			long score = 0;
+			/*long score = 0;
 			if(my_game_master){
 			score = Convert.ToInt64(long.Parse(my_game_master.stars_total_score[my_game_master.current_profile_selected].ToString()));
-			}
-			GooglePlayManager.instance.SubmitScoreById(LEADERBOARD_ID,score);
+			}*/
+
 			if (show_int_score && !show_star_score)
 				StartCoroutine(Int_score_animation(0.5f,0));
 			
@@ -900,7 +924,7 @@ public class game_uGUI : MonoBehaviour {
 	{
 		if (!stage_end)
 		{	
-			stage_end = true;
+			//stage_end = true;
 			
 			
 			if (show_debug_messages)
@@ -1052,14 +1076,15 @@ public class game_uGUI : MonoBehaviour {
 				if (show_debug_messages)
 					Debug.Log("stage score: " + star_number + " *** total score: " + my_game_master.stars_total_score[my_game_master.current_profile_selected]);
 			}
+			/*
 			long score = Convert.ToInt64(long.Parse(my_game_master.stars_total_score[my_game_master.current_profile_selected].ToString()));
-			
-			GooglePlayManager.instance.SubmitScoreById(LEADERBOARD_MULTIPLAYER_ID,score);
+			*/
+			//GooglePlayManager.instance.SubmitScoreById(LEADERBOARD_MULTIPLAYER_ID,score);
 			if (show_int_score && !show_star_score)
 				StartCoroutine(Int_score_animation(0.5f,0)); 
 			
 			Invoke("Mark_win",0.1f);
-			Application.LoadLevel ("Menu");
+			Application.LoadLevel ("Home");
 		}
 	}
 	
@@ -1096,6 +1121,7 @@ public class game_uGUI : MonoBehaviour {
 		
 		//end animation
 		win_screen_int_score_count.text = (int_score).ToString("N0");
+		//Invoke("ConncetButtonPress",0.1f);
 		win_screen_int_score_record.gameObject.SetActive(new_record);
 		if (new_record)
 			int_score_record_anim.SetActive(true);
@@ -1120,7 +1146,23 @@ public class game_uGUI : MonoBehaviour {
 		
 		
 	}
-	
+	public void ConncetButtonPress() {
+
+		long score = 0;
+	/*	if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
+			//SA_StatusBar.text = "Disconnecting from Play Service...";
+			GooglePlayConnection.Instance.Disconnect ();
+		} else {
+			//SA_StatusBar.text = "Connecting to Play Service...";
+			GooglePlayConnection.Instance.Connect ();
+		}
+	*/
+
+		score = Convert.ToInt64(long.Parse(win_screen_int_score_count.text));
+		
+		GooglePlayManager.instance.SubmitScoreById(LEADERBOARD_ID,score);
+
+	}
 	public void Double_score_button()
 	{
 		my_game_master.Gui_sfx(my_game_master.tap_sfx);
@@ -1162,7 +1204,7 @@ public class game_uGUI : MonoBehaviour {
 	{		
 		if (!stage_end)
 		{	
-			stage_end = true;
+			//stage_end = true;
 			if (show_debug_messages)
 				Debug.Log("you lose");
 			

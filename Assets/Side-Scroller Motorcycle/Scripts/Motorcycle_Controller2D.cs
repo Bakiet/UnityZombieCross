@@ -5,6 +5,8 @@ using Soomla.Store;
 
 public class Motorcycle_Controller2D : MonoBehaviour {
 	//public GameObject Reciver;
+
+
 	public bool testing = false;
 	private  string ACHIEVEMENT_ID_First_Freeze = "CgkIq6GznYALEAIQDg";
 	private  string ACHIEVEMENT_ID_First_Buy = "CgkIq6GznYALEAIQDQ";
@@ -817,8 +819,11 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	private GameObject SpinningFire;
 	private GameObject SpinningFire1;
 
+
 	void Start()
 	{
+
+
 		//SpeedMotorMobile = SpeedMotorMobile + 10;
 
 		if (this.name == "super_bike(Clone)") {

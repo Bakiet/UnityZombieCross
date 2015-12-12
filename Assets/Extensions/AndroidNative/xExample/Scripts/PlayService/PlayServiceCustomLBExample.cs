@@ -1,11 +1,11 @@
-using UnityEngine;
+	using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
 public class PlayServiceCustomLBExample : MonoBehaviour {
 
 	//example
-	private const string LEADERBOARD_ID = "CgkIipfs2qcGEAIQAA";
+	private const string LEADERBOARD_ID = "CgkIq6GznYALEAIQAA";
 	//private const string LEADERBOARD_ID = "REPLACE_WITH_YOUR_ID";
 
 

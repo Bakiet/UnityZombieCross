@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class MakeclickLB : MonoBehaviour {
 
@@ -14,9 +15,7 @@ public class MakeclickLB : MonoBehaviour {
 	private string no="NO";
 	private string url="https://play.google.com/store/apps/details?id=unity.zombiecross";
 	//public event Action<AndroidDialogResult> ActionComplete = delegate{};
-	
 
-	private const string LEADERBOARD_ID = "CgkIipfs2qcGEAIQAA";
 	
 	private const string ACHIEVEMENT_ID_First_Freeze = "CgkIq6GznYALEAIQDg";
 	private const string ACHIEVEMENT_ID_First_Buy = "CgkIq6GznYALEAIQDQ";
@@ -42,16 +41,62 @@ public class MakeclickLB : MonoBehaviour {
 	//public bool isClick=false;
 	private GoogleMobileAdBanner banner2;
 	
+	//example
+	private const string LEADERBOARD_ID = "CgkIq6GznYALEAIQAA";
+
+	public GameObject avatar;
+	private Texture defaulttexture;
+
+	public DefaultPreviewButton connectButton;
+	public SA_Label playerLabel;
+	public DefaultPreviewButton GlobalButton;
+	public DefaultPreviewButton LocalButton;
+	public DefaultPreviewButton AllTimeButton;
+	public DefaultPreviewButton WeekButton;
+	public DefaultPreviewButton TodayButton;
+	public DefaultPreviewButton SubmitScoreButton;
+	public DefaultPreviewButton[] ConnectionDependedntButtons;
+	public CustomLeaderboardFiledsHolder[] lines;	
 	private GPLeaderBoard loadedLeaderBoard = null;
 	private GPCollectionType displayCollection = GPCollectionType.FRIENDS;
 	private GPBoardTimeSpan displayTime = GPBoardTimeSpan.ALL_TIME;
 	
-	public CustomLeaderboardFiledsHolder[] lines =null;
-	public GameObject avatar=null;
-	private Texture defaulttexture=null;
-	
+	void Update(){
+		//Invoke ("LoadScore", 0);
+	}
 	void Start () {
+
+		playerLabel.text = "Player Disconnected";
+		defaulttexture = avatar.GetComponent<Renderer>().material.mainTexture;
+		SA_StatusBar.text = "Custom Leader-board example scene loaded";
 		
+		foreach(CustomLeaderboardFiledsHolder line in lines) {
+			line.Disable();
+		}
+		
+		
+		//listen for GooglePlayConnection events
+		
+		
+		GooglePlayConnection.ActionPlayerConnected +=  OnPlayerConnected;
+		GooglePlayConnection.ActionPlayerDisconnected += OnPlayerDisconnected;
+		
+		GooglePlayConnection.ActionConnectionResultReceived += OnConnectionResult;
+		
+		
+		
+		
+		GooglePlayManager.ActionScoreSubmited += OnScoreSbumitted;
+		
+		
+		//Same events, one with C# actions, one with FLE
+		GooglePlayManager.ActionScoresListLoaded += ActionScoreRequestReceived;
+		
+		
+		if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
+			//checking if player already connected
+			OnPlayerConnected ();
+		} 
 		defaulttexture = avatar.GetComponent<Renderer>().material.mainTexture;
 		
 		if (functioncalled != "ShareFB" || functioncalled != "LikePage" || functioncalled != "RateDialogPopUp"  || functioncalled !="showAchievementsUI") {
@@ -72,7 +117,7 @@ public class MakeclickLB : MonoBehaviour {
 		
 		//	SPFacebook.instance.Init();
 		
-		
+		Invoke ("LoadScore", 0);
 		
 	}
 	/*public void Connect() {
@@ -93,13 +138,31 @@ public class MakeclickLB : MonoBehaviour {
 		}
 	}*/
 	
+
+	
+	private void OnFocusChanged(bool focus) {
+		
+		
+		
+		if (!focus)  {                                                                                        
+			
+			Time.timeScale = 0;                                                                  
+		} else  {                                                                                        
+			
+			Time.timeScale = 1;                                                                  
+		}   
+	}
+
 	public void LoadScore() {
 		
 		GooglePlayManager.instance.LoadPlayerCenteredScores(LEADERBOARD_ID, displayTime, displayCollection, 10);
 	}
+	
 	public void OpenUI() {
 		GooglePlayManager.instance.ShowLeaderBoardById(LEADERBOARD_ID);
 	}
+	
+	
 	
 	public void ShowGlobal() {
 		displayCollection = GPCollectionType.GLOBAL;
@@ -126,7 +189,27 @@ public class MakeclickLB : MonoBehaviour {
 		displayTime = GPBoardTimeSpan.TODAY;
 		UpdateScoresDisaplay();
 	}
+	
+	
+	private void ConncetButtonPress() {
+		Debug.Log("GooglePlayManager State  -> " + GooglePlayConnection.State.ToString());
+		if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
+			SA_StatusBar.text = "Disconnecting from Play Service...";
+			GooglePlayConnection.Instance.Disconnect ();
+		} else {
+			SA_StatusBar.text = "Connecting to Play Service...";
+			GooglePlayConnection.Instance.Connect ();
+		}
+	}
+	
+	
+	//--------------------------------------
+	// UNITY
+	//--------------------------------------
+	
 	void UpdateScoresDisaplay() {
+		
+		
 		
 		if(loadedLeaderBoard != null) {
 			
@@ -189,27 +272,173 @@ public class MakeclickLB : MonoBehaviour {
 				i++;
 			}
 			
+			
+			
+			
+			
+			
+			
 		} else {
 			foreach(CustomLeaderboardFiledsHolder line in lines) {
 				line.Disable();
 			}
 		}
 		
+		
+		
+		
+		
+		
 	}
 	
-	private void OnFocusChanged(bool focus) {
+	
+	
+	void FixedUpdate() {
 		
 		
+		//SubmitScoreButton.text = "Submit Score: " + score;
+		if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
+			if(GooglePlayManager.instance.player.icon != null) {
+				avatar.GetComponent<Renderer>().material.mainTexture = GooglePlayManager.instance.player.icon;
+			}
+		}  else {
+			avatar.GetComponent<Renderer>().material.mainTexture = defaulttexture;
+		}
+
 		
-		if (!focus)  {                                                                                        
+		string title = "Connect";
+		if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
+			title = "Disconnect";
 			
-			Time.timeScale = 0;                                                                  
-		} else  {                                                                                        
+			foreach(DefaultPreviewButton btn in ConnectionDependedntButtons) {
+				btn.EnabledButton();
+			}
 			
-			Time.timeScale = 1;                                                                  
-		}   
+			
+			AllTimeButton.Unselect();
+			WeekButton.Unselect();
+			TodayButton.Unselect();
+			
+			
+			switch(displayTime) {
+			case GPBoardTimeSpan.ALL_TIME:
+				AllTimeButton.Select();
+				break;
+			case GPBoardTimeSpan.WEEK:
+				WeekButton.Select();
+				break;
+			case GPBoardTimeSpan.TODAY:
+				TodayButton.Select();
+				break;
+			}
+
+			GlobalButton.Unselect();
+			LocalButton.Unselect();
+			switch(displayCollection) {
+			case GPCollectionType.GLOBAL:
+				GlobalButton.Select();
+				break;
+			case GPCollectionType.FRIENDS:
+				LocalButton.Select();
+				break;
+			}
+			
+			
+		} else {
+			foreach(DefaultPreviewButton btn in ConnectionDependedntButtons) {
+				btn.DisabledButton();
+				
+			}
+			if(GooglePlayConnection.State == GPConnectionState.STATE_DISCONNECTED || GooglePlayConnection.State == GPConnectionState.STATE_UNCONFIGURED) {
+				
+				title = "Connect";
+			} else {
+				title = "Connecting..";
+			}
+		}
+		
+		connectButton.text = title;
 	}
 	
+	
+	//--------------------------------------
+	// EVENTS
+	//--------------------------------------
+	
+	
+	
+	
+	private void SubmitScore() {
+		//GooglePlayManager.instance.SubmitScoreById(LEADERBOARD_ID, score);
+		//SA_StatusBar.text = "Submitiong score: " + (score +1).ToString();
+		//score ++;
+	}
+	
+	
+	private void OnPlayerDisconnected() {
+		SA_StatusBar.text = "Player Disconnected";
+		playerLabel.text = "Player Disconnected";
+		
+	}
+	
+	private void OnPlayerConnected() {
+		SA_StatusBar.text = "Player Connected";
+		playerLabel.text = GooglePlayManager.instance.player.name;
+		
+	}
+	
+	private void OnConnectionResult(GooglePlayConnectionResult result) {
+		
+		SA_StatusBar.text = "Connection Resul:  " + result.code.ToString();
+		Debug.Log(result.code.ToString());
+	}
+	
+	
+	
+	private void ActionScoreRequestReceived (GooglePlayResult obj) {
+		
+		SA_StatusBar.text = "Scores Load Finished";
+		
+		loadedLeaderBoard = GooglePlayManager.instance.GetLeaderBoard(LEADERBOARD_ID);
+		
+		
+		if(loadedLeaderBoard == null) {
+			Debug.Log("No Leaderboard found");
+			return;
+		}
+		
+		List<GPScore> scoresLB =  loadedLeaderBoard.GetScoresList(GPBoardTimeSpan.ALL_TIME, GPCollectionType.GLOBAL);
+		
+		foreach(GPScore score in scoresLB) {
+			Debug.Log("OnScoreUpdated " + score.Rank + " " + score.PlayerId + " " + score.LongScore);
+		}
+		
+		GPScore currentPlayerScore = loadedLeaderBoard.GetCurrentPlayerScore(displayTime, displayCollection);
+		
+		Debug.Log("currentPlayerScore: " + currentPlayerScore.LongScore + " rank:" + currentPlayerScore.Rank);
+		
+		
+		UpdateScoresDisaplay();
+		
+	}
+	
+	void OnScoreSbumitted (GP_LeaderboardResult result) {
+		SA_StatusBar.text = "Score Submit Resul:  " + result.message;
+		LoadScore();
+	}
+	
+	void OnDestroy() {
+		
+		GooglePlayConnection.ActionPlayerConnected +=  OnPlayerConnected;
+		GooglePlayConnection.ActionPlayerDisconnected += OnPlayerDisconnected;
+		
+		GooglePlayConnection.ActionConnectionResultReceived += OnConnectionResult;
+		
+		
+		GooglePlayManager.ActionScoreSubmited -= OnScoreSbumitted;
+		GooglePlayManager.ActionScoresListLoaded -= ActionScoreRequestReceived;
+		
+	}
 	/*	private void OnAuth(FBResult result) {
 		if(SPFacebook.instance.IsLoggedIn) {
 			IsAuntificated = true;
@@ -313,10 +542,10 @@ public class MakeclickLB : MonoBehaviour {
 		GooglePlayManager.Instance.ShowAchievementsUI ();
 	}
 	
-	public void ConncetButtonPress() {
+	/*public void ConncetButtonPress() {
 		
 		GooglePlayConnection.Instance.connect ();
-	}
+	}*/
 	// Update is called once per frame
 	
 	public void SmartBottom() {
