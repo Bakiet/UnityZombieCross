@@ -122,9 +122,8 @@ public class BodyTrigger2D : MonoBehaviour {
 		}
 		if (obj.gameObject.tag == "Finish" && !Motorcycle_Controller2D.crash) {//if entered in finish trigger
 			finish = true;
-			
-			Motorcycle_Controller2D.isControllable = false; //disable motorcycle controlling
-			
+
+			Motorcycle_Controller2D.isFinish = true;
 			//disable rear wheel rotation
 			Motorcycle_Controller2D.isControllable = false;
 			//var m = transform.root.GetComponent<Motorcycle_Controller2D>();
@@ -312,12 +311,14 @@ public class BodyTrigger2D : MonoBehaviour {
 
 	void endgui()
 	{
-		if(my_game_uGUI){
-			my_game_uGUI.Defeat();
-		}
+			if (my_game_uGUI) {
+				my_game_uGUI.Defeat ();
+			}
+
 	}
 	void wingui()
 	{
+		game_uGUI.isfinish = true;
 		if(my_game_uGUI){
 			my_game_uGUI.Victory();
 		}

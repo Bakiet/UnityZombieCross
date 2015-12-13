@@ -46,15 +46,20 @@ public class options_menu : MonoBehaviour {
 		if (game_master.music_on[my_game_master.current_profile_selected])
 		{
 			my_game_master.Music_on_off(false);
+			AudioSource sound = GameObject.FindGameObjectWithTag("_gui_").GetComponent<AudioSource>();
+			sound.Stop();
 
 		}
 		else
 		{
 			my_game_master.Music_on_off(true);
+			AudioSource sound = GameObject.FindGameObjectWithTag("_gui_").GetComponent<AudioSource>();
+			sound.Play();
 		}
 		
 		Update_sound_icons();
 		my_game_master.Gui_sfx(my_game_master.tap_sfx);
+
 	}
 
 	public void Sfx_on_off()

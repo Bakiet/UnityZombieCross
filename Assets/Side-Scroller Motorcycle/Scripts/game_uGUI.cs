@@ -28,7 +28,7 @@ public class game_uGUI : MonoBehaviour {
 	[HideInInspector]public Transform play_screen;
 	[HideInInspector]public Transform pause_screen;
 	[HideInInspector]public Transform loading_screen;
-	[HideInInspector]public Transform options_screen;
+	public Transform options_screen;
 	options_menu my_options;
 	[HideInInspector]public Transform win_screen;
 	[HideInInspector]public Transform lose_screen;
@@ -102,14 +102,24 @@ public class game_uGUI : MonoBehaviour {
 	
 	public bool show_debug_messages;
 	public bool show_debug_warnings;
+
+	public static bool isfinish=false;
 	
 	// Use this for initialization
 	void Start () {
+
+		isfinish=false;
 
 		GooglePlayConnection.ActionPlayerConnected +=  OnPlayerConnected;
 		GooglePlayConnection.ActionPlayerDisconnected += OnPlayerDisconnected;		
 		GooglePlayConnection.ActionConnectionResultReceived += OnConnectionResult;
 		GooglePlayManager.ActionScoreSubmited += OnScoreSbumitted;
+
+		if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
+			//GooglePlayConnection.Instance.Disconnect ();
+		} else {
+			GooglePlayConnection.Instance.Connect ();
+		}
 
 		my_options = options_screen.GetComponent<options_menu>();
 		//normal_emoticon = perfect_target.sprite;
@@ -909,15 +919,13 @@ public class game_uGUI : MonoBehaviour {
 				if (show_debug_messages)
 					Debug.Log("stage score: " + star_number + " *** total score: " + my_game_master.stars_total_score[my_game_master.current_profile_selected]);
 			}
-			/*long score = 0;
-			if(my_game_master){
-			score = Convert.ToInt64(long.Parse(my_game_master.stars_total_score[my_game_master.current_profile_selected].ToString()));
-			}*/
+
 
 			if (show_int_score && !show_star_score)
 				StartCoroutine(Int_score_animation(0.5f,0));
-			
+			//Invoke("SendScore",0.1f);
 			Invoke("Mark_win",0.1f);
+			//Invoke("",0.1f);
 		}
 	}
 	public void VictoryMultiPlayer(string gameOvertext)
@@ -1080,6 +1088,11 @@ public class game_uGUI : MonoBehaviour {
 			long score = Convert.ToInt64(long.Parse(my_game_master.stars_total_score[my_game_master.current_profile_selected].ToString()));
 			*/
 			//GooglePlayManager.instance.SubmitScoreById(LEADERBOARD_MULTIPLAYER_ID,score);
+
+			/*long score = 0;
+			score = Convert.ToInt64(long.Parse(win_screen_int_score_count.text));
+
+			GooglePlayManager.Instance.SubmitScoreById(LEADERBOARD_ID,score);*/
 			if (show_int_score && !show_star_score)
 				StartCoroutine(Int_score_animation(0.5f,0)); 
 			
@@ -1140,26 +1153,23 @@ public class game_uGUI : MonoBehaviour {
 		}
 		
 		if (win_screen.gameObject.activeSelf)
-			Invoke("Mark_win",0.1f);
+			Invoke ("Mark_win", 0.1f);
 		else if (lose_screen.gameObject.activeSelf)
-			Invoke("Mark_lose",0.1f);
 		
+			Invoke ("Mark_lose", 0.1f);
+
 		
 	}
-	public void ConncetButtonPress() {
+
+	public void SendScore() {
 
 		long score = 0;
-	/*	if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
-			//SA_StatusBar.text = "Disconnecting from Play Service...";
-			GooglePlayConnection.Instance.Disconnect ();
+		score = Convert.ToInt64(long.Parse(win_screen_int_score_count.text));
+		if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
+			//GooglePlayConnection.Instance.Disconnect ();
 		} else {
-			//SA_StatusBar.text = "Connecting to Play Service...";
 			GooglePlayConnection.Instance.Connect ();
 		}
-	*/
-
-		score = Convert.ToInt64(long.Parse(win_screen_int_score_count.text));
-		
 		GooglePlayManager.instance.SubmitScoreById(LEADERBOARD_ID,score);
 
 	}
@@ -1202,72 +1212,64 @@ public class game_uGUI : MonoBehaviour {
 	
 	public void Defeat()
 	{		
-		if (!stage_end)
-		{	
-			//stage_end = true;
-			if (show_debug_messages)
-				Debug.Log("you lose");
+		if (!isfinish) {
+			if (!stage_end) {	
+				//stage_end = true;
+				if (show_debug_messages)
+					Debug.Log ("you lose");
 			
-			allow_game_input = false;
-			in_pause = true;
+				allow_game_input = false;
+				in_pause = true;
 			
-			if (my_game_master)
-			{
-				if (my_game_master.infinite_lives)
-				{	
-					lose_screen_lives_ico.SetActive(false);
-					retry_button.SetActive(true);
-					stage_button.SetActive(true);
-				}
-				else
-				{
-					lose_screen_lives_ico.SetActive(true);
-					if (my_game_master.lose_lives_selected == game_master.lose_lives.when_show_lose_screen)
-						Update_lives(-1);
+				if (my_game_master) {
+					if (my_game_master.infinite_lives) {	
+						lose_screen_lives_ico.SetActive (false);
+						retry_button.SetActive (true);
+						stage_button.SetActive (true);
+					} else {
+						lose_screen_lives_ico.SetActive (true);
+						if (my_game_master.lose_lives_selected == game_master.lose_lives.when_show_lose_screen)
+							Update_lives (-1);
 					
-					if (my_game_master.current_lives[my_game_master.current_profile_selected] > 0)
-					{
-						retry_button.SetActive(true);
-						stage_button.SetActive(true);
+						if (my_game_master.current_lives [my_game_master.current_profile_selected] > 0) {
+							retry_button.SetActive (true);
+							stage_button.SetActive (true);
+						} else {
+							retry_button.SetActive (false);
+							stage_button.SetActive (false);
+							if (my_game_master.continue_rule_selected == game_master.continue_rule.never_continue) {
+								my_continue_window.my_game_master = my_game_master;
+								my_continue_window.Continue_no (false);
+							}
+						}
 					}
-					else
-					{
-						retry_button.SetActive(false);
-						stage_button.SetActive(false);
-						if (my_game_master.continue_rule_selected == game_master.continue_rule.never_continue)
-						{
-							my_continue_window.my_game_master = my_game_master;
-							my_continue_window.Continue_no(false);
+				
+				}
+			
+				//go to lose screen
+				play_screen.gameObject.SetActive (false);
+				lose_screen.gameObject.SetActive (true);
+			
+				if (my_game_master) {
+					if (my_game_master.when_lose_play_selected == game_master.when_lose_play.music)
+						my_game_master.Start_music (my_game_master.music_stage_lose, my_game_master.play_lose_music_in_loop);
+					else if (my_game_master.when_lose_play_selected == game_master.when_lose_play.sfx)
+						my_game_master.Gui_sfx (my_game_master.music_stage_lose);
+				
+					if (my_game_master.show_score_in_lose_screen_too && show_int_score) {
+						StartCoroutine (Int_score_animation (0.5f, 0));
+					
+						//if your int score is better than the previous
+						if (int_score > my_game_master.best_int_score_in_this_stage [my_game_master.current_profile_selected] [n_world - 1, n_stage - 1]) {
+							//update int score
+							Update_int_score_record ();
 						}
 					}
 				}
-				
+
+				Invoke ("Mark_lose", 0.1f);
+
 			}
-			
-			//go to lose screen
-			play_screen.gameObject.SetActive(false);
-			lose_screen.gameObject.SetActive(true);
-			
-			if (my_game_master)
-			{
-				if (my_game_master.when_lose_play_selected == game_master.when_lose_play.music)
-					my_game_master.Start_music(my_game_master.music_stage_lose,my_game_master.play_lose_music_in_loop);
-				else if (my_game_master.when_lose_play_selected == game_master.when_lose_play.sfx)
-					my_game_master.Gui_sfx(my_game_master.music_stage_lose);
-				
-				if (my_game_master.show_score_in_lose_screen_too && show_int_score)
-				{
-					StartCoroutine(Int_score_animation(0.5f,0));
-					
-					//if your int score is better than the previous
-					if (int_score > my_game_master.best_int_score_in_this_stage[my_game_master.current_profile_selected][n_world-1,n_stage-1])
-					{
-						//update int score
-						Update_int_score_record();
-					}
-				}
-			}
-			Invoke("Mark_lose",0.1f);
 		}
 	}
 	
@@ -1275,7 +1277,9 @@ public class game_uGUI : MonoBehaviour {
 	
 	void Mark_lose()
 	{
-		Mark_this_button(lose_screen_target_button);
+		if (!isfinish) {
+			Mark_this_button (lose_screen_target_button);
+		}
 	}
 	
 	void Show_defeat_ad()

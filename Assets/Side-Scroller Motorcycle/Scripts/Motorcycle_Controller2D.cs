@@ -1,12 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using Soomla.Profile;
 using Soomla.Store;
+using System.Collections.Generic;
+using System;
 
 
 public class Motorcycle_Controller2D : MonoBehaviour {
 	//public GameObject Reciver;
 
+	private const string LEADERBOARD_ID = "CgkIq6GznYALEAIQAA";
+	private const string LEADERBOARD_MULTIPLAYER_ID = "CgkIq6GznYALEAIQAQ";
 
+	private int LastNotificationId = 0;
 	public bool testing = false;
 	private  string ACHIEVEMENT_ID_First_Freeze = "CgkIq6GznYALEAIQDg";
 	private  string ACHIEVEMENT_ID_First_Buy = "CgkIq6GznYALEAIQDQ";
@@ -107,9 +115,11 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	public static bool crashDrown = false;
 	//used to enable/disable motorcycle controlling
 	public static bool isControllable = true;
+	public static bool isFinish = false;
 	
 	//used to count scores
 	public static int score = 0;
+	public static long scorestatic = 0;
 	public static Vector3 position;
 	
 	
@@ -482,21 +492,21 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		if(this.name == "bike(Clone)"){
 			if (bikeupgradelevel != 0) {
 				if(bikeupgradelevel ==1){
-					SpeedMotorMobile = bikespeedmobile1 + 10f;
+					SpeedMotorMobile = bikespeedmobile1;
 					SpeedMotor = bikespeedmotor1;
 					MaxSpeed =bikemaxspeed1;
 					BreakMass = bikebreakmass1;
 					BreakGravity = bikebreakgravity1;
 					Acceleration =bikeacceleration1;}
 				if(bikeupgradelevel ==2){
-					SpeedMotorMobile = bikespeedmobile2 + 10f;
+					SpeedMotorMobile = bikespeedmobile2;
 					SpeedMotor = bikespeedmotor2;
 					MaxSpeed =bikemaxspeed2;
 					BreakMass = bikebreakmass2;
 					BreakGravity = bikebreakgravity2;
 					Acceleration =bikeacceleration2;}
 				if(bikeupgradelevel ==3){
-					SpeedMotorMobile = bikespeedmobile3 + 10f;
+					SpeedMotorMobile = bikespeedmobile3;
 					SpeedMotor = bikespeedmotor3;
 					MaxSpeed =bikemaxspeed3;
 					BreakMass = bikebreakmass3;
@@ -507,7 +517,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		else if(this.name == "super_bike(Clone)"){
 			if (superupgradelevel != 0) {
 				if(superupgradelevel ==1){
-					SpeedMotorMobile = superspeedmobile1 + 10f;
+					SpeedMotorMobile = superspeedmobile1;
 					SpeedMotor = superspeedmobile1;
 					SpeedMotor = superspeedmotor1;
 					MaxSpeed =supermaxspeed1;
@@ -515,14 +525,14 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					BreakGravity = superbreakgravity1;
 					Acceleration =superacceleration1;}
 				if(superupgradelevel ==2){
-					SpeedMotorMobile = superspeedmobile2 + 10f;
+					SpeedMotorMobile = superspeedmobile2;
 					SpeedMotor = superspeedmotor2;
 					MaxSpeed =supermaxspeed2;
 					BreakMass = superbreakmass2;
 					BreakGravity = superbreakgravity2;
 					Acceleration =superacceleration2;}
 				if(superupgradelevel ==3){
-					SpeedMotorMobile = superspeedmobile3 + 10f;
+					SpeedMotorMobile = superspeedmobile3;
 					SpeedMotor = superspeedmotor3;
 					MaxSpeed =supermaxspeed3;
 					BreakMass = superbreakmass3;
@@ -533,7 +543,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		else if (this.name == "party_bike(Clone)") {
 			if (partyupgradelevel != 0) {
 				if (partyupgradelevel == 1) {
-					SpeedMotorMobile = partyspeedmobile1 + 10f;
+					SpeedMotorMobile = partyspeedmobile1;
 					SpeedMotor = partyspeedmotor1;
 					MaxSpeed = partymaxspeed1;
 					BreakMass = partybreakmass1;
@@ -541,7 +551,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					Acceleration = partyacceleration1;
 				}
 				if (partyupgradelevel == 2) {
-					SpeedMotorMobile = partyspeedmobile2 + 10f;
+					SpeedMotorMobile = partyspeedmobile2;
 					SpeedMotor = partyspeedmotor2;
 					MaxSpeed = partymaxspeed2;
 					BreakMass = partybreakmass2;
@@ -549,7 +559,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					Acceleration = partyacceleration2;
 				}
 				if (partyupgradelevel == 3) {
-					SpeedMotorMobile = partyspeedmobile3 + 10f;
+					SpeedMotorMobile = partyspeedmobile3;
 					SpeedMotor = partyspeedmotor3;
 					MaxSpeed = partymaxspeed3;
 					BreakMass = partybreakmass3;
@@ -561,7 +571,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		else if (this.name == "nightmare_bike(Clone)") {
 			if (nightmareupgradelevel != 0) {
 				if (nightmareupgradelevel == 1) {
-					SpeedMotorMobile = nightmarespeedmobile1 + 10f;
+					SpeedMotorMobile = nightmarespeedmobile1;
 					SpeedMotor = nightmarespeedmotor1;
 					MaxSpeed = nightmaremaxspeed1;
 					BreakMass = nightmarebreakmass1;
@@ -569,7 +579,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					Acceleration = nightmareacceleration1;
 				}
 				if (nightmareupgradelevel == 2) {
-					SpeedMotorMobile = nightmarespeedmobile2 + 10f;
+					SpeedMotorMobile = nightmarespeedmobile2;
 					SpeedMotor = nightmarespeedmotor2;
 					MaxSpeed = nightmaremaxspeed2;
 					BreakMass = nightmarebreakmass2;
@@ -577,7 +587,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					Acceleration = nightmareacceleration2;
 				}
 				if (nightmareupgradelevel == 3) {
-					SpeedMotorMobile = nightmarespeedmobile3 + 10f;
+					SpeedMotorMobile = nightmarespeedmobile3;
 					SpeedMotor = nightmarespeedmobile3;
 					SpeedMotor = nightmarespeedmotor3;
 					MaxSpeed = nightmaremaxspeed3;
@@ -590,7 +600,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		else if (this.name == "monster_bike(Clone)") {
 			if (monsterupgradelevel != 0) {
 				if (monsterupgradelevel == 1) {
-					SpeedMotorMobile = monsterspeedmobile1 + 10f;
+					SpeedMotorMobile = monsterspeedmobile1;
 					SpeedMotor = monsterspeedmotor1;
 					MaxSpeed = monstermaxspeed1;
 					BreakMass = monsterbreakmass1;
@@ -598,7 +608,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					Acceleration = monsteracceleration1;
 				}
 				if (monsterupgradelevel == 2) {
-					SpeedMotorMobile = monsterspeedmobile2 + 10f;
+					SpeedMotorMobile = monsterspeedmobile2;
 					SpeedMotor = monsterspeedmotor2;
 					MaxSpeed = monstermaxspeed2;
 					BreakMass = monsterbreakmass2;
@@ -606,7 +616,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					Acceleration = monsteracceleration2;
 				}
 				if (monsterupgradelevel == 3) {
-					SpeedMotorMobile = monsterspeedmobile3 + 10f;
+					SpeedMotorMobile = monsterspeedmobile3;
 					SpeedMotor = monsterspeedmotor3;
 					MaxSpeed = monstermaxspeed3;
 					BreakMass = monsterbreakmass3;
@@ -618,7 +628,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		else if (this.name == "neon_bike(Clone)") {
 			if (neonupgradelevel != 0) {
 				if (neonupgradelevel == 1) {
-					SpeedMotorMobile = neonspeedmobile1 + 10f;
+					SpeedMotorMobile = neonspeedmobile1;
 					SpeedMotor = neonspeedmotor1;
 					MaxSpeed = neonmaxspeed1;
 					BreakMass = neonbreakmass1;
@@ -626,7 +636,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					Acceleration = neonacceleration1;
 				}
 				if (neonupgradelevel == 2) {
-					SpeedMotorMobile = neonspeedmobile2 + 10f;
+					SpeedMotorMobile = neonspeedmobile2;
 					SpeedMotor = neonspeedmotor2;
 					MaxSpeed = neonmaxspeed2;
 					BreakMass = neonbreakmass2;
@@ -634,7 +644,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					Acceleration = neonacceleration2;
 				}
 				if (neonupgradelevel == 3) {
-					SpeedMotorMobile = neonspeedmobile3 + 10f;
+					SpeedMotorMobile = neonspeedmobile3;
 					SpeedMotor = neonspeedmotor3;
 					MaxSpeed = neonmaxspeed3;
 					BreakMass = neonbreakmass3;
@@ -646,7 +656,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		else if (this.name == "hell_bike(Clone)") {
 			if (hellupgradelevel != 0) {
 				if (hellupgradelevel == 1) {
-					SpeedMotorMobile = hellspeedmobile1 + 10f;
+					SpeedMotorMobile = hellspeedmobile1;
 					SpeedMotor = hellspeedmotor1;
 					MaxSpeed = hellmaxspeed1;
 					BreakMass = hellbreakmass1;
@@ -654,7 +664,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					Acceleration = hellacceleration1;
 				}
 				if (hellupgradelevel == 2) {
-					SpeedMotorMobile = hellspeedmobile2 + 10f;
+					SpeedMotorMobile = hellspeedmobile2;
 					SpeedMotor = hellspeedmotor2;
 					MaxSpeed = hellmaxspeed2;
 					BreakMass = hellbreakmass2;
@@ -662,7 +672,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					Acceleration = hellacceleration2;
 				}
 				if (hellupgradelevel == 3) {
-					SpeedMotorMobile = hellspeedmobile3 + 10f;
+					SpeedMotorMobile = hellspeedmobile3;
 					SpeedMotor = hellspeedmotor3;
 					MaxSpeed = hellmaxspeed3;
 					BreakMass = hellbreakmass3;
@@ -674,7 +684,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		else if (this.name == "test_bike(Clone)") {
 			if (testupgradelevel != 0) {
 				if (testupgradelevel == 1) {
-					SpeedMotorMobile = testspeedmobile1 + 10f;
+					SpeedMotorMobile = testspeedmobile1;
 					SpeedMotor = testspeedmotor1;
 					MaxSpeed = testmaxspeed1;
 					BreakMass = testbreakmass1;
@@ -682,7 +692,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					Acceleration = testacceleration1;
 				}
 				if (testupgradelevel == 2) {
-					SpeedMotorMobile = testspeedmobile2 + 10f;
+					SpeedMotorMobile = testspeedmobile2;
 					SpeedMotor = testspeedmotor2;
 					MaxSpeed = testmaxspeed2;
 					BreakMass = testbreakmass2;
@@ -690,7 +700,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					Acceleration = testacceleration2;
 				}
 				if (testupgradelevel == 3) {
-					SpeedMotorMobile = testspeedmobile3 + 10f;
+					SpeedMotorMobile = testspeedmobile3;
 					SpeedMotor = testspeedmotor3;
 					MaxSpeed = testmaxspeed3;
 					BreakMass = testbreakmass3;
@@ -702,21 +712,21 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		else if (this.name == "blue_bike(Clone)") {
 			if (bikeupgradelevel != 0) {
 				if(bikeupgradelevel ==1){
-					SpeedMotorMobile = bikespeedmobile1 + 10f;
+					SpeedMotorMobile = bikespeedmobile1;
 					SpeedMotor = bikespeedmotor1;
 					MaxSpeed =bikemaxspeed1;
 					BreakMass = bikebreakmass1;
 					BreakGravity = bikebreakgravity1;
 					Acceleration =bikeacceleration1;}
 				if(bikeupgradelevel ==2){
-					SpeedMotorMobile = bikespeedmobile2 + 10f;
+					SpeedMotorMobile = bikespeedmobile2;
 					SpeedMotor = bikespeedmotor2;
 					MaxSpeed =bikemaxspeed2;
 					BreakMass = bikebreakmass2;
 					BreakGravity = bikebreakgravity2;
 					Acceleration =bikeacceleration2;}
 				if(bikeupgradelevel ==3){
-					SpeedMotorMobile = bikespeedmobile3 + 10f;
+					SpeedMotorMobile = bikespeedmobile3;
 					SpeedMotor = bikespeedmotor3;
 					MaxSpeed =bikemaxspeed3;
 					BreakMass = bikebreakmass3;
@@ -727,21 +737,21 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		else if (this.name == "summer_bike(Clone)") {
 			if (bikeupgradelevel != 0) {
 				if(bikeupgradelevel ==1){
-					SpeedMotorMobile = bikespeedmobile1 + 10f;
+					SpeedMotorMobile = bikespeedmobile1;
 					SpeedMotor = bikespeedmotor1;
 					MaxSpeed =bikemaxspeed1;
 					BreakMass = bikebreakmass1;
 					BreakGravity = bikebreakgravity1;
 					Acceleration =bikeacceleration1;}
 				if(bikeupgradelevel ==2){
-					SpeedMotorMobile = bikespeedmobile2 + 10f;
+					SpeedMotorMobile = bikespeedmobile2;
 					SpeedMotor = bikespeedmotor2;
 					MaxSpeed =bikemaxspeed2;
 					BreakMass = bikebreakmass2;
 					BreakGravity = bikebreakgravity2;
 					Acceleration =bikeacceleration2;}
 				if(bikeupgradelevel ==3){
-					SpeedMotorMobile = bikespeedmobile3 + 10f;
+					SpeedMotorMobile = bikespeedmobile3;
 					SpeedMotor = bikespeedmotor3;
 					MaxSpeed =bikemaxspeed3;
 					BreakMass = bikebreakmass3;
@@ -752,21 +762,21 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		else if (this.name == "peace_bike(Clone)") {
 			if (bikeupgradelevel != 0) {
 				if(bikeupgradelevel ==1){
-					SpeedMotorMobile = bikespeedmobile1 + 10f;
+					SpeedMotorMobile = bikespeedmobile1;
 					SpeedMotor = bikespeedmotor1;
 					MaxSpeed =bikemaxspeed1;
 					BreakMass = bikebreakmass1;
 					BreakGravity = bikebreakgravity1;
 					Acceleration =bikeacceleration1;}
 				if(bikeupgradelevel ==2){
-					SpeedMotorMobile = bikespeedmobile2 + 10f;
+					SpeedMotorMobile = bikespeedmobile2;
 					SpeedMotor = bikespeedmotor2;
 					MaxSpeed =bikemaxspeed2;
 					BreakMass = bikebreakmass2;
 					BreakGravity = bikebreakgravity2;
 					Acceleration =bikeacceleration2;}
 				if(bikeupgradelevel ==3){
-					SpeedMotorMobile = bikespeedmobile3 + 10f;
+					SpeedMotorMobile = bikespeedmobile3;
 					SpeedMotor = bikespeedmotor3;
 					MaxSpeed =bikemaxspeed3;
 					BreakMass = bikebreakmass3;
@@ -777,21 +787,21 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		else if (this.name == "sunshine_bike(Clone)") {
 			if (bikeupgradelevel != 0) {
 				if(bikeupgradelevel ==1){
-					SpeedMotorMobile = bikespeedmobile1 + 10f;
+					SpeedMotorMobile = bikespeedmobile1;
 					SpeedMotor = bikespeedmotor1;
 					MaxSpeed =bikemaxspeed1;
 					BreakMass = bikebreakmass1;
 					BreakGravity = bikebreakgravity1;
 					Acceleration =bikeacceleration1;}
 				if(bikeupgradelevel ==2){
-					SpeedMotorMobile = bikespeedmobile2 + 10f;
+					SpeedMotorMobile = bikespeedmobile2;
 					SpeedMotor = bikespeedmotor2;
 					MaxSpeed =bikemaxspeed2;
 					BreakMass = bikebreakmass2;
 					BreakGravity = bikebreakgravity2;
 					Acceleration =bikeacceleration2;}
 				if(bikeupgradelevel ==3){
-					SpeedMotorMobile = bikespeedmobile3 + 10f;
+					SpeedMotorMobile = bikespeedmobile3;
 					SpeedMotor = bikespeedmotor3;
 					MaxSpeed =bikemaxspeed3;
 					BreakMass = bikebreakmass3;
@@ -801,12 +811,84 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		}
 
 	}
+	public void SendScore() {
+		//long score = 0;
+		//score = Convert.ToInt64(long.Parse(win_screen_int_score_count.text));
+		GooglePlayManager.Instance.SubmitScoreById(LEADERBOARD_ID,scorestatic);
+		
+	}
+	public void SENDACHIEVEMENT(string id) {
+
+		GooglePlayManager.Instance.UnlockAchievement (id);
+
+	}
 	
+	public void SENDACHIEVEMENTINCREMENT(string id,int increment) {
+
+		GooglePlayManager.Instance.IncrementAchievementById (id, increment);
+
+	}
+	private void Toast() {
+		AndroidToast.ShowToastNotification ("Hello Toast", AndroidToast.LENGTH_LONG);
+	}
+	
+	private void Local() {
+		LastNotificationId = AndroidNotificationManager.instance.ScheduleLocalNotification("Hello", "This is local notification", 5);
+	}
+	
+	private void LoadLaunchNotification (){
+		AndroidNotificationManager.instance.OnNotificationIdLoaded += OnNotificationIdLoaded;
+		AndroidNotificationManager.instance.LocadAppLaunchNotificationId();
+	}
+	
+	private void CanselLocal() {
+		AndroidNotificationManager.instance.CancelLocalNotification(LastNotificationId);
+	}
+	
+	private void CancelAll() {
+		AndroidNotificationManager.instance.CancelAllLocalNotifications();
+	}
+	
+	
+	private void Reg() {
+		GoogleCloudMessageService.instance.RgisterDevice();
+	}
+	
+	private void LoadLastMessage() {
+		GoogleCloudMessageService.instance.LoadLastMessage();
+	}
+	
+	
+	private void LocalNitificationsListExample() {
+		//		List<LocalNotificationTemplate> PendingNotofications;
+		//	PendingNotofications = AndroidNotificationManager.instance.LoadPendingNotifications();
+	}
+	
+
+	void HandleActionCMDRegistrationResult (GP_GCM_RegistrationResult res) {
+		if(res.isSuccess) {
+			AN_PoupsProxy.showMessage ("Regstred", "GCM REG ID: " + GoogleCloudMessageService.instance.registrationId);
+		} else {
+			AN_PoupsProxy.showMessage ("Reg Failed", "GCM Registration failed :(");
+		}
+	}
+
+	private void OnNotificationIdLoaded (int notificationid){
+		AN_PoupsProxy.showMessage ("Loaded", "App was laucnhed with notification id: " + notificationid);
+	}
+
+	private void OnMessageLoaded(string msg) {
+		AN_PoupsProxy.showMessage ("Message Loaded", "Last GCM Message: " + GoogleCloudMessageService.instance.lastMessage);
+	}
 	void Awake()
 	{
 
+		GoogleCloudMessageService.ActionCMDRegistrationResult += HandleActionCMDRegistrationResult;
+		GoogleCloudMessageService.ActionCouldMessageLoaded += OnMessageLoaded;
+		GoogleCloudMessageService.Instance.Init();
 //		SmokeEmmiter = Smoke.GetComponent<ParticleAnimator>();
 		WheelRadius = new float[Wheels.Length];
+
 	}
 
 	private GameObject AuraModular;
@@ -822,8 +904,12 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 
 	void Start()
 	{
-
-
+		isFinish = false;
+		if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
+			//GooglePlayConnection.Instance.Disconnect ();
+		} else {
+			GooglePlayConnection.Instance.Connect ();
+		}
 		//SpeedMotorMobile = SpeedMotorMobile + 10;
 
 		if (this.name == "super_bike(Clone)") {
@@ -922,7 +1008,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 				virtualmoneycount = virtualmoneycount + StoreInventory.GetItemBalance (StoreInfo.Currencies [0].ItemId);
 		
 
-				my_game_uGUI.Update_lives (healtcount);
+				//my_game_uGUI.Update_lives (healtcount);
 
 				my_game_uGUI.Update_virtual_money (virtualmoneycount);
 			}
@@ -974,7 +1060,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		effectstatic = effect;
 
 		GetComponent<AudioSource>().pitch = StartingPitch;
-		GetComponent<AudioSource>().volume = 1.0f;  
+		GetComponent<AudioSource>().volume = 1.0f;
 
 		BodyCarStatic = Car;
 		CarBodyStatic = CarBody;
@@ -1094,6 +1180,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	{      
 		
 		if (isControllable) {
+			if(!isFinish){	
 			//if (usingAccelerometer) {
 			RotateVehicle ();
 			if (!crash && !crashed) {	
@@ -1107,29 +1194,26 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					//Destroy(fire);
 					//fire.Stop ();
 				}*/
-				if(ifnitro)
-				{
-					effectnitro.SetActive(true);
+				if (ifnitro) {
+					effectnitro.SetActive (true);
 					effectnitro.transform.position = rearWheel.transform.position;
 					//effectnitro.transform.position = Body2D.transform.position;
 					effectnitrostatic.transform.position = effectnitro.transform.position;	
-				}else{
-					effectnitro.SetActive(false);
+				} else {
+					effectnitro.SetActive (false);
 				}
 
 				if (accelerate) {
-					if(ifnitro)
-					{
+					if (ifnitro) {
 						//acce / vertical / time / speedmotor
-						CurrentVelocity = 20 * Input.GetAxis("Vertical") * Time.deltaTime * 10;
+						CurrentVelocity = 20 * Input.GetAxis ("Vertical") * Time.deltaTime * 10;
 						//-maxspeed / maxspeed
-						Velocity = Mathf.Clamp(CurrentVelocity, -20, 100);
+						Velocity = Mathf.Clamp (CurrentVelocity, -20, 100);
 
 
 						
-						for(var i = 0; i <= (Wheels.Length-1); i++)
-						{
-							Wheels[i].GetComponent<Rigidbody2D>().AddTorque(-1f * (Velocity / WheelRadius[i]) * 10);
+						for (var i = 0; i <= (Wheels.Length-1); i++) {
+							Wheels [i].GetComponent<Rigidbody2D> ().AddTorque (-1f * (Velocity / WheelRadius [i]) * 10);
 
 
 						}
@@ -1142,29 +1226,27 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 						}
 						offnitro = false;
 					}*/
-					else{
+					else {
 
-						if(forMobile){
-							SpeedMotorMobile = SpeedMotorMobile + 0.8f;
+						if (forMobile) {
+							SpeedMotorMobile = SpeedMotorMobile;
 
-							CurrentVelocity = Acceleration * InputGetAxis("Vertical") * Time.deltaTime * SpeedMotorMobile;
+							CurrentVelocity = Acceleration * InputGetAxis ("Vertical") * Time.deltaTime * SpeedMotorMobile;
 
-							Velocity = Mathf.Clamp(CurrentVelocity, -MaxSpeed, MaxSpeed);
+							Velocity = Mathf.Clamp (CurrentVelocity, -MaxSpeed, MaxSpeed);
 
-						}
-						else{
+						} else {
 
-							CurrentVelocity = Acceleration * Input.GetAxis("Vertical") * Time.deltaTime * SpeedMotor;
+							CurrentVelocity = Acceleration * Input.GetAxis ("Vertical") * Time.deltaTime * SpeedMotor;
 							//if(Velocity < MaxSpeed){
-							Velocity = Mathf.Clamp(CurrentVelocity, -MaxSpeed, MaxSpeed);
+							Velocity = Mathf.Clamp (CurrentVelocity, -MaxSpeed, MaxSpeed);
 							//}
 						}
 						
-						for(var i = 0; i <= (Wheels.Length-1); i++)
-						{
+						for (var i = 0; i <= (Wheels.Length-1); i++) {
 							
 							//Wheels[i].GetComponent<Rigidbody2D>().AddTorque(-0.2f * (30 / WheelRadius[i]) * 10);
-							Wheels[i].GetComponent<Rigidbody2D>().AddTorque(-0.1f * (Velocity / WheelRadius[i]) * 10);
+							Wheels [i].GetComponent<Rigidbody2D> ().AddTorque (-0.1f * (Velocity / WheelRadius [i]) * 10);
 						}
 
 
@@ -1176,8 +1258,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 							dirt.Play (); //play dirt particle						
 					} 
 
-				} 
-				else{
+				} else {
 					/*if(nubes){
 					nubes.GetComponent<Paralaxcity>().StopScroll();
 					edif2.GetComponent<Paralaxcity>().StopScroll();
@@ -1190,35 +1271,31 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					humo.GetComponent<Paralaxcity>().enabled = false;
 					edif1.GetComponent<Paralaxcity>().enabled = false;*/
 				}
-				if (brake){
+				if (brake) {
 					rearWheel.freezeRotation = true; //disable rotation for rear wheel if player is braking	
 					//AudioSource.PlayClipAtPoint(BrakeSound,CarBody.transform.position,10.0f);
-				}
-				
-				else{			
+				} else {			
 					rearWheel.freezeRotation = false; //enable rotation for rear wheel if player isn't braking
 					//CarBody.GetComponent<Rigidbody2D>().AddTorque (new Vector2 ((forMobile ? Mathf.Abs(Input.acceleration.x) : 1),0 * groundedWeightFactor * 100 * Time.deltaTime)); 
 					//CarBody.GetComponent<Rigidbody2D>().AddTorque (-groundedWeightFactor  * Time.deltaTime,ForceMode2D.Impulse); 
 				}
 				
-				if(left)
-				{
+				if (left) {
 					/*for(var i = 0; i <= (Wheels.length-1); i++)
 					{
 						Wheels[i].GetComponent.<Rigidbody2D>().AddTorque(-0.2f * (Velocity / WheelRadius[i]) * 10);
 					}*/
-					CarBody.GetComponent<Rigidbody2D>().AddTorque (inAirRotationSpeed * 80 * Time.deltaTime,0);    
+					CarBody.GetComponent<Rigidbody2D> ().AddTorque (inAirRotationSpeed * 80 * Time.deltaTime, 0);    
 					
 				}
-				if (right)
-				{
+				if (right) {
 					
-					CarBody.GetComponent<Rigidbody2D>().AddTorque (80 * -inAirRotationSpeed * Time.deltaTime,0);   
+					CarBody.GetComponent<Rigidbody2D> ().AddTorque (80 * -inAirRotationSpeed * Time.deltaTime, 0);   
 					
 				}
 				
 			
-				if (Physics.Raycast (rearWheel.transform.position, -CarBody.transform.up,out hit, 0.4f)) { // cast ray to know if motorcycle is in air or grounded
+				if (Physics.Raycast (rearWheel.transform.position, -CarBody.transform.up, out hit, 0.4f)) { // cast ray to know if motorcycle is in air or grounded
 					if (hit.collider.tag == "Ground") //if motorcycle is standig on object taged as "Ground"
 						onGround = true;
 					else
@@ -1232,23 +1309,26 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 			  
 			}
 			//}
-			
-		}
-		else dirt.Stop ();
+		  }else{
+			//	brake=true;
+			}
+		} else {
+			dirt.Stop ();
+			//brake=true;
+			GetUserInput ();		 
 		
-		GetUserInput();		 
+			//   CalculateVelocity();
 		
-		//   CalculateVelocity();
+			GetCurrentspeed ();
 		
-		GetCurrentspeed();
-		
-		/*   if(UserControlled == true)
+			/*   if(UserControlled == true)
         {
         	for(var i = 0; i <= (Wheels.length-1); i++)
 			{
 				Wheels[i].GetComponent.<Rigidbody2D>().AddTorque(-0.2f * (Velocity / WheelRadius[i]) * 10);
 			}
         }*/
+		}
 	}
 	void SetRotationMinMax(){
 		rotMin = CarBody.transform.rotation.x - 360f;
@@ -1293,7 +1373,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 			if (timeLeft < 0) {
 				timeLeft = 0;
 			}
-			if (timeLeft <= 0) {
+			if (timeLeft == 0) {
 				isControllable = true;
 			} else {
 				isControllable = false;
@@ -1320,140 +1400,140 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		}
 		
 		if (isControllable) {
-
-			//RotateVehicle ();
-			if(effect){
-			effect.SetActive(true);
-			effect.transform.position = rearWheel.transform.position;
-			effectstatic.transform.position = effect.transform.position;			
-			}
-			if (!crash && !crashed) {
-			
-				//if(Physics2D.Raycast(frontWheel.position,body.transform.position, out hit, (int)DistToCollided))
-				if (Physics.Raycast (frontWheel.position, CarBody.transform.position, out hit, DistToCollided)) {
-					if (ObjectToVelocity != null) {
-						if (hit.collider.gameObject.name == ObjectToVelocity.name) {
-							SpeedMotorMobile = speedSuper;
-						}
-					}
-					if (ObjectToCollidedOne != null) {
-						if (hit.collider.gameObject.name == ObjectToCollidedOne.name) {
-							DestroyBike ();					
-						}
-					}
-					if (ObjectToCollidedTwo != null) {
-						if (hit.collider.gameObject.name == ObjectToCollidedTwo.name) {
-							DestroyBike ();					
-						}
-					}
-					if (ObjectToCollidedThree != null) {
-						if (hit.collider.gameObject.name == ObjectToCollidedThree.name) {
-							DestroyBike ();					
-						}
-					}
-					if (ObjectToCollidedFour != null) {
-						if (hit.collider.gameObject.name == ObjectToCollidedFour.name) {
-							DestroyBike ();					
-						}
-					}
-					if (ObjectToCollidedFive != null) {
-						if (hit.collider.gameObject.name == ObjectToCollidedFive.name) {
-							DestroyBike ();					
-						}
-					}
-					if (ObjectToCollidedSix != null) {
-						if (hit.collider.gameObject.name == ObjectToCollidedSix.name) {
-							DestroyBike ();					
-						}
-					}
-					if (ObjectToCollidedSeven != null) {
-						if (hit.collider.gameObject.name == ObjectToCollidedSeven.name) {
-							DestroyBike ();					
-						}
-					}
-					if (ObjectToCollidedEight != null) {
-						if (hit.collider.gameObject.name == ObjectToCollidedEight.name) {
-							DestroyBike ();					
-						}
-					}
+			if (!isFinish) {	
+				RotateVehicle ();
+				if (effect) {
+					effect.SetActive (true);
+					effect.transform.position = rearWheel.transform.position;
+					effectstatic.transform.position = effect.transform.position;			
 				}
+				if (!crash && !crashed) {
+			
+					//if(Physics2D.Raycast(frontWheel.position,body.transform.position, out hit, (int)DistToCollided))
+					if (Physics.Raycast (frontWheel.position, CarBody.transform.position, out hit, DistToCollided)) {
+						if (ObjectToVelocity != null) {
+							if (hit.collider.gameObject.name == ObjectToVelocity.name) {
+								SpeedMotorMobile = speedSuper;
+							}
+						}
+						if (ObjectToCollidedOne != null) {
+							if (hit.collider.gameObject.name == ObjectToCollidedOne.name) {
+								DestroyBike ();					
+							}
+						}
+						if (ObjectToCollidedTwo != null) {
+							if (hit.collider.gameObject.name == ObjectToCollidedTwo.name) {
+								DestroyBike ();					
+							}
+						}
+						if (ObjectToCollidedThree != null) {
+							if (hit.collider.gameObject.name == ObjectToCollidedThree.name) {
+								DestroyBike ();					
+							}
+						}
+						if (ObjectToCollidedFour != null) {
+							if (hit.collider.gameObject.name == ObjectToCollidedFour.name) {
+								DestroyBike ();					
+							}
+						}
+						if (ObjectToCollidedFive != null) {
+							if (hit.collider.gameObject.name == ObjectToCollidedFive.name) {
+								DestroyBike ();					
+							}
+						}
+						if (ObjectToCollidedSix != null) {
+							if (hit.collider.gameObject.name == ObjectToCollidedSix.name) {
+								DestroyBike ();					
+							}
+						}
+						if (ObjectToCollidedSeven != null) {
+							if (hit.collider.gameObject.name == ObjectToCollidedSeven.name) {
+								DestroyBike ();					
+							}
+						}
+						if (ObjectToCollidedEight != null) {
+							if (hit.collider.gameObject.name == ObjectToCollidedEight.name) {
+								DestroyBike ();					
+							}
+						}
+					}
 				
-				//	GameObject weel = GameObject.Find ("front wheel").GetComponent<Collider>();
+					//	GameObject weel = GameObject.Find ("front wheel").GetComponent<Collider>();
 				
-				//if (forMobile) {
-				mobileButtons = GameObject.Find ("mobile buttons").transform;
+					//if (forMobile) {
+					mobileButtons = GameObject.Find ("mobile buttons").transform;
 				
-				var touches = Input.touches;
+					var touches = Input.touches;
 				
-				accelerate = false;
-				brake = false;
-				left = false;
-				right = false;
-				pause = false;
-				restart = false;
-				leftORright = false;							
-				
-				
-				float angle  = 360.0f; // Degree per time unit
-				float time  = 1.0f; // Time unit in sec
-				Vector3 axis = Vector3.left; // Rotation axis, here it the yaw axis
-				
-				leftTexture = mobileButtons.FindChild ("left").GetComponent<GUITexture> ();
-				rightTexture = mobileButtons.FindChild ("right").GetComponent<GUITexture> ();
-				
-				throttleTexture = mobileButtons.FindChild ("throttle").GetComponent<GUITexture> ();
-				brakeTexture = mobileButtons.FindChild ("brake").GetComponent<GUITexture> ();
+					accelerate = false;
+					brake = false;
+					left = false;
+					right = false;
+					pause = false;
+					restart = false;
+					leftORright = false;							
 				
 				
-				leftTexture.enabled = false;
-				rightTexture.enabled = false;
+					float angle = 360.0f; // Degree per time unit
+					float time = 1.0f; // Time unit in sec
+					Vector3 axis = Vector3.left; // Rotation axis, here it the yaw axis
 				
-				leftTexture.enabled = true;
-				rightTexture.enabled = true;
+					leftTexture = mobileButtons.FindChild ("left").GetComponent<GUITexture> ();
+					rightTexture = mobileButtons.FindChild ("right").GetComponent<GUITexture> ();
 				
-				throttleTexture.enabled = true;
-				brakeTexture.enabled = true;
+					throttleTexture = mobileButtons.FindChild ("throttle").GetComponent<GUITexture> ();
+					brakeTexture = mobileButtons.FindChild ("brake").GetComponent<GUITexture> ();
+				
+				
+					leftTexture.enabled = false;
+					rightTexture.enabled = false;
+				
+					leftTexture.enabled = true;
+					rightTexture.enabled = true;
+				
+					throttleTexture.enabled = true;
+					brakeTexture.enabled = true;
 				
 				
 				
-				foreach (var touch in touches) {	
+					foreach (var touch in touches) {	
 					
-					//if (touch.phase != TouchPhase.Canceled && touch.phase != TouchPhase.Ended) {																							
-					if (throttleTexture.HitTest (touch.position)) //if touch position is inside throttle texture
+						//if (touch.phase != TouchPhase.Canceled && touch.phase != TouchPhase.Ended) {																							
+						if (throttleTexture.HitTest (touch.position)) //if touch position is inside throttle texture
 						
-						accelerate = true;
+							accelerate = true;
 					
-					if (brakeTexture.HitTest (touch.position)) //if touch position is inside brake texture
+						if (brakeTexture.HitTest (touch.position)) //if touch position is inside brake texture
 						
-						brake = true;
+							brake = true;
 					
 					
 					
-					if (leftTexture.HitTest (touch.position)) //left button is touched
+						if (leftTexture.HitTest (touch.position)) //left button is touched
 						
-						left = true;
+							left = true;
 					
 					
-					if (rightTexture.HitTest (touch.position)) //right button is touched
+						if (rightTexture.HitTest (touch.position)) //right button is touched
 						
-						right = true;
+							right = true;
 
 
-					/*if (nitroTexture.HitTest (touch.position)) //if touch position is inside throttle texture
+						/*if (nitroTexture.HitTest (touch.position)) //if touch position is inside throttle texture
 						
 						ifnitro = true;
 					*/
 					
-					//if (left || right) //left or right button is touched
-					//	leftORright = true;						
-					//}
+						//if (left || right) //left or right button is touched
+						//	leftORright = true;						
+						//}
 					
-				}
+					}
 				
-				if (Input.touchCount == 0) {
+					if (Input.touchCount == 0) {
 					
-				}
-			/*	
+					}
+					/*	
 				if (Input.acceleration.x > RightAccelerometer) {
 					setVerticalAxis (-1);
 				} else if (Input.acceleration.x < RightAccelerometer) {
@@ -1463,362 +1543,359 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 				}
 				*/
 				
-				//} else {
-				//detect which keys are pressed. keys relevant to "Horizontal" and "Vertical" keywords are set in: Edit -> Project Settings -> Input
-				if(!forMobile){
-					if (Input.GetAxisRaw ("Horizontal") != 0)
-						leftORright = true;
-					else
-						leftORright = false;
+					//} else {
+					//detect which keys are pressed. keys relevant to "Horizontal" and "Vertical" keywords are set in: Edit -> Project Settings -> Input
+					if (!forMobile) {
+						if (Input.GetAxisRaw ("Horizontal") != 0)
+							leftORright = true;
+						else
+							leftORright = false;
 					
-					if (Input.GetAxisRaw ("Horizontal") > 0) {
-						//setVerticalAxis(-1);
-						right = true;
-					} else {
-						//setVerticalAxis(1);
-						right = false;
-					}
-					if (Input.GetAxisRaw ("Horizontal") < 0) {
-						left = true;
-						//setVerticalAxis(1);
-					} else {
-						//setVerticalAxis(-1);
-						left = false;
-					}
-					/*if (Input.GetKeyDown (KeyCode.Q)) {
+						if (Input.GetAxisRaw ("Horizontal") > 0) {
+							//setVerticalAxis(-1);
+							right = true;
+						} else {
+							//setVerticalAxis(1);
+							right = false;
+						}
+						if (Input.GetAxisRaw ("Horizontal") < 0) {
+							left = true;
+							//setVerticalAxis(1);
+						} else {
+							//setVerticalAxis(-1);
+							left = false;
+						}
+						/*if (Input.GetKeyDown (KeyCode.Q)) {
 						ifnitro = true;
 
 					} else {
 
 						ifnitro = false;
 					}*/
-					if (Input.GetAxisRaw ("Vertical") > 0 || Input.GetKey (KeyCode.Joystick1Button2))
-						accelerate = true;
-					else
-						accelerate = false;				
+						if (Input.GetAxisRaw ("Vertical") > 0 || Input.GetKey (KeyCode.Joystick1Button2))
+							accelerate = true;
+						else
+							accelerate = false;				
 					
-					if (Input.GetAxisRaw ("Vertical") < 0 || Input.GetKey (KeyCode.Joystick1Button1))
-						brake = true;
-					else
-						brake = false;	
-				}
+						if (Input.GetAxisRaw ("Vertical") < 0 || Input.GetKey (KeyCode.Joystick1Button1))
+							brake = true;
+						else
+							brake = false;	
+					}
 				
-				//----------------------------------
-				//}
+					//----------------------------------
+					//}
 				
 				
-				if (CarBody.transform.rotation.eulerAngles.z > 210 && CarBody.transform.rotation.eulerAngles.z < 220)					
-					flip = true; 																						
+					if (CarBody.transform.rotation.eulerAngles.z > 210 && CarBody.transform.rotation.eulerAngles.z < 220)					
+						flip = true; 																						
 				
-				if (CarBody.transform.rotation.eulerAngles.z > 320 && flip) { //backflip is done
-					if (my_game_uGUI) {
-						my_game_uGUI.Update_int_score (setscore);
+					if (CarBody.transform.rotation.eulerAngles.z > 320 && flip) { //backflip is done
+						if (my_game_uGUI) {
+							my_game_uGUI.Update_int_score (setscore);
 				
 						
-					}
-					/*if(audioXP){
+						}
+						/*if(audioXP){
 					audioXP.Play ();
 					}*/
-					AudioSource.PlayClipAtPoint (audioXP, gameObject.transform.position, 10.0f);
+						AudioSource.PlayClipAtPoint (audioXP, gameObject.transform.position, 10.0f);
 
-					flip = false;				
-					backflipParticle.Emit (1);
+						flip = false;				
+						backflipParticle.Emit (1);
 					
 					
-					makeclick Achievement = new makeclick ();
-				Achievement.SENDACHIEVEMENT (ACHIEVEMENT_ID_First_BackFlip);
-				Achievement.SENDACHIEVEMENTINCREMENT (INCREMENTAL_ACHIEVEMENT_ID_Two_BackFlip, 1);
+						//	makeclick Achievement = new makeclick ();
+						SENDACHIEVEMENT (ACHIEVEMENT_ID_First_BackFlip);
 
-					//Reciver.SendMessage ("revealAchievement", ACHIEVEMENT_ID_First_BackFlip,SendMessageOptions.DontRequireReceiver);
+						SENDACHIEVEMENTINCREMENT (INCREMENTAL_ACHIEVEMENT_ID_Two_BackFlip, 1);
 
-					//score += 100;
-					//scoreText.text = "SCORE : " + score;
-				}
-				
-				if (CarBody.transform.rotation.eulerAngles.z < 30 && flip) { //frontflip is done			
-					if (my_game_uGUI) {
-						my_game_uGUI.Update_int_score (setscore);
+						//Reciver.SendMessage ("revealAchievement", ACHIEVEMENT_ID_First_BackFlip,SendMessageOptions.DontRequireReceiver);
+
+						//score += 100;
+						//scoreText.text = "SCORE : " + score;
 					}
-					/*if(audioXP){
+				
+					if (CarBody.transform.rotation.eulerAngles.z < 30 && flip) { //frontflip is done			
+						if (my_game_uGUI) {
+							my_game_uGUI.Update_int_score (setscore);
+						}
+						/*if(audioXP){
 					audioXP.Play ();
 					}*/
-					AudioSource.PlayClipAtPoint (audioXP, gameObject.transform.position, 10.0f);
-					flip = false;
-					frontflipParticle.Emit (1);
+						AudioSource.PlayClipAtPoint (audioXP, gameObject.transform.position, 10.0f);
+						flip = false;
+						frontflipParticle.Emit (1);
 					
-									makeclick Achievement = new makeclick ();
-				Achievement.SENDACHIEVEMENT (ACHIEVEMENT_ID_First_FrontFlip);
-				Achievement.SENDACHIEVEMENTINCREMENT (INCREMENTAL_ACHIEVEMENT_ID_Two_FrontFlip, 1);
-				//	Reciver.SendMessage ("revealAchievement", INCREMENTAL_ACHIEVEMENT_ID_Two_FrontFlip,SendMessageOptions.DontRequireReceiver);
-					//score += 150;	
-					//scoreText.text = "SCORE : " + score;					
-				}
+						//	makeclick Achievement = new makeclick ();
+						SENDACHIEVEMENT (ACHIEVEMENT_ID_First_FrontFlip);
+						SENDACHIEVEMENTINCREMENT (INCREMENTAL_ACHIEVEMENT_ID_Two_FrontFlip, 1);
+						//	Reciver.SendMessage ("revealAchievement", INCREMENTAL_ACHIEVEMENT_ID_Two_FrontFlip,SendMessageOptions.DontRequireReceiver);
+						//score += 150;	
+						//scoreText.text = "SCORE : " + score;					
+					}
 				
 				
-				//changing engine sound pitch depending rear wheel rotational speed
-				if (accelerate) {
+					//changing engine sound pitch depending rear wheel rotational speed
+					if (accelerate) {
 
-					if(GetComponent<AudioSource>().pitch < MaxPitch)
-						GetComponent<AudioSource>().pitch += ((Time.deltaTime) / TimeToIncrease);
+						if (GetComponent<AudioSource> ().pitch < MaxPitch)
+							GetComponent<AudioSource> ().pitch += ((Time.deltaTime) / TimeToIncrease);
 
-					/*pitch = rearWheel.velocity.sqrMagnitude / Velocity;
+						/*pitch = rearWheel.velocity.sqrMagnitude / Velocity;
 					pitch *= Time.deltaTime * 2;
 					pitch = Mathf.Clamp (pitch + 1, 0.5f, 1.8f);	*/
-				} else {
-					if(GetComponent<AudioSource>().pitch > StartingPitch)
-						GetComponent<AudioSource>().pitch -= ((Time.deltaTime) / TimeToDecrease);
+					} else {
+						if (GetComponent<AudioSource> ().pitch > StartingPitch)
+							GetComponent<AudioSource> ().pitch -= ((Time.deltaTime) / TimeToDecrease);
 
-					/*pitch = audioSource.pitch;
+						/*pitch = audioSource.pitch;
 					pitch = Mathf.Clamp (pitch - Time.deltaTime * 2, 0.5f, 1.8f);	*/															
-				}
+					}
 				
-				//manipulating engine sound pitch
-				//pitch = Mathf.Clamp (pitch - Time.deltaTime * 2, 0.5f, 1.8f);
-				//pitch = Mathf.Clamp (pitch + Time.deltaTime * 2, 0.5f, 1.8f);
-				//audioSource.pitch = pitch; 
-				if (restart) {
-					score = 0;
-					Application.LoadLevel (Application.loadedLevel);
-				}
-				//if player is crashed and "R" is pressed or touch is detected on mobile, than restart current level
-				if ((Input.GetKeyDown (KeyCode.R) || (Input.touchCount >= 2 && Input.GetTouch (0).phase == TouchPhase.Began)) && crashed) {
-					score = 0;
-					Application.LoadLevel (Application.loadedLevel);
-				}
-				if ((Input.GetKeyDown (KeyCode.X) || (Input.touchCount >= 2 && Input.GetTouch (0).phase == TouchPhase.Began))) {
+					//manipulating engine sound pitch
+					//pitch = Mathf.Clamp (pitch - Time.deltaTime * 2, 0.5f, 1.8f);
+					//pitch = Mathf.Clamp (pitch + Time.deltaTime * 2, 0.5f, 1.8f);
+					//audioSource.pitch = pitch; 
+					if (restart) {
+						score = 0;
+						Application.LoadLevel (Application.loadedLevel);
+					}
+					//if player is crashed and "R" is pressed or touch is detected on mobile, than restart current level
+					if ((Input.GetKeyDown (KeyCode.R) || (Input.touchCount >= 2 && Input.GetTouch (0).phase == TouchPhase.Began)) && crashed) {
+						score = 0;
+						Application.LoadLevel (Application.loadedLevel);
+					}
+					/*if ((Input.GetKeyDown (KeyCode.X) || (Input.touchCount >= 2 && Input.GetTouch (0).phase == TouchPhase.Began))) {
 				
-					handling("");
-				}
-				if(Input.GetKeyUp (KeyCode.X)){
+						handling ("");
+					}
+					if (Input.GetKeyUp (KeyCode.X)) {
 
-					unhandling("");
+						unhandling ("");
 
-					/*hingeJoints = Body2D.GetComponents<HingeJoint2D>();	
+						/*hingeJoints = Body2D.GetComponents<HingeJoint2D>();	
 					StartCoroutine(Coroutine(4,0.40f));
 					StartCoroutine(Coroutine(3,1.10f));
-					StartCoroutine(Coroutine(1,1.50f));*/
+					StartCoroutine(Coroutine(1,1.50f));
 
-				}
+					}*/
 
 
-				if (pause) {
-					{
-						isShow = !isShow;
-					}
+					if (pause) {
+						{
+							isShow = !isShow;
+						}
 					
-					//*** Pause happens here. This code below is exactly what pauses the game.
-					//Pause game if panel is shown.
-					if (isShow)
-						Time.timeScale = 0;
-					else
-						Time.timeScale = 1;
-				}
-				/*if (Checkpoint.lastPoint) {
+						//*** Pause happens here. This code below is exactly what pauses the game.
+						//Pause game if panel is shown.
+						if (isShow)
+							Time.timeScale = 0;
+						else
+							Time.timeScale = 1;
+					}
+					/*if (Checkpoint.lastPoint) {
 					//if ((Input.GetKeyDown (KeyCode.C) || (Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Began)) && crashed) {
 					if (checkpoint) {
 					Checkpoint.Reset ();
 					Destroy (gameObject);
 					}
 				}*/
-			}
+				}
 			
-			if(crash && !crashed) //if player just crashed
-			{											
-				if(ifnitro)
-				{
-					effectnitro.SetActive(false);
-
-				}
-				makeclick Achievement = new makeclick();
-				Achievement.SENDACHIEVEMENT(ACHIEVEMENT_ID_First_Death);
-				AndroidJavaObject ajc = new AndroidJavaObject("com.zeljkosassets.notifications.Notifier");
-				ajc.CallStatic("sendNotification", "Zombie Cross", "Achievement unlocked", "You Firts Death", 1);
-				//AN_PoupsProxy.showMessage ("Achievement unlocked","You Firts Death","Ok");
-			//	Reciver.SendMessage ("revealAchievement", ACHIEVEMENT_ID_First_Death,SendMessageOptions.DontRequireReceiver);
-
-				GameObject soul = (GameObject)Resources.Load("prefabs/CFXM2_Soul", typeof(GameObject));
-				Instantiate(soul, CarBody.transform.position, Quaternion.identity);
-				GameObject explotion = (GameObject)Resources.Load("prefabs/CFXM_Explosion+Text NoSmoke", typeof(GameObject));
-				Instantiate(explotion, CarBody.transform.position, Quaternion.identity);
-				GameObject smoke = (GameObject)Resources.Load("prefabs/CFXM_GroundSmokeExplosionAlt", typeof(GameObject));
-				Instantiate(smoke, CarBody.transform.position, Quaternion.identity);
-
-				AudioSource.PlayClipAtPoint(BodyDeadSound,CarBody.transform.position,10.0f);
-
-				Camera.main.GetComponent<CameraFollow2D>().target = CarBody.transform; //make camera to follow biker's hips	
-				
-				unhandlingToDestroy ();
-
-				CarBody.transform.Rotate (Vector3.right * 180);
-
-				
-				isControllable = false;
-				crashed = true;
-				//update lives
-				if(my_game_uGUI){
-					//my_game_uGUI.Update_lives(-1);
-					Invoke ("endgui", 2.0f);
-					//my_game_uGUI.Update_lives(live);
-				}
-
-
-
-
-			}
-			if(crashBurn && !crashed) //if player just crashed
-			{		
-				if(ifnitro)
-				{
-					effectnitro.SetActive(false);
-				}
-				time = time + 1;
-				effectburn.transform.position = CarBody.transform.position;
-				if(time == 1){
-					makeclick Achievement = new makeclick();
-					Achievement.SENDACHIEVEMENT(ACHIEVEMENT_ID_First_Burn);
-				//	Reciver.SendMessage ("revealAchievement", ACHIEVEMENT_ID_First_Burn,SendMessageOptions.DontRequireReceiver);
-					/*
-					GameObject soul = (GameObject)Resources.Load("prefabs/CFXM2_Soul", typeof(GameObject));
-					Instantiate(soul, CarBody.transform.position, Quaternion.identity);
-					GameObject explotion = (GameObject)Resources.Load("prefabs/CFXM_Explosion+Text NoSmoke", typeof(GameObject));
-					Instantiate(explotion, CarBody.transform.position, Quaternion.identity);
-					GameObject smoke = (GameObject)Resources.Load("prefabs/CFXM_GroundSmokeExplosionAlt", typeof(GameObject));
-					Instantiate(smoke, CarBody.transform.position, Quaternion.identity);
-					*/
-
-
-					CFX_SpawnSystem.Instantiate (effectburn);
-					AudioSource.PlayClipAtPoint(BodyDeadBurnSound,CarBody.transform.position,10.0f);
-					
-					Camera.main.GetComponent<CameraFollow2D>().target = CarBody.transform; //make camera to follow biker's hips	
-					
-					//unhandlingToDestroy ();
-					
-					//CarBody.transform.Rotate (Vector3.right * 180);
-					
-					
-					//isControllable = false;
-					//crashed = true;
-					//update lives
-					if(my_game_uGUI){
-						//my_game_uGUI.Update_lives(-1);
-						Invoke ("endguiburn", 2.0f);
+				if (crash && !crashed) { //if player just crashed											
+					if (ifnitro) {
+						effectnitro.SetActive (false);
 
 					}
-				}
-			}
-			if(crashDrown && !crashed) //if player just crashed
-			{	
-				if(ifnitro)
-				{
-					effectnitro.SetActive(false);
-				}
-				time = time + 1;
-				//effectburn.transform.position = CarBody.transform.position;
-				if(time == 1){
-					makeclick Achievement = new makeclick();
-					Achievement.SENDACHIEVEMENT(ACHIEVEMENT_ID_First_Drown);
-					//	Reciver.SendMessage ("revealAchievement", ACHIEVEMENT_ID_First_Burn,SendMessageOptions.DontRequireReceiver);
-					/*
-					GameObject soul = (GameObject)Resources.Load("prefabs/CFXM2_Soul", typeof(GameObject));
-					Instantiate(soul, CarBody.transform.position, Quaternion.identity);
-					GameObject explotion = (GameObject)Resources.Load("prefabs/CFXM_Explosion+Text NoSmoke", typeof(GameObject));
-					Instantiate(explotion, CarBody.transform.position, Quaternion.identity);
-					GameObject smoke = (GameObject)Resources.Load("prefabs/CFXM_GroundSmokeExplosionAlt", typeof(GameObject));
-					Instantiate(smoke, CarBody.transform.position, Quaternion.identity);
-					*/
-					
-					
-					//CFX_SpawnSystem.Instantiate (effectburn);
-					AudioSource.PlayClipAtPoint(BodyDeadDrownSound,CarBody.transform.position,10.0f);
-					
-					Camera.main.GetComponent<CameraFollow2D>().target = CarBody.transform; //make camera to follow biker's hips	
-					
-					//unhandlingToDestroy ();
-					
-					//CarBody.transform.Rotate (Vector3.right * 180);
-					
-					
+					//makeclick Achievement = new makeclick();
+					SENDACHIEVEMENT (ACHIEVEMENT_ID_First_Death);
+
+					//AN_PoupsProxy.showMessage ("Achievement unlocked","You Firts Death","Ok");
+					//	Reciver.SendMessage ("revealAchievement", ACHIEVEMENT_ID_First_Death,SendMessageOptions.DontRequireReceiver);
+
+					GameObject soul = (GameObject)Resources.Load ("prefabs/CFXM2_Soul", typeof(GameObject));
+					Instantiate (soul, CarBody.transform.position, Quaternion.identity);
+					GameObject explotion = (GameObject)Resources.Load ("prefabs/CFXM_Explosion+Text NoSmoke", typeof(GameObject));
+					Instantiate (explotion, CarBody.transform.position, Quaternion.identity);
+					GameObject smoke = (GameObject)Resources.Load ("prefabs/CFXM_GroundSmokeExplosionAlt", typeof(GameObject));
+					Instantiate (smoke, CarBody.transform.position, Quaternion.identity);
+
+					AudioSource.PlayClipAtPoint (BodyDeadSound, CarBody.transform.position, 10.0f);
+
+					Camera.main.GetComponent<CameraFollow2D> ().target = CarBody.transform; //make camera to follow biker's hips	
+				
+					unhandlingToDestroy ();
+
+					CarBody.transform.Rotate (Vector3.right * 180);
+
+				
 					isControllable = false;
-					//crashed = true;
+					crashed = true;
 					//update lives
-					if(my_game_uGUI){
+					if (my_game_uGUI) {
+						//my_game_uGUI.Update_lives(-1);
+						Invoke ("endgui", 2.0f);
+						//my_game_uGUI.Update_lives(live);
+					}
 
-						Invoke ("endguidrown", 2.0f);
-						
+
+
+
+				}
+				if (crashBurn && !crashed) { //if player just crashed		
+					if (ifnitro) {
+						effectnitro.SetActive (false);
+					}
+					time = time + 1;
+					effectburn.transform.position = CarBody.transform.position;
+					if (time == 1) {
+						//makeclick Achievement = new makeclick();
+						SENDACHIEVEMENT (ACHIEVEMENT_ID_First_Burn);
+						//	Reciver.SendMessage ("revealAchievement", ACHIEVEMENT_ID_First_Burn,SendMessageOptions.DontRequireReceiver);
+						/*
+					GameObject soul = (GameObject)Resources.Load("prefabs/CFXM2_Soul", typeof(GameObject));
+					Instantiate(soul, CarBody.transform.position, Quaternion.identity);
+					GameObject explotion = (GameObject)Resources.Load("prefabs/CFXM_Explosion+Text NoSmoke", typeof(GameObject));
+					Instantiate(explotion, CarBody.transform.position, Quaternion.identity);
+					GameObject smoke = (GameObject)Resources.Load("prefabs/CFXM_GroundSmokeExplosionAlt", typeof(GameObject));
+					Instantiate(smoke, CarBody.transform.position, Quaternion.identity);
+					*/
+
+
+						CFX_SpawnSystem.Instantiate (effectburn);
+						AudioSource.PlayClipAtPoint (BodyDeadBurnSound, CarBody.transform.position, 10.0f);
+					
+						Camera.main.GetComponent<CameraFollow2D> ().target = CarBody.transform; //make camera to follow biker's hips	
+					
+						//unhandlingToDestroy ();
+					
+						//CarBody.transform.Rotate (Vector3.right * 180);
+					
+					
+						//isControllable = false;
+						//crashed = true;
+						//update lives
+						if (my_game_uGUI) {
+							//my_game_uGUI.Update_lives(-1);
+							Invoke ("endguiburn", 2.0f);
+
+						}
 					}
 				}
-			}
-			if(crashSaw && !crashed) //if player just crashed
-			{											
-				
-				makeclick Achievement = new makeclick();
-				Achievement.SENDACHIEVEMENT(ACHIEVEMENT_ID_First_Death);
+				if (crashDrown && !crashed) { //if player just crashed	
+					if (ifnitro) {
+						effectnitro.SetActive (false);
+					}
+					time = time + 1;
+					//effectburn.transform.position = CarBody.transform.position;
+					if (time == 1) {
+						//makeclick Achievement = new makeclick();
+						SENDACHIEVEMENT (ACHIEVEMENT_ID_First_Drown);
+						//	Reciver.SendMessage ("revealAchievement", ACHIEVEMENT_ID_First_Burn,SendMessageOptions.DontRequireReceiver);
+						/*
+					GameObject soul = (GameObject)Resources.Load("prefabs/CFXM2_Soul", typeof(GameObject));
+					Instantiate(soul, CarBody.transform.position, Quaternion.identity);
+					GameObject explotion = (GameObject)Resources.Load("prefabs/CFXM_Explosion+Text NoSmoke", typeof(GameObject));
+					Instantiate(explotion, CarBody.transform.position, Quaternion.identity);
+					GameObject smoke = (GameObject)Resources.Load("prefabs/CFXM_GroundSmokeExplosionAlt", typeof(GameObject));
+					Instantiate(smoke, CarBody.transform.position, Quaternion.identity);
+					*/
+					
+					
+						//CFX_SpawnSystem.Instantiate (effectburn);
+						AudioSource.PlayClipAtPoint (BodyDeadDrownSound, CarBody.transform.position, 10.0f);
+					
+						Camera.main.GetComponent<CameraFollow2D> ().target = CarBody.transform; //make camera to follow biker's hips	
+					
+						//unhandlingToDestroy ();
+					
+						//CarBody.transform.Rotate (Vector3.right * 180);
+					
+					
+						isControllable = false;
+						//crashed = true;
+						//update lives
+						if (my_game_uGUI) {
 
-			//	Reciver.SendMessage ("revealAchievement", ACHIEVEMENT_ID_First_Death,SendMessageOptions.DontRequireReceiver);
-
-				GameObject soul = (GameObject)Resources.Load("prefabs/CFXM2_Soul", typeof(GameObject));
-				Instantiate(soul, CarBody.transform.position, Quaternion.identity);
-				GameObject explotion = (GameObject)Resources.Load("prefabs/CFXM_Explosion+Text NoSmoke", typeof(GameObject));
-				Instantiate(explotion, CarBody.transform.position, Quaternion.identity);
-				GameObject smoke = (GameObject)Resources.Load("prefabs/CFXM_GroundSmokeExplosionAlt", typeof(GameObject));
-				Instantiate(smoke, CarBody.transform.position, Quaternion.identity);
-				
-				AudioSource.PlayClipAtPoint(BodyDeadSound,CarBody.transform.position,10.0f);
-				
-				Camera.main.GetComponent<CameraFollow2D>().target = CarBody.transform; //make camera to follow biker's hips	
-
-				unhandlingToDestroy ();
-				
-				CarBody.transform.Rotate (Vector3.right * 180);
-				
-				
-				isControllable = false;
-				crashed = true;
-				//update lives
-				if(my_game_uGUI){
-					//my_game_uGUI.Update_lives(-1);
-					Invoke ("endgui", 2.0f);
-					//my_game_uGUI.Update_lives(live);
+							Invoke ("endguidrown", 2.0f);
+						
+						}
+					}
 				}
+				if (crashSaw && !crashed) { //if player just crashed											
 				
-			}
-			if(crashSawHead && !crashed) //if player just crashed
-			{											
-				
-					makeclick Achievement = new makeclick();
-				Achievement.SENDACHIEVEMENT(ACHIEVEMENT_ID_First_Death);
-				//Reciver.SendMessage ("revealAchievement", ACHIEVEMENT_ID_First_Death,SendMessageOptions.DontRequireReceiver);
+					//makeclick Achievement = new makeclick();
+					SENDACHIEVEMENT (ACHIEVEMENT_ID_First_Death);
 
-				GameObject soul = (GameObject)Resources.Load("prefabs/CFXM2_Soul", typeof(GameObject));
-				Instantiate(soul, CarBody.transform.position, Quaternion.identity);
-				GameObject explotion = (GameObject)Resources.Load("prefabs/CFXM_Explosion+Text NoSmoke", typeof(GameObject));
-				Instantiate(explotion, CarBody.transform.position, Quaternion.identity);
-				GameObject smoke = (GameObject)Resources.Load("prefabs/CFXM_GroundSmokeExplosionAlt", typeof(GameObject));
-				Instantiate(smoke, CarBody.transform.position, Quaternion.identity);
+					//	Reciver.SendMessage ("revealAchievement", ACHIEVEMENT_ID_First_Death,SendMessageOptions.DontRequireReceiver);
+
+					GameObject soul = (GameObject)Resources.Load ("prefabs/CFXM2_Soul", typeof(GameObject));
+					Instantiate (soul, CarBody.transform.position, Quaternion.identity);
+					GameObject explotion = (GameObject)Resources.Load ("prefabs/CFXM_Explosion+Text NoSmoke", typeof(GameObject));
+					Instantiate (explotion, CarBody.transform.position, Quaternion.identity);
+					GameObject smoke = (GameObject)Resources.Load ("prefabs/CFXM_GroundSmokeExplosionAlt", typeof(GameObject));
+					Instantiate (smoke, CarBody.transform.position, Quaternion.identity);
 				
-				AudioSource.PlayClipAtPoint(BodyDeadSound,CarBody.transform.position,10.0f);
+					AudioSource.PlayClipAtPoint (BodyDeadSound, CarBody.transform.position, 10.0f);
 				
-				Camera.main.GetComponent<CameraFollow2D>().target = CarBody.transform; //make camera to follow biker's hips	
+					Camera.main.GetComponent<CameraFollow2D> ().target = CarBody.transform; //make camera to follow biker's hips	
+
+					unhandlingToDestroy ();
 				
-				unhandlingToDestroySawHead ();
-				
-				CarBody.transform.Rotate (Vector3.right * 180);
+					CarBody.transform.Rotate (Vector3.right * 180);
 				
 				
-				isControllable = false;
-				crashed = true;
-				//update lives
-				if(my_game_uGUI){
-					//my_game_uGUI.Update_lives(-1);
-					Invoke ("endgui", 2.0f);
-					//my_game_uGUI.Update_lives(live);
+					isControllable = false;
+					crashed = true;
+					//update lives
+					if (my_game_uGUI) {
+						//my_game_uGUI.Update_lives(-1);
+						Invoke ("endgui", 2.0f);
+						//my_game_uGUI.Update_lives(live);
+					}
+				
 				}
+				if (crashSawHead && !crashed) { //if player just crashed											
 				
+					//makeclick Achievement = new makeclick();
+					SENDACHIEVEMENT (ACHIEVEMENT_ID_First_Death);
+					//Reciver.SendMessage ("revealAchievement", ACHIEVEMENT_ID_First_Death,SendMessageOptions.DontRequireReceiver);
+
+					GameObject soul = (GameObject)Resources.Load ("prefabs/CFXM2_Soul", typeof(GameObject));
+					Instantiate (soul, CarBody.transform.position, Quaternion.identity);
+					GameObject explotion = (GameObject)Resources.Load ("prefabs/CFXM_Explosion+Text NoSmoke", typeof(GameObject));
+					Instantiate (explotion, CarBody.transform.position, Quaternion.identity);
+					GameObject smoke = (GameObject)Resources.Load ("prefabs/CFXM_GroundSmokeExplosionAlt", typeof(GameObject));
+					Instantiate (smoke, CarBody.transform.position, Quaternion.identity);
+				
+					AudioSource.PlayClipAtPoint (BodyDeadSound, CarBody.transform.position, 10.0f);
+				
+					Camera.main.GetComponent<CameraFollow2D> ().target = CarBody.transform; //make camera to follow biker's hips	
+				
+					unhandlingToDestroySawHead ();
+				
+					CarBody.transform.Rotate (Vector3.right * 180);
+				
+				
+					isControllable = false;
+					crashed = true;
+					//update lives
+					if (my_game_uGUI) {
+						//my_game_uGUI.Update_lives(-1);
+						Invoke ("endgui", 2.0f);
+						//my_game_uGUI.Update_lives(live);
+					}
+				
+				}
+			} else {
+			//	brake = true;
 			}
 			
-			
+		} else {
+			//brake=true;
 		}
+	
 
 	
 		/*
