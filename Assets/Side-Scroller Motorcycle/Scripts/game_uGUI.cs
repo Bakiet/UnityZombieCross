@@ -9,6 +9,7 @@ using System;
 
 public class game_uGUI : MonoBehaviour {
 
+	private int healtcount = 0;
 	private const string LEADERBOARD_ID = "CgkIq6GznYALEAIQAA";
 	private const string LEADERBOARD_MULTIPLAYER_ID = "CgkIq6GznYALEAIQAQ";
 	[SerializeField]private EventSystem my_eventSystem = null;
@@ -104,7 +105,7 @@ public class game_uGUI : MonoBehaviour {
 	public bool show_debug_warnings;
 
 	public static bool isfinish=false;
-	
+	public int funds=0;
 	// Use this for initialization
 	void Start () {
 
@@ -129,6 +130,9 @@ public class game_uGUI : MonoBehaviour {
 			my_game_master = (game_master)game_master.game_master_obj.GetComponent("game_master");
 			my_game_master.my_ads_master.my_game_uGUI = this;
 		}
+		funds = StoreInventory.GetItemBalance("Coins");
+
+		Update_virtual_money (funds);
 		
 		if (my_game_master)
 		{
@@ -237,9 +241,10 @@ public class game_uGUI : MonoBehaviour {
 			
 			my_game_master.star_score_difference = 0;
 			
-			if (!keep_money_taken_in_this_stage_only_if_you_win)
-				virtual_money_count.text = my_game_master.current_virtual_money[my_game_master.current_profile_selected].ToString();
-			
+			if (!keep_money_taken_in_this_stage_only_if_you_win){
+				//virtual_money_count.text = my_game_master.current_virtual_money[my_game_master.current_profile_selected].ToString();
+				virtual_money_count.text = "150";
+			}
 			
 		}
 		
@@ -626,7 +631,26 @@ public class game_uGUI : MonoBehaviour {
 		{
 			if (!my_game_master.infinite_lives)
 			{
+				/*int health = StoreInventory.GetItemBalance ("health");
+				
+				if (health != 0) {
+					healtcount = healtcount + 5 * health;
+				}
+				int healthx2 = StoreInventory.GetItemBalance ("healthx2");
+				int healtcountx2 = 0;
+				if (healthx2 != 0) {
+					healtcount = healtcount + 10 * healthx2;
+				}
+				int healthx3 = StoreInventory.GetItemBalance ("healthx3");
+				int healtcountx3 = 0;
+				if (healthx3 != 0) {
+					healtcount = healtcount + 15 * healthx3;
+				}
+				*/
+				//healtcount = healtcount + Convert.ToIntlive_variation32(my_game_uGUI.lives_count);
+				//healtcount = healtcount -live_variation;
 				my_game_master.current_lives[my_game_master.current_profile_selected] += live_variation;
+				healtcount = 0;
 				if (show_debug_messages)
 					Debug.Log("lives = " + my_game_master.current_lives[my_game_master.current_profile_selected]);
 				
@@ -807,8 +831,9 @@ public class game_uGUI : MonoBehaviour {
 							my_game_master.current_virtual_money[my_game_master.current_profile_selected] = my_game_master.my_Soomla_billing_script.Show_how_many_virtual_money_there_is_in_this_profile(my_game_master.current_profile_selected);
 							*/ //DELETE THIS LINE FOR SOOMLA
 						}
-						else
+						else{
 							my_game_master.current_virtual_money[my_game_master.current_profile_selected] += temp_money_count;
+						}
 					}
 					else
 					{
@@ -972,8 +997,9 @@ public class game_uGUI : MonoBehaviour {
 							my_game_master.current_virtual_money[my_game_master.current_profile_selected] = my_game_master.my_Soomla_billing_script.Show_how_many_virtual_money_there_is_in_this_profile(my_game_master.current_profile_selected);
 							*/ //DELETE THIS LINE FOR SOOMLA
 						}
-						else
+						else{
 							my_game_master.current_virtual_money[my_game_master.current_profile_selected] += temp_money_count;
+						}
 					}
 					else
 					{

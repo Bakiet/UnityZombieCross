@@ -2,8 +2,11 @@
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections;
+using Soomla.Store;
 
 public class manage_menu_uGUI : MonoBehaviour, MPLobbyListener {
+
+	private int healtcount = 0;
 
 	[SerializeField]private EventSystem my_eventSystem = null;
 
@@ -803,6 +806,24 @@ public class manage_menu_uGUI : MonoBehaviour, MPLobbyListener {
 			{
 			my_game_master.Gui_sfx(my_game_master.tap_sfx);
 			home_screen.gameObject.SetActive(false);
+
+			/*int health = StoreInventory.GetItemBalance ("health");
+			
+			if (health != 0) {
+				healtcount = healtcount + 5 * health;
+			}
+			int healthx2 = StoreInventory.GetItemBalance ("healthx2");
+			int healtcountx2 = 0;
+			if (healthx2 != 0) {
+				healtcount = healtcount + 10 * healthx2;
+			}
+			int healthx3 = StoreInventory.GetItemBalance ("healthx3");
+			int healtcountx3 = 0;
+			if (healthx3 != 0) {
+				healtcount = healtcount + 15 * healthx3;
+			}
+			*/
+
 
 			if (my_game_master.infinite_lives || my_game_master.current_lives[my_game_master.current_profile_selected] > 0)
 				Start_to_play();

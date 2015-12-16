@@ -7,6 +7,7 @@ using UnityEngine;
 using System.Collections;
 using Soomla;
 using Soomla.Store;
+using SIS;
 
 namespace SIS
 {
@@ -16,26 +17,44 @@ namespace SIS
     /// <summary>
     public class IAPListener : MonoBehaviour
     {
-        /// <summary>
-        /// whether this script should print debug messages
-        /// </summary>
+
+		/// <summary>
+		/// whether this script should print debug messages
+		/// </summary>
+		/// 
+		/// game_master my_game_master;
+		/// 
         public bool debug;
+
+		//game_master my_game_master;
+
+		private game_uGUI my_game_uGUI; 
 
 
         //subscribe to the most important IAP events
         void OnEnable()
         {
+			GameObject gui = GameObject.FindGameObjectWithTag ("_gui_");
+			if(gui != null){
+				my_game_uGUI = GameObject.FindGameObjectWithTag("_gui_").GetComponent<game_uGUI>();
+				
+			}
+
+		
             IAPManager.firstStartEvent += HandleFirstStart;
             StoreEvents.OnItemPurchased += HandleSuccessfulPurchase;
             StoreEvents.OnGoodEquipped += HandleItemEquipped;
             StoreEvents.OnGoodUnEquipped += HandleItemUnequipped;
             StoreEvents.OnGoodUpgrade += HandleItemUpgrade;
+
+
         }
 
 
         //unsubscribe from IAP events on destruction
         void OnDisable()
         {
+
             IAPManager.firstStartEvent -= HandleFirstStart;
             StoreEvents.OnItemPurchased -= HandleSuccessfulPurchase;
             StoreEvents.OnGoodEquipped -= HandleItemEquipped;
@@ -49,6 +68,15 @@ namespace SIS
         /// </summary>
         public void HandleSuccessfulPurchase(PurchasableVirtualItem virtualItem, string payload)
         {
+			GameObject gui = GameObject.FindGameObjectWithTag ("_gui_");
+			if(gui != null){
+				my_game_uGUI = GameObject.FindGameObjectWithTag("_gui_").GetComponent<game_uGUI>();
+				
+			}
+
+
+
+			//my_game_master = (game_master)game_master.game_master_obj.GetComponent("game_master");
             //get global identifier
             string id = IAPManager.GetIAPIdentifier(virtualItem.ItemId);
             if (debug) Debug.Log("IAPListener: HandleSuccessfulPurchase: " + id);
@@ -67,6 +95,7 @@ namespace SIS
             {
                 //section for in app purchases
                 case "coins":
+					my_game_uGUI.Update_virtual_money(1000);
                     ShopManager.ShowMessage("1000 coins were added to your balance!");
 
                     //you could also get the information from the VirtualItem directly:
@@ -77,76 +106,138 @@ namespace SIS
                     */
                     break;
                 case "coin_pack":
+					my_game_uGUI.Update_virtual_money(2500);
                     ShopManager.ShowMessage("2500 coins were added to your balance!");
                     break;
                 case "big_coin_pack":
+					my_game_uGUI.Update_virtual_money(6000);
                     ShopManager.ShowMessage("6000 coins were added to your balance!");
                     break;
                 case "huge_coin_pack":
+					my_game_uGUI.Update_virtual_money(12000);
                     ShopManager.ShowMessage("12000 coins were added to your balance!");
                     break;
-                case "no_ads":
-                    ShopManager.ShowMessage("Ads disabled!");
-                    break;
+				case "rich_coin_pack":
+					my_game_uGUI.Update_virtual_money(24000);
+					ShopManager.ShowMessage("24000 coins were added to your balance!");
+					break;
+				case "millionaire_coin_pack":
+					my_game_uGUI.Update_virtual_money(48000);
+					ShopManager.ShowMessage("48000 coins were added to your balance!");
+					break;
+				case "no_ads":
+					ShopManager.ShowMessage("Ads disabled!");
+	                    break;
                 case "abo_monthly":
                     ShopManager.ShowMessage("Subscribed to monthly abo!");
                     break;
 
                 //section for in game content
                 //items section
-                case "bullets":
-                    ShopManager.ShowMessage("Bullets were added to your inventory!");
+               
+                case "health":					
+				my_game_uGUI.Update_lives(5);
+			
+				ShopManager.ShowMessage("A pack of 5 lives added to your inventory!");
+
+				break;
+				case "healthx2":
+				my_game_uGUI.Update_lives(10);
+				ShopManager.ShowMessage("A pack of 10 lives added to your inventory!");
+
+					break;
+				case "healthx3":
+				my_game_uGUI.Update_lives(15);
+				ShopManager.ShowMessage("A pack of 15 lives added to your inventory!");
+					break;
+			case "hell_bike":
+					ShopManager.ShowMessage("Speed boost bought!");
                     break;
-                case "health":
-                    ShopManager.ShowMessage("Medikits were added to your inventory!");
-                    break;
-                case "energy":
-                    ShopManager.ShowMessage("Energy was added to your inventory!");
-                    break;
-                case "bonus":
-                    ShopManager.ShowMessage("Bonus level unlocked!");
-                    break;
-                case "speed":
-                    ShopManager.ShowMessage("Speed boost bought!");
-                    break;
-                case "speed_up1":
-                case "speed_up2":
-                case "speed_up3":
-                    ShopManager.ShowMessage("Speed boost upgraded!");
+			case "neon_bike":
+				ShopManager.ShowMessage("Speed boost bought!");
+				break;
+			case "monster_bike":
+				ShopManager.ShowMessage("Speed boost bought!");
+				break;
+			case "nightmare_bike":
+				ShopManager.ShowMessage("Speed boost bought!");
+				break;
+			case "party_bike":
+				ShopManager.ShowMessage("Speed boost bought!");
+				break;
+			case "super_bike":
+				ShopManager.ShowMessage("Speed boost bought!");
+				break;
+			case "bike":
+				ShopManager.ShowMessage("Speed boost bought!");
+				break;
+				
+			case "hell_upgrade_level_3":
+			case "hell_upgrade_level_2":
+			case "hell_upgrade_level_1":
+			case "neon_upgrade_level_3":
+			case "neon_upgrade_level_2":
+			case "neon_upgrade_level_1":
+			case "monster_upgrade_level_3":
+			case "monster_upgrade_level_2":
+			case "monster_upgrade_level_1":
+			case "nightmare_upgrade_level_3":
+			case "nightmare_upgrade_level_2":
+			case "nightmare_upgrade_level_1":
+			case "party_upgrade_level_3":
+			case "party_upgrade_level_2":
+			case "party_upgrade_level_1":
+			case "super_upgrade_level_3":
+			case "super_upgrade_level_2":
+			case "super_upgrade_level_1":
+			case "bike_upgrade_level_3":
+			case "bike_upgrade_level_2":
+			case "bike_upgrade_level_1":
+				ShopManager.ShowMessage("upgraded!");
                     break;
 
-                //armory section
-                case "uzi":
-                    ShopManager.ShowMessage("Uzi unlocked!");
+       
+			case "blue_bike":
+				ShopManager.ShowMessage("Blue bike unlocked!");
                     break;
-                case "ak47":
-                    ShopManager.ShowMessage("AK47 unlocked!");
+			case "peace_bike":
+				ShopManager.ShowMessage("Backpack unlocked!");
                     break;
-                case "m4":
-                    ShopManager.ShowMessage("M4 unlocked!");
+			case "summer_bike":
+				ShopManager.ShowMessage("Ammo belt unlocked!");
+                    break;
+			case "sunshine_bike":
+				ShopManager.ShowMessage("Jetpack unlocked!");
                     break;
 
-                //customize section
-                case "hat":
-                    ShopManager.ShowMessage("Hat unlocked!");
-                    break;
-                case "backpack":
-                    ShopManager.ShowMessage("Backpack unlocked!");
-                    break;
-                case "belt":
-                    ShopManager.ShowMessage("Ammo belt unlocked!");
-                    break;
-                case "jetpack":
-                    ShopManager.ShowMessage("Jetpack unlocked!");
-                    break;
-                case "booster":
-                    ShopManager.ShowMessage("Double XP unlocked!");
-                    break;
-            }
-        }
+
+			case "hell_effect":
+				ShopManager.ShowMessage("Jetpack unlocked!");
+				break;
+			case "neon_effect":
+				ShopManager.ShowMessage("Jetpack unlocked!");
+				break;
+			case "monster_effect":
+				ShopManager.ShowMessage("Jetpack unlocked!");
+				break;
+			case "nightmare_effect":
+				ShopManager.ShowMessage("Jetpack unlocked!");
+				break;
+			case "party_effect":
+				ShopManager.ShowMessage("Jetpack unlocked!");
+				break;
+			case "super_effect":
+				ShopManager.ShowMessage("Jetpack unlocked!");
+				break;
+				
+
+			}
 
 
-        // called the first time your app launches.
+		}
+		
+		
+		// called the first time your app launches.
         // use this method to predefine items according to your game logic
         void HandleFirstStart()
         {

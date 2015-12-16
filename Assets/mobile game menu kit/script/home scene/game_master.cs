@@ -1,9 +1,11 @@
 using UnityEngine;
 using System.Collections;
 using System;
+using Soomla.Store;
 
 public class game_master : MonoBehaviour {
 
+	private int healtcount = 0;
 	//editor
 	public bool editor_show_worlds;
 	public bool editor_show_lives;
@@ -311,7 +313,9 @@ public class game_master : MonoBehaviour {
 
 				if (!infinite_lives)
 					{
-					current_lives = new int[number_of_save_profile_slot_avaibles];
+		
+				current_lives = new int[number_of_save_profile_slot_avaibles];
+					
 					target_time = new DateTime[number_of_save_profile_slot_avaibles];
 					recharge_live_countdown_active = new bool[number_of_save_profile_slot_avaibles];
 					}
@@ -337,8 +341,11 @@ public class game_master : MonoBehaviour {
 
 				best_int_score_in_this_stage = new int[number_of_save_profile_slot_avaibles][,];
 					best_int_score_for_current_player = new int[number_of_save_profile_slot_avaibles];
+					
 
-					current_virtual_money = new int[number_of_save_profile_slot_avaibles];
+					//int funds = StoreInventory.GetItemBalance("Coins");
+			current_virtual_money = new int[number_of_save_profile_slot_avaibles];
+			//current_virtual_money = current_virtual_money +=funds;
 
 				if (my_store_item_manager)
 					{
@@ -488,8 +495,9 @@ public class game_master : MonoBehaviour {
 		play_this_stage_to_progress_in_the_game_world[current_profile_selected] = 0;
 		play_this_stage_to_progress_in_the_game_stage[current_profile_selected] = 0;
 		
-		if (!infinite_lives)
+		if (!infinite_lives){
 			current_lives[current_profile_selected] = start_lives;
+		}
 		if(continue_rule_selected == continue_rule.continue_cost_a_continue_token)
 			current_continue_tokens[current_profile_selected] = start_continue_tokens;
 

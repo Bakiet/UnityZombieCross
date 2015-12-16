@@ -33,18 +33,26 @@ public class UpdateFunds : MonoBehaviour
 
     //cache current currency value for accessing it later
     private int curValue;
+	private game_uGUI my_game_uGUI;
 
 
     void OnEnable()
     {
+		GameObject gui = GameObject.FindGameObjectWithTag ("_gui_");
+		if(gui != null){
+			my_game_uGUI = GameObject.FindGameObjectWithTag("_gui_").GetComponent<game_uGUI>();
+			
+		}
 	    //subscribe to successful purchase/update event,
 	    //it could be that the player obtained currency
         StoreEvents.OnCurrencyBalanceChanged += UpdateValue;
 
         //get current currency value
         int funds = StoreInventory.GetItemBalance(currency);
+
+		my_game_uGUI.Update_virtual_money(funds);
         //display value in the Text component
-        label.text = funds.ToString();
+//        label.text = funds.ToString();
         //store value
         curValue = funds;
     }
@@ -83,13 +91,13 @@ public class UpdateFunds : MonoBehaviour
         {
             float progress = timer / duration;
             curValue = (int)Mathf.Lerp(start, target, progress);
-            label.text = curValue + "";
+           // label.text = curValue + "";
             yield return null;
         }
 
 	    //once the duration is over, directly set the value and text
 	    //to the targeted value to avoid rounding issues or inconsistency
         curValue = target;
-        label.text = curValue + "";
+        //label.text = curValue + "";
     }
 }

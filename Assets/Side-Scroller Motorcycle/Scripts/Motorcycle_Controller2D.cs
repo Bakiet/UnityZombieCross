@@ -10,6 +10,10 @@ using System;
 
 public class Motorcycle_Controller2D : MonoBehaviour {
 	//public GameObject Reciver;
+	public Collider2D forwardsBtn; // Collider2D of the forward button.
+	public Collider2D backwardsBtn; // Collider2D of the backwards button.
+	public Collider2D tiltForwardsBtn; // Collider2D of the tilt forwards button.
+	public Collider2D tiltBackwardsBtn; // Collider2D of the tilt backwards button.
 
 	private const string LEADERBOARD_ID = "CgkIq6GznYALEAIQAA";
 	private const string LEADERBOARD_MULTIPLAYER_ID = "CgkIq6GznYALEAIQAQ";
@@ -97,10 +101,11 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	//used for mobile to detect which button was touched
 	public Transform mobileButtons;
 	public Transform Stage_uGUI;
-	public GUITexture throttleTexture;
-	public GUITexture brakeTexture;
-	public GUITexture leftTexture;
-	public GUITexture rightTexture;
+
+	public Button throttleTexture;
+	public Button brakeTexture;
+	public Button leftTexture;
+	public Button rightTexture;
 	public GUITexture pauseTexture;
 	public GUITexture restartTexture;
 	
@@ -181,7 +186,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	public HingeJoint rightFoot;
 	public ConfigurableJoint hips;*/
 	
-	private bool accelerate = false;
+	public static bool accelerate = false;
 	private bool brake = false;	
 	private bool left = false;
 	private bool right = false;
@@ -443,6 +448,13 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 
 	private int healtcount = 0;
 	private int virtualmoneycount = 0;
+
+	private void callthrottleTexture(){
+		accelerate = true;
+	}
+	private void uncallthrottleTexture(){
+		accelerate = false;
+	}
 
 	void UpgradeInventory(){
 
@@ -811,6 +823,42 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		}
 
 	}
+	public void HorizontalDirection(Vector2 touchPosition, int position){
+		
+		// Verify if the fordward button is touched.
+		if (forwardsBtn == Physics2D.OverlapPoint(touchPosition) && Input.GetTouch(position).phase == TouchPhase.Began)
+		{
+			accelerate = true;
+			// Verify if the forward button is released.
+		}else if (forwardsBtn == Physics2D.OverlapPoint(touchPosition) && Input.GetTouch(position).phase == TouchPhase.Ended){
+			accelerate = false;
+		}
+		// Verify if the backward button is touched.
+		if(backwardsBtn == Physics2D.OverlapPoint(touchPosition) && Input.GetTouch(position).phase == TouchPhase.Began){
+			brake = true;
+			// Verify if the backward button is released.
+		}else if(backwardsBtn == Physics2D.OverlapPoint(touchPosition) && Input.GetTouch(position).phase == TouchPhase.Ended){
+			brake = false;
+		}
+	}
+	public void VerticalDirection(Vector2 touchPosition, int position){
+		// Verify if the tilt forward button is touched.
+		if (tiltForwardsBtn == Physics2D.OverlapPoint(touchPosition) && Input.GetTouch(position).phase == TouchPhase.Began)
+		{
+			right = true;
+			// Verify if the tilt forward button is released.
+		}else if (tiltForwardsBtn == Physics2D.OverlapPoint(touchPosition) && Input.GetTouch(position).phase == TouchPhase.Ended){
+			right = false;
+		}
+		// Verify if the tilt backward button is touched.
+		if(tiltBackwardsBtn == Physics2D.OverlapPoint(touchPosition) && Input.GetTouch(position).phase == TouchPhase.Began){
+			left = true;
+			// Verify if the tilt backward button is released.
+		}else if(tiltBackwardsBtn == Physics2D.OverlapPoint(touchPosition) && Input.GetTouch(position).phase == TouchPhase.Ended){
+			left = false;
+		}
+		
+	}
 	public void SendScore() {
 		//long score = 0;
 		//score = Convert.ToInt64(long.Parse(win_screen_int_score_count.text));
@@ -904,6 +952,9 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 
 	void Start()
 	{
+
+
+
 		isFinish = false;
 		if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
 			//GooglePlayConnection.Instance.Disconnect ();
@@ -988,29 +1039,29 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		}
 		if (!testing) {
 			if (my_game_uGUI) {
-				int health = StoreInventory.GetItemBalance ("health");
-			
+				/*int health = StoreInventory.GetItemBalance ("health");
+				
 				if (health != 0) {
-					healtcount = StoreInventory.GetItemBalance ("health");
+					healtcount = healtcount + 5 * health;
 				}
 				int healthx2 = StoreInventory.GetItemBalance ("healthx2");
 				int healtcountx2 = 0;
 				if (healthx2 != 0) {
-					healtcount = StoreInventory.GetItemBalance ("healthx2");
+					healtcount = healtcount + 10 * healthx2;
 				}
 				int healthx3 = StoreInventory.GetItemBalance ("healthx3");
 				int healtcountx3 = 0;
 				if (healthx3 != 0) {
-					healtcount = StoreInventory.GetItemBalance ("healthx3");
+					healtcount = healtcount + 15 * healthx3;
 				}
-
-
-				virtualmoneycount = virtualmoneycount + StoreInventory.GetItemBalance (StoreInfo.Currencies [0].ItemId);
+				*/
+				//healtcount = healtcount + Convert.ToInt32(my_game_uGUI.lives_count);
+				//virtualmoneycount = Convert.ToInt32(my_game_uGUI.virtual_money_count) + virtualmoneycount + StoreInventory.GetItemBalance (StoreInfo.Currencies [0].ItemId);
 		
 
-				//my_game_uGUI.Update_lives (healtcount);
+			//	my_game_uGUI.Update_lives (healtcount);
 
-				my_game_uGUI.Update_virtual_money (virtualmoneycount);
+				//my_game_uGUI.Update_virtual_money (virtualmoneycount);
 			}
 
 		}
@@ -1098,12 +1149,19 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		crash = false;
 		crashed = false;
 		isControllable = true;
-		mobileButtons = GameObject.Find ("mobile buttons").transform;
-		throttleTexture = mobileButtons.FindChild ("throttle").GetComponent<GUITexture>();
-		brakeTexture = mobileButtons.FindChild ("brake").GetComponent<GUITexture>();
-		leftTexture = mobileButtons.FindChild ("left").GetComponent<GUITexture>();
-		rightTexture = mobileButtons.FindChild("right").GetComponent<GUITexture>();
-		
+		//mobileButtons = GameObject.Find ("mobile buttons").transform;
+		forwardsBtn = GameObject.Find ("throttle").GetComponent<Collider2D>();
+		backwardsBtn = GameObject.Find ("brake").GetComponent<Collider2D>();
+		tiltForwardsBtn = GameObject.Find ("right").GetComponent<Collider2D>(); 
+		tiltBackwardsBtn = GameObject.Find ("left").GetComponent<Collider2D>();
+
+		/*
+		throttleTexture = GameObject.Find ("throttle").GetComponent<Button>();
+		brakeTexture = GameObject.Find ("brake").GetComponent<Button>();
+		leftTexture = GameObject.Find ("left").GetComponent<Button> ();
+		rightTexture = GameObject.Find ("right").GetComponent<Button>();
+
+		*/
 		backflipParticle = GameObject.Find ("backflip particle").GetComponent<ParticleSystem>();
 		frontflipParticle = GameObject.Find ("frontflip particle").GetComponent<ParticleSystem>();
 		scoreText = GameObject.Find ("score text").GetComponent<GUIText>();
@@ -1334,7 +1392,10 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		rotMin = CarBody.transform.rotation.x - 360f;
 		rotMax = CarBody.transform.rotation.x + 360f;
 	}
-	
+
+
+
+
 	void RotateVehicle()
 	{
 		// Verify if the user want to rotate the vehicle front and if the vehicle is running.
@@ -1361,6 +1422,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	void setVerticalAxis(int vertical){
 		this.vertical = vertical;
 	}
+
 
 	void Update()
 	{
@@ -1461,14 +1523,14 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					//	GameObject weel = GameObject.Find ("front wheel").GetComponent<Collider>();
 				
 					//if (forMobile) {
-					mobileButtons = GameObject.Find ("mobile buttons").transform;
+					//mobileButtons = GameObject.Find ("mobile buttons").transform;
 				
 					var touches = Input.touches;
 				
-					accelerate = false;
-					brake = false;
-					left = false;
-					right = false;
+					//accelerate = false;
+					//brake = false;
+					//left = false;
+					//right = false;
 					pause = false;
 					restart = false;
 					leftORright = false;							
@@ -1477,39 +1539,65 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					float angle = 360.0f; // Degree per time unit
 					float time = 1.0f; // Time unit in sec
 					Vector3 axis = Vector3.left; // Rotation axis, here it the yaw axis
-				
+				/*
 					leftTexture = mobileButtons.FindChild ("left").GetComponent<GUITexture> ();
 					rightTexture = mobileButtons.FindChild ("right").GetComponent<GUITexture> ();
 				
 					throttleTexture = mobileButtons.FindChild ("throttle").GetComponent<GUITexture> ();
 					brakeTexture = mobileButtons.FindChild ("brake").GetComponent<GUITexture> ();
+				*/
+
+					/*
+					throttleTexture = GameObject.Find ("throttle").GetComponent<GUITexture>();
+					brakeTexture = GameObject.Find ("brake").GetComponent<GUITexture>();
+					leftTexture = GameObject.Find ("left").GetComponent<GUITexture> ();
+					rightTexture = GameObject.Find ("right").GetComponent<GUITexture>();
 				
-				
-					leftTexture.enabled = false;
-					rightTexture.enabled = false;
-				
-					leftTexture.enabled = true;
-					rightTexture.enabled = true;
-				
-					throttleTexture.enabled = true;
-					brakeTexture.enabled = true;
-				
-				
-				
-					foreach (var touch in touches) {	
+					*/
 					
-						//if (touch.phase != TouchPhase.Canceled && touch.phase != TouchPhase.Ended) {																							
-						if (throttleTexture.HitTest (touch.position)) //if touch position is inside throttle texture
+//					leftTexture.enabled = true;
+//					rightTexture.enabled = true;
+				
+//					throttleTexture.enabled = true;
+//					brakeTexture.enabled = true;
+
+					//throttleTexture = GameObject.Find ("throttle").GetComponent<Button>();
+					if(Input.touches.Length > 0)
+					{
+						Vector2 touchPos;
+						// Look all the touches 
+						for(int i = 0; i < Input.touches.Length; i++){
+							// Convert the touch position on the screen to the world position.
+							Vector2 worldPoint = Input.GetTouch(i).position;
+							touchPos = new Vector2(worldPoint.x, worldPoint.y);
+							HorizontalDirection(touchPos, i);
+							VerticalDirection(touchPos, i);
+
+						}
 						
-							accelerate = true;
-					
+					}
+
+					//clickthrottleTexture()
+					foreach (var touch in touches) {	
+						string here = "ho";
+				
+					//	throttleTexture.onClick.AddListener(callthrottleTexture);
+					//throttleTexture.onClick.RemoveListener(callthrottleTexture);
+
+
+					//throttleTexture.onClick.RemoveListener(callthrottleTexture);
+						//if (throttleTexture.HitTest (touch.position))//if touch position is inside throttle texture
+											
+						//	accelerate = true;
+					/*
 						if (brakeTexture.HitTest (touch.position)) //if touch position is inside brake texture
+						//if (clickleftTexture) //if touch position is inside brake texture
 						
 							brake = true;
 					
 					
 					
-						if (leftTexture.HitTest (touch.position)) //left button is touched
+						if (leftTexture.HitTest (touch.position))  //left button is touched
 						
 							left = true;
 					
@@ -1519,19 +1607,19 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 							right = true;
 
 
-						/*if (nitroTexture.HitTest (touch.position)) //if touch position is inside throttle texture
+						if (nitroTexture.HitTest (touch.position)) //if touch position is inside throttle texture
 						
 						ifnitro = true;
-					*/
+						*/
 					
-						//if (left || right) //left or right button is touched
-						//	leftORright = true;						
-						//}
 					
+					//}
 					}
-				
+					if (Input.touchCount > 0) {
+						string ff="mas o";
+					}
 					if (Input.touchCount == 0) {
-					
+						string ff="ff";
 					}
 					/*	
 				if (Input.acceleration.x > RightAccelerometer) {
@@ -1905,6 +1993,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		//	transform.Translate(Input.acceleration.x, 0, -Input.acceleration.y);
 		//SmokeEmmiter.force.y = Velocity * 20f;
 	}
+
 	void endgui()
 	{
 		if(my_game_uGUI){
@@ -1913,6 +2002,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 			crash = false;
 			crashed = true;
 			my_game_uGUI.Defeat();
+			my_game_uGUI.Update_lives(-1);
 		}
 	}
 	void endguiburn()
@@ -1923,7 +2013,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 			//crashed = true;
 			my_game_uGUI.Defeat();
 			brake = true;
-
+			my_game_uGUI.Update_lives(-1);
 
 		}
 	}
@@ -1935,7 +2025,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 			//crashed = true;
 			my_game_uGUI.Defeat();
 			//brake = true;
-			
+			my_game_uGUI.Update_lives(-1);
 			
 		}
 	}
