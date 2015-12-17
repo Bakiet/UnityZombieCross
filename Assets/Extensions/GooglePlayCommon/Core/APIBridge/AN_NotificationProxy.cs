@@ -39,7 +39,8 @@ public class AN_NotificationProxy {
 		                     builder.Sound,
 		                     builder.Vibration.ToString(),
 		                     builder.ShowIfAppForeground.ToString(),
-		                     builder.LargeIcon);
+		                     builder.LargeIcon,
+		                     builder.BigPicture == null ? string.Empty : System.Convert.ToBase64String(builder.BigPicture.EncodeToPNG()));
 	}
 	
 	public static void CanselLocalNotification(int id) {
@@ -50,8 +51,8 @@ public class AN_NotificationProxy {
 	// Google Cloud Message
 	// --------------------------------------
 
-	public static void InitPushNotifications(string icon, string sound, bool vibration, bool showWhenAppForeground, bool replaceOldNotificationWithNew) {
-		CallActivityFunction ("InitPushNotifications", icon, sound, vibration.ToString(), showWhenAppForeground.ToString(), replaceOldNotificationWithNew.ToString());
+	public static void InitPushNotifications(string smallIcon, string largeIcon, string sound, bool vibration, bool showWhenAppForeground, bool replaceOldNotificationWithNew) {
+		CallActivityFunction ("InitPushNotifications", smallIcon, largeIcon, sound, vibration.ToString(), showWhenAppForeground.ToString(), replaceOldNotificationWithNew.ToString());
 	}
 	
 	public static void GCMRgisterDevice(string senderId) {

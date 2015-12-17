@@ -18,9 +18,7 @@ public class AndroidPopUpExamples : MonoBehaviour {
 
 
 	//example link to your app on android market
-	//private string rateUrl = "market://details?id=com.unionassets.android.plugin.preview";
-	private string rateUrl = "https://play.google.com/store/apps/details?id=unity.zombiecross";
-
+	private string rateUrl = "market://details?id=com.unionassets.android.plugin.preview";
 
 
 

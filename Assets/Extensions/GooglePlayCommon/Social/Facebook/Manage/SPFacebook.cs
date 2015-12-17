@@ -1043,7 +1043,7 @@ public class SPFacebook : SA_Singleton<SPFacebook> {
 		Debug.Log(data);
 		
 		try {
-			friends.Clear();
+			_friends.Clear();
 			IDictionary JSON =  ANMiniJSON.Json.Deserialize(data) as IDictionary;	
 			IDictionary f = invitable ? JSON["invitable_friends"] as IDictionary : JSON["friends"] as IDictionary;
 			IList flist = f["data"] as IList;
@@ -1051,7 +1051,7 @@ public class SPFacebook : SA_Singleton<SPFacebook> {
 			
 			for(int i = 0; i < flist.Count; i++) {
 				FB_UserInfo user = new FB_UserInfo(flist[i] as IDictionary);
-				friends.Add(user.Id, user);
+				_friends.Add(user.Id, user);
 			}
 			
 		} catch(System.Exception ex) {

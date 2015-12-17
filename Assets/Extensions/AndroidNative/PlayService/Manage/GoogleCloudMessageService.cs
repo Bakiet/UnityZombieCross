@@ -64,14 +64,15 @@ public class GoogleCloudMessageService : SA_Singleton<GoogleCloudMessageService>
 
 	public void InitPushNotifications() {
 		AN_NotificationProxy.InitPushNotifications (
-			AndroidNativeSettings.Instance.PushNotificationIcon == null ? string.Empty : AndroidNativeSettings.Instance.PushNotificationIcon.name,
+			AndroidNativeSettings.Instance.PushNotificationSmallIcon == null ? string.Empty : AndroidNativeSettings.Instance.PushNotificationSmallIcon.name.ToLower(),
+			AndroidNativeSettings.Instance.PushNotificationLargeIcon == null ? string.Empty : AndroidNativeSettings.Instance.PushNotificationLargeIcon.name.ToLower(),
 		    AndroidNativeSettings.Instance.PushNotificationSound == null ? string.Empty : AndroidNativeSettings.Instance.PushNotificationSound.name,
 		    AndroidNativeSettings.Instance.EnableVibrationPush, AndroidNativeSettings.Instance.ShowPushWhenAppIsForeground,
 			AndroidNativeSettings.Instance.ReplaceOldNotificationWithNew);
 	}
 
-	public void InitPushNotifications(string icon, string sound, bool enableVibrationPush, bool showWhenAppForeground, bool replaceOldNotificationWithNew) {
-		AN_NotificationProxy.InitPushNotifications (icon, sound,enableVibrationPush, showWhenAppForeground, replaceOldNotificationWithNew);
+	public void InitPushNotifications(string smallIcon, string largeIcon, string sound, bool enableVibrationPush, bool showWhenAppForeground, bool replaceOldNotificationWithNew) {
+		AN_NotificationProxy.InitPushNotifications (smallIcon, largeIcon, sound,enableVibrationPush, showWhenAppForeground, replaceOldNotificationWithNew);
 	}
 
 	public void InitParsePushNotifications() {

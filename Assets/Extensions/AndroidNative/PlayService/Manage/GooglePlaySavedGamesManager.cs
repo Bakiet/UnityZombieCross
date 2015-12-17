@@ -116,7 +116,7 @@ public class GooglePlaySavedGamesManager :  SA_Singleton<GooglePlaySavedGamesMan
 		storeData = data.Split(AndroidNative.DATA_SPLITTER [0]);
 		
 		GooglePlayResult result = new GooglePlayResult (storeData [0]);
-		if(result.isSuccess) {
+		if(result.IsSucceeded) {
 			
 			_AvailableGameSaves.Clear ();
 			
@@ -152,7 +152,7 @@ public class GooglePlaySavedGamesManager :  SA_Singleton<GooglePlaySavedGamesMan
 
 
 		GP_SpanshotLoadResult result = new GP_SpanshotLoadResult (storeData [0]);
-		if(result.isSuccess) {
+		if(result.IsSucceeded) {
 			string Title = storeData [1];
 			long LastModifiedTimestamp = System.Convert.ToInt64(storeData [2]) ;
 			string Description = storeData [3];
@@ -187,7 +187,7 @@ public class GooglePlaySavedGamesManager :  SA_Singleton<GooglePlaySavedGamesMan
 		
 		
 		GP_SpanshotLoadResult result = new GP_SpanshotLoadResult (storeData [0]);
-		if(result.isSuccess) {
+		if(result.IsSucceeded) {
 			string Title = storeData [1];
 			long LastModifiedTimestamp = System.Convert.ToInt64(storeData [2]) ;
 			string Description = storeData [3];
@@ -277,7 +277,7 @@ public class GooglePlaySavedGamesManager :  SA_Singleton<GooglePlaySavedGamesMan
 		
 		
 		GP_DeleteSnapshotResult result = new GP_DeleteSnapshotResult (storeData [0]);
-		if(result.isSuccess) {
+		if(result.IsSucceeded) {
 			result.SetId(storeData [1]);
 		}
 

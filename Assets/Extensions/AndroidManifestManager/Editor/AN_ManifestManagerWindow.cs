@@ -230,7 +230,7 @@ public class AN_ManifestManagerWindow : EditorWindow {
 						dlg.onClose += OnPermissionDlgClose;
 						dlg.onAddClick += OnAddActivityClick;
 						
-						#if UNITY_5
+						#if UNITY_5 && !UNITY_5_0
 						dlg.titleContent.text = "Add Activity";
 						#else
 						dlg.title = "Add Activity";
@@ -295,7 +295,7 @@ public class AN_ManifestManagerWindow : EditorWindow {
 						dlg.onClose += OnPermissionDlgClose;
 						dlg.onAddClick += OnAddPermissionClick;
 						
-						#if UNITY_5
+						#if UNITY_5 && !UNITY_5_0
 						dlg.titleContent.text = "Add Permission";
 						#else
 						dlg.title = "Add Permission";
@@ -478,7 +478,7 @@ public class AN_ManifestManagerWindow : EditorWindow {
 		dialog.onAddClick += OnAddValueClick;
 		dialog.onClose += OnValueDlgClose;
 
-		#if UNITY_5
+		#if UNITY_5 && !UNITY_5_0
 		dialog.titleContent.text = "Add Value";
 		#else
 		dialog.title = "Add Value";
@@ -494,7 +494,7 @@ public class AN_ManifestManagerWindow : EditorWindow {
 		dialog.onAddClick += OnAddPropertyClick;
 		dialog.onClose += OnPropertyDlgClose;
 
-		#if UNITY_5
+		#if UNITY_5 && !UNITY_5_0
 		dialog.titleContent.text = "Add Property";
 		#else
 		dialog.title = "Add Property";

@@ -35,8 +35,9 @@ public class PluginsInstalationUtil : MonoBehaviour {
 		FileStaticAPI.CopyFile(PluginsInstalationUtil.IOS_SOURCE_PATH + "ISN_InApp.mm.txt", 		PluginsInstalationUtil.IOS_DESTANATION_PATH + "ISN_InApp.mm");
 		FileStaticAPI.CopyFile(PluginsInstalationUtil.IOS_SOURCE_PATH + "ISN_Media.mm.txt", 		PluginsInstalationUtil.IOS_DESTANATION_PATH + "ISN_Media.mm");
 		FileStaticAPI.CopyFile(PluginsInstalationUtil.IOS_SOURCE_PATH + "ISN_ReplayKit.mm.txt", 	PluginsInstalationUtil.IOS_DESTANATION_PATH + "ISN_ReplayKit.mm");
+		FileStaticAPI.CopyFile(PluginsInstalationUtil.IOS_SOURCE_PATH + "ISN_CloudKit.mm.txt", 		PluginsInstalationUtil.IOS_DESTANATION_PATH + "ISN_CloudKit.mm");
 		FileStaticAPI.CopyFile(PluginsInstalationUtil.IOS_SOURCE_PATH + "ISN_NSData+Base64.h.txt", 	PluginsInstalationUtil.IOS_DESTANATION_PATH + "ISN_NSData+Base64.h");
-		FileStaticAPI.CopyFile(PluginsInstalationUtil.IOS_SOURCE_PATH + "ISN_NSData+Base64.m.txt", PluginsInstalationUtil.IOS_DESTANATION_PATH + "ISN_NSData+Base64.m");
+		FileStaticAPI.CopyFile(PluginsInstalationUtil.IOS_SOURCE_PATH + "ISN_NSData+Base64.m.txt", 	PluginsInstalationUtil.IOS_DESTANATION_PATH + "ISN_NSData+Base64.m");
 		
 		
 		IOS_Install_SocialPart();
@@ -78,10 +79,10 @@ public class PluginsInstalationUtil : MonoBehaviour {
 	}
 	public static void Remove_FB_SDK() {
 
-
 		FileStaticAPI.DeleteFolder(PluginsInstalationUtil.ANDROID_DESTANATION_PATH + "facebook");
 		FileStaticAPI.DeleteFolder("Plugins/facebook", false);
 		FileStaticAPI.DeleteFolder("Facebook", false);
+		FileStaticAPI.DeleteFolder("FacebookSDK", false);
 
 		//MSP
 		FileStaticAPI.DeleteFile("Extensions/MobileSocialPlugin/Example/Scripts/MSPFacebookUseExample.cs", false);
@@ -190,6 +191,7 @@ public class PluginsInstalationUtil : MonoBehaviour {
 		RemoveIOSFile("ISN_NativeCore");
 		RemoveIOSFile("ISN_SocialGate");
 		RemoveIOSFile("ISN_ReplayKit");
+		RemoveIOSFile("ISN_CloudKit");
 		RemoveIOSFile("ISN_Soomla");
 		
 		
@@ -409,7 +411,7 @@ public class PluginsInstalationUtil : MonoBehaviour {
 
 	public static bool IsFacebookInstalled {
 		get {
-			return FileStaticAPI.IsFileExists("Facebook/Scripts/FB.cs");
+			return FileStaticAPI.IsFileExists("Facebook/Scripts/FB.cs") || FileStaticAPI.IsFileExists("FacebookSDK/SDK/Scripts/FB.cs");
 		}
 	}
 

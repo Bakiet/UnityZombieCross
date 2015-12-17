@@ -517,7 +517,7 @@ public class GooglePlayManager : SA_Singleton<GooglePlayManager> {
 		storeData = data.Split(AndroidNative.DATA_SPLITTER [0]);
 
 		GooglePlayResult result = new GooglePlayResult (storeData [0]);
-		if(result.isSuccess) {
+		if(result.IsSucceeded) {
 
 			Achievements.Clear ();
 
@@ -567,7 +567,7 @@ public class GooglePlayManager : SA_Singleton<GooglePlayManager> {
 		storeData = data.Split(AndroidNative.DATA_SPLITTER [0]);
 
 		GP_LeaderboardResult result = new GP_LeaderboardResult(null, storeData[0]);
-		if(result.isSuccess) {
+		if(result.IsSucceeded) {
 
 			GPBoardTimeSpan 	timeSpan 		= (GPBoardTimeSpan)  System.Convert.ToInt32(storeData[1]);
 			GPCollectionType 	collection  	= (GPCollectionType) System.Convert.ToInt32(storeData[2]);
@@ -611,7 +611,7 @@ public class GooglePlayManager : SA_Singleton<GooglePlayManager> {
 
 
 		GooglePlayResult result = new GooglePlayResult (storeData [0]);
-		if(result.isSuccess) {
+		if(result.IsSucceeded) {
 
 			for(int i = 1; i < storeData.Length; i+=26) {
 				if(storeData[i] == AndroidNative.DATA_EOF) {
@@ -670,7 +670,7 @@ public class GooglePlayManager : SA_Singleton<GooglePlayManager> {
 
 		GPLeaderBoard lb = GetLeaderBoard(leaderboardId);
 
-		if(result.isSuccess) {
+		if(result.IsSucceeded) {
 			GPBoardTimeSpan 	timeSpan 		= (GPBoardTimeSpan)  System.Convert.ToInt32(storeData[3]);
 			GPCollectionType 	collection  	= (GPCollectionType) System.Convert.ToInt32(storeData[4]);
 
@@ -699,7 +699,7 @@ public class GooglePlayManager : SA_Singleton<GooglePlayManager> {
 
 		GPLeaderBoard lb = GetLeaderBoard(storeData [1]);
 		GP_LeaderboardResult result = new GP_LeaderboardResult (lb, storeData [0]);
-		if (result.isSuccess) {
+		if (result.IsSucceeded) {
 			Debug.Log("Score was submitted to leaderboard -> " + lb);
 
 			UpdatePlayerScoreLocal(lb);
@@ -730,7 +730,7 @@ public class GooglePlayManager : SA_Singleton<GooglePlayManager> {
 		storeData = data.Split(AndroidNative.DATA_SPLITTER [0]);
 		
 		GooglePlayResult result = new GooglePlayResult (storeData [0]);
-		if(result.isSuccess) {
+		if(result.IsSucceeded) {
 
 			for(int i = 1; i < storeData.Length; i+=6) {
 				if(storeData[i] == AndroidNative.DATA_EOF) {

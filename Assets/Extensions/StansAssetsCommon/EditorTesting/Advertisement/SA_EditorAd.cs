@@ -31,6 +31,11 @@ public class SA_EditorAd : SA_Singleton<SA_EditorAd> {
 	public static event Action		 OnVideoLeftApplication = delegate {};
 
 	private SA_EditorTestingUIController _EditorUI = null;
+
+	void Awake() {
+		DontDestroyOnLoad(gameObject);
+	}
+
 	
 	//Fill rate should be from 0 to 100, where 0 always error, 100 always success
 	public void SetFillRate(int fillRate) {

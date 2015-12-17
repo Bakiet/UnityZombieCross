@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Soomla;
 
 namespace Soomla.Store
 {
 	public class my_Soomla_billing : MonoBehaviour {
-		/* //DELETE THIS LINE FOR SOOMLA
+		 //DELETE THIS LINE FOR SOOMLA
 	public static my_Soomla_billing instance = null;
 
 	// Use this for initialization
@@ -15,6 +16,7 @@ namespace Soomla.Store
 				GameObject.DontDestroyOnLoad (this.gameObject);
 				StoreEvents.OnSoomlaStoreInitialized += onSoomlaStoreInitialized;
 				SoomlaStore.Initialize (new my_Soomla_Assets ());
+
 			} else
 				GameObject.Destroy (this.gameObject);
 
@@ -69,6 +71,6 @@ namespace Soomla.Store
 			Debug.Log ("Show_how_many_virtual_money_there_is_in_this_profile" + " : " + profile_number);
 			return StoreInventory.GetItemBalance(my_Soomla_Assets.prefix+"virtual_money_p"+profile_number.ToString());
 	}
-	*/ //DELETE THIS LINE FOR SOOMLA
+	 //DELETE THIS LINE FOR SOOMLA
 }
 }

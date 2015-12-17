@@ -183,7 +183,7 @@ public class GooglePlayQuests : SA_Singleton<GooglePlayQuests> {
 
 
 		GP_QuestResult result = new GP_QuestResult (storeData [0]);
-		if(result.isSuccess) {
+		if(result.IsSucceeded) {
 			
 			for(int i = 1; i < storeData.Length; i+=12) {
 				if(storeData[i] == AndroidNative.DATA_EOF) {

@@ -11,10 +11,12 @@ using System.Xml;
 public class AndroidNativeSettingsEditor : Editor {
 
 
-	GUIContent PlusApiLabel   	= new GUIContent("Enable Plus API [?]:", "API used for account managment");
-	GUIContent GamesApiLabel   	= new GUIContent("Enable Games API [?]:", "API used for achivements and leaderboards");
-	GUIContent AppSateApiLabel 	= new GUIContent("Enable App State API [?]:", "API used for cloud data save");
-	GUIContent DriveApiLabel 	= new GUIContent("Enable Drive API [?]:", "API used for saved games");
+	GUIContent PlusApiLabel   		= new GUIContent("Enable Plus API [?]:", "API used for account managment");
+	GUIContent GamesApiLabel   		= new GUIContent("Enable Games API [?]:", "API used for achivements and leaderboards");
+	GUIContent DriveApiLabel 		= new GUIContent("Enable Drive API [?]:", "API used for saved games");
+	GUIContent AppInviteAPILabel 	= new GUIContent("Enable AppInvite API [?]:", "API used for invite");
+
+
 
 
 	GUIContent Base64KeyLabel 	= new GUIContent("Base64 Key[?]:", "Base64 Key app key.");
@@ -789,10 +791,7 @@ public class AndroidNativeSettingsEditor : Editor {
 
 			AN_PropertyTemplate property = application.GetOrCreatePropertyWithName("meta-data", "com.google.android.gms.appstate.APP_ID");
 			property.SetValue("android:value", "\\ " + AndroidNativeSettings.Instance.GooglePlayServiceAppID);
-
-			AndroidNativeSettings.Instance.EnableAppStateAPI = true;
 		} else {
-			AndroidNativeSettings.Instance.EnableAppStateAPI = false;
 			application.RemoveProperty(appstate_APP_ID);
 		}
 
@@ -1479,18 +1478,16 @@ public class AndroidNativeSettingsEditor : Editor {
 			settings.EnableGamesAPI	 	= EditorGUILayout.Toggle(settings.EnableGamesAPI);
 			EditorGUILayout.EndHorizontal();
 
+			EditorGUILayout.BeginHorizontal();
+			EditorGUILayout.LabelField(AppInviteAPILabel);
+			settings.EnableAppInviteAPI	 	= EditorGUILayout.Toggle(settings.EnableAppInviteAPI);
+			EditorGUILayout.EndHorizontal();
+
 
 			EditorGUILayout.BeginHorizontal();
 			EditorGUILayout.LabelField(DriveApiLabel);
 			settings.EnableDriveAPI	 	= EditorGUILayout.Toggle(settings.EnableDriveAPI);
 			EditorGUILayout.EndHorizontal();
-
-			EditorGUILayout.BeginHorizontal();
-			EditorGUILayout.LabelField(AppSateApiLabel);
-			settings.EnableAppStateAPI	 	= EditorGUILayout.Toggle(settings.EnableAppStateAPI);
-			EditorGUILayout.EndHorizontal();
-
-
 
 
 			EditorGUI.indentLevel--;
@@ -1955,18 +1952,18 @@ public class AndroidNativeSettingsEditor : Editor {
 
 
 		EditorGUILayout.BeginHorizontal();
-		EditorGUILayout.LabelField("Notification Icon");
+		EditorGUILayout.LabelField("Large Icon");
 
-		Texture2D icon = (Texture2D)EditorGUILayout.ObjectField (AndroidNativeSettings.Instance.LocalNotificationIcon, typeof(Texture2D), false);
+		Texture2D icon = (Texture2D)EditorGUILayout.ObjectField (AndroidNativeSettings.Instance.LocalNotificationLargeIcon, typeof(Texture2D), false);
 		if (EditorGUI.EndChangeCheck ()) {
-			if (AndroidNativeSettings.Instance.LocalNotificationIcon != null) {
-				string path = AssetDatabase.GetAssetPath(AndroidNativeSettings.Instance.LocalNotificationIcon);
-				if (AndroidNativeSettings.Instance.PushNotificationIcon != null) {
-					if (!AndroidNativeSettings.Instance.PushNotificationIcon.name.Equals(AndroidNativeSettings.Instance.LocalNotificationIcon.name)) {
-						FileStaticAPI.DeleteFile("Plugins/Android/AN_Res/res/drawable/" + AndroidNativeSettings.Instance.LocalNotificationIcon.name.ToLower() + Path.GetExtension(path));
+			if (AndroidNativeSettings.Instance.LocalNotificationLargeIcon != null) {
+				string path = AssetDatabase.GetAssetPath(AndroidNativeSettings.Instance.LocalNotificationLargeIcon);
+				if (AndroidNativeSettings.Instance.PushNotificationLargeIcon != null) {
+					if (!AndroidNativeSettings.Instance.PushNotificationLargeIcon.name.Equals(AndroidNativeSettings.Instance.LocalNotificationLargeIcon.name)) {
+						FileStaticAPI.DeleteFile("Plugins/Android/AN_Res/res/drawable/" + AndroidNativeSettings.Instance.LocalNotificationLargeIcon.name.ToLower() + Path.GetExtension(path));
 					}
 				} else {
-					FileStaticAPI.DeleteFile("Plugins/Android/AN_Res/res/drawable/" + AndroidNativeSettings.Instance.LocalNotificationIcon.name.ToLower() + Path.GetExtension(path));
+					FileStaticAPI.DeleteFile("Plugins/Android/AN_Res/res/drawable/" + AndroidNativeSettings.Instance.LocalNotificationLargeIcon.name.ToLower() + Path.GetExtension(path));
 				}
 			}
 			
@@ -1975,12 +1972,39 @@ public class AndroidNativeSettingsEditor : Editor {
 				FileStaticAPI.CopyFile(path.Substring(path.IndexOf("/"), path.Length - path.IndexOf("/")),
 				                       "Plugins/Android/AN_Res/res/drawable/" + icon.name.ToLower() + Path.GetExtension(path));
 			}
-			AndroidNativeSettings.Instance.LocalNotificationIcon = icon;
+			AndroidNativeSettings.Instance.LocalNotificationLargeIcon = icon;
+			if (AndroidNativeSettings.Instance.LocalNotificationSmallIcon == null) {
+				AndroidNativeSettings.Instance.LocalNotificationSmallIcon = AndroidNativeSettings.Instance.LocalNotificationLargeIcon;
+			}
 		}
 
 		EditorGUILayout.EndHorizontal();
 
-
+		EditorGUILayout.BeginHorizontal();
+		EditorGUILayout.LabelField("Small Icon");
+		EditorGUI.BeginChangeCheck ();
+		Texture2D sIcon = (Texture2D)EditorGUILayout.ObjectField (AndroidNativeSettings.Instance.LocalNotificationSmallIcon, typeof(Texture2D), false);
+		if (EditorGUI.EndChangeCheck ()) {
+			if (AndroidNativeSettings.Instance.LocalNotificationSmallIcon != null) {
+				string path = AssetDatabase.GetAssetPath(AndroidNativeSettings.Instance.LocalNotificationSmallIcon);
+				if (AndroidNativeSettings.Instance.LocalNotificationSmallIcon != null) {
+					if (!AndroidNativeSettings.Instance.LocalNotificationSmallIcon.name.Equals(AndroidNativeSettings.Instance.LocalNotificationSmallIcon.name)) {
+						FileStaticAPI.DeleteFile("Plugins/Android/AN_Res/res/drawable/" + AndroidNativeSettings.Instance.LocalNotificationSmallIcon.name.ToLower() + Path.GetExtension(path));
+					}
+				} else {
+					FileStaticAPI.DeleteFile("Plugins/Android/AN_Res/res/drawable/" + AndroidNativeSettings.Instance.LocalNotificationLargeIcon.name.ToLower() + Path.GetExtension(path));
+				}
+			}
+			
+			if (sIcon != null) {
+				string path = AssetDatabase.GetAssetPath(sIcon);
+				FileStaticAPI.CopyFile(path.Substring(path.IndexOf("/"), path.Length - path.IndexOf("/")),
+				                       "Plugins/Android/AN_Res/res/drawable/" + sIcon.name.ToLower() + Path.GetExtension(path));
+			}
+			AndroidNativeSettings.Instance.LocalNotificationSmallIcon = sIcon;
+		}
+		
+		EditorGUILayout.EndHorizontal();
 
 		EditorGUI.BeginChangeCheck ();
 		EditorGUILayout.BeginHorizontal();
@@ -2012,25 +2036,23 @@ public class AndroidNativeSettingsEditor : Editor {
 	public static void PushNotificationParams() {
 		EditorGUI.BeginChangeCheck ();
 
-
-
 		AndroidNativeSettings.Instance.ShowPushWhenAppIsForeground = ToggleFiled("Show in foreground", AndroidNativeSettings.Instance.ShowPushWhenAppIsForeground);
 		AndroidNativeSettings.Instance.ReplaceOldNotificationWithNew = ToggleFiled("Replace old notification with new one", AndroidNativeSettings.Instance.ReplaceOldNotificationWithNew);
 		AndroidNativeSettings.Instance.EnableVibrationPush =  SA_EditorTool.ToggleFiled("Vibration", AndroidNativeSettings.Instance.EnableVibrationPush);
 
 		EditorGUILayout.BeginHorizontal();
-		EditorGUILayout.LabelField("Notification Icon");
+		EditorGUILayout.LabelField("Large Icon");
 
-		Texture2D icon = (Texture2D)EditorGUILayout.ObjectField (AndroidNativeSettings.Instance.PushNotificationIcon, typeof(Texture2D), false);
+		Texture2D icon = (Texture2D)EditorGUILayout.ObjectField (AndroidNativeSettings.Instance.PushNotificationLargeIcon, typeof(Texture2D), false);
 		if (EditorGUI.EndChangeCheck ()) {
-			if (AndroidNativeSettings.Instance.PushNotificationIcon != null) {
-				string path = AssetDatabase.GetAssetPath(AndroidNativeSettings.Instance.PushNotificationIcon);
-				if (AndroidNativeSettings.Instance.LocalNotificationIcon != null) {
-					if (!AndroidNativeSettings.Instance.PushNotificationIcon.name.Equals(AndroidNativeSettings.Instance.LocalNotificationIcon.name)) {
-						FileStaticAPI.DeleteFile("Plugins/Android/AN_Res/res/drawable/" + AndroidNativeSettings.Instance.PushNotificationIcon.name.ToLower() + Path.GetExtension(path));
+			if (AndroidNativeSettings.Instance.PushNotificationLargeIcon != null) {
+				string path = AssetDatabase.GetAssetPath(AndroidNativeSettings.Instance.PushNotificationLargeIcon);
+				if (AndroidNativeSettings.Instance.LocalNotificationLargeIcon != null) {
+					if (!AndroidNativeSettings.Instance.PushNotificationLargeIcon.name.Equals(AndroidNativeSettings.Instance.LocalNotificationLargeIcon.name)) {
+						FileStaticAPI.DeleteFile("Plugins/Android/AN_Res/res/drawable/" + AndroidNativeSettings.Instance.PushNotificationLargeIcon.name.ToLower() + Path.GetExtension(path));
 					}
 				} else {
-					FileStaticAPI.DeleteFile("Plugins/Android/AN_Res/res/drawable/" + AndroidNativeSettings.Instance.PushNotificationIcon.name.ToLower() + Path.GetExtension(path));
+					FileStaticAPI.DeleteFile("Plugins/Android/AN_Res/res/drawable/" + AndroidNativeSettings.Instance.PushNotificationLargeIcon.name.ToLower() + Path.GetExtension(path));
 				}
 			}
 
@@ -2039,10 +2061,37 @@ public class AndroidNativeSettingsEditor : Editor {
 				FileStaticAPI.CopyFile(path.Substring(path.IndexOf("/"), path.Length - path.IndexOf("/")),
 				                       "Plugins/Android/AN_Res/res/drawable/" + icon.name.ToLower() + Path.GetExtension(path));
 			}
-			AndroidNativeSettings.Instance.PushNotificationIcon = icon;
+			AndroidNativeSettings.Instance.PushNotificationLargeIcon = icon;
+			if (AndroidNativeSettings.Instance.PushNotificationSmallIcon == null) {
+				AndroidNativeSettings.Instance.PushNotificationSmallIcon = AndroidNativeSettings.Instance.PushNotificationLargeIcon;
+			}
 		}
 		EditorGUILayout.EndHorizontal();
 
+		EditorGUILayout.BeginHorizontal();
+		EditorGUILayout.LabelField("Small Icon");
+		EditorGUI.BeginChangeCheck ();
+		Texture2D sIcon = (Texture2D)EditorGUILayout.ObjectField (AndroidNativeSettings.Instance.PushNotificationSmallIcon, typeof(Texture2D), false);
+		if (EditorGUI.EndChangeCheck ()) {
+			if (AndroidNativeSettings.Instance.PushNotificationSmallIcon != null) {
+				string path = AssetDatabase.GetAssetPath(AndroidNativeSettings.Instance.PushNotificationSmallIcon);
+				if (AndroidNativeSettings.Instance.PushNotificationSmallIcon != null) {
+					if (!AndroidNativeSettings.Instance.PushNotificationSmallIcon.name.Equals(AndroidNativeSettings.Instance.PushNotificationSmallIcon.name)) {
+						FileStaticAPI.DeleteFile("Plugins/Android/AN_Res/res/drawable/" + AndroidNativeSettings.Instance.PushNotificationSmallIcon.name.ToLower() + Path.GetExtension(path));
+					}
+				} else {
+					FileStaticAPI.DeleteFile("Plugins/Android/AN_Res/res/drawable/" + AndroidNativeSettings.Instance.PushNotificationSmallIcon.name.ToLower() + Path.GetExtension(path));
+				}
+			}
+			
+			if (sIcon != null) {
+				string path = AssetDatabase.GetAssetPath(sIcon);
+				FileStaticAPI.CopyFile(path.Substring(path.IndexOf("/"), path.Length - path.IndexOf("/")),
+				                       "Plugins/Android/AN_Res/res/drawable/" + sIcon.name.ToLower() + Path.GetExtension(path));
+			}
+			AndroidNativeSettings.Instance.PushNotificationSmallIcon = sIcon;
+		}
+		EditorGUILayout.EndHorizontal();
 
 		EditorGUI.BeginChangeCheck ();
 		EditorGUILayout.BeginHorizontal();

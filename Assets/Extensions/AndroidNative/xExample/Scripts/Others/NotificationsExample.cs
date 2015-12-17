@@ -15,14 +15,13 @@ using System.Collections.Generic;
 
 public class NotificationsExample : MonoBehaviour {
 
-	//--------------------------------------
-	// INITIALIZE
-	//--------------------------------------
-	
+	public Texture2D bigPicture;
 
 	private int LastNotificationId = 0;
 
-
+	//--------------------------------------
+	// INITIALIZE
+	//--------------------------------------
 
 	void Awake() {
 
@@ -40,7 +39,14 @@ public class NotificationsExample : MonoBehaviour {
 	}
 
 	private void Local() {
-		LastNotificationId = AndroidNotificationManager.instance.ScheduleLocalNotification("Hello", "This is local notification", 5);
+		//LastNotificationId = AndroidNotificationManager.instance.ScheduleLocalNotification("Hello", "This is local notification", 5);
+
+		AndroidNotificationBuilder builder = new AndroidNotificationBuilder(SA_IdFactory.NextId,
+		                                                                    "Local Notification Title",
+		                                                                    "Big Picture Style Notification for AndroidNative Preview",
+		                                                                    3);
+		builder.SetBigPicture (bigPicture);
+		AndroidNotificationManager.Instance.ScheduleLocalNotification(builder);
 	}
 
 	private void LoadLaunchNotification (){
@@ -81,7 +87,7 @@ public class NotificationsExample : MonoBehaviour {
 
 
 	void HandleActionCMDRegistrationResult (GP_GCM_RegistrationResult res) {
-		if(res.isSuccess) {
+		if(res.IsSucceeded) {
 			AN_PoupsProxy.showMessage ("Regstred", "GCM REG ID: " + GoogleCloudMessageService.instance.registrationId);
 		} else {
 			AN_PoupsProxy.showMessage ("Reg Failed", "GCM Registration failed :(");

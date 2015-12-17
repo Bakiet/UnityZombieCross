@@ -17,13 +17,13 @@ using UnityEditor;
 
 public class AndroidNativeSettings : ScriptableObject {
 
-	public const string VERSION_NUMBER = "7.1.1";
+	public const string VERSION_NUMBER = "7.3";
 	public const string GOOGLE_PLAY_SDK_VERSION_NUMBER = "8298000";
 
 
 	public bool EnablePlusAPI 		= true;
 	public bool EnableGamesAPI 		= true;
-	public bool EnableAppStateAPI 	= true;
+	public bool EnableAppInviteAPI	= true;
 	public bool EnableDriveAPI 		= false;
 	public bool LoadProfileIcons 	= true;
 	public bool LoadProfileImages 	= true;
@@ -150,17 +150,17 @@ public class AndroidNativeSettings : ScriptableObject {
 
 	public bool ShowWhenAppIsForeground = true;
 	public bool EnableVibrationLocal = false;
-	public Texture2D LocalNotificationIcon = null;
+
+	public Texture2D LocalNotificationSmallIcon = null;
+	public Texture2D LocalNotificationLargeIcon = null;
 	public AudioClip LocalNotificationSound = null;
-
-
-
-
 
 	public bool ReplaceOldNotificationWithNew = false;
 	public bool ShowPushWhenAppIsForeground = true;
 	public bool EnableVibrationPush = false;
-	public Texture2D PushNotificationIcon = null;
+
+	public Texture2D PushNotificationSmallIcon = null;
+	public Texture2D PushNotificationLargeIcon = null;
 	public AudioClip PushNotificationSound = null;
 
 	public const string ANSettingsAssetName = "AndroidNativeSettings";
