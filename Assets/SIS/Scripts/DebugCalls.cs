@@ -56,7 +56,7 @@ public class DebugCalls : MonoBehaviour
         }
 
         //restart all
-        IAPManager.GetInstance().Start();
+       // IAPManager.GetInstance().Start();
     }
 
 

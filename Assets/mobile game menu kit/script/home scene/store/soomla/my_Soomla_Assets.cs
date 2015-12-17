@@ -35,7 +35,7 @@ namespace Soomla.Store
 			};
 		}
 
-		public const string VIRTUAL_MONEY_PROFILE_0_ID    	= prefix+"virtual_money_p0";
+		public const string VIRTUAL_MONEY_PROFILE_0_ID    	= CURRENCY_ID;
 		/*public const string VIRTUAL_MONEY_PROFILE_1_ID      = prefix+"virtual_money_p1";
 		public const string VIRTUAL_MONEY_PROFILE_2_ID      = prefix+"virtual_money_p2";
 		public const string VIRTUAL_MONEY_PROFILE_3_ID      = prefix+"virtual_money_p3";
@@ -47,7 +47,7 @@ namespace Soomla.Store
 		public const string VIRTUAL_MONEY_PROFILE_9_ID      = prefix+"virtual_money_p9";*/
 
 
-		const string virtual_money_name = "Coins";
+		const string virtual_money_name = "coins";
 		const string virtual_money_description = "";
 
 		public static VirtualCurrency VIRTUAL_MONEY_PROFILE_0 = new VirtualCurrency(
@@ -130,7 +130,7 @@ namespace Soomla.Store
 											};
 		}
 
-		const string pack1000_name = "Coins";
+		const string pack1000_name = "coins";
 		const string pack1000_description = "1000 coins to unlock items.";
 		const int pack1000_quantity = 1000;
 		const double pack1000_cost = 0.99;
@@ -175,6 +175,8 @@ namespace Soomla.Store
 		public const string VIRTUAL_MONEY_PROFILE_0_PACK_12000_ID      = "huge_coin_pack";
 		public const string VIRTUAL_MONEY_PROFILE_0_PACK_24000_ID      = "rich_coin_pack";
 		public const string VIRTUAL_MONEY_PROFILE_0_PACK_48000_ID      = "millionaire_coin_pack";
+
+	
 
 		public static VirtualCurrencyPack VIRTUAL_MONEY_PROFILE_0_PACK_1000 = new VirtualCurrencyPack(
 			pack1000_name,                                   	// name
@@ -519,33 +521,395 @@ namespace Soomla.Store
 		public static VirtualGood bike = new EquippableVG(
 			EquippableVG.EquippingModel.CATEGORY,                       // Equipping model
 			"Bike",                                                   // Name
-			"cross Bike",             // Description
+			"Motocross Bike",             // Description
 			"bike",                                              // Item ID
-			new PurchaseWithVirtualItem(CURRENCY_ID, 350)   // Purchase type
+			new PurchaseWithVirtualItem(CURRENCY_ID, 0)   // Purchase type
 			);
-		public static VirtualGood bike = new EquippableVG(
+		public static VirtualGood super_bike = new EquippableVG(
 			EquippableVG.EquippingModel.CATEGORY,                       // Equipping model
 			"Bike",                                                   // Name
-			"cross Bike",             // Description
-			"bike",                                              // Item ID
-			new PurchaseWithVirtualItem(CURRENCY_ID, 350)   // Purchase type
+			"More special Bike",             // Description
+			"super_bike",                                              // Item ID
+			new PurchaseWithVirtualItem(CURRENCY_ID, 1000)   // Purchase type
 			);
+
+		public static VirtualGood party_bike = new EquippableVG(
+			EquippableVG.EquippingModel.CATEGORY,                       // Equipping model
+			"Party Bike",                                                   // Name
+			"Go to the Party in your Bike",             // Description
+			"party_bike",                                              // Item ID
+			new PurchaseWithVirtualItem(CURRENCY_ID, 2000)   // Purchase type
+			);
+		public static VirtualGood nightmare_bike = new EquippableVG(
+			EquippableVG.EquippingModel.CATEGORY,                       // Equipping model
+			"Nightmare Bike",                                                   // Name
+			"Scare all zombies",             // Description
+			"nightmare_bike",                                              // Item ID
+			new PurchaseWithVirtualItem(CURRENCY_ID, 3000)   // Purchase type
+			);
+		public static VirtualGood monster_bike = new EquippableVG(
+			EquippableVG.EquippingModel.CATEGORY,                       // Equipping model
+			"Monster Bike",                                                   // Name
+			"Strong and good kill",             // Description
+			"monster_bike",                                              // Item ID
+			new PurchaseWithVirtualItem(CURRENCY_ID, 5500)   // Purchase type
+			);
+		public static VirtualGood neon_bike = new EquippableVG(
+			EquippableVG.EquippingModel.CATEGORY,                       // Equipping model
+			"Neon Bike",                                                   // Name
+			"Lighting everywhere",             // Description
+			"neon_bike",                                              // Item ID
+			new PurchaseWithVirtualItem(CURRENCY_ID, 8900)   // Purchase type
+			);
+		public static VirtualGood hell_bike = new EquippableVG(
+			EquippableVG.EquippingModel.CATEGORY,                       // Equipping model
+			"Hell Bike",                                                   // Name
+			"Go to the Hell",             // Description
+			"hell_bike",                                              // Item ID
+			new PurchaseWithVirtualItem(CURRENCY_ID, 10700)   // Purchase type
+			);
+		public static VirtualGood test_bike = new EquippableVG(
+			EquippableVG.EquippingModel.CATEGORY,                       // Equipping model
+			"Test Bike",                                                   // Name
+			"Go to the Hell",             // Description
+			"test_bike",                                              // Item ID
+			new PurchaseWithVirtualItem(CURRENCY_ID, 0)   // Purchase type
+			);
+
+		public static VirtualGood blue_bike = new EquippableVG(
+			EquippableVG.EquippingModel.CATEGORY,                       // Equipping model
+			"Blue Bike",                                                   // Name
+			"",             // Description
+			"blue_bike",                                              // Item ID
+			new PurchaseWithVirtualItem(CURRENCY_ID, 0)   // Purchase type
+			);
+
+		public static VirtualGood peace_bike = new EquippableVG(
+			EquippableVG.EquippingModel.CATEGORY,                       // Equipping model
+			"Peace Bike",                                                   // Name
+			"",             // Description
+			"peace_bike",                                              // Item ID
+			new PurchaseWithVirtualItem(CURRENCY_ID, 0)   // Purchase type
+			);
+		public static VirtualGood summer_bike = new EquippableVG(
+			EquippableVG.EquippingModel.CATEGORY,                       // Equipping model
+			"Summer Bike",                                                   // Name
+			"",             // Description
+			"summer_bike",                                              // Item ID
+			new PurchaseWithVirtualItem(CURRENCY_ID, 0)   // Purchase type
+			);
+		public static VirtualGood sunshine_bike = new EquippableVG(
+			EquippableVG.EquippingModel.CATEGORY,                       // Equipping model
+			"Sunshine Bike",                                                   // Name
+			"",             // Description
+			"sunshine_bike",                                              // Item ID
+			new PurchaseWithVirtualItem(CURRENCY_ID, 0)   // Purchase type
+			);
+
+		public static VirtualGood bike_upgrade = new LifetimeVG(
+			"Upgrade Bike", 														// name
+			"gain a speed, acc, brake boost at bike. next upgrade: 10 points",				 									// description
+			"bike_upgrade",														// item id
+			new PurchaseWithMarket(CURRENCY_ID, 1));
+		public static VirtualGood super_bike_upgrade = new LifetimeVG(
+			"Upgrade Super", 														// name
+			"gain a speed, acc, brake boost at super super bike. next upgrade: 10 points",				 									// description
+			"super_bike_upgrade",														// item id
+			new PurchaseWithMarket(CURRENCY_ID, 1));
+		public static VirtualGood party_bike_upgrade = new LifetimeVG(
+			"Upgrade Party", 														// name
+			"gain a speed, acc, brake boost at party bike. next upgrade: 10 points",				 									// description
+			"party_bike_upgrade",														// item id
+			new PurchaseWithMarket(CURRENCY_ID, 1));
+		public static VirtualGood nightmare_bike_upgrade = new LifetimeVG(
+			"Upgrade Nightmare", 														// name
+			"gain a speed, acc, brake boost at nightmare bike. next upgrade: 10 points",				 									// description
+			"nightmare_bike_upgrade",														// item id
+			new PurchaseWithMarket(CURRENCY_ID, 1));
+		public static VirtualGood monster_bike_upgrade = new LifetimeVG(
+			"Upgrade Monster", 														// name
+			"gain a speed, acc, brake boost at monster bike. next upgrade: 10 points",				 									// description
+			"monster_bike_upgrade",														// item id
+			new PurchaseWithMarket(CURRENCY_ID, 1));
+		public static VirtualGood neon_bike_upgrade = new LifetimeVG(
+			"Upgrade Neon", 														// name
+			"gain a speed, acc, brake boost at neon bike. next upgrade: 10 points",				 									// description
+			"neon_bike_upgrade",														// item id
+			new PurchaseWithMarket(CURRENCY_ID, 1));
+		public static VirtualGood hell_bike_upgrade = new LifetimeVG(
+			"Upgrade Hell", 														// name
+			"gain a speed, acc, brake boost at hell bike. next upgrade: 10 points",				 									// description
+			"hell_bike_upgrade",														// item id
+			new PurchaseWithMarket(CURRENCY_ID, 1));
+		public static VirtualGood test_bike_upgrade = new LifetimeVG(
+			"Upgrade Test", 														// name
+			"gain a speed, acc, brake boost at test bike. next upgrade: 10 points",				 									// description
+			"test_bike_upgrade",														// item id
+			new PurchaseWithMarket(CURRENCY_ID, 1));
+
+
+		public static VirtualGood super_bike_effect = new EquippableVG(
+			EquippableVG.EquippingModel.LOCAL,                       // Equipping model
+			"Super Bike Effect",                                                   // Name
+			"set good lights",             // Description
+			"super_bike_effect",                                              // Item ID
+			new PurchaseWithVirtualItem(CURRENCY_ID, 500)   // Purchase type
+			);
+		public static VirtualGood party_effect = new EquippableVG(
+			EquippableVG.EquippingModel.LOCAL,                       // Equipping model
+			"Party Effect",                                                   // Name
+			"set special moments",             // Description
+			"party_effect",                                              // Item ID
+			new PurchaseWithVirtualItem(CURRENCY_ID, 800)   // Purchase type
+			);
+		public static VirtualGood nightmare_effect = new EquippableVG(
+			EquippableVG.EquippingModel.LOCAL,                       // Equipping model
+			"Nightmare Effect",                                                   // Name
+			"set death in your bike",             // Description
+			"nightmare_effect",                                              // Item ID
+			new PurchaseWithVirtualItem(CURRENCY_ID, 1300)   // Purchase type
+			);
+		public static VirtualGood monster_effect = new EquippableVG(
+			EquippableVG.EquippingModel.LOCAL,                       // Equipping model
+			"Monster Effect",                                                   // Name
+			"set vomit zombie",             // Description
+			"monster_effect",                                              // Item ID
+			new PurchaseWithVirtualItem(CURRENCY_ID, 3500)   // Purchase type
+			);
+		public static VirtualGood neon_effect = new EquippableVG(
+			EquippableVG.EquippingModel.LOCAL,                       // Equipping model
+			"Neon Effect",                                                   // Name
+			"set Light neon",             // Description
+			"neon_effect",                                              // Item ID
+			new PurchaseWithVirtualItem(CURRENCY_ID, 4000)   // Purchase type
+			);
+		public static VirtualGood hell_effect = new EquippableVG(
+			EquippableVG.EquippingModel.LOCAL,                       // Equipping model
+			"Hell Effect",                                                   // Name
+			"set fire to go hell",             // Description
+			"hell_effect",                                              // Item ID
+			new PurchaseWithVirtualItem(CURRENCY_ID, 4700)   // Purchase type
+			);
+
+
+
+		
+		// Create 2 UpgradeVGs that represent 2 levels for the Strength attribute.
+		public static VirtualGood bike_upgrade_level_1 = new UpgradeVG(
+			"bike_upgrade",                   // Item ID of the associated good that is being upgraded
+			"bike_upgrade_level_2",         // Item ID of the next upgrade good
+			null,                         // Item ID of the previous upgrade good
+			"Upgrade Level 1",                                 // Name
+			"",       // Description
+			"bike_upgrade_level_1",                                       // Item ID
+			new PurchaseWithVirtualItem(CURRENCY_ID, 1)    // Purchase type
+			);
+		
+		public static VirtualGood bike_upgrade_level_2 = new UpgradeVG(
+			"bike_upgrade",                   // Item ID of the associated good that is being upgraded
+			"bike_upgrade_level_3",         // Item ID of the next upgrade good
+			"bike_upgrade_level_1",         // Item ID of the previous upgrade good
+			"Upgrade Level 2",                                 // Name
+			"",     // Description
+			"bike_upgrade_level_2",                                       // Item ID
+			new PurchaseWithVirtualItem(CURRENCY_ID, 1)   // Purchase type
+			);
+		public static VirtualGood bike_upgrade_level_3 = new UpgradeVG(
+			"bike_upgrade",                   // Item ID of the associated good that is being upgraded
+			null,         // Item ID of the next upgrade good
+			"bike_upgrade_level_2",         // Item ID of the previous upgrade good
+			"Upgrade Level 3",                                 // Name
+			"",     // Description
+			"bike_upgrade_level_3",                                       // Item ID
+			new PurchaseWithVirtualItem(CURRENCY_ID, 1)   // Purchase type
+			);
+
+
+		public static VirtualGood super_upgrade_level_1 = new UpgradeVG(
+			"super_bike_upgrade",                   // Item ID of the associated good that is being upgraded
+			"super_upgrade_level_2",         // Item ID of the next upgrade good
+			null,                         // Item ID of the previous upgrade good
+			"Upgrade Super Level 1",                                 // Name
+			"",       // Description
+			"super_upgrade_level_1",                                       // Item ID
+			new PurchaseWithVirtualItem(CURRENCY_ID, 1)    // Purchase type
+			);
+		
+		public static VirtualGood super_upgrade_level_2 = new UpgradeVG(
+			"super_bike_upgrade",                   // Item ID of the associated good that is being upgraded
+			"bike_upgrade_level_3",         // Item ID of the next upgrade good
+			"bike_upgrade_level_1",         // Item ID of the previous upgrade good
+			"Upgrade Super Level 2",                                 // Name
+			"",     // Description
+			"bike_upgrade_level_2",                                       // Item ID
+			new PurchaseWithVirtualItem(CURRENCY_ID, 1)   // Purchase type
+			);
+		public static VirtualGood super_upgrade_level_3 = new UpgradeVG(
+			"super_bike_upgrade",                   // Item ID of the associated good that is being upgraded
+			null,         // Item ID of the next upgrade good
+			"super_upgrade_level_2",         // Item ID of the previous upgrade good
+			"Upgrade Super Level 3",                                 // Name
+			"",     // Description
+			"super_upgrade_level_3",                                       // Item ID
+			new PurchaseWithVirtualItem(CURRENCY_ID, 1)   // Purchase type
+			);
+
+		public static VirtualGood party_upgrade_level_1 = new UpgradeVG(
+			"party_bike_upgrade",                   // Item ID of the associated good that is being upgraded
+			"party_upgrade_level_2",         // Item ID of the next upgrade good
+			null,                         // Item ID of the previous upgrade good
+			"Upgrade party Level 1",                                 // Name
+			"",       // Description
+			"party_upgrade_level_1",                                       // Item ID
+			new PurchaseWithVirtualItem(CURRENCY_ID, 1)    // Purchase type
+			);
+		
+		public static VirtualGood party_upgrade_level_2 = new UpgradeVG(
+			"party_bike_upgrade",                   // Item ID of the associated good that is being upgraded
+			"party_upgrade_level_3",         // Item ID of the next upgrade good
+			"party_upgrade_level_1",         // Item ID of the previous upgrade good
+			"Upgrade party Level 2",                                 // Name
+			"",     // Description
+			"party_upgrade_level_2",                                       // Item ID
+			new PurchaseWithVirtualItem(CURRENCY_ID, 1)   // Purchase type
+			);
+		public static VirtualGood party_upgrade_level_3 = new UpgradeVG(
+			"party_bike_upgrade",                   // Item ID of the associated good that is being upgraded
+			null,         // Item ID of the next upgrade good
+			"party_upgrade_level_2",         // Item ID of the previous upgrade good
+			"Upgrade party Level 3",                                 // Name
+			"",     // Description
+			"party_upgrade_level_3",                                       // Item ID
+			new PurchaseWithVirtualItem(CURRENCY_ID, 1)   // Purchase type
+			);
+
+		public static VirtualGood nightmare_upgrade_level_1 = new UpgradeVG(
+			"nightmare_bike_upgrade",                   // Item ID of the associated good that is being upgraded
+			"nightmare_upgrade_level_2",         // Item ID of the next upgrade good
+			null,                         // Item ID of the previous upgrade good
+			"Upgrade nightmare Level 1",                                 // Name
+			"",       // Description
+			"nightmare_upgrade_level_1",                                       // Item ID
+			new PurchaseWithVirtualItem(CURRENCY_ID, 1)    // Purchase type
+			);
+		
+		public static VirtualGood nightmare_upgrade_level_2 = new UpgradeVG(
+			"nightmare_bike_upgrade",                   // Item ID of the associated good that is being upgraded
+			"nightmare_upgrade_level_3",         // Item ID of the next upgrade good
+			"nightmare_upgrade_level_1",         // Item ID of the previous upgrade good
+			"Upgrade nightmare Level 2",                                 // Name
+			"",     // Description
+			"nightmare_upgrade_level_2",                                       // Item ID
+			new PurchaseWithVirtualItem(CURRENCY_ID, 1)   // Purchase type
+			);
+		public static VirtualGood nightmare_upgrade_level_3 = new UpgradeVG(
+			"nightmare_bike_upgrade",                   // Item ID of the associated good that is being upgraded
+			null,         // Item ID of the next upgrade good
+			"nightmare_upgrade_level_2",         // Item ID of the previous upgrade good
+			"Upgrade nightmare Level 3",                                 // Name
+			"",     // Description
+			"nightmare_upgrade_level_3",                                       // Item ID
+			new PurchaseWithVirtualItem(CURRENCY_ID, 1)   // Purchase type
+			);
+
+		public static VirtualGood monster_upgrade_level_1 = new UpgradeVG(
+			"monster_bike_upgrade",                   // Item ID of the associated good that is being upgraded
+			"monster_upgrade_level_2",         // Item ID of the next upgrade good
+			null,                         // Item ID of the previous upgrade good
+			"Upgrade monster Level 1",                                 // Name
+			"",       // Description
+			"monster_upgrade_level_1",                                       // Item ID
+			new PurchaseWithVirtualItem(CURRENCY_ID, 1)    // Purchase type
+			);
+		
+		public static VirtualGood monster_upgrade_level_2 = new UpgradeVG(
+			"monster_bike_upgrade",                   // Item ID of the associated good that is being upgraded
+			"monster_upgrade_level_3",         // Item ID of the next upgrade good
+			"monster_upgrade_level_1",         // Item ID of the previous upgrade good
+			"Upgrade monster Level 2",                                 // Name
+			"",     // Description
+			"monster_upgrade_level_2",                                       // Item ID
+			new PurchaseWithVirtualItem(CURRENCY_ID, 1)   // Purchase type
+			);
+		public static VirtualGood monster_upgrade_level_3 = new UpgradeVG(
+			"monster_bike_upgrade",                   // Item ID of the associated good that is being upgraded
+			null,         // Item ID of the next upgrade good
+			"monster_upgrade_level_2",         // Item ID of the previous upgrade good
+			"Upgrade monster Level 3",                                 // Name
+			"",     // Description
+			"monster_upgrade_level_3",                                       // Item ID
+			new PurchaseWithVirtualItem(CURRENCY_ID, 1)   // Purchase type
+			);
+
+		public static VirtualGood neon_upgrade_level_1 = new UpgradeVG(
+			"neon_bike_upgrade",                   // Item ID of the associated good that is being upgraded
+			"neon_upgrade_level_2",         // Item ID of the next upgrade good
+			null,                         // Item ID of the previous upgrade good
+			"Upgrade neon Level 1",                                 // Name
+			"",       // Description
+			"neon_upgrade_level_1",                                       // Item ID
+			new PurchaseWithVirtualItem(CURRENCY_ID, 1)    // Purchase type
+			);
+		
+		public static VirtualGood neon_upgrade_level_2 = new UpgradeVG(
+			"neon_bike_upgrade",                   // Item ID of the associated good that is being upgraded
+			"neon_upgrade_level_3",         // Item ID of the next upgrade good
+			"neon_upgrade_level_1",         // Item ID of the previous upgrade good
+			"Upgrade neon Level 2",                                 // Name
+			"",     // Description
+			"neon_upgrade_level_2",                                       // Item ID
+			new PurchaseWithVirtualItem(CURRENCY_ID, 1)   // Purchase type
+			);
+		public static VirtualGood neon_upgrade_level_3 = new UpgradeVG(
+			"neon_bike_upgrade",                   // Item ID of the associated good that is being upgraded
+			null,         // Item ID of the next upgrade good
+			"neon_upgrade_level_2",         // Item ID of the previous upgrade good
+			"Upgrade neon Level 3",                                 // Name
+			"",     // Description
+			"neon_upgrade_level_3",                                       // Item ID
+			new PurchaseWithVirtualItem(CURRENCY_ID, 1)   // Purchase type
+			);
+
+		public static VirtualGood hell_upgrade_level_1 = new UpgradeVG(
+			"hell_bike_upgrade",                   // Item ID of the associated good that is being upgraded
+			"hell_upgrade_level_2",         // Item ID of the next upgrade good
+			null,                         // Item ID of the previous upgrade good
+			"Upgrade hell Level 1",                                 // Name
+			"",       // Description
+			"hell_upgrade_level_1",                                       // Item ID
+			new PurchaseWithVirtualItem(CURRENCY_ID, 1)    // Purchase type
+			);
+		
+		public static VirtualGood hell_upgrade_level_2 = new UpgradeVG(
+			"hell_bike_upgrade",                   // Item ID of the associated good that is being upgraded
+			"hell_upgrade_level_3",         // Item ID of the next upgrade good
+			"hell_upgrade_level_1",         // Item ID of the previous upgrade good
+			"Upgrade hell Level 2",                                 // Name
+			"",     // Description
+			"hell_upgrade_level_2",                                       // Item ID
+			new PurchaseWithVirtualItem(CURRENCY_ID, 1)   // Purchase type
+			);
+		public static VirtualGood hell_upgrade_level_3 = new UpgradeVG(
+			"hell_bike_upgrade",                   // Item ID of the associated good that is being upgraded
+			null,         // Item ID of the next upgrade good
+			"hell_upgrade_level_2",         // Item ID of the previous upgrade good
+			"Upgrade hell Level 3",                                 // Name
+			"",     // Description
+			"hell_upgrade_level_3",                                       // Item ID
+			new PurchaseWithVirtualItem(CURRENCY_ID, 1)   // Purchase type
+			);
+
+
+
 		#endregion
 		
 		//if you don't need this, leave it empty, BUT NOT delete it!
-		public VirtualGood[] GetGoods()//consumable items
-		{
-			return new VirtualGood[]{};//buy one item
-		}
 
 
-		
-		//if you don't need this, leave it empty, BUT NOT delete it!
-		public VirtualCategory[] GetCategories()
-		{
-			return new VirtualCategory[]{};
+		public VirtualGood[] GetGoods() {
+			return new VirtualGood[] {health, healthx2,healthx3,NO_ADS,test_bike_upgrade,hell_bike_upgrade,monster_bike_upgrade,neon_bike_upgrade,monster_bike_upgrade,nightmare_bike_upgrade,party_bike_upgrade,super_bike_upgrade,bike_upgrade_level_1,bike_upgrade_level_2,bike_upgrade_level_3,super_upgrade_level_1,super_upgrade_level_2,super_upgrade_level_3,party_upgrade_level_1,party_upgrade_level_2,party_upgrade_level_3,nightmare_upgrade_level_1,nightmare_upgrade_level_2,nightmare_upgrade_level_3,monster_upgrade_level_1,monster_upgrade_level_2,monster_upgrade_level_3,neon_upgrade_level_1,neon_upgrade_level_2,neon_upgrade_level_3,hell_upgrade_level_1,hell_upgrade_level_2,hell_upgrade_level_3};
 		}
-		
+
 		//if you don't need this, leave it empty, BUT NOT delete it!
 		public LifetimeVG[] GetNotConsumableItems()//
 		{
@@ -557,8 +921,14 @@ namespace Soomla.Store
 		{
 			return new UpgradeVG[]{};
 		}
-		
-		
+
+		public VirtualCategory[] GetCategories() {
+			return new VirtualCategory[]{BIKE_CATEGORY};
+		}
+
+		public static VirtualCategory BIKE_CATEGORY = new VirtualCategory(
+			"Bike", new List<string>(new string[] { "bike", "super_bike", "party_bike", "nightmare_bike","monster_bike","neon_bike","hell_bike","test_bike","blue_bike","peace_bike","sunshine_bike","summer_bike" })
+			);
 		
 	}
 }
