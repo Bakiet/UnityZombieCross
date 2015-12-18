@@ -21,7 +21,7 @@ namespace Soomla.Store {
 	/// class that will be transferred to <c>SoomlaStore</c> upon initialization.
 	/// </summary>
 	public interface IStoreAssets {
-		
+
 		/// <summary>
 		/// Retrieves the current version of your <c>IStoreAssets</c>.
 		/// This value will determine if the saved data in the database will be deleted or not.

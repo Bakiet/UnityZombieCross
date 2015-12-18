@@ -4,7 +4,7 @@ using System.Collections;
 
 public class store_button : MonoBehaviour {
 
-
+	public string itemid;
 	public string my_name;
 	public Sprite my_ico;
 
@@ -289,8 +289,8 @@ public class store_button : MonoBehaviour {
 		{
 			if (give_this_selected == give_this.virtual_money)
 			{
-				/* //DELETE THIS LINE FOR SOOMLA
-				my_game_master.my_Soomla_billing_script.Buy_virutal_money_with_real_money(my_game_master.current_profile_selected,quantity);
+
+				my_game_master.my_Soomla_billing_script.Buy_virutal_money_with_real_money(my_game_master.current_profile_selected,quantity,itemid);
 				my_game_master.current_virtual_money[my_game_master.current_profile_selected] = my_game_master.my_Soomla_billing_script.Show_how_many_virtual_money_there_is_in_this_profile(my_game_master.current_profile_selected);
 
 				if (my_game_master.show_purchase_feedback)
@@ -298,7 +298,7 @@ public class store_button : MonoBehaviour {
 				
 				my_store_tabs.Update_buttons_in_windows();
 				purchased = true;
-				*/ //DELETE THIS LINE FOR SOOMLA
+
 			}
 			else
 			{
@@ -319,7 +319,7 @@ public class store_button : MonoBehaviour {
 			Debug.Log("Pay_with_virtual_money");
 		if(my_game_master.buy_virtual_money_with_real_money_with_soomla)
 			{
-			/* //DELETE THIS LINE FOR SOOMLA
+
 			if (my_game_master.my_Soomla_billing_script.Buy_stuff_with_virtual_money(my_game_master.current_profile_selected,Mathf.RoundToInt(my_price)))
 			    {
 				my_game_master.current_virtual_money[my_game_master.current_profile_selected] = my_game_master.my_Soomla_billing_script.Show_how_many_virtual_money_there_is_in_this_profile(my_game_master.current_profile_selected);
@@ -330,7 +330,7 @@ public class store_button : MonoBehaviour {
 				if (my_game_master.show_debug_warnings)
 					Debug.LogWarning("Soomla - pay fail");
 				}
-			*/ //DELETE THIS LINE FOR SOOMLA
+
 			}
 		else
 			{

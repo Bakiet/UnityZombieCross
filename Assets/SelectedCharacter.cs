@@ -118,7 +118,7 @@ public class SelectedCharacter : AndroidNativeExampleBase {
 			//give and equip the white box by default and refresh shop
 			StoreInventory.GiveItem("bike", 1);
 			StoreInventory.EquipVirtualGood("bike");
-			SIS.ShopManager.SetItemState();
+			//SIS.ShopManager.SetItemState();
 		}
 	/*	if (selectedEffect == null) {
 
