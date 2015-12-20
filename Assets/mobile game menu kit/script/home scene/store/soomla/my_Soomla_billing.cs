@@ -38,7 +38,7 @@ namespace Soomla.Store
 			StoreInventory.GiveItem(my_Soomla_Assets.VIRTUAL_MONEY_PROFILE_0_ID.ToString(), quantity);
 	}
 
-	public bool Buy_stuff_with_virtual_money(int profile_number, int stuff_cost)
+	public bool Buy_stuff_with_virtual_money(int profile_number, int stuff_cost,string itemid)
 		{
 			//Debug.Log("Buy_stuff_with_virtual_money" + " : " + profile_number + "," + stuff_cost);
 
@@ -48,7 +48,9 @@ namespace Soomla.Store
 				{
 				try
 					{
+					//StoreInventory.TakeItem(my_Soomla_Assets.VIRTUAL_MONEY_PROFILE_0_ID.ToString(),stuff_cost);
 					StoreInventory.TakeItem(my_Soomla_Assets.VIRTUAL_MONEY_PROFILE_0_ID.ToString(),stuff_cost);
+
 					paid = true;
 					}
 				catch (InsufficientFundsException)

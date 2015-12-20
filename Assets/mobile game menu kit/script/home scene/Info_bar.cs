@@ -26,7 +26,7 @@ public class Info_bar : MonoBehaviour {
 			
 		}
 
-		int health = StoreInventory.GetItemBalance ("health");
+		/*int health = StoreInventory.GetItemBalance ("health");
 
 		if (health != 0) {
 			healtcount = StoreInventory.GetItemBalance ("health");
@@ -42,7 +42,7 @@ public class Info_bar : MonoBehaviour {
 			healtcount = StoreInventory.GetItemBalance ("healthx3");
 		}
 
-
+		*/
 
 		if (game_master.game_master_obj)
 			my_game_master = (game_master)game_master.game_master_obj.GetComponent("game_master");

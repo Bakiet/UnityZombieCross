@@ -9,14 +9,14 @@ namespace Soomla.Store
 		
 		public int GetVersion()
 		{
-			return 0;
+			return 1;
 		}
 		
 		#region virtual currency
 
 		public const string prefix = "unity.zombiecross";
 
-		public const string CURRENCY_ID      = "coins";
+		public const string CURRENCY_ID      = "Coins";
 
 		//if you don't need this, leave it empty, BUT NOT delete it!
 		public  VirtualCurrency[] GetCurrencies()//virtual money
@@ -146,7 +146,6 @@ namespace Soomla.Store
 			"No Ads", 														// name
 			"No More Ads!",				 									// description
 			"no_ads",														// item id
-
 			new PurchaseWithMarket(TEST_ID, 1.99));	// the way this virtual good is purchased
 
 
@@ -156,7 +155,7 @@ namespace Soomla.Store
 			"Continue Token",                                        		// name
 			"1 Continue",   	// description
 			"token",                                        		// item id
-			new PurchaseWithVirtualItem("token", 50));
+			new PurchaseWithVirtualItem(CURRENCY_ID, 50));
 
 		public static VirtualGood health = new SingleUseVG(
 			"health",                                        		// name
@@ -555,8 +554,8 @@ namespace Soomla.Store
 
 
 		public VirtualGood[] GetGoods() {
-			//return new VirtualGood[] {health, healthx2,healthx3,NO_ADS,hell_bike_upgrade,monster_bike_upgrade,neon_bike_upgrade,monster_bike_upgrade,nightmare_bike_upgrade,party_bike_upgrade,super_bike_upgrade,bike_upgrade_level_1,bike_upgrade_level_2,bike_upgrade_level_3,super_upgrade_level_1,super_upgrade_level_2,super_upgrade_level_3,party_upgrade_level_1,party_upgrade_level_2,party_upgrade_level_3,nightmare_upgrade_level_1,nightmare_upgrade_level_2,nightmare_upgrade_level_3,monster_upgrade_level_1,monster_upgrade_level_2,monster_upgrade_level_3,neon_upgrade_level_1,neon_upgrade_level_2,neon_upgrade_level_3,hell_upgrade_level_1,hell_upgrade_level_2,hell_upgrade_level_3};
-			return new VirtualGood[] {};
+			return new VirtualGood[] {health, healthx2,healthx3,NO_ADS,hell_bike_upgrade,monster_bike_upgrade,neon_bike_upgrade,monster_bike_upgrade,nightmare_bike_upgrade,party_bike_upgrade,super_bike_upgrade,bike_upgrade_level_1,bike_upgrade_level_2,bike_upgrade_level_3,super_upgrade_level_1,super_upgrade_level_2,super_upgrade_level_3,party_upgrade_level_1,party_upgrade_level_2,party_upgrade_level_3,nightmare_upgrade_level_1,nightmare_upgrade_level_2,nightmare_upgrade_level_3,monster_upgrade_level_1,monster_upgrade_level_2,monster_upgrade_level_3,neon_upgrade_level_1,neon_upgrade_level_2,neon_upgrade_level_3,hell_upgrade_level_1,hell_upgrade_level_2,hell_upgrade_level_3};
+			//return new VirtualGood[] {};
 		}
 
 		//if you don't need this, leave it empty, BUT NOT delete it!
@@ -576,8 +575,8 @@ namespace Soomla.Store
 		}
 
 		public static VirtualCategory GENERAL_CATEGORY = new VirtualCategory(
-			//"General", new List<string>(new string[] { "bike", "super_bike", "party_bike", "nightmare_bike","monster_bike","neon_bike","hell_bike","blue_bike","peace_bike","sunshine_bike","summer_bike" })
-			"General", new List<string>(new string[] {})
+			"General", new List<string>(new string[] { "bike", "super_bike", "party_bike", "nightmare_bike","monster_bike","neon_bike","hell_bike","blue_bike","peace_bike","sunshine_bike","summer_bike" })
+			//"General", new List<string>(new string[] {})
 			);
 		
 	}

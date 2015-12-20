@@ -1,10 +1,32 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using Soomla.Store;
 
 public class store_button : MonoBehaviour {
 
-	public string itemid;
+
+	/// <summary>
+	/// additional widgets that will be activated on equipped items
+	/// </summary>
+	public GameObject selected;
+	
+	/// <summary>
+	/// button for equipping this item
+	/// </summary>
+	public GameObject selectButton;
+	
+	/// <summary>
+	/// button for unequipping this item
+	/// </summary>
+	public GameObject deselectButton;
+	
+	//selection checkbox, cached for triggering other checkboxes
+	//in the same group on selection/deselection
+	private Toggle selCheck;
+
+
+	public string id;
 	public string my_name;
 	public Sprite my_ico;
 
@@ -61,9 +83,18 @@ public class store_button : MonoBehaviour {
 
 	public void My_start()
 	{
+		if (selectButton)
+		{
+			//get checkbox component
+			selCheck = selectButton.GetComponent<Toggle>();			
+			if (selCheck) selCheck.group = transform.parent.GetComponent<ToggleGroup>();
+		}
+
 		if (game_master.game_master_obj && my_game_master == null)
 			my_game_master = (game_master)game_master.game_master_obj.GetComponent("game_master");
 
+
+		id = my_game_master.my_store_item_manager.consumable_item_list[my_item_ID].id;
 
 		if (Check_if_show_this_button())
 			{
@@ -111,7 +142,8 @@ public class store_button : MonoBehaviour {
 		my_buy_tx.text = "MAX";
 		my_ico = my_game_master.my_store_item_manager.incremental_item_list[my_item_ID].icon[my_game_master.my_store_item_manager.incremental_item_list[my_item_ID].icon.Length-1];
 		my_price_tx.gameObject.SetActive(false);
-		this_buy_hit_the_cap = true;
+		this_buy_hit_the_cap = false;
+		if (selectButton) selectButton.SetActive(true);
 
 	}
 
@@ -162,7 +194,8 @@ public class store_button : MonoBehaviour {
 
 		case give_this.consumable_item:
 			if ((my_game_master.consumable_item_current_quantity[my_game_master.current_profile_selected][my_item_ID] + quantity) > my_game_master.my_store_item_manager.consumable_item_list[my_item_ID].quantity_cap)
-				this_buy_hit_the_cap = true;
+			//this_buy_hit_the_cap = false;
+			if (selectButton) selectButton.SetActive(true);
 			else
 				this_buy_hit_the_cap = false;
 			break;
@@ -268,11 +301,19 @@ public class store_button : MonoBehaviour {
 		if (you_have_enough_money && !this_buy_hit_the_cap)
 			{
 
-			my_game_master.Gui_sfx(my_game_master.tap_sfx);
-			if (price_currency_selected == price_currency.real_money)
-				Pay_with_real_money();
-			else if (price_currency_selected == price_currency.virtual_money)
-				Pay_with_virtual_money();
+				my_game_master.Gui_sfx(my_game_master.tap_sfx);
+				if (price_currency_selected == price_currency.real_money){
+					Pay_with_real_money();
+				//put selected
+					/*if (!selected){
+					buyButton.SetActive(false);
+					}*/
+					if (selectButton) selectButton.SetActive(true);
+				}
+				else if (price_currency_selected == price_currency.virtual_money){
+					Pay_with_virtual_money();
+					if (selectButton) selectButton.SetActive(true);
+				}
 			}
 		else
 			{
@@ -290,7 +331,7 @@ public class store_button : MonoBehaviour {
 			if (give_this_selected == give_this.virtual_money)
 			{
 
-				my_game_master.my_Soomla_billing_script.Buy_virutal_money_with_real_money(my_game_master.current_profile_selected,quantity,itemid);
+				my_game_master.my_Soomla_billing_script.Buy_virutal_money_with_real_money(my_game_master.current_profile_selected,quantity,id);
 				my_game_master.current_virtual_money[my_game_master.current_profile_selected] = my_game_master.my_Soomla_billing_script.Show_how_many_virtual_money_there_is_in_this_profile(my_game_master.current_profile_selected);
 
 				if (my_game_master.show_purchase_feedback)
@@ -320,7 +361,8 @@ public class store_button : MonoBehaviour {
 		if(my_game_master.buy_virtual_money_with_real_money_with_soomla)
 			{
 
-			if (my_game_master.my_Soomla_billing_script.Buy_stuff_with_virtual_money(my_game_master.current_profile_selected,Mathf.RoundToInt(my_price)))
+			//if (my_game_master.my_Soomla_billing_script.Buy_stuff_with_virtual_money(my_game_master.current_profile_selected,Mathf.RoundToInt(my_price)))
+			if (my_game_master.my_Soomla_billing_script.Buy_stuff_with_virtual_money(my_game_master.current_profile_selected,Mathf.RoundToInt(my_price),id))
 			    {
 				my_game_master.current_virtual_money[my_game_master.current_profile_selected] = my_game_master.my_Soomla_billing_script.Show_how_many_virtual_money_there_is_in_this_profile(my_game_master.current_profile_selected);
 				Give_the_stuff();
@@ -374,6 +416,7 @@ public class store_button : MonoBehaviour {
 
 			case give_this.consumable_item:
 				my_game_master.consumable_item_current_quantity[my_game_master.current_profile_selected][my_item_ID]++;
+
 			break;
 		}
 
@@ -433,5 +476,65 @@ public class store_button : MonoBehaviour {
 		Show_buy_ico();
 
 
+	}
+	public void IsSelected(bool thisSelect)
+	{
+		//if this object has been selected
+		if (thisSelect)
+		{
+
+			//equip this good
+			string goodId = id;
+
+			StoreInventory.EquipVirtualGood(goodId);
+
+
+			//if we have a deselect button or a 'selected' gameobject, show them
+			//and hide the select button for ignoring further selections              
+			if (deselectButton) deselectButton.SetActive(true);
+			if (selected) selected.SetActive(true);
+			
+			Toggle toggle = selectButton.GetComponent<Toggle>();
+			if (toggle.group)
+			{
+				//hacky way to deselect all other toggles, even deactivated ones
+				//(toggles on deactivated gameobjects do not receive onValueChanged events)
+				store_button[] others = toggle.group.GetComponentsInChildren<store_button>(true);
+				for (int i = 0; i < others.Length; i++)
+				{
+					if (others[i].selCheck.isOn && others[i] != this)
+					{
+						others[i].IsSelected(false);
+						break;
+					}
+				}
+			}
+			
+			toggle.isOn = true;
+			selectButton.SetActive(false);
+		}
+		else
+		{
+			//if another object has been selected, show the
+			//select button for this item and hide the 'selected' state
+			if (!deselectButton) selectButton.SetActive(true);
+			if (selected) selected.SetActive(false);
+		}
+	}
+	
+	
+	//called when deselecting this item via deselectButton
+	public void Deselect()
+	{
+		//hide the deselect button and 'selected' state
+		deselectButton.SetActive(false);
+		if (selected) selected.SetActive(false);
+		
+		//tell our checkbox component that this object isn't checked
+		if (selCheck) selCheck.isOn = false;
+		//unequip this good
+		StoreInventory.UnEquipVirtualGood(id);
+		//re-show the select button
+		selectButton.SetActive(true);
 	}
 }
