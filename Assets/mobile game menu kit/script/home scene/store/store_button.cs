@@ -723,16 +723,18 @@ public class store_button : MonoBehaviour {
 						others[i].IsSelected(false);
 						others[i].selectButton.SetActive(true);
 						//toggle.isOn = false;
+						//selected.SetActive(true);
 						break;
 					}
 
 				}
 			}
-			
-
 			selectButton.SetActive(false);
 			selected.SetActive(true);
 			toggle.isOn = true;
+			
+			//selected.SetActive(true);
+			
 			//IsSelected(true);
 
 		}
