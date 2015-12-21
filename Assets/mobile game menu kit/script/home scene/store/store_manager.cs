@@ -28,6 +28,8 @@ public class store_manager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 	
+
+
 		if (my_tab == store_tab.consumable_items)
 			Generate_consumable_items();
 		else if (my_tab == store_tab.incremental_items)
@@ -98,7 +100,10 @@ public class store_manager : MonoBehaviour {
 						}
 					}
 			}
+
 		}
+
+
 	}
 
 	void Generate_incremental_items()

@@ -47,7 +47,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 
 	public float explodeDuration = 5f;
 	public float explosionTime = 1;
-	public bool useUpgrade=false;
+	public static bool useUpgrade=false;
 	private RaycastHit hit;
 	public float SpeedMotorMobile = 50.0f;
 	public float SpeedMotor = 3.0f;
@@ -268,9 +268,9 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	public static float axisH = 0f;
 	public static float axisV = 0f;
 
-	private float bikespeedmobile1=32f;
-	private float bikespeedmotor1=32f;
-	private float bikemaxspeed1=42f;
+	private float bikespeedmobile1=2f;
+	private float bikespeedmotor1=2f;
+	private float bikemaxspeed1=10f;
 	private float bikebreakmass1=170f;
 	private float bikebreakgravity1=3.5f;
 	private float bikeacceleration1=16f;
@@ -449,6 +449,10 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	private int healtcount = 0;
 	private int virtualmoneycount = 0;
 
+	public game_master my_game_master;
+	public static int my_item_ID;
+
+
 	private void callthrottleTexture(){
 		accelerate = true;
 	}
@@ -458,367 +462,339 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 
 	void UpgradeInventory(){
 
-		string bikeupgrade = StoreInventory.GetGoodCurrentUpgrade ("bike_upgrade");
+		my_game_master = (game_master)game_master.game_master_obj.GetComponent("game_master");
+
+		int levelupgrade = my_game_master.incremental_item_current_level[my_game_master.current_profile_selected][my_item_ID];
+
+		//string bikeupgrade = StoreInventory.GetGoodCurrentUpgrade ("bike_upgrade");
 		int bikeupgradelevel = 0;
-		if (bikeupgrade != "") {
-			bikeupgradelevel = StoreInventory.GetGoodUpgradeLevel ("bike_upgrade");
+		if (my_item_ID == 0) {
+			//bikeupgradelevel = StoreInventory.GetGoodUpgradeLevel ("bike_upgrade");
+			bikeupgradelevel = levelupgrade;
+
 		}
-		string superupgrade = StoreInventory.GetGoodCurrentUpgrade ("super_bike_upgrade");
+		//string superupgrade = StoreInventory.GetGoodCurrentUpgrade ("super_bike_upgrade");
 		int superupgradelevel = 0;
-		if (superupgrade != "") {
-			superupgradelevel = StoreInventory.GetGoodUpgradeLevel ("super_bike_upgrade");
+		if (my_item_ID == 1) {
+			superupgradelevel = levelupgrade;
 		}
-		string partyupgrade = StoreInventory.GetGoodCurrentUpgrade ("party_bike_upgrade");
+		//string partyupgrade = StoreInventory.GetGoodCurrentUpgrade ("party_bike_upgrade");
 		int partyupgradelevel = 0;
-		if (partyupgrade != "") {
-			partyupgradelevel = StoreInventory.GetGoodUpgradeLevel ("party_bike_upgrade");
+		if (my_item_ID == 2) {
+			partyupgradelevel =levelupgrade;
 		}
-		string nightmareupgrade = StoreInventory.GetGoodCurrentUpgrade ("nightmare_bike_upgrade");
+		//string nightmareupgrade = StoreInventory.GetGoodCurrentUpgrade ("nightmare_bike_upgrade");
 		int nightmareupgradelevel = 0;
-		if (nightmareupgrade != "") {
-			nightmareupgradelevel = StoreInventory.GetGoodUpgradeLevel ("nightmare_bike_upgrade");
+		if (my_item_ID == 3) {
+			nightmareupgradelevel = levelupgrade;
 		}
-		string monsterupgrade = StoreInventory.GetGoodCurrentUpgrade ("monster_bike_upgrade");
+		//string monsterupgrade = StoreInventory.GetGoodCurrentUpgrade ("monster_bike_upgrade");
 		int monsterupgradelevel = 0;
-		if (monsterupgrade != "") {
-			monsterupgradelevel = StoreInventory.GetGoodUpgradeLevel ("monster_bike_upgrade");
+		if (my_item_ID == 4) {
+			monsterupgradelevel = levelupgrade;
 		}
-		string neonupgrade = StoreInventory.GetGoodCurrentUpgrade ("neon_bike_upgrade");
+		//string neonupgrade = StoreInventory.GetGoodCurrentUpgrade ("neon_bike_upgrade");
 		int neonupgradelevel = 0;
-		if (neonupgrade != "") {
-			neonupgradelevel = StoreInventory.GetGoodUpgradeLevel ("neon_bike_upgrade");
+		if (my_item_ID == 5) {
+			neonupgradelevel = levelupgrade;
 		}
-		string hellupgrade = StoreInventory.GetGoodCurrentUpgrade ("hell_bike_upgrade");
+		//string hellupgrade = StoreInventory.GetGoodCurrentUpgrade ("hell_bike_upgrade");
 		int hellupgradelevel = 0;
-		if (hellupgrade != "") {
-			hellupgradelevel = StoreInventory.GetGoodUpgradeLevel ("hell_bike_upgrade");
+		if (my_item_ID == 6) {
+			hellupgradelevel = levelupgrade;
 		}
 
-		string testupgrade = StoreInventory.GetGoodCurrentUpgrade ("test_bike_upgrade");
-		int testupgradelevel = 0;
-		if (testupgrade != "") {
-			testupgradelevel = StoreInventory.GetGoodUpgradeLevel ("test_bike_upgrade");
-		}
 
 
 		if(this.name == "bike(Clone)"){
 			if (bikeupgradelevel != 0) {
 				if(bikeupgradelevel ==1){
-					SpeedMotorMobile = bikespeedmobile1;
-					SpeedMotor = bikespeedmotor1;
-					MaxSpeed =bikemaxspeed1;
-					BreakMass = bikebreakmass1;
-					BreakGravity = bikebreakgravity1;
-					Acceleration =bikeacceleration1;}
+					SpeedMotorMobile = SpeedMotorMobile + bikespeedmobile1;
+					SpeedMotor = SpeedMotor + bikespeedmotor1;
+					MaxSpeed = MaxSpeed + bikemaxspeed1;
+					BreakMass = BreakMass + bikebreakmass1;
+					BreakGravity = BreakGravity + bikebreakgravity1;
+					Acceleration = Acceleration + bikeacceleration1;}
 				if(bikeupgradelevel ==2){
-					SpeedMotorMobile = bikespeedmobile2;
-					SpeedMotor = bikespeedmotor2;
-					MaxSpeed =bikemaxspeed2;
-					BreakMass = bikebreakmass2;
-					BreakGravity = bikebreakgravity2;
-					Acceleration =bikeacceleration2;}
+					SpeedMotorMobile = SpeedMotorMobile + bikespeedmobile2;
+					SpeedMotor = SpeedMotor + bikespeedmotor2;
+					MaxSpeed = MaxSpeed + bikemaxspeed2;
+					BreakMass = BreakMass + bikebreakmass2;
+					BreakGravity = BreakGravity + bikebreakgravity2;
+					Acceleration = Acceleration + bikeacceleration2;}
 				if(bikeupgradelevel ==3){
-					SpeedMotorMobile = bikespeedmobile3;
-					SpeedMotor = bikespeedmotor3;
-					MaxSpeed =bikemaxspeed3;
-					BreakMass = bikebreakmass3;
-					BreakGravity = bikebreakgravity3;
-					Acceleration =bikeacceleration3;}
+					SpeedMotorMobile = SpeedMotorMobile + bikespeedmobile3;
+					SpeedMotor = SpeedMotor + bikespeedmotor3;
+					MaxSpeed = MaxSpeed + bikemaxspeed3;
+					BreakMass = BreakMass + bikebreakmass3;
+					BreakGravity = BreakGravity + bikebreakgravity3;
+					Acceleration = Acceleration + bikeacceleration3;}
 			}
 		} 
 		else if(this.name == "super_bike(Clone)"){
 			if (superupgradelevel != 0) {
 				if(superupgradelevel ==1){
-					SpeedMotorMobile = superspeedmobile1;
-					SpeedMotor = superspeedmobile1;
-					SpeedMotor = superspeedmotor1;
-					MaxSpeed =supermaxspeed1;
-					BreakMass = superbreakmass1;
-					BreakGravity = superbreakgravity1;
-					Acceleration =superacceleration1;}
+					SpeedMotorMobile = SpeedMotorMobile +superspeedmobile1;
+					SpeedMotor = SpeedMotor + superspeedmotor1;
+					MaxSpeed = MaxSpeed + supermaxspeed1;
+					BreakMass = BreakMass + superbreakmass1;
+					BreakGravity = BreakGravity + superbreakgravity1;
+					Acceleration = Acceleration + superacceleration1;}
 				if(superupgradelevel ==2){
-					SpeedMotorMobile = superspeedmobile2;
-					SpeedMotor = superspeedmotor2;
-					MaxSpeed =supermaxspeed2;
-					BreakMass = superbreakmass2;
-					BreakGravity = superbreakgravity2;
-					Acceleration =superacceleration2;}
+					SpeedMotorMobile = SpeedMotorMobile +superspeedmobile2;
+					SpeedMotor = SpeedMotor + superspeedmotor2;
+					MaxSpeed = MaxSpeed + supermaxspeed2;
+					BreakMass = BreakMass + superbreakmass2;
+					BreakGravity = BreakGravity + superbreakgravity2;
+					Acceleration = Acceleration + superacceleration2;}
 				if(superupgradelevel ==3){
-					SpeedMotorMobile = superspeedmobile3;
-					SpeedMotor = superspeedmotor3;
-					MaxSpeed =supermaxspeed3;
-					BreakMass = superbreakmass3;
-					BreakGravity = superbreakgravity3;
-					Acceleration =superacceleration3;}
+					SpeedMotorMobile = SpeedMotorMobile +superspeedmobile3;
+					SpeedMotor = SpeedMotor + superspeedmotor3;
+					MaxSpeed = MaxSpeed + supermaxspeed3;
+					BreakMass = BreakMass + superbreakmass3;
+					BreakGravity = BreakGravity + superbreakgravity3;
+					Acceleration = Acceleration + superacceleration3;}
 			}
 		}
 		else if (this.name == "party_bike(Clone)") {
 			if (partyupgradelevel != 0) {
 				if (partyupgradelevel == 1) {
-					SpeedMotorMobile = partyspeedmobile1;
-					SpeedMotor = partyspeedmotor1;
-					MaxSpeed = partymaxspeed1;
-					BreakMass = partybreakmass1;
-					BreakGravity = partybreakgravity1;
-					Acceleration = partyacceleration1;
+					SpeedMotorMobile = SpeedMotorMobile + partyspeedmobile1;
+					SpeedMotor = SpeedMotor + partyspeedmotor1;
+					MaxSpeed = MaxSpeed + partymaxspeed1;
+					BreakMass = BreakMass + partybreakmass1;
+					BreakGravity = BreakGravity + partybreakgravity1;
+					Acceleration = Acceleration + partyacceleration1;
 				}
 				if (partyupgradelevel == 2) {
-					SpeedMotorMobile = partyspeedmobile2;
-					SpeedMotor = partyspeedmotor2;
-					MaxSpeed = partymaxspeed2;
-					BreakMass = partybreakmass2;
-					BreakGravity = partybreakgravity2;
-					Acceleration = partyacceleration2;
+					SpeedMotorMobile = SpeedMotorMobile + partyspeedmobile2;
+					SpeedMotor = SpeedMotor + partyspeedmotor2;
+					MaxSpeed = MaxSpeed + partymaxspeed2;
+					BreakMass = BreakMass + partybreakmass2;
+					BreakGravity = BreakGravity + partybreakgravity2;
+					Acceleration = Acceleration + partyacceleration2;
 				}
 				if (partyupgradelevel == 3) {
-					SpeedMotorMobile = partyspeedmobile3;
-					SpeedMotor = partyspeedmotor3;
-					MaxSpeed = partymaxspeed3;
-					BreakMass = partybreakmass3;
-					BreakGravity = partybreakgravity3;
-					Acceleration = partyacceleration3;
+					SpeedMotorMobile = SpeedMotorMobile + partyspeedmobile3;
+					SpeedMotor = SpeedMotor + partyspeedmotor3;
+					MaxSpeed = MaxSpeed + partymaxspeed3;
+					BreakMass = BreakMass + partybreakmass3;
+					BreakGravity = BreakGravity + partybreakgravity3;
+					Acceleration = Acceleration + partyacceleration3;
 				}
 			} 
 		}
 		else if (this.name == "nightmare_bike(Clone)") {
 			if (nightmareupgradelevel != 0) {
 				if (nightmareupgradelevel == 1) {
-					SpeedMotorMobile = nightmarespeedmobile1;
-					SpeedMotor = nightmarespeedmotor1;
-					MaxSpeed = nightmaremaxspeed1;
-					BreakMass = nightmarebreakmass1;
-					BreakGravity = nightmarebreakgravity1;
-					Acceleration = nightmareacceleration1;
+					SpeedMotorMobile = SpeedMotorMobile + nightmarespeedmobile1;
+					SpeedMotor = SpeedMotor + nightmarespeedmotor1;
+					MaxSpeed = MaxSpeed + nightmaremaxspeed1;
+					BreakMass = BreakMass + nightmarebreakmass1;
+					BreakGravity = BreakGravity + nightmarebreakgravity1;
+					Acceleration = Acceleration + nightmareacceleration1;
 				}
 				if (nightmareupgradelevel == 2) {
-					SpeedMotorMobile = nightmarespeedmobile2;
-					SpeedMotor = nightmarespeedmotor2;
-					MaxSpeed = nightmaremaxspeed2;
-					BreakMass = nightmarebreakmass2;
-					BreakGravity = nightmarebreakgravity2;
-					Acceleration = nightmareacceleration2;
+					SpeedMotorMobile = SpeedMotorMobile + nightmarespeedmobile2;
+					SpeedMotor = SpeedMotor + nightmarespeedmotor2;
+					MaxSpeed = MaxSpeed + nightmaremaxspeed2;
+					BreakMass = BreakMass + nightmarebreakmass2;
+					BreakGravity = BreakGravity + nightmarebreakgravity2;
+					Acceleration = Acceleration + nightmareacceleration2;
 				}
 				if (nightmareupgradelevel == 3) {
-					SpeedMotorMobile = nightmarespeedmobile3;
-					SpeedMotor = nightmarespeedmobile3;
-					SpeedMotor = nightmarespeedmotor3;
-					MaxSpeed = nightmaremaxspeed3;
-					BreakMass = nightmarebreakmass3;
-					BreakGravity = nightmarebreakgravity3;
-					Acceleration = nightmareacceleration3;
+					SpeedMotorMobile = SpeedMotorMobile + nightmarespeedmobile3;
+					SpeedMotor = SpeedMotor + nightmarespeedmotor3;
+					MaxSpeed = MaxSpeed + nightmaremaxspeed3;
+					BreakMass = BreakMass + nightmarebreakmass3;
+					BreakGravity = BreakGravity + nightmarebreakgravity3;
+					Acceleration = Acceleration + nightmareacceleration3;
 				}
 			}
 		}
 		else if (this.name == "monster_bike(Clone)") {
 			if (monsterupgradelevel != 0) {
 				if (monsterupgradelevel == 1) {
-					SpeedMotorMobile = monsterspeedmobile1;
-					SpeedMotor = monsterspeedmotor1;
-					MaxSpeed = monstermaxspeed1;
-					BreakMass = monsterbreakmass1;
-					BreakGravity = monsterbreakgravity1;
-					Acceleration = monsteracceleration1;
+					SpeedMotorMobile = SpeedMotorMobile + monsterspeedmobile1;
+					SpeedMotor = SpeedMotor + monsterspeedmotor1;
+					MaxSpeed = MaxSpeed + monstermaxspeed1;
+					BreakMass = BreakMass + monsterbreakmass1;
+					BreakGravity = BreakGravity + monsterbreakgravity1;
+					Acceleration = Acceleration + monsteracceleration1;
 				}
 				if (monsterupgradelevel == 2) {
-					SpeedMotorMobile = monsterspeedmobile2;
-					SpeedMotor = monsterspeedmotor2;
-					MaxSpeed = monstermaxspeed2;
-					BreakMass = monsterbreakmass2;
-					BreakGravity = monsterbreakgravity2;
-					Acceleration = monsteracceleration2;
+					SpeedMotorMobile = SpeedMotorMobile + monsterspeedmobile2;
+					SpeedMotor = SpeedMotor + monsterspeedmotor2;
+					MaxSpeed = MaxSpeed + monstermaxspeed2;
+					BreakMass = BreakMass + monsterbreakmass2;
+					BreakGravity = BreakGravity + monsterbreakgravity2;
+					Acceleration = Acceleration + monsteracceleration2;
 				}
 				if (monsterupgradelevel == 3) {
-					SpeedMotorMobile = monsterspeedmobile3;
-					SpeedMotor = monsterspeedmotor3;
-					MaxSpeed = monstermaxspeed3;
-					BreakMass = monsterbreakmass3;
-					BreakGravity = monsterbreakgravity3;
-					Acceleration = monsteracceleration3;
+					SpeedMotorMobile = SpeedMotorMobile + monsterspeedmobile3;
+					SpeedMotor = SpeedMotor + monsterspeedmotor3;
+					MaxSpeed = MaxSpeed + monstermaxspeed3;
+					BreakMass = BreakMass + monsterbreakmass3;
+					BreakGravity = BreakGravity + monsterbreakgravity3;
+					Acceleration = Acceleration + monsteracceleration3;
 				}
 			}
 		}
 		else if (this.name == "neon_bike(Clone)") {
 			if (neonupgradelevel != 0) {
 				if (neonupgradelevel == 1) {
-					SpeedMotorMobile = neonspeedmobile1;
-					SpeedMotor = neonspeedmotor1;
-					MaxSpeed = neonmaxspeed1;
-					BreakMass = neonbreakmass1;
-					BreakGravity = neonbreakgravity1;
-					Acceleration = neonacceleration1;
+					SpeedMotorMobile = SpeedMotorMobile + neonspeedmobile1;
+					SpeedMotor = SpeedMotor + neonspeedmotor1;
+					MaxSpeed = MaxSpeed + neonmaxspeed1;
+					BreakMass = BreakMass + neonbreakmass1;
+					BreakGravity = BreakGravity + neonbreakgravity1;
+					Acceleration = Acceleration + neonacceleration1;
 				}
 				if (neonupgradelevel == 2) {
-					SpeedMotorMobile = neonspeedmobile2;
-					SpeedMotor = neonspeedmotor2;
-					MaxSpeed = neonmaxspeed2;
-					BreakMass = neonbreakmass2;
-					BreakGravity = neonbreakgravity2;
-					Acceleration = neonacceleration2;
+					SpeedMotorMobile = SpeedMotorMobile + neonspeedmobile2;
+					SpeedMotor = SpeedMotor + neonspeedmotor2;
+					MaxSpeed = MaxSpeed + neonmaxspeed2;
+					BreakMass = BreakMass + neonbreakmass2;
+					BreakGravity = BreakGravity + neonbreakgravity2;
+					Acceleration = Acceleration + neonacceleration2;
 				}
 				if (neonupgradelevel == 3) {
-					SpeedMotorMobile = neonspeedmobile3;
-					SpeedMotor = neonspeedmotor3;
-					MaxSpeed = neonmaxspeed3;
-					BreakMass = neonbreakmass3;
-					BreakGravity = neonbreakgravity3;
-					Acceleration = neonacceleration3;
+					SpeedMotorMobile = SpeedMotorMobile + neonspeedmobile3;
+					SpeedMotor = SpeedMotor + neonspeedmotor3;
+					MaxSpeed = MaxSpeed + neonmaxspeed3;
+					BreakMass = BreakMass + neonbreakmass3;
+					BreakGravity = BreakGravity + neonbreakgravity3;
+					Acceleration = Acceleration + neonacceleration3;
 				}
 			}
 		}
 		else if (this.name == "hell_bike(Clone)") {
 			if (hellupgradelevel != 0) {
 				if (hellupgradelevel == 1) {
-					SpeedMotorMobile = hellspeedmobile1;
-					SpeedMotor = hellspeedmotor1;
-					MaxSpeed = hellmaxspeed1;
-					BreakMass = hellbreakmass1;
-					BreakGravity = hellbreakgravity1;
-					Acceleration = hellacceleration1;
+					SpeedMotorMobile = SpeedMotorMobile + hellspeedmobile1;
+					SpeedMotor = SpeedMotor + hellspeedmotor1;
+					MaxSpeed = MaxSpeed + hellmaxspeed1;
+					BreakMass = BreakMass + hellbreakmass1;
+					BreakGravity = BreakGravity + hellbreakgravity1;
+					Acceleration = Acceleration + hellacceleration1;
 				}
 				if (hellupgradelevel == 2) {
-					SpeedMotorMobile = hellspeedmobile2;
-					SpeedMotor = hellspeedmotor2;
-					MaxSpeed = hellmaxspeed2;
-					BreakMass = hellbreakmass2;
-					BreakGravity = hellbreakgravity2;
-					Acceleration = hellacceleration2;
+					SpeedMotorMobile = SpeedMotorMobile + hellspeedmobile2;
+					SpeedMotor = SpeedMotor + hellspeedmotor2;
+					MaxSpeed = MaxSpeed + hellmaxspeed2;
+					BreakMass = BreakMass + hellbreakmass2;
+					BreakGravity = BreakGravity + hellbreakgravity2;
+					Acceleration = Acceleration + hellacceleration2;
 				}
 				if (hellupgradelevel == 3) {
-					SpeedMotorMobile = hellspeedmobile3;
-					SpeedMotor = hellspeedmotor3;
-					MaxSpeed = hellmaxspeed3;
-					BreakMass = hellbreakmass3;
-					BreakGravity = hellbreakgravity3;
-					Acceleration = hellacceleration3;
+					SpeedMotorMobile = SpeedMotorMobile + hellspeedmobile3;
+					SpeedMotor = SpeedMotor + hellspeedmotor3;
+					MaxSpeed = MaxSpeed + hellmaxspeed3;
+					BreakMass = BreakMass + hellbreakmass3;
+					BreakGravity = BreakGravity + hellbreakgravity3;
+					Acceleration = Acceleration + hellacceleration3;
 				}
 			}
 		}
-		else if (this.name == "test_bike(Clone)") {
-			if (testupgradelevel != 0) {
-				if (testupgradelevel == 1) {
-					SpeedMotorMobile = testspeedmobile1;
-					SpeedMotor = testspeedmotor1;
-					MaxSpeed = testmaxspeed1;
-					BreakMass = testbreakmass1;
-					BreakGravity = testbreakgravity1;
-					Acceleration = testacceleration1;
-				}
-				if (testupgradelevel == 2) {
-					SpeedMotorMobile = testspeedmobile2;
-					SpeedMotor = testspeedmotor2;
-					MaxSpeed = testmaxspeed2;
-					BreakMass = testbreakmass2;
-					BreakGravity = testbreakgravity2;
-					Acceleration = testacceleration2;
-				}
-				if (testupgradelevel == 3) {
-					SpeedMotorMobile = testspeedmobile3;
-					SpeedMotor = testspeedmotor3;
-					MaxSpeed = testmaxspeed3;
-					BreakMass = testbreakmass3;
-					BreakGravity = testbreakgravity3;
-					Acceleration = testacceleration3;
-				}
-			}
-		}
+
 		else if (this.name == "blue_bike(Clone)") {
 			if (bikeupgradelevel != 0) {
 				if(bikeupgradelevel ==1){
-					SpeedMotorMobile = bikespeedmobile1;
-					SpeedMotor = bikespeedmotor1;
-					MaxSpeed =bikemaxspeed1;
-					BreakMass = bikebreakmass1;
-					BreakGravity = bikebreakgravity1;
-					Acceleration =bikeacceleration1;}
+					SpeedMotorMobile = SpeedMotorMobile + bikespeedmobile1;
+					SpeedMotor = SpeedMotor + bikespeedmotor1;
+					MaxSpeed =MaxSpeed + bikemaxspeed1;
+					BreakMass = BreakMass + bikebreakmass1;
+					BreakGravity = BreakGravity + bikebreakgravity1;
+					Acceleration =Acceleration +bikeacceleration1;}
 				if(bikeupgradelevel ==2){
-					SpeedMotorMobile = bikespeedmobile2;
-					SpeedMotor = bikespeedmotor2;
-					MaxSpeed =bikemaxspeed2;
-					BreakMass = bikebreakmass2;
-					BreakGravity = bikebreakgravity2;
-					Acceleration =bikeacceleration2;}
+					SpeedMotorMobile = SpeedMotorMobile + bikespeedmobile2;
+					SpeedMotor = SpeedMotor + bikespeedmotor2;
+					MaxSpeed =MaxSpeed + bikemaxspeed2;
+					BreakMass = BreakMass + bikebreakmass2;
+					BreakGravity = BreakGravity + bikebreakgravity2;
+					Acceleration =Acceleration +bikeacceleration2;}
 				if(bikeupgradelevel ==3){
-					SpeedMotorMobile = bikespeedmobile3;
-					SpeedMotor = bikespeedmotor3;
-					MaxSpeed =bikemaxspeed3;
-					BreakMass = bikebreakmass3;
-					BreakGravity = bikebreakgravity3;
-					Acceleration =bikeacceleration3;}
+					SpeedMotorMobile = SpeedMotorMobile + bikespeedmobile3;
+					SpeedMotor = SpeedMotor + bikespeedmotor3;
+					MaxSpeed =MaxSpeed + bikemaxspeed3;
+					BreakMass = BreakMass + bikebreakmass3;
+					BreakGravity = BreakGravity + bikebreakgravity3;
+					Acceleration =Acceleration +bikeacceleration3;}
 			}
 		}
 		else if (this.name == "summer_bike(Clone)") {
 			if (bikeupgradelevel != 0) {
 				if(bikeupgradelevel ==1){
-					SpeedMotorMobile = bikespeedmobile1;
-					SpeedMotor = bikespeedmotor1;
-					MaxSpeed =bikemaxspeed1;
-					BreakMass = bikebreakmass1;
-					BreakGravity = bikebreakgravity1;
-					Acceleration =bikeacceleration1;}
+					SpeedMotorMobile = SpeedMotorMobile + bikespeedmobile1;
+					SpeedMotor = SpeedMotor + bikespeedmotor1;
+					MaxSpeed =MaxSpeed + bikemaxspeed1;
+					BreakMass = BreakMass + bikebreakmass1;
+					BreakGravity = BreakGravity + bikebreakgravity1;
+					Acceleration =Acceleration + bikeacceleration1;}
 				if(bikeupgradelevel ==2){
-					SpeedMotorMobile = bikespeedmobile2;
-					SpeedMotor = bikespeedmotor2;
-					MaxSpeed =bikemaxspeed2;
-					BreakMass = bikebreakmass2;
-					BreakGravity = bikebreakgravity2;
-					Acceleration =bikeacceleration2;}
+					SpeedMotorMobile = SpeedMotorMobile + bikespeedmobile2;
+					SpeedMotor = SpeedMotor + bikespeedmotor2;
+					MaxSpeed =MaxSpeed + bikemaxspeed2;
+					BreakMass = BreakMass + bikebreakmass2;
+					BreakGravity = BreakGravity + bikebreakgravity2;
+					Acceleration =Acceleration + bikeacceleration2;}
 				if(bikeupgradelevel ==3){
-					SpeedMotorMobile = bikespeedmobile3;
-					SpeedMotor = bikespeedmotor3;
-					MaxSpeed =bikemaxspeed3;
-					BreakMass = bikebreakmass3;
-					BreakGravity = bikebreakgravity3;
-					Acceleration =bikeacceleration3;}
+					SpeedMotorMobile = SpeedMotorMobile + bikespeedmobile3;
+					SpeedMotor = SpeedMotor + bikespeedmotor3;
+					MaxSpeed =MaxSpeed + bikemaxspeed3;
+					BreakMass = BreakMass + bikebreakmass3;
+					BreakGravity = BreakGravity + bikebreakgravity3;
+					Acceleration =Acceleration + bikeacceleration3;}
 			}
 		}
 		else if (this.name == "peace_bike(Clone)") {
 			if (bikeupgradelevel != 0) {
 				if(bikeupgradelevel ==1){
-					SpeedMotorMobile = bikespeedmobile1;
-					SpeedMotor = bikespeedmotor1;
-					MaxSpeed =bikemaxspeed1;
-					BreakMass = bikebreakmass1;
-					BreakGravity = bikebreakgravity1;
-					Acceleration =bikeacceleration1;}
+					SpeedMotorMobile = SpeedMotorMobile + bikespeedmobile1;
+					SpeedMotor = SpeedMotor + bikespeedmotor1;
+					MaxSpeed =MaxSpeed + bikemaxspeed1;
+					BreakMass = BreakMass + bikebreakmass1;
+					BreakGravity = BreakGravity + bikebreakgravity1;
+					Acceleration =Acceleration + bikeacceleration1;}
 				if(bikeupgradelevel ==2){
-					SpeedMotorMobile = bikespeedmobile2;
-					SpeedMotor = bikespeedmotor2;
-					MaxSpeed =bikemaxspeed2;
-					BreakMass = bikebreakmass2;
-					BreakGravity = bikebreakgravity2;
-					Acceleration =bikeacceleration2;}
+					SpeedMotorMobile = SpeedMotorMobile + bikespeedmobile2;
+					SpeedMotor = SpeedMotor + bikespeedmotor2;
+					MaxSpeed =MaxSpeed + bikemaxspeed2;
+					BreakMass = BreakMass + bikebreakmass2;
+					BreakGravity = BreakGravity + bikebreakgravity2;
+					Acceleration =Acceleration + bikeacceleration2;}
 				if(bikeupgradelevel ==3){
-					SpeedMotorMobile = bikespeedmobile3;
-					SpeedMotor = bikespeedmotor3;
-					MaxSpeed =bikemaxspeed3;
-					BreakMass = bikebreakmass3;
-					BreakGravity = bikebreakgravity3;
-					Acceleration =bikeacceleration3;}
+					SpeedMotorMobile = SpeedMotorMobile + bikespeedmobile3;
+					SpeedMotor = SpeedMotor + bikespeedmotor3;
+					MaxSpeed =MaxSpeed + bikemaxspeed3;
+					BreakMass = BreakMass + bikebreakmass3;
+					BreakGravity = BreakGravity + bikebreakgravity3;
+					Acceleration =Acceleration + bikeacceleration3;}
 			}
 		}
 		else if (this.name == "sunshine_bike(Clone)") {
 			if (bikeupgradelevel != 0) {
 				if(bikeupgradelevel ==1){
-					SpeedMotorMobile = bikespeedmobile1;
-					SpeedMotor = bikespeedmotor1;
-					MaxSpeed =bikemaxspeed1;
-					BreakMass = bikebreakmass1;
-					BreakGravity = bikebreakgravity1;
-					Acceleration =bikeacceleration1;}
+					SpeedMotorMobile = SpeedMotorMobile + bikespeedmobile1;
+					SpeedMotor = SpeedMotor + bikespeedmotor1;
+					MaxSpeed =MaxSpeed +bikemaxspeed1;
+					BreakMass = BreakMass +bikebreakmass1;
+					BreakGravity = BreakGravity +bikebreakgravity1;
+					Acceleration =Acceleration +bikeacceleration1;}
 				if(bikeupgradelevel ==2){
-					SpeedMotorMobile = bikespeedmobile2;
-					SpeedMotor = bikespeedmotor2;
-					MaxSpeed =bikemaxspeed2;
-					BreakMass = bikebreakmass2;
-					BreakGravity = bikebreakgravity2;
-					Acceleration =bikeacceleration2;}
+					SpeedMotorMobile = SpeedMotorMobile + bikespeedmobile2;
+					SpeedMotor = SpeedMotor + bikespeedmotor2;
+					MaxSpeed =MaxSpeed +bikemaxspeed2;
+					BreakMass = BreakMass +bikebreakmass2;
+					BreakGravity = BreakGravity +bikebreakgravity2;
+					Acceleration =Acceleration +bikeacceleration2;}
 				if(bikeupgradelevel ==3){
-					SpeedMotorMobile = bikespeedmobile3;
-					SpeedMotor = bikespeedmotor3;
-					MaxSpeed =bikemaxspeed3;
-					BreakMass = bikebreakmass3;
-					BreakGravity = bikebreakgravity3;
-					Acceleration =bikeacceleration3;}
+					SpeedMotorMobile = SpeedMotorMobile + bikespeedmobile3;
+					SpeedMotor = SpeedMotor + bikespeedmotor3;
+					MaxSpeed =MaxSpeed +bikemaxspeed3;
+					BreakMass = BreakMass +bikebreakmass3;
+					BreakGravity = BreakGravity +bikebreakgravity3;
+					Acceleration =Acceleration +bikeacceleration3;}
 			}
 		}
 
@@ -952,8 +928,6 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 
 	void Start()
 	{
-
-
 
 		isFinish = false;
 		if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
@@ -1128,9 +1102,9 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		backWheelStatic = backWheelObject;
 
 	
-		if(useUpgrade){
+	//	if(useUpgrade){
 		UpgradeInventory ();
-		}
+	//	}
 		nubes = GameObject.Find ("Nubes");
 		edif2 = GameObject.Find ("edif 2");
 		humo = GameObject.Find ("humo");

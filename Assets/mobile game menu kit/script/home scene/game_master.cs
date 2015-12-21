@@ -503,11 +503,11 @@ public class game_master : MonoBehaviour {
 
 		if (buy_virtual_money_with_real_money_with_soomla)
 			{
-			/* //DELETE THIS LINE FOR SOOMLA
+			 //DELETE THIS LINE FOR SOOMLA
 			my_Soomla_billing_script.Remove_all_virtual_money_from_this_profile(current_profile_selected);
 			my_Soomla_billing_script.Give_virtual_money_for_free (current_profile_selected, start_virtual_money);
 			current_virtual_money[current_profile_selected] = my_Soomla_billing_script.Show_how_many_virtual_money_there_is_in_this_profile(current_profile_selected);
-			*/ //DELETE THIS LINE FOR SOOMLA
+			 //DELETE THIS LINE FOR SOOMLA
 			}
 		else
 			current_virtual_money[current_profile_selected] = start_virtual_money;
@@ -539,9 +539,9 @@ public class game_master : MonoBehaviour {
 
 		if (buy_virtual_money_with_real_money_with_soomla)
 			{
-			/* //DELETE THIS LINE FOR SOOMLA
+			 //DELETE THIS LINE FOR SOOMLA
 			current_virtual_money[profile_slot] = my_Soomla_billing_script.Show_how_many_virtual_money_there_is_in_this_profile(profile_slot);
-			*/ //DELETE THIS LINE FOR SOOMLA
+			 //DELETE THIS LINE FOR SOOMLA
 			}
 		else
 			current_virtual_money[profile_slot] = PlayerPrefs.GetInt("profile_"+profile_slot.ToString()+"_virtual_money");

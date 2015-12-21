@@ -9,7 +9,7 @@ namespace Soomla.Store
 		
 		public int GetVersion()
 		{
-			return 1;
+			return 0;
 		}
 		
 		#region virtual currency

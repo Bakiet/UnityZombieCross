@@ -238,7 +238,12 @@ public class makeclick : MonoBehaviour {
 
 	public void ConncetButtonPress() {
 
-	    GooglePlayConnection.Instance.connect ();
+		if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
+			//GooglePlayConnection.Instance.Disconnect ();
+		} else {
+			GooglePlayConnection.Instance.Connect ();
+		}
+	  
 	}
 	// Update is called once per frame
 

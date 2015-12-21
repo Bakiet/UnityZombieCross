@@ -88,6 +88,8 @@ public class store_button : MonoBehaviour {
 			//get checkbox component
 			selCheck = selectButton.GetComponent<Toggle>();			
 			if (selCheck) selCheck.group = transform.parent.GetComponent<ToggleGroup>();
+
+
 		}
 
 		if (game_master.game_master_obj && my_game_master == null)
@@ -95,6 +97,53 @@ public class store_button : MonoBehaviour {
 
 
 		id = my_game_master.my_store_item_manager.consumable_item_list[my_item_ID].id;
+
+
+		if(SelectedCharacter.bikeselected == true && id == "bike"){
+			selected.SetActive(true);
+			selectButton.SetActive(false);
+		}
+		if(SelectedCharacter.superbikeselected == true && id == "super_bike"){
+			selected.SetActive(true);
+			selectButton.SetActive(false);
+		}
+		if(SelectedCharacter.partybikeselected == true && id == "party_bike"){
+			selected.SetActive(true);
+			selectButton.SetActive(false);
+		}
+		if(SelectedCharacter.nightmarebikeselected == true && id == "nightmare_bike"){
+			selected.SetActive(true);
+			selectButton.SetActive(false);
+		}
+		if(SelectedCharacter.monsterbikeselected == true && id == "monster_bike"){
+			selected.SetActive(true);
+			selectButton.SetActive(false);
+		}
+		if(SelectedCharacter.monsterbikeselected == true && id == "neon_bike"){
+			selected.SetActive(true);
+			selectButton.SetActive(false);
+		}
+		if(SelectedCharacter.hellbikeselected == true && id == "hell_bike"){
+			selected.SetActive(true);
+			selectButton.SetActive(false);
+		}
+		
+		if(SelectedCharacter.bluebikeselected == true && id == "blue_bike"){
+			selected.SetActive(true);
+			selectButton.SetActive(false);
+		}
+		if(SelectedCharacter.summerbikeselected == true && id == "summer_bike"){
+			selected.SetActive(true);
+			selectButton.SetActive(false);
+		}
+		if(SelectedCharacter.peacebikeselected == true && id == "peace_bike"){
+			selected.SetActive(true);
+			selectButton.SetActive(false);
+		}
+		if(SelectedCharacter.sunshinebikeselected == true && id == "sunshine_bike"){
+			selected.SetActive(true);
+			selectButton.SetActive(false);
+		}
 
 		if (Check_if_show_this_button())
 			{
@@ -143,7 +192,13 @@ public class store_button : MonoBehaviour {
 		my_ico = my_game_master.my_store_item_manager.incremental_item_list[my_item_ID].icon[my_game_master.my_store_item_manager.incremental_item_list[my_item_ID].icon.Length-1];
 		my_price_tx.gameObject.SetActive(false);
 		this_buy_hit_the_cap = false;
-		if (selectButton) selectButton.SetActive(true);
+		if (my_ico) {
+			if (selectButton)
+				selectButton.SetActive (false);
+		} else {
+			if (selectButton) selectButton.SetActive(true);
+		}
+
 
 	}
 
@@ -194,9 +249,11 @@ public class store_button : MonoBehaviour {
 
 		case give_this.consumable_item:
 			if ((my_game_master.consumable_item_current_quantity[my_game_master.current_profile_selected][my_item_ID] + quantity) > my_game_master.my_store_item_manager.consumable_item_list[my_item_ID].quantity_cap)
-			//this_buy_hit_the_cap = false;
-			if (selectButton) selectButton.SetActive(true);
-			else
+			{//this_buy_hit_the_cap = false;
+
+					selectButton.SetActive(true);
+
+			}else
 				this_buy_hit_the_cap = false;
 			break;
 
@@ -298,27 +355,57 @@ public class store_button : MonoBehaviour {
 	}
 
 	public void Click_me () {
-		if (you_have_enough_money && !this_buy_hit_the_cap)
-			{
+		if (!selected) {
+			if (you_have_enough_money && !this_buy_hit_the_cap) {
 
-				my_game_master.Gui_sfx(my_game_master.tap_sfx);
-				if (price_currency_selected == price_currency.real_money){
-					Pay_with_real_money();
-				//put selected
+				my_game_master.Gui_sfx (my_game_master.tap_sfx);
+				if (price_currency_selected == price_currency.real_money) {
+					Pay_with_real_money ();
+					//put selected
 					/*if (!selected){
 					buyButton.SetActive(false);
 					}*/
-					if (selectButton) selectButton.SetActive(true);
+					if (selectButton)
+						selectButton.SetActive (true);
+				} else if (price_currency_selected == price_currency.virtual_money) {
+					Pay_with_virtual_money ();
+					if (selectButton)
+						selectButton.SetActive (true);
 				}
-				else if (price_currency_selected == price_currency.virtual_money){
-					Pay_with_virtual_money();
-					if (selectButton) selectButton.SetActive(true);
+			} else {
+				my_game_master.Gui_sfx (my_game_master.tap_error_sfx);
+			}
+		} else {
+			my_game_master.Gui_sfx (my_game_master.tap_sfx);
+			if (price_currency_selected == price_currency.real_money) {
+				Pay_with_real_money ();
+
+			} else if (price_currency_selected == price_currency.virtual_money) {
+				Pay_with_virtual_money ();
+
+				if(id == "bike_upgrade"){
+					Motorcycle_Controller2D.useUpgrade = true;
+				}
+				if(id == "super_bike_upgrade"){
+					Motorcycle_Controller2D.useUpgrade = true;
+				}
+				if(id == "party_bike_upgrade"){
+					Motorcycle_Controller2D.useUpgrade = true;
+				}
+				if(id == "nightmare_bike_upgrade"){
+					Motorcycle_Controller2D.useUpgrade = true;
+				}
+				if(id == "monster_bike_upgrade"){
+					Motorcycle_Controller2D.useUpgrade = true;
+				}
+				if(id == "neon_bike_upgrade"){
+					Motorcycle_Controller2D.useUpgrade = true;
+				}
+				if(id == "hell_bike_upgrade"){
+					Motorcycle_Controller2D.useUpgrade = true;
 				}
 			}
-		else
-			{
-			my_game_master.Gui_sfx(my_game_master.tap_error_sfx);
-			}
+		}
 	}
 
 	void Pay_with_real_money()
@@ -485,14 +572,143 @@ public class store_button : MonoBehaviour {
 
 			//equip this good
 			string goodId = id;
+			if(my_item_ID == 0){
+				SelectedCharacter.bikeselected = true;
+				Motorcycle_Controller2D.my_item_ID = 0;
 
-			StoreInventory.EquipVirtualGood(goodId);
+
+			}else{
+				SelectedCharacter.bikeselected = false;
+				
+			}
+			if(my_item_ID == 1){
+				SelectedCharacter.superbikeselected = true;
+				Motorcycle_Controller2D.my_item_ID = 1;
+
+
+			}else{
+				SelectedCharacter.superbikeselected = false;
+
+			}
+			if(my_item_ID == 2){
+				SelectedCharacter.partybikeselected = true;
+				Motorcycle_Controller2D.my_item_ID = 2;
+
+
+			}else{
+				SelectedCharacter.partybikeselected = false;
+			
+			}
+			if(my_item_ID == 3){
+				SelectedCharacter.nightmarebikeselected = true;
+				Motorcycle_Controller2D.my_item_ID = 3;
+
+
+			}else{
+				SelectedCharacter.nightmarebikeselected = false;
+
+			}
+			if(my_item_ID == 4){
+				SelectedCharacter.monsterbikeselected = true;
+				Motorcycle_Controller2D.my_item_ID = 4;
+
+
+			}else{
+				SelectedCharacter.monsterbikeselected = false;
+
+			}
+			if(my_item_ID == 5){
+				SelectedCharacter.neonbikeselected = true;
+				Motorcycle_Controller2D.my_item_ID = 5;
+
+
+			}else{
+				SelectedCharacter.neonbikeselected = false;
+			
+			}
+			if(my_item_ID == 6){
+				SelectedCharacter.hellbikeselected = true;
+				Motorcycle_Controller2D.my_item_ID = 6;
+
+			}else{
+				SelectedCharacter.hellbikeselected = false;
+			}
+			if(my_item_ID == 7){
+				SelectedCharacter.bluebikeselected = true;
+			}else{
+				SelectedCharacter.bluebikeselected = false;
+			}
+			if(my_item_ID == 8){
+				SelectedCharacter.summerbikeselected = true;
+			}else{
+				SelectedCharacter.summerbikeselected = false;
+			}
+			if(my_item_ID == 9){
+				SelectedCharacter.peacebikeselected = true;
+			}else{
+				SelectedCharacter.peacebikeselected = false;
+			}
+			if(my_item_ID == 10){
+				SelectedCharacter.sunshinebikeselected = true;
+			}else{
+				SelectedCharacter.sunshinebikeselected = false;
+			}
+
+
+			if(my_item_ID == 11){
+				SelectedCharacter.superbikeselected = true;
+				Motorcycle_Controller2D.my_item_ID = 1;
+				SelectedCharacter.superbikeeffectselected = true;
+			}else{
+				SelectedCharacter.superbikeeffectselected = false;
+			}
+
+			if(my_item_ID == 12){
+				SelectedCharacter.partybikeselected = true;
+				Motorcycle_Controller2D.my_item_ID = 2;
+				SelectedCharacter.partybikeeffectselected = true;
+			}else{
+				SelectedCharacter.partybikeeffectselected = false;
+			}
+
+			if(my_item_ID == 13){
+				SelectedCharacter.nightmarebikeselected = true;
+				Motorcycle_Controller2D.my_item_ID = 3;
+				SelectedCharacter.nightmarebikeeffectselected = true;
+			}else{
+				SelectedCharacter.nightmarebikeeffectselected = false;
+			}
+
+			if(my_item_ID == 14){
+				SelectedCharacter.monsterbikeselected = true;
+				Motorcycle_Controller2D.my_item_ID = 4;
+				SelectedCharacter.monsterbikeeffectselected = true;
+			}else{
+				SelectedCharacter.monsterbikeeffectselected = false;
+			}
+
+			if(my_item_ID == 15){
+				SelectedCharacter.neonbikeselected = true;
+				Motorcycle_Controller2D.my_item_ID = 5;
+				SelectedCharacter.neonbikeeffectselected = true;
+			}else{
+				SelectedCharacter.neonbikeeffectselected = false;
+			}
+
+			if(my_item_ID == 16){
+				SelectedCharacter.hellbikeselected = true;
+				Motorcycle_Controller2D.my_item_ID = 6;
+				SelectedCharacter.hellbikeeffectselected = true;
+			}else{
+				SelectedCharacter.hellbikeeffectselected = false;
+			}
+			//StoreInventory.EquipVirtualGood(goodId);
 
 
 			//if we have a deselect button or a 'selected' gameobject, show them
 			//and hide the select button for ignoring further selections              
-			if (deselectButton) deselectButton.SetActive(true);
-			if (selected) selected.SetActive(true);
+			//if (deselectButton) deselectButton.SetActive(true);
+			//if (selected) selected.SetActive(true);
 			
 			Toggle toggle = selectButton.GetComponent<Toggle>();
 			if (toggle.group)
@@ -505,19 +721,26 @@ public class store_button : MonoBehaviour {
 					if (others[i].selCheck.isOn && others[i] != this)
 					{
 						others[i].IsSelected(false);
+						others[i].selectButton.SetActive(true);
+						//toggle.isOn = false;
 						break;
 					}
+
 				}
 			}
 			
-			toggle.isOn = true;
+
 			selectButton.SetActive(false);
+			selected.SetActive(true);
+			toggle.isOn = true;
+			//IsSelected(true);
+
 		}
 		else
 		{
 			//if another object has been selected, show the
 			//select button for this item and hide the 'selected' state
-			if (!deselectButton) selectButton.SetActive(true);
+			//if (!deselectButton) selectButton.SetActive(true);
 			if (selected) selected.SetActive(false);
 		}
 	}

@@ -38,6 +38,26 @@ public class SelectedCharacter : AndroidNativeExampleBase {
 	public static bool neon_effect =false;
 	public static bool hell_effect =false;
 
+
+	public static bool bikeselected=false;
+	public static bool superbikeselected=false;
+	public static bool partybikeselected=false;
+	public static bool nightmarebikeselected=false;
+	public static bool monsterbikeselected=false;
+	public static bool neonbikeselected=false;
+	public static bool hellbikeselected=false;
+	public static bool testbikeselected=false;
+	public static bool bluebikeselected=false;
+	public static bool peacebikeselected=false;
+	public static bool summerbikeselected=false;
+	public static bool sunshinebikeselected=false;
+	public static bool superbikeeffectselected=false;
+	public static bool partybikeeffectselected=false;
+	public static bool nightmarebikeeffectselected=false;
+	public static bool monsterbikeeffectselected=false;
+	public static bool neonbikeeffectselected=false;
+	public static bool hellbikeeffectselected=false;
+
 	// Use this for initialization
 	IEnumerator Start () {
 
@@ -52,62 +72,68 @@ public class SelectedCharacter : AndroidNativeExampleBase {
 
 	//	StoreInventory.RefreshLocalInventory ();
 		//check for other character selections in the storage
-		if (StoreInventory.IsVirtualGoodEquipped("bike"))
+		//if (StoreInventory.IsVirtualGoodEquipped("bike"))
+		if (bikeselected)
 			selectedChar = characters[0];
-		else if (StoreInventory.IsVirtualGoodEquipped("super_bike"))
+		//else if (StoreInventory.IsVirtualGoodEquipped("super_bike"))
+		else if (superbikeselected)
 			selectedChar = characters[1];
-		else if (StoreInventory.IsVirtualGoodEquipped("party_bike"))
+		else if (partybikeselected)
 			selectedChar = characters[2];
-		else if (StoreInventory.IsVirtualGoodEquipped("nightmare_bike"))
+		else if (nightmarebikeselected)
 			selectedChar = characters[3];
-		else if (StoreInventory.IsVirtualGoodEquipped("monster_bike"))
+		else if (monsterbikeselected)
 			selectedChar = characters[4];
-		else if (StoreInventory.IsVirtualGoodEquipped("neon_bike"))
+		else if (neonbikeselected)
 			selectedChar = characters[5];
-		else if (StoreInventory.IsVirtualGoodEquipped("hell_bike"))
+		else if (hellbikeselected)
 			selectedChar = characters[6];
-		else if (StoreInventory.IsVirtualGoodEquipped("test_bike"))
+		else if (bluebikeselected)
 			selectedChar = characters[7];
-		else if (StoreInventory.IsVirtualGoodEquipped("blue_bike"))
+		else if (summerbikeselected)
 			selectedChar = characters[8];
-		else if (StoreInventory.IsVirtualGoodEquipped("summer_bike"))
+		else if (peacebikeselected)
 			selectedChar = characters[9];
-		else if (StoreInventory.IsVirtualGoodEquipped("peace_bike"))
+		else if (sunshinebikeselected)
 			selectedChar = characters[10];
-		else if (StoreInventory.IsVirtualGoodEquipped("sunshine_bike"))
-			selectedChar = characters[11];
 
 		//GameObject selectedEffect = effects[0];
 		
 		//	StoreInventory.RefreshLocalInventory ();
 		//check for other character selections in the storage
-		if (StoreInventory.IsVirtualGoodEquipped ("super_bike_effect")) {
+		if (superbikeeffectselected) {
 			super_bike_effect = true;
+			superbikeselected = true;
 		} else {
 			super_bike_effect = false;
 		}
-		if (StoreInventory.IsVirtualGoodEquipped("party_effect")){
+		if (partybikeeffectselected){
 			party_effect = true;
+			partybikeselected = true;
 		}else{
 			party_effect = false;
 		}
-		if (StoreInventory.IsVirtualGoodEquipped ("nightmare_effect")) {
+		if (nightmarebikeeffectselected) {
 			nightmare_effect = true;
+			nightmarebikeselected = true;
 		} else {
 			nightmare_effect = false;
 		}
-		if (StoreInventory.IsVirtualGoodEquipped ("monster_effect")) {
+		if (monsterbikeeffectselected) {
 			monster_effect = true;
+			monsterbikeselected = true;
 		} else {
 			monster_effect = false;
 		}
-		if (StoreInventory.IsVirtualGoodEquipped ("neon_effect")) {
+		if (neonbikeeffectselected) {
 			neon_effect = true;
+			neonbikeselected = true;
 		} else {
 			neon_effect = false;
 		}
-		if (StoreInventory.IsVirtualGoodEquipped ("hell_effect")) {
+		if (hellbikeeffectselected) {
 			hell_effect = true;
+			hellbikeselected = true;
 		} else {
 			hell_effect = false;
 		}
@@ -116,8 +142,8 @@ public class SelectedCharacter : AndroidNativeExampleBase {
 		if (selectedChar == null) {
 			//we didn't select a character yet, meaning this app runs for the first time
 			//give and equip the white box by default and refresh shop
-			StoreInventory.GiveItem("bike", 1);
-			StoreInventory.EquipVirtualGood("bike");
+			//StoreInventory.GiveItem("bike", 1);
+			//StoreInventory.EquipVirtualGood("bike");
 			//SIS.ShopManager.SetItemState();
 		}
 	/*	if (selectedEffect == null) {
@@ -130,30 +156,29 @@ public class SelectedCharacter : AndroidNativeExampleBase {
 
 			//	StoreInventory.RefreshLocalInventory ();
 			//check for other character selections in the storage
-			if (StoreInventory.IsVirtualGoodEquipped ("bike"))
+			if (bikeselected)
 				opponentselectedChar = opponentcharacters [0];
-			else if (StoreInventory.IsVirtualGoodEquipped ("super_bike"))
+			else if (superbikeselected)
 				opponentselectedChar = opponentcharacters [1];
-			else if (StoreInventory.IsVirtualGoodEquipped ("party_bike"))
+			else if (partybikeselected)
 				opponentselectedChar = opponentcharacters [2];
-			else if (StoreInventory.IsVirtualGoodEquipped ("nightmare_bike"))
+			else if (nightmarebikeselected)
 				opponentselectedChar = opponentcharacters [3];
-			else if (StoreInventory.IsVirtualGoodEquipped ("monster_bike"))
+			else if (monsterbikeselected)
 				opponentselectedChar = opponentcharacters [4];
-			else if (StoreInventory.IsVirtualGoodEquipped ("neon_bike"))
+			else if (neonbikeselected)
 				opponentselectedChar = opponentcharacters [5];
-			else if (StoreInventory.IsVirtualGoodEquipped ("hell_bike"))
+			else if (hellbikeselected)
 				opponentselectedChar = opponentcharacters [6];
-			else if (StoreInventory.IsVirtualGoodEquipped ("test_bike"))
+			else if (bluebikeselected)
 				opponentselectedChar = opponentcharacters [7];
-			else if (StoreInventory.IsVirtualGoodEquipped ("blue_bike"))
+			else if (summerbikeselected)
 				opponentselectedChar = opponentcharacters [8];
-			else if (StoreInventory.IsVirtualGoodEquipped ("summer_bike"))
+			else if (peacebikeselected)
 				opponentselectedChar = opponentcharacters [9];
-			else if (StoreInventory.IsVirtualGoodEquipped ("peace_bike"))
+			else if (sunshinebikeselected)
 				opponentselectedChar = opponentcharacters [10];
-			else if (StoreInventory.IsVirtualGoodEquipped ("sunshine_bike"))
-				opponentselectedChar = opponentcharacters [11];
+
 		}
 		else
 		{

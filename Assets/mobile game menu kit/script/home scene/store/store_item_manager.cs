@@ -7,6 +7,7 @@ public class store_item_manager: MonoBehaviour {
 	[System.Serializable]
 	public class incremental_item
 	{
+		public string id;
 		public string name;
 		public Sprite[] icon;
 		public float[] price;
@@ -35,6 +36,9 @@ public class store_item_manager: MonoBehaviour {
 		
 	}
 
+
+
 	public incremental_item[] incremental_item_list;
 	public consumable_item[] consumable_item_list;
+
 }
