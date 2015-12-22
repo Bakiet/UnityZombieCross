@@ -16,6 +16,9 @@ public class feedback_window : MonoBehaviour {
 
 	float currentTimeScale;
 
+	void Start (){
+		my_game_master = (game_master)game_master.game_master_obj.GetComponent("game_master");
+	}
 	public void Start_me(Sprite ico, int quantity, string name)
 	{
 		//start pause
@@ -32,20 +35,20 @@ public class feedback_window : MonoBehaviour {
 		my_name.text = name;
 		this.gameObject.SetActive(true);
 
-		if (my_game_master.use_pad)
+		/*if (my_game_master.use_pad)
 			EventSystem_obj.SetActive(false);//in order to avoid pad input out the of the window
-
+		*/
 	}
 	
 	// Update is called once per frame
 	void Update () {
-
+		/*
 		if(my_game_master.use_pad)
 			{
 			if ( (Input.GetButtonDown("Submit")) || (Input.GetKeyDown(my_game_master.pad_back_button)) )
 				Close_me();
 			}
-
+		*/
 		if (Input.GetKeyDown (KeyCode.Escape) && my_game_master.allow_ESC)
 			Close_me();
 	}
@@ -53,7 +56,7 @@ public class feedback_window : MonoBehaviour {
 	public void Close_me()
 	{
 		//end pause
-		Time.timeScale = currentTimeScale; 
+		//Time.timeScale = currentTimeScale; 
 
 		if (my_game_master.use_pad)
 			EventSystem_obj.SetActive(true);//in order to avoid pad input out the of the window

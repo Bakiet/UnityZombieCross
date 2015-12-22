@@ -803,6 +803,8 @@ public class game_uGUI : MonoBehaviour {
 			play_screen.gameObject.SetActive(false);
 			win_screen.gameObject.SetActive(true);
 
+
+
 			AudioSource music = gameObject.GetComponent<AudioSource>();
 			music.Stop();
 			if (show_star_score)
@@ -810,6 +812,7 @@ public class game_uGUI : MonoBehaviour {
 			
 			if (my_game_master)
 			{
+				//my_game_master.my_ads_master.Call_ad(my_game_master.my_ads_master.ads_when_player_open_a_gift_packet);
 				//music
 				if (my_game_master.when_win_play_selected == game_master.when_win_play.music)
 					my_game_master.Start_music(my_game_master.music_stage_win,my_game_master.play_win_music_in_loop);
