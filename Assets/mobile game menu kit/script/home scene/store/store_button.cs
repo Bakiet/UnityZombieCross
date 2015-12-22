@@ -785,6 +785,7 @@ public class store_button : MonoBehaviour {
 			//if (!deselectButton) selectButton.SetActive(true);
 			if (selected) selected.SetActive(false);
 			thisSelect = false;
+
 		}
 	}
 	

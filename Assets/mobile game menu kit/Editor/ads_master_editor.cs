@@ -1,4 +1,4 @@
-﻿/*
+﻿
 using UnityEditor;
 using UnityEngine;
 using System.Collections;
@@ -421,4 +421,3 @@ public class ads_master_editor : Editor {
 
 	}
 }
-*/

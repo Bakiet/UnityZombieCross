@@ -1,5 +1,5 @@
 ﻿// DUMMY code: delete this if you whant use unity ads:
-using UnityEngine;
+/*using UnityEngine;
 using System.Collections;
 using System;
 
@@ -121,10 +121,10 @@ public class ads_master : MonoBehaviour {
 	{
 		return false;
 	}
-}
+}*/
 //DUMMY code END here - Stop delete here and enable the code below:
 
-/*
+
 using UnityEngine;
 using System.Collections;
 using UnityEngine.Advertisements;//this allow you to use unity-ads
@@ -692,4 +692,3 @@ public class ads_master : MonoBehaviour {
 	#endregion
 }
 
- */
