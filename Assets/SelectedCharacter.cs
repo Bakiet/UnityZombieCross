@@ -61,7 +61,11 @@ public class SelectedCharacter : AndroidNativeExampleBase {
 	// Use this for initialization
 	IEnumerator Start () {
 
-
+		if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
+			//GooglePlayConnection.Instance.Disconnect ();
+		} else {
+			GooglePlayConnection.Instance.Connect ();
+		}
 		yield return new WaitForEndOfFrame();
 
 		//this code runs after SOOMLA has been initialized
@@ -215,7 +219,7 @@ public class SelectedCharacter : AndroidNativeExampleBase {
 					// 5
 					opponentcharacter = (GameObject)Instantiate (opponentselectedChar, spawnPos.position, Quaternion.identity);
 					//OpponentCarController opponentScript = opponentcharacter.GetComponent<OpponentCarController> ();
-					character.SetActive (true);
+					opponentcharacter.SetActive (true);
 					//opponentScript.SetCarNumber (i + 1);
 					// 6
 					//_opponentScripts [nextParticipantId] = opponentScript;
