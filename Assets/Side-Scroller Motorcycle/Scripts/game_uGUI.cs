@@ -115,12 +115,12 @@ public class game_uGUI : MonoBehaviour {
 		GooglePlayConnection.ActionPlayerDisconnected += OnPlayerDisconnected;		
 		GooglePlayConnection.ActionConnectionResultReceived += OnConnectionResult;
 		GooglePlayManager.ActionScoreSubmited += OnScoreSbumitted;
-
+		/*
 		if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
 			//GooglePlayConnection.Instance.Disconnect ();
 		} else {
 			GooglePlayConnection.Instance.Connect ();
-		}
+		}*/
 
 		my_options = options_screen.GetComponent<options_menu>();
 		//normal_emoticon = perfect_target.sprite;

@@ -930,11 +930,11 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	{
 
 		isFinish = false;
-		if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
+		/*if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
 			//GooglePlayConnection.Instance.Disconnect ();
 		} else {
 			GooglePlayConnection.Instance.Connect ();
-		}
+		}*/
 		//SpeedMotorMobile = SpeedMotorMobile + 10;
 
 		if (this.name == "super_bike(Clone)") {

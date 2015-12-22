@@ -96,7 +96,7 @@ public class store_button : MonoBehaviour {
 			my_game_master = (game_master)game_master.game_master_obj.GetComponent("game_master");
 
 
-		id = my_game_master.my_store_item_manager.consumable_item_list[my_item_ID].id;
+		//id = my_game_master.my_store_item_manager.consumable_item_list[my_item_ID].id;
 
 
 		if(SelectedCharacter.bikeselected == true && id == "bike"){

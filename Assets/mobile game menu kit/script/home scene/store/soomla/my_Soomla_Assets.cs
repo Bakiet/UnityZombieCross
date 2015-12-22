@@ -9,7 +9,7 @@ namespace Soomla.Store
 		
 		public int GetVersion()
 		{
-			return 0;
+			return 2;
 		}
 		
 		#region virtual currency
@@ -146,7 +146,7 @@ namespace Soomla.Store
 			"No Ads", 														// name
 			"No More Ads!",				 									// description
 			"no_ads",														// item id
-			new PurchaseWithMarket(TEST_ID, 1.99));	// the way this virtual good is purchased
+			new PurchaseWithMarket("no_ads", 1.99));// the way this virtual good is purchased
 
 
 
