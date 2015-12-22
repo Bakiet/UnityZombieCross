@@ -110,7 +110,7 @@ public class game_uGUI : MonoBehaviour {
 	void Start () {
 
 		isfinish=false;
-
+		in_pause = false;
 		GooglePlayConnection.ActionPlayerConnected +=  OnPlayerConnected;
 		GooglePlayConnection.ActionPlayerDisconnected += OnPlayerDisconnected;		
 		GooglePlayConnection.ActionConnectionResultReceived += OnConnectionResult;
@@ -242,8 +242,8 @@ public class game_uGUI : MonoBehaviour {
 			my_game_master.star_score_difference = 0;
 			
 			if (!keep_money_taken_in_this_stage_only_if_you_win){
-				//virtual_money_count.text = my_game_master.current_virtual_money[my_game_master.current_profile_selected].ToString();
-				virtual_money_count.text = "150";
+				virtual_money_count.text = my_game_master.current_virtual_money[my_game_master.current_profile_selected].ToString();
+				//virtual_money_count.text = "150";
 			}
 			
 		}
@@ -480,7 +480,7 @@ public class game_uGUI : MonoBehaviour {
 			Reset_me();
 		}
 		else
-			Application.LoadLevel (Application.loadedLevel); 
+			Application.LoadLevel (Application.loadedLevel);
 	}
 	
 	public void Next()

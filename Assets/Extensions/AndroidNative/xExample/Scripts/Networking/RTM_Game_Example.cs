@@ -41,12 +41,14 @@ public class RTM_Game_Example : AndroidNativeExampleBase {
 		GooglePlayConnection.ActionPlayerDisconnected += OnPlayerDisconnected;
 
 		GooglePlayConnection.ActionConnectionResultReceived += OnConnectionResult;
-
 		
+
 		if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
-			//checking if player already connected
 			OnPlayerConnected ();
-		} 
+		} else {
+
+			GooglePlayConnection.instance.Connect ();
+		}
 
 		//networking event
 		GooglePlayRTM.ActionDataRecieved += OnGCDataReceived;

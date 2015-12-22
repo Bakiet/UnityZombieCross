@@ -8,7 +8,7 @@ public class StartAndroidAds : MonoBehaviour {
 
 	public string ad;
 	public int invoked=1;
-
+	private static int countstatic;
 	private string title="Zombie Cross";
 	private string message="Like this game? Please Rate us";
 	private string yes ="YES";
@@ -95,8 +95,11 @@ public class StartAndroidAds : MonoBehaviour {
 				*/
 			if (StoreInventory.GetItemBalance ("no_ads") <= 0) {
 				count = count +1;
-				if(timestoexe <= count){
-				Invoke (ad, invoked);
+				countstatic = countstatic + 1;
+				if(countstatic == 1){
+					if(timestoexe <= count){
+					Invoke (ad, invoked);
+					}
 				}
 			}
 		}
