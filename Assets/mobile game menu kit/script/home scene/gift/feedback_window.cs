@@ -22,8 +22,8 @@ public class feedback_window : MonoBehaviour {
 	public void Start_me(Sprite ico, int quantity, string name)
 	{
 		//start pause
-		currentTimeScale = 1;
-		Time.timeScale = 0; 
+		//currentTimeScale = 1;
+		//Time.timeScale = 0; 
 
 		if (game_master.game_master_obj)
 			my_game_master = (game_master)game_master.game_master_obj.GetComponent("game_master");
@@ -49,8 +49,8 @@ public class feedback_window : MonoBehaviour {
 				Close_me();
 			}
 		*/
-		if (Input.GetKeyDown (KeyCode.Escape) && my_game_master.allow_ESC)
-			Close_me();
+		/*if (Input.GetKeyDown (KeyCode.Escape) && my_game_master.allow_ESC)
+			Close_me();*/
 	}
 
 	public void Close_me()

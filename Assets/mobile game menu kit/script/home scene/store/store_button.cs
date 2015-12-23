@@ -178,8 +178,8 @@ public class store_button : MonoBehaviour {
 		if (!this_buy_hit_the_cap && you_have_enough_money) {
 			if(selected){
 				if (selected.gameObject.activeInHierarchy || selectButton.gameObject.activeInHierarchy) {
-					my_buy_ico_img.enabled = false;
-					my_buy_tx.enabled = false;
+					my_buy_ico_img.enabled = true;
+					my_buy_tx.enabled = true;
 					my_buy_ico_img.sprite = can_buy_ico;
 				} else {
 					my_buy_ico_img.enabled = true;
@@ -275,8 +275,8 @@ public class store_button : MonoBehaviour {
 		case give_this.consumable_item:
 			if ((my_game_master.consumable_item_current_quantity[my_game_master.current_profile_selected][my_item_ID] + quantity) > my_game_master.my_store_item_manager.consumable_item_list[my_item_ID].quantity_cap)
 			{//this_buy_hit_the_cap = false;
-
-					selectButton.SetActive(true);
+				this_buy_hit_the_cap = true;
+				selectButton.SetActive(true);
 
 			}else
 				this_buy_hit_the_cap = false;
@@ -460,7 +460,7 @@ public class store_button : MonoBehaviour {
 			else
 			{
 				if (my_game_master.show_debug_warnings)
-					Debug.LogWarning("Soomla - You can buy with real money ONLY virtual money, not items or other stuff");
+					Debug.LogWarning("You can buy with real money ONLY virtual money, not items or other stuff");
 			}
 		}
 		else
@@ -559,7 +559,7 @@ public class store_button : MonoBehaviour {
 			}
 			else
 			{
-				if(!selected){
+				//if(!selected){
 					my_buy_tx.text = "Buy";
 
 					if (my_game_master.my_store_item_manager.incremental_item_list[my_item_ID].icon.Length > my_item_ID)
@@ -569,7 +569,7 @@ public class store_button : MonoBehaviour {
 
 					my_price = my_game_master.my_store_item_manager.incremental_item_list[my_item_ID].price[my_game_master.incremental_item_current_level[my_game_master.current_profile_selected][my_item_ID]];
 					my_price_tx.text = my_price.ToString();
-				}
+				//}
 			}
 			my_ico_img.sprite = my_ico;
 		}
@@ -739,7 +739,7 @@ public class store_button : MonoBehaviour {
 			//if we have a deselect button or a 'selected' gameobject, show them
 			//and hide the select button for ignoring further selections              
 			//if (deselectButton) deselectButton.SetActive(true);
-			//if (selected) selected.SetActive(true);
+			if (selected) selected.SetActive(true);
 			
 			Toggle toggle = selectButton.GetComponent<Toggle>();
 			if (toggle.group)
