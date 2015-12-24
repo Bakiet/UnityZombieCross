@@ -9,7 +9,7 @@ namespace Soomla.Store
 		
 		public int GetVersion()
 		{
-			return 2;
+			return 10;
 		}
 		
 		#region virtual currency
@@ -232,7 +232,7 @@ namespace Soomla.Store
 			"Blue Bike",                                                   // Name
 			"",             // Description
 			"blue_bike",                                              // Item ID
-			new PurchaseWithVirtualItem(CURRENCY_ID, 0)   // Purchase type
+			new PurchaseWithVirtualItem(CURRENCY_ID, 300)   // Purchase type
 			);
 
 		public static VirtualGood peace_bike = new EquippableVG(
@@ -240,58 +240,58 @@ namespace Soomla.Store
 			"Peace Bike",                                                   // Name
 			"",             // Description
 			"peace_bike",                                              // Item ID
-			new PurchaseWithVirtualItem(CURRENCY_ID, 0)   // Purchase type
+			new PurchaseWithVirtualItem(CURRENCY_ID, 300)   // Purchase type
 			);
 		public static VirtualGood summer_bike = new EquippableVG(
 			EquippableVG.EquippingModel.CATEGORY,                       // Equipping model
 			"Summer Bike",                                                   // Name
 			"",             // Description
 			"summer_bike",                                              // Item ID
-			new PurchaseWithVirtualItem(CURRENCY_ID, 0)   // Purchase type
+			new PurchaseWithVirtualItem(CURRENCY_ID, 300)   // Purchase type
 			);
 		public static VirtualGood sunshine_bike = new EquippableVG(
 			EquippableVG.EquippingModel.CATEGORY,                       // Equipping model
 			"Sunshine Bike",                                                   // Name
 			"",             // Description
 			"sunshine_bike",                                              // Item ID
-			new PurchaseWithVirtualItem(CURRENCY_ID, 0)   // Purchase type
+			new PurchaseWithVirtualItem(CURRENCY_ID, 300)   // Purchase type
 			);
 
 		public static VirtualGood bike_upgrade = new LifetimeVG(
 			"Upgrade Bike", 														// name
 			"gain a speed, acc, brake boost at bike. next upgrade: 10 points",				 									// description
 			"bike_upgrade",														// item id
-			new PurchaseWithVirtualItem(CURRENCY_ID, 1));
+			new PurchaseWithVirtualItem(CURRENCY_ID, 100));
 		public static VirtualGood super_bike_upgrade = new LifetimeVG(
 			"Upgrade Super", 														// name
 			"gain a speed, acc, brake boost at super super bike. next upgrade: 10 points",				 									// description
 			"super_bike_upgrade",														// item id
-			new PurchaseWithVirtualItem(CURRENCY_ID, 1));
+			new PurchaseWithVirtualItem(CURRENCY_ID, 100));
 		public static VirtualGood party_bike_upgrade = new LifetimeVG(
 			"Upgrade Party", 														// name
 			"gain a speed, acc, brake boost at party bike. next upgrade: 10 points",				 									// description
 			"party_bike_upgrade",														// item id
-			new PurchaseWithVirtualItem(CURRENCY_ID, 1));
+			new PurchaseWithVirtualItem(CURRENCY_ID, 100));
 		public static VirtualGood nightmare_bike_upgrade = new LifetimeVG(
 			"Upgrade Nightmare", 														// name
 			"gain a speed, acc, brake boost at nightmare bike. next upgrade: 10 points",				 									// description
 			"nightmare_bike_upgrade",														// item id
-			new PurchaseWithVirtualItem(CURRENCY_ID, 1));
+			new PurchaseWithVirtualItem(CURRENCY_ID, 100));
 		public static VirtualGood monster_bike_upgrade = new LifetimeVG(
 			"Upgrade Monster", 														// name
 			"gain a speed, acc, brake boost at monster bike. next upgrade: 10 points",				 									// description
 			"monster_bike_upgrade",														// item id
-			new PurchaseWithVirtualItem(CURRENCY_ID, 1));
+			new PurchaseWithVirtualItem(CURRENCY_ID, 100));
 		public static VirtualGood neon_bike_upgrade = new LifetimeVG(
 			"Upgrade Neon", 														// name
 			"gain a speed, acc, brake boost at neon bike. next upgrade: 10 points",				 									// description
 			"neon_bike_upgrade",														// item id
-			new PurchaseWithVirtualItem(CURRENCY_ID, 1));
+			new PurchaseWithVirtualItem(CURRENCY_ID, 100));
 		public static VirtualGood hell_bike_upgrade = new LifetimeVG(
 			"Upgrade Hell", 														// name
 			"gain a speed, acc, brake boost at hell bike. next upgrade: 10 points",				 									// description
 			"hell_bike_upgrade",														// item id
-			new PurchaseWithVirtualItem(CURRENCY_ID, 1));
+			new PurchaseWithVirtualItem(CURRENCY_ID, 100));
 
 
 
@@ -300,42 +300,42 @@ namespace Soomla.Store
 			"Super Bike Effect",                                                   // Name
 			"set good lights",             // Description
 			"super_bike_effect",                                              // Item ID
-			new PurchaseWithVirtualItem(CURRENCY_ID, 500)   // Purchase type
+			new PurchaseWithVirtualItem(CURRENCY_ID, 2000)   // Purchase type
 			);
 		public static VirtualGood party_effect = new EquippableVG(
 			EquippableVG.EquippingModel.LOCAL,                       // Equipping model
 			"Party Effect",                                                   // Name
 			"set special moments",             // Description
 			"party_effect",                                              // Item ID
-			new PurchaseWithVirtualItem(CURRENCY_ID, 800)   // Purchase type
+			new PurchaseWithVirtualItem(CURRENCY_ID, 4000)   // Purchase type
 			);
 		public static VirtualGood nightmare_effect = new EquippableVG(
 			EquippableVG.EquippingModel.LOCAL,                       // Equipping model
 			"Nightmare Effect",                                                   // Name
 			"set death in your bike",             // Description
 			"nightmare_effect",                                              // Item ID
-			new PurchaseWithVirtualItem(CURRENCY_ID, 1300)   // Purchase type
+			new PurchaseWithVirtualItem(CURRENCY_ID, 6000)   // Purchase type
 			);
 		public static VirtualGood monster_effect = new EquippableVG(
 			EquippableVG.EquippingModel.LOCAL,                       // Equipping model
 			"Monster Effect",                                                   // Name
 			"set vomit zombie",             // Description
 			"monster_effect",                                              // Item ID
-			new PurchaseWithVirtualItem(CURRENCY_ID, 3500)   // Purchase type
+			new PurchaseWithVirtualItem(CURRENCY_ID, 6800)   // Purchase type
 			);
 		public static VirtualGood neon_effect = new EquippableVG(
 			EquippableVG.EquippingModel.LOCAL,                       // Equipping model
 			"Neon Effect",                                                   // Name
 			"set Light neon",             // Description
 			"neon_effect",                                              // Item ID
-			new PurchaseWithVirtualItem(CURRENCY_ID, 4000)   // Purchase type
+			new PurchaseWithVirtualItem(CURRENCY_ID, 11000)   // Purchase type
 			);
 		public static VirtualGood hell_effect = new EquippableVG(
 			EquippableVG.EquippingModel.LOCAL,                       // Equipping model
 			"Hell Effect",                                                   // Name
 			"set fire to go hell",             // Description
 			"hell_effect",                                              // Item ID
-			new PurchaseWithVirtualItem(CURRENCY_ID, 4700)   // Purchase type
+			new PurchaseWithVirtualItem(CURRENCY_ID, 21400)   // Purchase type
 			);
 
 
@@ -349,7 +349,7 @@ namespace Soomla.Store
 			"Upgrade Level 1",                                 // Name
 			"",       // Description
 			"bike_upgrade_level_1",                                       // Item ID
-			new PurchaseWithVirtualItem(CURRENCY_ID, 1)    // Purchase type
+			new PurchaseWithVirtualItem(CURRENCY_ID, 100)    // Purchase type
 			);
 		
 		public static VirtualGood bike_upgrade_level_2 = new UpgradeVG(
@@ -359,7 +359,7 @@ namespace Soomla.Store
 			"Upgrade Level 2",                                 // Name
 			"",     // Description
 			"bike_upgrade_level_2",                                       // Item ID
-			new PurchaseWithVirtualItem(CURRENCY_ID, 1)   // Purchase type
+			new PurchaseWithVirtualItem(CURRENCY_ID, 100)   // Purchase type
 			);
 		public static VirtualGood bike_upgrade_level_3 = new UpgradeVG(
 			"bike_upgrade",                   // Item ID of the associated good that is being upgraded
@@ -368,7 +368,7 @@ namespace Soomla.Store
 			"Upgrade Level 3",                                 // Name
 			"",     // Description
 			"bike_upgrade_level_3",                                       // Item ID
-			new PurchaseWithVirtualItem(CURRENCY_ID, 1)   // Purchase type
+			new PurchaseWithVirtualItem(CURRENCY_ID, 100)   // Purchase type
 			);
 
 
@@ -379,7 +379,7 @@ namespace Soomla.Store
 			"Upgrade Super Level 1",                                 // Name
 			"",       // Description
 			"super_upgrade_level_1",                                       // Item ID
-			new PurchaseWithVirtualItem(CURRENCY_ID, 1)    // Purchase type
+			new PurchaseWithVirtualItem(CURRENCY_ID, 100)    // Purchase type
 			);
 		
 		public static VirtualGood super_upgrade_level_2 = new UpgradeVG(
@@ -389,7 +389,7 @@ namespace Soomla.Store
 			"Upgrade Super Level 2",                                 // Name
 			"",     // Description
 			"bike_upgrade_level_2",                                       // Item ID
-			new PurchaseWithVirtualItem(CURRENCY_ID, 1)   // Purchase type
+			new PurchaseWithVirtualItem(CURRENCY_ID, 100)   // Purchase type
 			);
 		public static VirtualGood super_upgrade_level_3 = new UpgradeVG(
 			"super_bike_upgrade",                   // Item ID of the associated good that is being upgraded
@@ -398,7 +398,7 @@ namespace Soomla.Store
 			"Upgrade Super Level 3",                                 // Name
 			"",     // Description
 			"super_upgrade_level_3",                                       // Item ID
-			new PurchaseWithVirtualItem(CURRENCY_ID, 1)   // Purchase type
+			new PurchaseWithVirtualItem(CURRENCY_ID, 100)   // Purchase type
 			);
 
 		public static VirtualGood party_upgrade_level_1 = new UpgradeVG(
@@ -408,7 +408,7 @@ namespace Soomla.Store
 			"Upgrade party Level 1",                                 // Name
 			"",       // Description
 			"party_upgrade_level_1",                                       // Item ID
-			new PurchaseWithVirtualItem(CURRENCY_ID, 1)    // Purchase type
+			new PurchaseWithVirtualItem(CURRENCY_ID, 100)    // Purchase type
 			);
 		
 		public static VirtualGood party_upgrade_level_2 = new UpgradeVG(
@@ -418,7 +418,7 @@ namespace Soomla.Store
 			"Upgrade party Level 2",                                 // Name
 			"",     // Description
 			"party_upgrade_level_2",                                       // Item ID
-			new PurchaseWithVirtualItem(CURRENCY_ID, 1)   // Purchase type
+			new PurchaseWithVirtualItem(CURRENCY_ID, 100)   // Purchase type
 			);
 		public static VirtualGood party_upgrade_level_3 = new UpgradeVG(
 			"party_bike_upgrade",                   // Item ID of the associated good that is being upgraded
@@ -427,7 +427,7 @@ namespace Soomla.Store
 			"Upgrade party Level 3",                                 // Name
 			"",     // Description
 			"party_upgrade_level_3",                                       // Item ID
-			new PurchaseWithVirtualItem(CURRENCY_ID, 1)   // Purchase type
+			new PurchaseWithVirtualItem(CURRENCY_ID, 100)   // Purchase type
 			);
 
 		public static VirtualGood nightmare_upgrade_level_1 = new UpgradeVG(
@@ -437,7 +437,7 @@ namespace Soomla.Store
 			"Upgrade nightmare Level 1",                                 // Name
 			"",       // Description
 			"nightmare_upgrade_level_1",                                       // Item ID
-			new PurchaseWithVirtualItem(CURRENCY_ID, 1)    // Purchase type
+			new PurchaseWithVirtualItem(CURRENCY_ID, 100)    // Purchase type
 			);
 		
 		public static VirtualGood nightmare_upgrade_level_2 = new UpgradeVG(
@@ -447,7 +447,7 @@ namespace Soomla.Store
 			"Upgrade nightmare Level 2",                                 // Name
 			"",     // Description
 			"nightmare_upgrade_level_2",                                       // Item ID
-			new PurchaseWithVirtualItem(CURRENCY_ID, 1)   // Purchase type
+			new PurchaseWithVirtualItem(CURRENCY_ID, 100)   // Purchase type
 			);
 		public static VirtualGood nightmare_upgrade_level_3 = new UpgradeVG(
 			"nightmare_bike_upgrade",                   // Item ID of the associated good that is being upgraded
@@ -466,7 +466,7 @@ namespace Soomla.Store
 			"Upgrade monster Level 1",                                 // Name
 			"",       // Description
 			"monster_upgrade_level_1",                                       // Item ID
-			new PurchaseWithVirtualItem(CURRENCY_ID, 1)    // Purchase type
+			new PurchaseWithVirtualItem(CURRENCY_ID, 100)    // Purchase type
 			);
 		
 		public static VirtualGood monster_upgrade_level_2 = new UpgradeVG(
@@ -476,7 +476,7 @@ namespace Soomla.Store
 			"Upgrade monster Level 2",                                 // Name
 			"",     // Description
 			"monster_upgrade_level_2",                                       // Item ID
-			new PurchaseWithVirtualItem(CURRENCY_ID, 1)   // Purchase type
+			new PurchaseWithVirtualItem(CURRENCY_ID, 100)   // Purchase type
 			);
 		public static VirtualGood monster_upgrade_level_3 = new UpgradeVG(
 			"monster_bike_upgrade",                   // Item ID of the associated good that is being upgraded
@@ -485,7 +485,7 @@ namespace Soomla.Store
 			"Upgrade monster Level 3",                                 // Name
 			"",     // Description
 			"monster_upgrade_level_3",                                       // Item ID
-			new PurchaseWithVirtualItem(CURRENCY_ID, 1)   // Purchase type
+			new PurchaseWithVirtualItem(CURRENCY_ID, 100)   // Purchase type
 			);
 
 		public static VirtualGood neon_upgrade_level_1 = new UpgradeVG(
@@ -495,7 +495,7 @@ namespace Soomla.Store
 			"Upgrade neon Level 1",                                 // Name
 			"",       // Description
 			"neon_upgrade_level_1",                                       // Item ID
-			new PurchaseWithVirtualItem(CURRENCY_ID, 1)    // Purchase type
+			new PurchaseWithVirtualItem(CURRENCY_ID, 100)    // Purchase type
 			);
 		
 		public static VirtualGood neon_upgrade_level_2 = new UpgradeVG(
@@ -505,7 +505,7 @@ namespace Soomla.Store
 			"Upgrade neon Level 2",                                 // Name
 			"",     // Description
 			"neon_upgrade_level_2",                                       // Item ID
-			new PurchaseWithVirtualItem(CURRENCY_ID, 1)   // Purchase type
+			new PurchaseWithVirtualItem(CURRENCY_ID, 100)   // Purchase type
 			);
 		public static VirtualGood neon_upgrade_level_3 = new UpgradeVG(
 			"neon_bike_upgrade",                   // Item ID of the associated good that is being upgraded
@@ -514,7 +514,7 @@ namespace Soomla.Store
 			"Upgrade neon Level 3",                                 // Name
 			"",     // Description
 			"neon_upgrade_level_3",                                       // Item ID
-			new PurchaseWithVirtualItem(CURRENCY_ID, 1)   // Purchase type
+			new PurchaseWithVirtualItem(CURRENCY_ID, 100)   // Purchase type
 			);
 
 		public static VirtualGood hell_upgrade_level_1 = new UpgradeVG(
@@ -524,7 +524,7 @@ namespace Soomla.Store
 			"Upgrade hell Level 1",                                 // Name
 			"",       // Description
 			"hell_upgrade_level_1",                                       // Item ID
-			new PurchaseWithVirtualItem(CURRENCY_ID, 1)    // Purchase type
+			new PurchaseWithVirtualItem(CURRENCY_ID, 100)    // Purchase type
 			);
 		
 		public static VirtualGood hell_upgrade_level_2 = new UpgradeVG(
@@ -534,7 +534,7 @@ namespace Soomla.Store
 			"Upgrade hell Level 2",                                 // Name
 			"",     // Description
 			"hell_upgrade_level_2",                                       // Item ID
-			new PurchaseWithVirtualItem(CURRENCY_ID, 1)   // Purchase type
+			new PurchaseWithVirtualItem(CURRENCY_ID, 100)   // Purchase type
 			);
 		public static VirtualGood hell_upgrade_level_3 = new UpgradeVG(
 			"hell_bike_upgrade",                   // Item ID of the associated good that is being upgraded
@@ -543,7 +543,7 @@ namespace Soomla.Store
 			"Upgrade hell Level 3",                                 // Name
 			"",     // Description
 			"hell_upgrade_level_3",                                       // Item ID
-			new PurchaseWithVirtualItem(CURRENCY_ID, 1)   // Purchase type
+			new PurchaseWithVirtualItem(CURRENCY_ID, 100)   // Purchase type
 			);
 
 

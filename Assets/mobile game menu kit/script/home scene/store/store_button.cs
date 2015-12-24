@@ -176,23 +176,29 @@ public class store_button : MonoBehaviour {
 	void Show_buy_ico()
 	{
 		if (!this_buy_hit_the_cap && you_have_enough_money) {
-			if(selected){
+			//if(selected){
 				if (selected.gameObject.activeInHierarchy || selectButton.gameObject.activeInHierarchy) {
-					my_buy_ico_img.enabled = true;
-					my_buy_tx.enabled = true;
+					my_buy_ico_img.enabled = false;
+					my_buy_tx.enabled = false;
 					my_buy_ico_img.sprite = can_buy_ico;
 				} else {
+					
 					my_buy_ico_img.enabled = true;
 					my_buy_ico_img.sprite = can_buy_ico;
+					
 				}
-			}else{
-				my_buy_ico_img.sprite = can_buy_ico;
-			}
+			/*if(my_buy_tx.text == "MAX"){
+				my_buy_ico_img.enabled = false;
+				my_buy_tx.enabled = false;
+			}*/
+			//}else{
+			//	my_buy_ico_img.sprite = can_buy_ico;
+			//}
 		} else {
-			if(selected){
+			//if(selected){
 				if (selected.gameObject.activeInHierarchy || selectButton.gameObject.activeInHierarchy) {
-					my_buy_ico_img.enabled = true;
-					my_buy_tx.enabled = true;
+					my_buy_ico_img.enabled = false;
+					my_buy_tx.enabled = false;
 					my_buy_ico_img.sprite = cant_buy_ico;
 				} else {
 					my_buy_ico_img.enabled = true;
@@ -200,9 +206,15 @@ public class store_button : MonoBehaviour {
 					my_buy_ico_img.sprite = cant_buy_ico;
 
 				}
-			}else{
-				my_buy_ico_img.sprite = cant_buy_ico;
+
+			if(my_buy_tx.text == "MAX"){
+				my_buy_ico_img.enabled = false;
+				my_buy_tx.enabled = false;
+				selectButton.SetActive(true);
 			}
+			//}else{
+			//	my_buy_ico_img.sprite = cant_buy_ico;
+			//}
 		}
 	
 
@@ -210,13 +222,17 @@ public class store_button : MonoBehaviour {
 
 	public void Incremental_item_MAX()
 	{
-		Debug.Log("Incremental_item_MAX()");
-		my_quantity_tx.gameObject.SetActive(true);
-		my_quantity_tx.text = "MAX";
-		my_buy_tx.text = "MAX";
-		my_ico = my_game_master.my_store_item_manager.incremental_item_list[my_item_ID].icon[my_game_master.my_store_item_manager.incremental_item_list[my_item_ID].icon.Length-1];
-		my_price_tx.gameObject.SetActive(false);
-		this_buy_hit_the_cap = false;
+		if (!selectButton) {
+			Debug.Log ("Incremental_item_MAX()");
+			my_quantity_tx.gameObject.SetActive (true);
+			my_quantity_tx.text = "MAX";
+			my_buy_tx.text = "MAX";
+			my_ico = my_game_master.my_store_item_manager.incremental_item_list [my_item_ID].icon [my_game_master.my_store_item_manager.incremental_item_list [my_item_ID].icon.Length - 1];
+			my_price_tx.gameObject.SetActive (false);
+			this_buy_hit_the_cap = false;
+		} else {
+			selectButton.SetActive (true);
+		}
 		/*if (my_ico) {
 			if (selectButton)
 				selectButton.SetActive (false);
@@ -276,7 +292,7 @@ public class store_button : MonoBehaviour {
 			if ((my_game_master.consumable_item_current_quantity[my_game_master.current_profile_selected][my_item_ID] + quantity) > my_game_master.my_store_item_manager.consumable_item_list[my_item_ID].quantity_cap)
 			{//this_buy_hit_the_cap = false;
 				this_buy_hit_the_cap = true;
-				selectButton.SetActive(true);
+				//selectButton.SetActive(true);
 
 			}else
 				this_buy_hit_the_cap = false;
@@ -439,6 +455,8 @@ public class store_button : MonoBehaviour {
 
 	void Pay_with_real_money()
 	{
+		if (selectButton) selectButton.SetActive(true);
+
 		if (my_game_master.show_debug_messages)
 			Debug.Log("Pay_with_real_money");
 
@@ -543,6 +561,7 @@ public class store_button : MonoBehaviour {
 
 		my_store_tabs.Update_buttons_in_windows();
 		purchased = true;
+		selectButton.SetActive(true);
 	}
 	
 
@@ -739,18 +758,29 @@ public class store_button : MonoBehaviour {
 			//if we have a deselect button or a 'selected' gameobject, show them
 			//and hide the select button for ignoring further selections              
 			//if (deselectButton) deselectButton.SetActive(true);
+			if (deselectButton) deselectButton.SetActive(true);
 			if (selected) selected.SetActive(true);
-			
+			my_buy_ico_img.enabled = false;
+			my_buy_tx.enabled = false;
 			Toggle toggle = selectButton.GetComponent<Toggle>();
 			if (toggle.group)
 			{
 				//hacky way to deselect all other toggles, even deactivated ones
 				//(toggles on deactivated gameobjects do not receive onValueChanged events)
 				store_button[] others = toggle.group.GetComponentsInChildren<store_button>(true);
+
 				for (int i = 0; i < others.Length; i++)
 				{
-					//if (others[i].selCheck.isOn && others[i] != this)
-					if (others[i] != this)
+					if (others[i].selCheck.isOn && others[i] != this)
+					{
+						others[i].IsSelected(false);
+						break;
+					}
+				}
+				/*for (int i = 0; i < others.Length; i++)
+				{
+					if (others[i].selCheck.isOn && others[i] != this)
+					//if (others[i] != this)
 					{
 						others[i].selected.SetActive(false);
 						others[i].IsSelected(false);
@@ -759,19 +789,19 @@ public class store_button : MonoBehaviour {
 
 						//selected.SetActive(true);
 
-					/*	my_buy_ico_img.enabled = false;
-						my_buy_tx.enabled = false;
-						my_buy_ico_img.sprite = can_buy_ico;
-						*/
+
 						break;
 					}
 
-				}
+				}*/
 			}
 			//IsSelected(true);
-			selectButton.SetActive(false);
+			/*selectButton.SetActive(false);
 			selected.SetActive(true);
+			toggle.isOn = true;*/
+
 			toggle.isOn = true;
+			selectButton.SetActive(false);
 			
 			//selected.SetActive(true);
 			
@@ -783,8 +813,8 @@ public class store_button : MonoBehaviour {
 			//if another object has been selected, show the
 			//select button for this item and hide the 'selected' state
 			//if (!deselectButton) selectButton.SetActive(true);
+			if (!deselectButton) selectButton.SetActive(true);
 			if (selected) selected.SetActive(false);
-			thisSelect = false;
 
 		}
 	}

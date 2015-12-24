@@ -202,7 +202,9 @@ public class manage_menu_uGUI : MonoBehaviour, MPLobbyListener {
 	public void SetLobbyStatusMessage(string message) {
 		_lobbyMessage = message;
 	}
-
+	public void sendtourl(string url){
+		Application.OpenURL (url);
+	}
 	public void HideLobby() {
 		_lobbyMessage = "";
 		_showLobbyDialog = false;
