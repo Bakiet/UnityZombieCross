@@ -526,6 +526,11 @@ public class game_uGUI : MonoBehaviour {
 				Debug.LogWarning("You must start the game from Home scene in order to use this button");
 		}
 	}
+
+	public void Go_to_Checkpoint()
+	{
+		Checkpoint.Reset ();
+	}
 	
 	public void Go_to_stage_screen()
 	{
@@ -1196,11 +1201,11 @@ public class game_uGUI : MonoBehaviour {
 
 		long score = 0;
 		score = Convert.ToInt64(long.Parse(win_screen_int_score_count.text));
-		if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
+		/*if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
 			//GooglePlayConnection.Instance.Disconnect ();
 		} else {
 			GooglePlayConnection.Instance.Connect ();
-		}
+		}*/
 		GooglePlayManager.instance.SubmitScoreById(LEADERBOARD_ID,score);
 
 	}

@@ -15,6 +15,10 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	public Collider2D tiltForwardsBtn; // Collider2D of the tilt forwards button.
 	public Collider2D tiltBackwardsBtn; // Collider2D of the tilt backwards button.
 
+	public GameObject CFXM2_Soul;
+	public GameObject CFXM_ExplosionTextNoSmoke;
+	public GameObject CFXM_GroundSmokeExplosionAlt;
+
 	private const string LEADERBOARD_ID = "CgkIq6GznYALEAIQAA";
 	private const string LEADERBOARD_MULTIPLAYER_ID = "CgkIq6GznYALEAIQAQ";
 
@@ -1185,11 +1189,11 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	void DestroyBike(){
 
 	
-		GameObject soul = (GameObject)Resources.Load("prefabs/CFXM2_Soul", typeof(GameObject));
+		GameObject soul =  CFXM2_Soul; //(GameObject)Resources.Load("prefabs/CFXM2_Soul", typeof(GameObject));
 		Instantiate(soul, CarBody.transform.position, Quaternion.identity);
-		GameObject explotion = (GameObject)Resources.Load("prefabs/CFXM_Explosion+Text NoSmoke", typeof(GameObject));
+		GameObject explotion = CFXM_ExplosionTextNoSmoke;//(GameObject)Resources.Load("prefabs/CFXM_Explosion+Text NoSmoke", typeof(GameObject));
 		Instantiate(explotion, CarBody.transform.position, Quaternion.identity);
-		GameObject smoke = (GameObject)Resources.Load("prefabs/CFXM_GroundSmokeExplosionAlt", typeof(GameObject));
+		GameObject smoke = CFXM_GroundSmokeExplosionAlt;//(GameObject)Resources.Load("prefabs/CFXM_GroundSmokeExplosionAlt", typeof(GameObject));
 		Instantiate(smoke, CarBody.transform.position, Quaternion.identity);
 		
 		
@@ -1776,11 +1780,11 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					//AN_PoupsProxy.showMessage ("Achievement unlocked","You Firts Death","Ok");
 					//	Reciver.SendMessage ("revealAchievement", ACHIEVEMENT_ID_First_Death,SendMessageOptions.DontRequireReceiver);
 
-					GameObject soul = (GameObject)Resources.Load ("prefabs/CFXM2_Soul", typeof(GameObject));
+					GameObject soul = CFXM2_Soul;//(GameObject)Resources.Load ("prefabs/CFXM2_Soul", typeof(GameObject));
 					Instantiate (soul, CarBody.transform.position, Quaternion.identity);
-					GameObject explotion = (GameObject)Resources.Load ("prefabs/CFXM_Explosion+Text NoSmoke", typeof(GameObject));
+					GameObject explotion = CFXM_ExplosionTextNoSmoke;//(GameObject)Resources.Load ("prefabs/CFXM_Explosion+Text NoSmoke", typeof(GameObject));
 					Instantiate (explotion, CarBody.transform.position, Quaternion.identity);
-					GameObject smoke = (GameObject)Resources.Load ("prefabs/CFXM_GroundSmokeExplosionAlt", typeof(GameObject));
+					GameObject smoke = CFXM_GroundSmokeExplosionAlt;//(GameObject)Resources.Load ("prefabs/CFXM_GroundSmokeExplosionAlt", typeof(GameObject));
 					Instantiate (smoke, CarBody.transform.position, Quaternion.identity);
 
 					AudioSource.PlayClipAtPoint (BodyDeadSound, CarBody.transform.position, 10.0f);
@@ -1892,11 +1896,11 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 
 					//	Reciver.SendMessage ("revealAchievement", ACHIEVEMENT_ID_First_Death,SendMessageOptions.DontRequireReceiver);
 
-					GameObject soul = (GameObject)Resources.Load ("prefabs/CFXM2_Soul", typeof(GameObject));
+					GameObject soul = CFXM2_Soul;//(GameObject)Resources.Load ("prefabs/CFXM2_Soul", typeof(GameObject));
 					Instantiate (soul, CarBody.transform.position, Quaternion.identity);
-					GameObject explotion = (GameObject)Resources.Load ("prefabs/CFXM_Explosion+Text NoSmoke", typeof(GameObject));
+					GameObject explotion = CFXM_ExplosionTextNoSmoke;//(GameObject)Resources.Load ("prefabs/CFXM_Explosion+Text NoSmoke", typeof(GameObject));
 					Instantiate (explotion, CarBody.transform.position, Quaternion.identity);
-					GameObject smoke = (GameObject)Resources.Load ("prefabs/CFXM_GroundSmokeExplosionAlt", typeof(GameObject));
+					GameObject smoke = CFXM_GroundSmokeExplosionAlt;//(GameObject)Resources.Load ("prefabs/CFXM_GroundSmokeExplosionAlt", typeof(GameObject));
 					Instantiate (smoke, CarBody.transform.position, Quaternion.identity);
 				
 					AudioSource.PlayClipAtPoint (BodyDeadSound, CarBody.transform.position, 10.0f);
@@ -1924,11 +1928,11 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					SENDACHIEVEMENT (ACHIEVEMENT_ID_First_Death);
 					//Reciver.SendMessage ("revealAchievement", ACHIEVEMENT_ID_First_Death,SendMessageOptions.DontRequireReceiver);
 
-					GameObject soul = (GameObject)Resources.Load ("prefabs/CFXM2_Soul", typeof(GameObject));
+					GameObject soul = CFXM2_Soul;//(GameObject)Resources.Load ("prefabs/CFXM2_Soul", typeof(GameObject));
 					Instantiate (soul, CarBody.transform.position, Quaternion.identity);
-					GameObject explotion = (GameObject)Resources.Load ("prefabs/CFXM_Explosion+Text NoSmoke", typeof(GameObject));
+					GameObject explotion = CFXM_ExplosionTextNoSmoke;//(GameObject)Resources.Load ("prefabs/CFXM_Explosion+Text NoSmoke", typeof(GameObject));
 					Instantiate (explotion, CarBody.transform.position, Quaternion.identity);
-					GameObject smoke = (GameObject)Resources.Load ("prefabs/CFXM_GroundSmokeExplosionAlt", typeof(GameObject));
+					GameObject smoke = CFXM_GroundSmokeExplosionAlt;//(GameObject)Resources.Load ("prefabs/CFXM_GroundSmokeExplosionAlt", typeof(GameObject));
 					Instantiate (smoke, CarBody.transform.position, Quaternion.identity);
 				
 					AudioSource.PlayClipAtPoint (BodyDeadSound, CarBody.transform.position, 10.0f);

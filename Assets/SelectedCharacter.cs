@@ -6,18 +6,18 @@ using GooglePlayGames.BasicApi.Multiplayer;
 
 public class SelectedCharacter : AndroidNativeExampleBase {
 
-	public bool Multiplayer;
+	//public bool Multiplayer;
 	private Dictionary<string, float> _finishTimes;
-	private bool _multiplayerGame;
-	private bool _multiplayerReady;
-	private string _myParticipantId;
-	public SA_PartisipantUI[] patricipants;
+	//private bool _multiplayerGame;
+	//private bool _multiplayerReady;
+	//private string _myParticipantId;
+	//public SA_PartisipantUI[] patricipants;
 
 
 	public Transform spawnPos;
 
 	private GameObject character;
-	private GameObject opponentcharacter;
+	//private GameObject opponentcharacter;
 	//private GameObject effect;
 	/// <summary>
 	/// death zone object reference
@@ -28,7 +28,7 @@ public class SelectedCharacter : AndroidNativeExampleBase {
 	/// reference to all character prefabs
 	/// </summary>
 	public GameObject[] characters;
-	public GameObject[] opponentcharacters;
+	//public GameObject[] opponentcharacters;
 	//public GameObject[] effects;
 
 	public static bool super_bike_effect =false;
@@ -64,7 +64,7 @@ public class SelectedCharacter : AndroidNativeExampleBase {
 		if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
 			//GooglePlayConnection.Instance.Disconnect ();
 		} else {
-			GooglePlayConnection.Instance.Connect ();
+			//GooglePlayConnection.Instance.Connect ();
 		}
 		yield return new WaitForEndOfFrame();
 
@@ -72,7 +72,7 @@ public class SelectedCharacter : AndroidNativeExampleBase {
 		//set selected character to the first one by default
 		GameObject selectedChar = characters[0];
 
-		GameObject	opponentselectedChar = opponentcharacters [0];
+		//GameObject	opponentselectedChar = opponentcharacters [0];
 
 	//	StoreInventory.RefreshLocalInventory ();
 		//check for other character selections in the storage
@@ -150,13 +150,13 @@ public class SelectedCharacter : AndroidNativeExampleBase {
 			//StoreInventory.EquipVirtualGood("bike");
 			//SIS.ShopManager.SetItemState();
 		}
-	/*	if (selectedEffect == null) {
+		/*if (selectedEffect == null) {
 
 			selectedEffect = effects[0];
 
 		}*/
 
-		if (Multiplayer) {
+	/*	if (Multiplayer) {
 
 			//	StoreInventory.RefreshLocalInventory ();
 			//check for other character selections in the storage
@@ -187,9 +187,9 @@ public class SelectedCharacter : AndroidNativeExampleBase {
 		else
 		{
 
-		}
-//		GameObject.Find ("bike").SetActive(true);
-		if (Multiplayer) {
+		}*/
+		//GameObject.Find ("bike").SetActive(true);
+		/*if (Multiplayer) {
 			//MultiplayerController.Instance.updateListener = this;
 			// 1
 			//_myParticipantId = MultiplayerController.Instance.GetMyParticipantId ();
@@ -230,48 +230,21 @@ public class SelectedCharacter : AndroidNativeExampleBase {
 			character = (GameObject)Instantiate (selectedChar, spawnPos.position, Quaternion.identity);
 			character.SetActive (true);
 			//if have effect
-			/*if(selectedEffect){
+			if(selectedEffect){
 				effect = (GameObject)Instantiate (selectedEffect, character.GetComponent<Motorcycle_Controller2D>().rearWheel.position, Quaternion.identity);
 				effect.SetActive (true);
-			}*/
-		}
+			}
+		}*/
 		//deathZone.GetComponent<FollowAxis>().target = character.transform;
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
+
+		character = (GameObject)Instantiate (selectedChar, spawnPos.position, Quaternion.identity);
+		character.SetActive (true);
+		//if have effect
+		/*if(selectedEffect){
+			effect = (GameObject)Instantiate (selectedEffect, character.GetComponent<Motorcycle_Controller2D>().rearWheel.position, Quaternion.identity);
+			effect.SetActive (true);
+		}*/
 	
 	}
 
-	public void PlayerFinished(string senderId, float finalTime) {
-	/*	Debug.Log ("Participant " + senderId + " has finished with a time of " + finalTime);
-		if (_finishTimes[senderId] < 0) { 
-			Debug.Log ("sender id: " + senderId);
-			_finishTimes[senderId] = finalTime;
-			Debug.Log ("saved sender id");
-		}
-		CheckForMPGameOver();*/
-	}
-	public void LeftRoomConfirmed() {
-		/*MultiplayerController.Instance.updateListener = null;
-		Application.LoadLevel ("MainMenu");*/
-	}
-	public void PlayerLeftRoom(string participantId) {
-		/*if (_finishTimes[participantId] < 0) {
-			_finishTimes[participantId] = 999999.0f;
-			if (_opponentScripts[participantId] != null) {
-				_opponentScripts[participantId].HideCar();
-			}
-			CheckForMPGameOver();
-		}*/
-	}
-	public void UpdateReceived(string senderId, float posX, float posY, float velX, float velY, float rotZ) {
-		/*if (_multiplayerReady) {
-			OpponentCarController opponent = _opponentScripts[senderId];
-			if (opponent != null) {
-				opponent.SetCarInformation (posX, posY, velX, velY, rotZ);
-			}
-		}*/
-	}
 }
