@@ -2,9 +2,10 @@
 using System.Collections;
 using Soomla.Store;
 using System.Collections.Generic;
-using GooglePlayGames.BasicApi.Multiplayer;
+//using GooglePlayGames.BasicApi.Multiplayer;
 
-public class SelectedCharacter : AndroidNativeExampleBase {
+//public class SelectedCharacter : AndroidNativeExampleBase {
+public class SelectedCharacter :  MonoBehaviour{
 
 	//public bool Multiplayer;
 	private Dictionary<string, float> _finishTimes;
@@ -71,7 +72,7 @@ public class SelectedCharacter : AndroidNativeExampleBase {
 		//this code runs after SOOMLA has been initialized
 		//set selected character to the first one by default
 		GameObject selectedChar = characters[0];
-
+		//GameObject selectedChar = null;
 		//GameObject	opponentselectedChar = opponentcharacters [0];
 
 	//	StoreInventory.RefreshLocalInventory ();

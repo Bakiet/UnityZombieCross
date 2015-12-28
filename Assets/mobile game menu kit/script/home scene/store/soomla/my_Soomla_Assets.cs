@@ -9,10 +9,11 @@ namespace Soomla.Store
 		
 		public int GetVersion()
 		{
-			return 10;
+			return 1;
 		}
 		
 		#region virtual currency
+
 
 		public const string prefix = "unity.zombiecross";
 
@@ -98,7 +99,9 @@ namespace Soomla.Store
 			VIRTUAL_MONEY_PROFILE_0_PACK_1000_ID,                     // item id
 			pack1000_quantity,												// number of currencies in the pack
 			VIRTUAL_MONEY_PROFILE_0_ID,            			// the currency associated with this pack
-			new PurchaseWithMarket(VIRTUAL_MONEY_PROFILE_0_PACK_1000_ID, pack1000_cost)
+			new PurchaseWithMarket(VIRTUAL_MONEY_PROFILE_0_PACK_1000_ID_TEST, pack1000_cost)
+			//new PurchaseWithMarket(TEST_ID, pack1000_cost)
+
 			);
 		public static VirtualCurrencyPack VIRTUAL_MONEY_PROFILE_0_PACK_2500 = new VirtualCurrencyPack(
 			pack2500_name,                                   	// name
