@@ -9,7 +9,7 @@ namespace Soomla.Store
 		
 		public int GetVersion()
 		{
-			return 1;
+			return 0;
 		}
 		
 		#region virtual currency
@@ -99,7 +99,7 @@ namespace Soomla.Store
 			VIRTUAL_MONEY_PROFILE_0_PACK_1000_ID,                     // item id
 			pack1000_quantity,												// number of currencies in the pack
 			VIRTUAL_MONEY_PROFILE_0_ID,            			// the currency associated with this pack
-			new PurchaseWithMarket(VIRTUAL_MONEY_PROFILE_0_PACK_1000_ID_TEST, pack1000_cost)
+			new PurchaseWithMarket(VIRTUAL_MONEY_PROFILE_0_PACK_1000_ID, pack1000_cost)
 			//new PurchaseWithMarket(TEST_ID, pack1000_cost)
 
 			);

@@ -21,8 +21,7 @@ public class ParticleGenerator : MonoBehaviour {
 	//public float timetostart = 5f;
 	//public float timetoend = 5f;
 	private GameObject newLiquidParticle;
-
-
+	public GameObject DynamicParticleObject;
 
 
 	void Start() { 
@@ -35,6 +34,7 @@ public class ParticleGenerator : MonoBehaviour {
 			//nextActionTime = Time.time + period; 
 			if( lastSpawnTime+SPAWN_INTERVAL<Time.time ){ // Is it time already for spawning a new particle?
 				newLiquidParticle=(GameObject)Instantiate(Resources.Load("LiquidPhysics/DynamicParticle")); //Spawn a particle
+				//newLiquidParticle= DynamicParticleObject; //Spawn a particle
 				newLiquidParticle.GetComponent<Rigidbody2D>().AddForce( particleForce); //Add our custom force
 				DynamicParticle particleScript=newLiquidParticle.GetComponent<DynamicParticle>(); // Get the particle script
 				particleScript.SetLifeTime(PARTICLE_LIFETIME); //Set each particle lifetime

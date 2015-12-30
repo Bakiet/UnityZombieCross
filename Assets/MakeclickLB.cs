@@ -36,9 +36,9 @@ public class MakeclickLB : MonoBehaviour {
 	private const string MY_BANNERS_AD_UNIT_ID		 = "ca-app-pub-7288875708989992/5953651462"; 
 	private const string MY_INTERSTISIALS_AD_UNIT_ID =  "ca-app-pub-7288875708989992/3000185061"; 
 	
-	public bool callfunction=false;
-	public string functioncalled="";
-	public string Scene;
+	//public bool callfunction=false;
+	//public string functioncalled="";
+	//public string Scene;
 	//public bool isClick=false;
 	private GoogleMobileAdBanner banner2;
 	
@@ -108,12 +108,12 @@ public class MakeclickLB : MonoBehaviour {
 			OnPlayerConnected ();
 		} 
 		defaulttexture = avatar.GetComponent<Renderer>().material.mainTexture;
-		
+		/*
 		if (functioncalled != "ShareFB" || functioncalled != "LikePage" || functioncalled != "RateDialogPopUp"  || functioncalled !="showAchievementsUI") {
 			if (callfunction) {
 				Invoke (functioncalled, 0);
 			}
-		}
+		}*/
 		//	SPFacebook.instance.OnInitCompleteAction += OnInit;
 		//	SPFacebook.instance.OnFocusChangedAction += OnFocusChanged;
 		//	SPFacebook.instance.OnAuthCompleteAction += OnAuth;
@@ -135,64 +135,24 @@ public class MakeclickLB : MonoBehaviour {
 		{
 			my_game_master.best_int_score_for_current_player[i] = PlayerPrefs.GetInt("profile_"+i.ToString()+"_best_int_score_for_this_profile");
 			my_game_master.profile_name[i] = PlayerPrefs.GetString("profile_"+i.ToString()+"_name");
+			//rank_items [i] = (score_rank_item)this.transform.GetChild (i).GetComponent<score_rank_item> ();
+			//longscore = Convert.ToInt64(long.Parse(this.transform.GetChild (i).GetComponent<score_rank_item> ().score_text.text));
+			//longscore = Convert.ToInt64(long.Parse(sort_scores[i].ToString()));
 			//Debug.Log("["+i+"] originale: " + my_game_master.best_int_score_for_current_player[i] + " " + my_game_master.profile_name[i] + " ... " + my_game_master.this_profile_have_a_save_state_in_it[i]);
 			//Debug.Log("["+i+"] copia: " + sort_scores[i]);
+			longscore = Convert.ToInt64(long.Parse(my_game_master.best_int_score_for_current_player.GetValue(i).ToString()));
 		}
-		
-		//fill arrays
-	/*	Array.Copy(my_game_master.best_int_score_for_current_player,sort_scores,my_game_master.number_of_save_profile_slot_avaibles);
-		Array.Sort(sort_scores);
-		Array.Reverse(sort_scores);*/
-		/*
-		for (int i = 0; i < my_game_master.number_of_save_profile_slot_avaibles; i++)
-		{
-			//Debug.Log("["+i+"] originale: " + my_game_master.best_int_score_for_current_player[i]);
-			Debug.Log("["+i+"] copia riordinata: " + sort_scores[i]);
-		}*/
-
-		for (int i = 0; i < child_count; i++) {
-			rank_items [i] = (score_rank_item)this.transform.GetChild (i).GetComponent<score_rank_item> ();
-			longscore = Convert.ToInt64(long.Parse(this.transform.GetChild (i).GetComponent<score_rank_item> ().score_text.text));
-		}
-		for (int i = 0; i < my_game_master.number_of_save_profile_slot_avaibles; i++)
-		{
-			if (i < my_game_master.number_of_save_profile_slot_avaibles && my_game_master.this_profile_have_a_save_state_in_it[i])//is there is a save profile here
-			{
-				for (int n = 0; n < child_count; n++)
-				{
-					if (my_game_master.best_int_score_for_current_player[i] == sort_scores[n] && !name_assigned[n])
-					{
-						//Debug.Log(sort_scores[n] + " == " + my_game_master.best_int_score_for_current_player[i] + " : " + my_game_master.profile_name[i]);
-						sort_names[n] = my_game_master.profile_name[i];
-						name_assigned[n] = true;
-						break;
-					}
-				}
-			}
-		}
-
-
-		Invoke ("LoadScore", 0);
-	}
-	/*public void Connect() {
-		if(!IsAuntificated) {
-			SPFacebook.instance.Login("email,publish_actions");
-
-		} else {
-			LogOut();
-
-		}
-	}
-	*/
-	/*private void OnInit() {
-		if(SPFacebook.instance.IsLoggedIn) {
-			IsAuntificated = true;
-		} else {
-
-		}
-	}*/
 	
+		//Update_local();
+		LoadScore ();
+		ShowGlobal ();
 
+	}
+
+	
+	void Back(){
+		Application.LoadLevel ("Home");
+	}
 	
 	private void OnFocusChanged(bool focus) {
 		
@@ -327,7 +287,7 @@ public class MakeclickLB : MonoBehaviour {
 			}
 			
 			
-			SubmitScore();
+		//	SubmitScore();
 			
 			
 			

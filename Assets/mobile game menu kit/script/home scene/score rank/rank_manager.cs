@@ -30,6 +30,8 @@ public class rank_manager : MonoBehaviour {
 			my_game_master.profile_name[i] = PlayerPrefs.GetString("profile_"+i.ToString()+"_name");
 			//Debug.Log("["+i+"] originale: " + my_game_master.best_int_score_for_current_player[i] + " " + my_game_master.profile_name[i] + " ... " + my_game_master.this_profile_have_a_save_state_in_it[i]);
 			//Debug.Log("["+i+"] copia: " + sort_scores[i]);
+			long longscore = Convert.ToInt64(long.Parse(my_game_master.best_int_score_for_current_player.GetValue(i).ToString()));
+			long l = longscore;
 			}
 
 		//fill arrays

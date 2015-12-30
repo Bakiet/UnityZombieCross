@@ -4,11 +4,11 @@ using Soomla.Store;
 using System.Collections.Generic;
 //using GooglePlayGames.BasicApi.Multiplayer;
 
-//public class SelectedCharacter : AndroidNativeExampleBase {
-public class SelectedCharacter :  MonoBehaviour{
+public class SelectedCharacter : MonoBehaviour {
+
 
 	//public bool Multiplayer;
-	private Dictionary<string, float> _finishTimes;
+
 	//private bool _multiplayerGame;
 	//private bool _multiplayerReady;
 	//private string _myParticipantId;
@@ -237,9 +237,10 @@ public class SelectedCharacter :  MonoBehaviour{
 			}
 		}*/
 		//deathZone.GetComponent<FollowAxis>().target = character.transform;
-
+		//if(Motorcycle_Controller2D.lastcheckpoint){
 		character = (GameObject)Instantiate (selectedChar, spawnPos.position, Quaternion.identity);
 		character.SetActive (true);
+		//}
 		//if have effect
 		/*if(selectedEffect){
 			effect = (GameObject)Instantiate (selectedEffect, character.GetComponent<Motorcycle_Controller2D>().rearWheel.position, Quaternion.identity);

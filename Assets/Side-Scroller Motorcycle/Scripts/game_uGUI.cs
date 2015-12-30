@@ -530,6 +530,9 @@ public class game_uGUI : MonoBehaviour {
 	public void Go_to_Checkpoint()
 	{
 		Checkpoint.Reset ();
+		lose_screen.gameObject.SetActive (false);
+		play_screen.gameObject.SetActive(true);
+
 	}
 	
 	public void Go_to_stage_screen()
