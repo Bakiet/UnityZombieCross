@@ -282,7 +282,7 @@ public class store_button : MonoBehaviour {
 
 			my_ico = my_game_master.my_store_item_manager.incremental_item_list [my_item_ID].icon [my_game_master.my_store_item_manager.incremental_item_list [my_item_ID].icon.Length - 1];
 			my_price_tx.gameObject.SetActive (false);
-			this_buy_hit_the_cap = false;
+			this_buy_hit_the_cap = true;
 		} else {
 			if(selectButton != null){
 			selectButton.SetActive (true);
@@ -476,6 +476,7 @@ public class store_button : MonoBehaviour {
 		} else {
 			//if (selected.gameObject.activeInHierarchy == false && selectButton.gameObject.activeInHierarchy == false) {
 				my_game_master.Gui_sfx (my_game_master.tap_sfx);
+			if(this_buy_hit_the_cap == false){
 				if (price_currency_selected == price_currency.real_money) {
 					Pay_with_real_money ();
 
@@ -504,7 +505,7 @@ public class store_button : MonoBehaviour {
 						Motorcycle_Controller2D.useUpgrade = true;
 					}
 				}
-			//}
+			}
 		}
 	}
 
