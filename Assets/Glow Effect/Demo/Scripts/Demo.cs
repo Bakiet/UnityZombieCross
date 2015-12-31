@@ -29,6 +29,8 @@ namespace GlowEffect
         private float timeleft;
         private float fps;
 
+
+
         public void Start()
         {
             glowControlsVisibleRect = new Rect(0, 0, 320, 500);
@@ -159,6 +161,7 @@ namespace GlowEffect
 
         private void UpdateGlow()
         {
+			//glowGroup = GameObject.Find ("RearWheel");
             glowEffect.enabled = enableGlow;
             if (enableGlow) {
                 ActiveRecursively(glowGroup.transform, (int)glowMode % 2 == 0);
