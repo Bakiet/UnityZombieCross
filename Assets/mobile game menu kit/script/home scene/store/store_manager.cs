@@ -15,6 +15,7 @@ public class store_manager : MonoBehaviour {
 
 	public Info_bar my_info_bar;
 	store_button[] my_buttons;
+
 	int total_buttons;
 
 
@@ -44,6 +45,7 @@ public class store_manager : MonoBehaviour {
 			my_buttons[i].my_manage_menu_uGUI = my_manage_menu_uGUI;
 			my_buttons[i].my_feedback_window = my_feedback_window;
 			}
+
 
 	}
 	
@@ -76,6 +78,8 @@ public class store_manager : MonoBehaviour {
 						
 						store_button button_script = temp_button.GetComponent<store_button>();
 
+
+
 						button_script.my_item_ID = i;
 						button_script.my_name = my_game_master.my_store_item_manager.consumable_item_list[i].name;
 
@@ -87,16 +91,19 @@ public class store_manager : MonoBehaviour {
 						//set price
 						button_script.my_price = my_game_master.my_store_item_manager.consumable_item_list[i].price;
 						
-						if (my_game_master.my_store_item_manager.consumable_item_list[i].require_real_money)
+						if (my_game_master.my_store_item_manager.consumable_item_list[i].require_real_money){
 							button_script.price_currency_selected = global::store_button.price_currency.real_money;
-						else
+						
+						}else{
 							button_script.price_currency_selected = global::store_button.price_currency.virtual_money;
-					
-
+						
+						}
 
 						button_script.show_quantity = false;
 						button_script.give_this_selected = global::store_button.give_this.consumable_item;
 						button_script.My_start();
+
+
 						}
 					}
 			}

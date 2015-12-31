@@ -62,13 +62,18 @@ public class store_button : MonoBehaviour {
 	public Sprite virtual_money_ico;
 	public Sprite real_money_ico;
 
-	[HideInInspector]public Text my_name_tx;
-	[HideInInspector]public Text my_price_tx;
+	//[HideInInspector]public Text my_name_tx;
+	public Text my_name_tx;
+	//[HideInInspector]public Text my_price_tx;
+	public Text my_price_tx;
 	public Text my_quantity_tx;
 	public Text my_buy_tx;
-	[HideInInspector]public Image my_ico_img;
-	[HideInInspector]public Image my_buy_ico_img;
-	[HideInInspector]public Image my_money_ico_img;
+	//[HideInInspector]public Image my_ico_img;
+	public Image my_ico_img;
+	//[HideInInspector]public Image my_buy_ico_img;
+	public Image my_buy_ico_img;
+	//[HideInInspector]public Image my_money_ico_img;
+	public Image my_money_ico_img;
 
 
 	[HideInInspector] public game_master my_game_master;
@@ -85,10 +90,11 @@ public class store_button : MonoBehaviour {
 	{
 		if (selectButton)
 		{
+			if(selectButton !=null){
 			//get checkbox component
 			selCheck = selectButton.GetComponent<Toggle>();			
 			if (selCheck) selCheck.group = transform.parent.GetComponent<ToggleGroup>();
-
+			}
 
 		}
 
@@ -101,47 +107,58 @@ public class store_button : MonoBehaviour {
 
 		if(SelectedCharacter.bikeselected == true && id == "bike"){
 			//selected.SetActive(true);
+			if(selectButton !=null)
 			selectButton.SetActive(false);
 		}
 		if(SelectedCharacter.superbikeselected == true && id == "super_bike"){
 			//selected.SetActive(true);
+			if(selectButton !=null)
 			selectButton.SetActive(false);
 		}
 		if(SelectedCharacter.partybikeselected == true && id == "party_bike"){
 			//selected.SetActive(true);
+			if(selectButton !=null)
 			selectButton.SetActive(false);
 		}
 		if(SelectedCharacter.nightmarebikeselected == true && id == "nightmare_bike"){
 			//selected.SetActive(true);
+			if(selectButton !=null)
 			selectButton.SetActive(false);
 		}
 		if(SelectedCharacter.monsterbikeselected == true && id == "monster_bike"){
 			//selected.SetActive(true);
+			if(selectButton !=null)
 			selectButton.SetActive(false);
 		}
 		if(SelectedCharacter.monsterbikeselected == true && id == "neon_bike"){
 			//selected.SetActive(true);
+			if(selectButton !=null)
 			selectButton.SetActive(false);
 		}
 		if(SelectedCharacter.hellbikeselected == true && id == "hell_bike"){
 			//selected.SetActive(true);
+			if(selectButton !=null)
 			selectButton.SetActive(false);
 		}
 		
 		if(SelectedCharacter.bluebikeselected == true && id == "blue_bike"){
 			//selected.SetActive(true);
+			if(selectButton !=null)
 			selectButton.SetActive(false);
 		}
 		if(SelectedCharacter.summerbikeselected == true && id == "summer_bike"){
 			//selected.SetActive(true);
+			if(selectButton !=null)
 			selectButton.SetActive(false);
 		}
 		if(SelectedCharacter.peacebikeselected == true && id == "peace_bike"){
 			//selected.SetActive(true);
+			if(selectButton !=null)
 			selectButton.SetActive(false);
 		}
 		if(SelectedCharacter.sunshinebikeselected == true && id == "sunshine_bike"){
 			//selected.SetActive(true);
+			if(selectButton !=null)
 			selectButton.SetActive(false);
 		}
 
@@ -176,17 +193,18 @@ public class store_button : MonoBehaviour {
 	void Show_buy_ico()
 	{
 		if (!this_buy_hit_the_cap && you_have_enough_money) {
-			//if(selected){
-				if (selected.gameObject.activeInHierarchy || selectButton.gameObject.activeInHierarchy) {
-					my_buy_ico_img.enabled = false;
-					my_buy_tx.enabled = false;
-					my_buy_ico_img.sprite = can_buy_ico;
-				} else {
+			if(selected != null){
+			if (selected.gameObject.activeInHierarchy || selectButton.gameObject.activeInHierarchy) {
+				my_buy_ico_img.enabled = false;
+				my_buy_tx.enabled = false;
+				my_buy_ico_img.sprite = can_buy_ico;
+			} else {
 					
-					my_buy_ico_img.enabled = true;
-					my_buy_ico_img.sprite = can_buy_ico;
+				my_buy_ico_img.enabled = true;
+				my_buy_ico_img.sprite = can_buy_ico;
 					
-				}
+			}
+			}
 			/*if(my_buy_tx.text == "MAX"){
 				my_buy_ico_img.enabled = false;
 				my_buy_tx.enabled = false;
@@ -195,23 +213,45 @@ public class store_button : MonoBehaviour {
 			//	my_buy_ico_img.sprite = can_buy_ico;
 			//}
 		} else {
-			//if(selected){
+			if(selected != null){
 				if (selected.gameObject.activeInHierarchy || selectButton.gameObject.activeInHierarchy) {
 					my_buy_ico_img.enabled = false;
 					my_buy_tx.enabled = false;
 					my_buy_ico_img.sprite = cant_buy_ico;
 				} else {
-					my_buy_ico_img.enabled = true;
-					my_buy_tx.enabled = true;
-					my_buy_ico_img.sprite = cant_buy_ico;
+					//my_buy_ico_img.enabled = true;
+					//my_buy_tx.enabled = true;
+					//my_buy_ico_img.sprite = cant_buy_ico;
 
 				}
-
-			if(my_buy_tx.text == "MAX"){
-				my_buy_ico_img.enabled = false;
-				my_buy_tx.enabled = false;
-				selectButton.SetActive(true);
 			}
+				if(my_buy_tx.text == "MAX"){
+					my_buy_ico_img.enabled = false;
+					my_buy_tx.enabled = false;
+
+
+
+					if(selectButton != null){
+					selectButton.SetActive(true);
+					}
+				}
+
+			if(my_buy_tx.text == "MAX" && this_buy_hit_the_cap){
+				switch(give_this_selected)
+				{
+				case give_this.incremental_item:
+						my_buy_tx.enabled = true;
+					my_buy_ico_img.enabled = true;
+					my_buy_ico_img.sprite = cant_buy_ico;
+
+					break;
+
+
+				}
+			}
+
+
+
 			//}else{
 			//	my_buy_ico_img.sprite = cant_buy_ico;
 			//}
@@ -222,16 +262,31 @@ public class store_button : MonoBehaviour {
 
 	public void Incremental_item_MAX()
 	{
+		if (selectButton == null) {
+
+			Debug.Log ("Incremental_item_MAX()");
+			//my_quantity_tx.gameObject.SetActive (true);
+			//my_quantity_tx.text = "MAX";
+			my_buy_tx.text = "MAX";
+		
+			my_ico = my_game_master.my_store_item_manager.incremental_item_list [my_item_ID].icon [my_game_master.my_store_item_manager.incremental_item_list [my_item_ID].icon.Length - 1];
+			my_price_tx.gameObject.SetActive (false);
+			this_buy_hit_the_cap = true;
+
+		}
 		if (!selectButton) {
 			Debug.Log ("Incremental_item_MAX()");
-			my_quantity_tx.gameObject.SetActive (true);
-			my_quantity_tx.text = "MAX";
+			//my_quantity_tx.gameObject.SetActive (true);
+			//my_quantity_tx.text = "MAX";
 			my_buy_tx.text = "MAX";
+
 			my_ico = my_game_master.my_store_item_manager.incremental_item_list [my_item_ID].icon [my_game_master.my_store_item_manager.incremental_item_list [my_item_ID].icon.Length - 1];
 			my_price_tx.gameObject.SetActive (false);
 			this_buy_hit_the_cap = false;
 		} else {
+			if(selectButton != null){
 			selectButton.SetActive (true);
+			}
 		}
 		/*if (my_ico) {
 			if (selectButton)
@@ -396,7 +451,7 @@ public class store_button : MonoBehaviour {
 	}
 
 	public void Click_me () {
-		if (!selected) {
+		if (selected != null) {
 			if (selected.gameObject.activeInHierarchy == false && selectButton.gameObject.activeInHierarchy == false) {
 				if (you_have_enough_money && !this_buy_hit_the_cap) {
 
@@ -419,7 +474,7 @@ public class store_button : MonoBehaviour {
 				}
 			}
 		} else {
-			if (selected.gameObject.activeInHierarchy == false && selectButton.gameObject.activeInHierarchy == false) {
+			//if (selected.gameObject.activeInHierarchy == false && selectButton.gameObject.activeInHierarchy == false) {
 				my_game_master.Gui_sfx (my_game_master.tap_sfx);
 				if (price_currency_selected == price_currency.real_money) {
 					Pay_with_real_money ();
@@ -449,14 +504,16 @@ public class store_button : MonoBehaviour {
 						Motorcycle_Controller2D.useUpgrade = true;
 					}
 				}
-			}
+			//}
 		}
 	}
 
 	void Pay_with_real_money()
 	{
-		if (selectButton) selectButton.SetActive(true);
-
+		if (selectButton != null) {
+			if (selectButton)
+				selectButton.SetActive (true);
+		}
 		if (my_game_master.show_debug_messages)
 			Debug.Log("Pay_with_real_money");
 
@@ -561,7 +618,9 @@ public class store_button : MonoBehaviour {
 
 		my_store_tabs.Update_buttons_in_windows();
 		purchased = true;
-		selectButton.SetActive(true);
+		if (selectButton != null) {
+			selectButton.SetActive (true);
+		}
 	}
 	
 
