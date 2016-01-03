@@ -1109,7 +1109,7 @@ public class game_master : MonoBehaviour {
 				if (!music_source.isPlaying)//if you don't play the music yet, play it!
 					{
 					if (music_on[current_profile_selected])//if music is on
-						music_source.volume = music_volume[current_profile_selected];
+					music_source.volume = music_volume[current_profile_selected];
 					else
 						music_source.volume = 0;
 					

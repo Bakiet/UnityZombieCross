@@ -1209,8 +1209,9 @@ public class game_uGUI : MonoBehaviour {
 		} else {
 			GooglePlayConnection.Instance.Connect ();
 		}*/
-		GooglePlayManager.instance.SubmitScoreById(LEADERBOARD_ID,score);
-
+		if (GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
+			GooglePlayManager.instance.SubmitScoreById (LEADERBOARD_ID, score);
+		}
 	}
 	public void Double_score_button()
 	{
