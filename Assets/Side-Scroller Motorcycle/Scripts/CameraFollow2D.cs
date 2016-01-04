@@ -23,10 +23,11 @@ public class CameraFollow2D : MonoBehaviour {
 			}
 		} 
 		else if (IfVolcan) {
+			if(target != null)
 			cam.position = new Vector3 (target.position.x, target.position.y + 4, cam.position.z);
 		}
 		else {
-
+			if(target != null)
 			cam.position = new Vector3 (target.position.x, target.position.y, cam.position.z);
 		}
 	}
