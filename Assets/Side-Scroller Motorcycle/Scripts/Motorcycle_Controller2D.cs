@@ -1117,9 +1117,9 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		backWheelStatic = backWheelObject;
 
 	
-	//	if(useUpgrade){
+		if(useUpgrade){
 		UpgradeInventory ();
-	//	}
+		}
 		nubes = GameObject.Find ("Nubes");
 		edif2 = GameObject.Find ("edif 2");
 		humo = GameObject.Find ("humo");
@@ -1153,11 +1153,11 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		*/
 		backflipParticle = GameObject.Find ("backflip particle").GetComponent<ParticleSystem>();
 		frontflipParticle = GameObject.Find ("frontflip particle").GetComponent<ParticleSystem>();
-		scoreText = GameObject.Find ("score text").GetComponent<GUIText>();
+		/*scoreText = GameObject.Find ("score text").GetComponent<GUIText>();
 		scoreText.text = "SCORE : " + score;
 		//change score text color
 		scoreText.material.color = scoreTextColor; 	
-		
+		*/
 		Camera.main.GetComponent<CameraFollow2D>().target = CarBody.transform;	
 		
 		audioSource = Car.GetComponent<AudioSource>();		

@@ -26,12 +26,15 @@ public class SendAdtoLoad : MonoBehaviour {
 		if (timeLeft <= 0) {
 			if (times == 1) {
 				if (MethodName == "SmartBottom" || MethodName == "StartInterstitialAd" || MethodName == "B2Hide") {
-					if (StoreInventory.GetItemBalance ("no_ads") <= 0) {
+					if(StoreInventory.GetItemBalance ("no_ads") != null){
+						if (StoreInventory.GetItemBalance ("no_ads") <= 0) {
+							Reciver.SendMessage (MethodName, SendMessageOptions.DontRequireReceiver);
+						}
+					}
+					} else {
 						Reciver.SendMessage (MethodName, SendMessageOptions.DontRequireReceiver);
 					}
-				} else {
-					Reciver.SendMessage (MethodName, SendMessageOptions.DontRequireReceiver);
-				}
+				//}
 			}
 		} else {
 

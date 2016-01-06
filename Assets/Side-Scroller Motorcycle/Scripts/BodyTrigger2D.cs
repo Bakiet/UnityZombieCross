@@ -53,7 +53,7 @@ public class BodyTrigger2D : MonoBehaviour {
 		
 		finish = false;
 		
-		winText = GameObject.Find ("win text").GetComponent<GUIText>();
+		/*winText = GameObject.Find ("win text").GetComponent<GUIText>();
 		crashText = GameObject.Find ("crash text").GetComponent<GUIText>();
 		
 		winText.enabled = false;
@@ -62,7 +62,7 @@ public class BodyTrigger2D : MonoBehaviour {
 		//change text colors
 		winText.material.color = winTextColor;
 		crashText.material.color = crashTextColor;
-		
+		*/
 		//ignoring collision between biker's bodytrigger and motorcycle body
 		//Physics.IgnoreCollision (this.GetComponent<Collider>(), transform.parent.GetComponent<Collider>());
 		
@@ -219,7 +219,7 @@ public class BodyTrigger2D : MonoBehaviour {
 
 			}
 
-			winText.enabled = true; //show win text				
+		//	winText.enabled = true; //show win text				
 			
 			if (Application.loadedLevel < Application.levelCount - 1) { //if won level isn't last level (levels are set in File -> Build Settings)
 				nextLevel = true;

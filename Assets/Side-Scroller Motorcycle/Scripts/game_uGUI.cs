@@ -34,6 +34,7 @@ public class game_uGUI : MonoBehaviour {
 	[HideInInspector]public Transform win_screen;
 	[HideInInspector]public Transform lose_screen;
 	[HideInInspector]public GameObject retry_button;
+	public GameObject return_to_home;
 	[HideInInspector]public GameObject stage_button;
 	[HideInInspector]public continue_window my_continue_window;
 	
@@ -1275,8 +1276,9 @@ public class game_uGUI : MonoBehaviour {
 							retry_button.SetActive (true);
 							stage_button.SetActive (true);
 						} else {
+							return_to_home.SetActive(false);
 							retry_button.SetActive (false);
-							stage_button.SetActive (false);
+							stage_button.SetActive (true);
 							if (my_game_master.continue_rule_selected == game_master.continue_rule.never_continue) {
 								my_continue_window.my_game_master = my_game_master;
 								my_continue_window.Continue_no (false);

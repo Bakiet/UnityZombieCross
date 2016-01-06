@@ -1,5 +1,4 @@
-﻿// DUMMY code: delete this if you whant use unity ads:
-/*using UnityEngine;
+﻿/*using UnityEngine;
 using System.Collections;
 using System;
 
@@ -134,7 +133,7 @@ using System;
 public class ads_master : MonoBehaviour {
 	
 	//Unity Ads
-	public string rewardedVideoZone = "rewardedVideoZone";
+	public string rewardedVideoZone = "rewardedVideo";
 	public bool enable_ads;
 	public bool ads_test_mode;
 	public string iOS_ads_app_id;
