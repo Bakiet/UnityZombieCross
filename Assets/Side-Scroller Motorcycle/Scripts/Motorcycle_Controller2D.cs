@@ -1247,16 +1247,22 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					//effectnitro.transform.position = Body2D.transform.position;
 					effectnitrostatic.transform.position = effectnitro.transform.position;	
 				} else {
-					effectnitro.SetActive (false);
+				//	effectnitro.SetActive (false);
 				}
 
 				if (accelerate) {
 					if (ifnitro) {
 						//acce / vertical / time / speedmotor
-						CurrentVelocity = 20 * Input.GetAxis ("Vertical") * Time.deltaTime * 10;
-						//-maxspeed / maxspeed
-						Velocity = Mathf.Clamp (CurrentVelocity, -20, 100);
+							if (forMobile) {
+								CurrentVelocity = 40 * InputGetAxis ("Vertical") * Time.deltaTime * 10;
 
+								//-maxspeed / maxspeed
+								Velocity = Mathf.Clamp (CurrentVelocity, -20, 100);
+							}else{
+								CurrentVelocity = 20 * Input.GetAxis ("Vertical") * Time.deltaTime * 10;
+								//-maxspeed / maxspeed
+								Velocity = Mathf.Clamp (CurrentVelocity, -20, 100);
+							}
 
 						
 						for (var i = 0; i <= (Wheels.Length-1); i++) {

@@ -4,6 +4,7 @@ using System.Collections;
 
 public class Checkpoint : MonoBehaviour {
 	public GameObject motorcyclePrefab;
+	private GameObject motorcyclePrefabClone;
 	public string tagToCheck = "Player";
 	public Color activatedColor = Color.green;
 	public Renderer objectToChangeColor;
@@ -18,12 +19,46 @@ public class Checkpoint : MonoBehaviour {
 	private static int count;
 	private static int scoreAtLastPoint = 0;
 
+	private GameObject[] gameObjects;
+
+	void Update(){
+
+		//gameObjects = (GameObject[])FindObjectsOfType(GameObject);
+		GameObject[] allObjects = UnityEngine.Object.FindObjectsOfType<GameObject>() ;
+		/*foreach (GameObject go in allObjects) {
+
+			motorcyclePrefab =go;
+		}*/
+
+		for (var i=0; i < allObjects.Length; i++){
+			if(allObjects[i].name.Contains("Spawn")){
+				motorcyclePrefab = allObjects[i];
+			}
+		}
+
+		moto = motorcyclePrefab;
+		//motorcyclePrefab = GameObject.Find(Children().Where(x=>x.name.Contains("Spawn")));
+		//motorcyclePrefabClone = GameObject.Find("Spawn(Clone)");
+		/*if (motorcyclePrefab != null) {
+			moto = motorcyclePrefab;
+		}
+		if (motorcyclePrefabClone != null) {
+			moto = motorcyclePrefabClone;
+		}*/
+	}
 	// Use this for initialization
 	void Start () {
 
 		audioSource = GetComponent<AudioSource>();
 		//motorcyclePrefab = Motorcycle_Controller2D.BodyCarStatic;
-		moto = motorcyclePrefab;
+		/*motorcyclePrefab = GameObject.Find("Spawn");
+		motorcyclePrefabClone = GameObject.Find("Spawn(Clone)");
+		if (motorcyclePrefab != null) {
+			moto = motorcyclePrefab;
+		}
+		if (motorcyclePrefabClone != null) {
+			moto = motorcyclePrefabClone;
+		}*/
 	}
 
 	void OnTriggerEnter2D(Collider2D col)
@@ -43,8 +78,8 @@ public class Checkpoint : MonoBehaviour {
 	{
 		//Motorcycle_Controller2D.lastcheckpoint = lastPoint;
 		//Application.LoadLevel (Application.loadedLevel);
-	//	Destroy (GameObject.Find(Motorcycle_Controller2D.BodyCarStatic.name));
 
+		Destroy (GameObject.Find(Motorcycle_Controller2D.BodyCarStatic.name));
 		//PrefabUtility.ResetToPrefabState (Motorcycle_Controller2D.BodyCarStatic);
 		Instantiate (moto, lastPoint.position, Quaternion.identity);
 		moto.tag = "SpawnClone";
@@ -65,7 +100,7 @@ public class Checkpoint : MonoBehaviour {
 		foreach (GameObject spawn in lastspawnclone) {
 			count++;
 			if(count > 1){
-				count = count -2;
+				//count = count -2;
 				Destroy(spawn);
 			}
 		}

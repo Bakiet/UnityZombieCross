@@ -1315,13 +1315,13 @@ public class game_uGUI : MonoBehaviour {
 		}
 	}
 	
-	
+
 	
 	void Mark_lose()
 	{
-		if (!isfinish) {
+		//if (!isfinish) {
 			Mark_this_button (lose_screen_target_button);
-		}
+		//}
 	}
 	
 	void Show_defeat_ad()

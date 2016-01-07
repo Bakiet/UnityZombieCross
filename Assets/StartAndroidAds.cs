@@ -96,11 +96,11 @@ public class StartAndroidAds : MonoBehaviour {
 			if (StoreInventory.GetItemBalance ("no_ads") <= 0) {
 				count = count +1;
 				countstatic = countstatic + 1;
-				if(countstatic == 1){
-					if(timestoexe <= count){
+				//if(countstatic == 1){
+					//if(timestoexe <= count){
 					Invoke (ad, invoked);
-					}
-				}
+					//}
+				//}
 			}
 		}
 	}
