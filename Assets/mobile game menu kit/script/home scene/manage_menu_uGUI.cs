@@ -6,9 +6,9 @@ using Soomla.Store;
 
 public class manage_menu_uGUI : MonoBehaviour, MPLobbyListener {
 
-	private static bool IsUserInfoLoaded = false;
+	/*private static bool IsUserInfoLoaded = false;
 	private static bool IsFrindsInfoLoaded = false;
-	private static bool IsAuntificated = false;
+	private static bool IsAuntificated = false;*/
 	
 	private string rateText = "If you enjoy playing Zombie Cross, please take a moment to rate it. Thanks for your support!";
 	//example link to your app on android market
