@@ -244,10 +244,10 @@ public class gift_manager : MonoBehaviour {
 		{
 			Debug.Log("gift_screen.activeSelf");
 			if (Application.internetReachability == NetworkReachability.ReachableViaLocalAreaNetwork && my_game_master.my_ads_master.Advertisement_isInitialized()) 
-				ads_button_ico.sprite = ads_button_internet_on;
+			{}//ads_button_ico.sprite = ads_button_internet_on;
 			else
 				{
-				ads_button_ico.sprite = ads_button_internet_off;//if ads can't work because no internet connection
+				//ads_button_ico.sprite = ads_button_internet_off;//if ads can't work because no internet connection
 				//Invoke("Check_internet",1);
 				}
 		}

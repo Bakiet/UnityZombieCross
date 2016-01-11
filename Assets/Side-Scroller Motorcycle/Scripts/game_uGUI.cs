@@ -8,7 +8,11 @@ using System.Collections.Generic;
 using System;
 
 public class game_uGUI : MonoBehaviour {
-
+	/*
+	private string rateText = "If you enjoy playing Zombie Cross, please take a moment to rate it. Thanks for your support!";
+	//example link to your app on android market
+	private string rateUrl = "https://play.google.com/store/apps/details?id=unity.zombiecross";
+	*/
 	private int healtcount = 0;
 	private const string LEADERBOARD_ID = "CgkIq6GznYALEAIQAA";
 	private const string LEADERBOARD_MULTIPLAYER_ID = "CgkIq6GznYALEAIQAQ";
@@ -108,6 +112,89 @@ public class game_uGUI : MonoBehaviour {
 	public static bool isfinish=false;
 	public int funds=0;
 	// Use this for initialization
+	/*
+	public void RateDialogPopUp() {
+		AndroidRateUsPopUp rate = AndroidRateUsPopUp.Create("Rate Us", rateText, rateUrl);
+		rate.ActionComplete += OnRatePopUpClose;
+	}
+	private void ShowPreloader() {
+		Invoke("HidePreloader", 2f);
+		AndroidNativeUtility.ShowPreloader("Loading", "Wait 2 seconds please");
+	}
+	
+	private void HidePreloader() {
+		AndroidNativeUtility.HidePreloader();
+	}
+	
+	private void OpenRatingPage() {
+		AndroidNativeUtility.OpenAppRatingPage(rateUrl);
+	}
+	private void OnRatePopUpClose(AndroidDialogResult result) {
+		
+		switch(result) {
+		case AndroidDialogResult.RATED:
+			AN_PoupsProxy.showMessage("Thanks", "for rate Zombie Cross");
+			break;
+		case AndroidDialogResult.REMIND:
+			AN_PoupsProxy.showMessage("Thanks", "soon know about us");
+			break;
+		case AndroidDialogResult.DECLINED:
+			AN_PoupsProxy.showMessage("Thanks", "remember, your opinion is important to us");
+			break;
+			
+		}
+		//AN_PoupsProxy.showMessage("Result", result.ToString() + " button pressed");
+	}
+
+	
+	
+	
+	private void OnDialogClose(AndroidDialogResult result) {
+		
+		//parsing result
+		switch(result) {
+		case AndroidDialogResult.YES:
+			Debug.Log ("Yes button pressed");
+			break;
+		case AndroidDialogResult.NO:
+			Debug.Log ("No button pressed");
+			break;
+			
+		}
+		
+		AN_PoupsProxy.showMessage("Result", result.ToString() + " button pressed");
+	}
+	
+	*/
+	
+	private void OnMessageClose(AndroidDialogResult result) {
+		AN_PoupsProxy.showMessage("Result", "Message Closed");
+	}
+	public void PageBKT() {
+		Application.OpenURL("https://www.facebook.com/BKT-Games-762018407240812/");
+	}
+	public void LikePage() {
+		Application.OpenURL("https://www.facebook.com/zombiecrossgame/");
+	}
+	public static AndroidRateUsPopUp Create(string title, string message, string url) {
+		return Create(title, message, url, "Rate app", "Later", "No, thanks");
+	}
+	
+	public static AndroidRateUsPopUp Create(string title, string message, string url, string yes, string later, string no) {
+		AndroidRateUsPopUp rate = new GameObject("AndroidRateUsPopUp").AddComponent<AndroidRateUsPopUp>();
+		rate.title = title;
+		rate.message = message;
+		rate.url = url;
+		
+		rate.yes = yes;
+		rate.later = later;
+		rate.no = no;
+		
+		rate.init();
+		
+		return rate;
+	}
+
 	void Start () {
 
 		isfinish=false;
@@ -821,7 +908,7 @@ public class game_uGUI : MonoBehaviour {
 			
 			if (my_game_master)
 			{
-				//my_game_master.my_ads_master.Call_ad(my_game_master.my_ads_master.ads_when_player_open_a_gift_packet);
+				my_game_master.my_ads_master.Call_ad(my_game_master.my_ads_master.ads_when_player_open_a_gift_packet);
 				//music
 				if (my_game_master.when_win_play_selected == game_master.when_win_play.music)
 					my_game_master.Start_music(my_game_master.music_stage_win,my_game_master.play_win_music_in_loop);
@@ -1276,6 +1363,8 @@ public class game_uGUI : MonoBehaviour {
 							retry_button.SetActive (true);
 							stage_button.SetActive (true);
 						} else {
+
+
 							return_to_home.SetActive(false);
 							retry_button.SetActive (false);
 							stage_button.SetActive (true);
@@ -1291,7 +1380,7 @@ public class game_uGUI : MonoBehaviour {
 				//go to lose screen
 				play_screen.gameObject.SetActive (false);
 				lose_screen.gameObject.SetActive (true);
-			
+
 				if (my_game_master) {
 					if (my_game_master.when_lose_play_selected == game_master.when_lose_play.music)
 						my_game_master.Start_music (my_game_master.music_stage_lose, my_game_master.play_lose_music_in_loop);

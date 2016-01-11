@@ -197,11 +197,11 @@ public class StartAndroidAds : MonoBehaviour {
 	}
 	
 	public void ChnagePostToMiddle() {
-		banner1.SetBannerPosition(TextAnchor.MiddleCenter);
+		//banner1.SetBannerPosition(TextAnchor.MiddleCenter);
 	}
 	
 	public void ChangePostRandom() {
-		banner1.SetBannerPosition(UnityEngine.Random.Range(0, Screen.width), UnityEngine.Random.Range(0, Screen.height));
+//		banner1.SetBannerPosition(UnityEngine.Random.Range(0, Screen.width), UnityEngine.Random.Range(0, Screen.height));
 	}
 	
 	

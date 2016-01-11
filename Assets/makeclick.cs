@@ -249,7 +249,7 @@ public class makeclick : MonoBehaviour {
 
 	public void SmartBottom() {
 		banner2 = AndroidAdMobController.instance.CreateAdBanner(TextAnchor.LowerCenter, GADBannerSize.SMART_BANNER);
-		banner2.Show();
+		//banner2.Show();
 	}
 	
 	

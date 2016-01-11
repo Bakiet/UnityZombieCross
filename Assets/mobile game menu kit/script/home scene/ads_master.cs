@@ -424,7 +424,7 @@ public class ads_master : MonoBehaviour {
 			case ad_reward.new_live:
 				
 				my_game_master.current_lives[my_game_master.current_profile_selected] += current_quantity_reward_selected;
-				
+				my_game_uGUI.Update_lives(0);
 				if (show_debug_messages)
 					Debug.Log("player rewarded with " + current_quantity_reward_selected + " lives");
 				
@@ -526,6 +526,8 @@ public class ads_master : MonoBehaviour {
 	
 	public void Call_ad(ad_options target_ad)
 	{
+		my_game_master = (game_master)game_master.game_master_obj.GetComponent("game_master");
+
 		if (enable_ads && target_ad.this_ad_is_enabled)
 		{
 			if (target_ad.ignore_minimum_time_interval_between_ads 

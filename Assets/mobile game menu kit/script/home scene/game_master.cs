@@ -4,7 +4,7 @@ using System;
 using Soomla.Store;
 
 public class game_master : MonoBehaviour {
-
+	
 	private int healtcount = 0;
 	//editor
 	public bool editor_show_worlds;
@@ -20,12 +20,14 @@ public class game_master : MonoBehaviour {
 	//device button work like back button in every screen, except home screen. In home screen it close the app (this behavior is REQUIRED for winphone store)
 	public bool allow_ESC;
 	public bool store_enabled;
-	public bool show_loading_screen;
+	public bool show_loading_screen;	
+
 
 	public string home_scene_name;
 
 	//score
 	public string score_name;
+	public Texture2D bigPicture;
 	public string what_say_if_new_stage_record;
 	public string what_say_if_new_personal_record;
 	public string what_say_if_new_device_record;
@@ -61,6 +63,7 @@ public class game_master : MonoBehaviour {
 	public KeyCode pad_pause_button;
 
 	//lives
+
 	public bool infinite_lives;
 	public string lives_name;
 	public int start_lives;
@@ -266,13 +269,79 @@ public class game_master : MonoBehaviour {
 	}
 	public this_screen go_to_this_screen = this_screen.home_screen;
 	public bool a_window_is_open;
-	
+
 	//avoid multiple istances of this prefab
 	bool keep_me;
 	
+	private void Toast() {
+		AndroidToast.ShowToastNotification ("Hello Toast", AndroidToast.LENGTH_LONG);
+	}
+	
+	private void Local(int time) {
+		//LastNotificationId = AndroidNotificationManager.instance.ScheduleLocalNotification("Hello", "This is local notification", 5);
+		
+		AndroidNotificationBuilder builder = new AndroidNotificationBuilder(SA_IdFactory.NextId,
+		                                                                    "Zombie Cross",
+		                                                                    "You have now 10 lives, go to kill zombies",
+		                                                                    time);
+		bigPicture = (Texture2D)Resources.Load("logo playstore.png");
+		builder.SetBigPicture (bigPicture);
+		AndroidNotificationManager.Instance.ScheduleLocalNotification(builder);
+	}
+	
+	private void LoadLaunchNotification (){
+		AndroidNotificationManager.instance.OnNotificationIdLoaded += OnNotificationIdLoaded;
+		AndroidNotificationManager.instance.LocadAppLaunchNotificationId();
+	}
+	
+	private void CanselLocal() {
+		//AndroidNotificationManager.instance.CancelLocalNotification(LastNotificationId);
+	}
+	
+	private void CancelAll() {
+		AndroidNotificationManager.instance.CancelAllLocalNotifications();
+	}
+	
+	
+	private void Reg() {
+		GoogleCloudMessageService.instance.RgisterDevice();
+	}
+	
+	private void LoadLastMessage() {
+		GoogleCloudMessageService.instance.LoadLastMessage();
+	}
+	
+	
+	private void LocalNitificationsListExample() {
+		//		List<LocalNotificationTemplate> PendingNotofications;
+		//	PendingNotofications = AndroidNotificationManager.instance.LoadPendingNotifications();
+	}
+	
 
+	void HandleActionCMDRegistrationResult (GP_GCM_RegistrationResult res) {
+		if(res.IsSucceeded) {
+			AN_PoupsProxy.showMessage ("Regstred", "GCM REG ID: " + GoogleCloudMessageService.instance.registrationId);
+		} else {
+			AN_PoupsProxy.showMessage ("Reg Failed", "GCM Registration failed :(");
+		}
+	}
+	
+	
+	
+	private void OnNotificationIdLoaded (int notificationid){
+		AN_PoupsProxy.showMessage ("Loaded", "App was laucnhed with notification id: " + notificationid);
+	}
+	
+	
+	private void OnMessageLoaded(string msg) {
+		AN_PoupsProxy.showMessage ("Message Loaded", "Last GCM Message: " + GoogleCloudMessageService.instance.lastMessage);
+	}
 	// Use this for initialization
 	void Awake () {
+
+		GoogleCloudMessageService.ActionCMDRegistrationResult += HandleActionCMDRegistrationResult;
+		GoogleCloudMessageService.ActionCouldMessageLoaded += OnMessageLoaded;
+		GoogleCloudMessageService.Instance.Init();
 
 		if ( !game_is_started )
 			{
@@ -936,6 +1005,8 @@ public class game_master : MonoBehaviour {
 			Debug.Log("Total seconds to wait = " + total_seconds_to_wait);
 
 		Invoke("Countdown_end",total_seconds_to_wait);
+		Local (total_seconds_to_wait);
+
 	}
 
 	public string Show_how_much_time_left()

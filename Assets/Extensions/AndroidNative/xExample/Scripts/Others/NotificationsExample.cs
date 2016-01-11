@@ -42,9 +42,9 @@ public class NotificationsExample : MonoBehaviour {
 		//LastNotificationId = AndroidNotificationManager.instance.ScheduleLocalNotification("Hello", "This is local notification", 5);
 
 		AndroidNotificationBuilder builder = new AndroidNotificationBuilder(SA_IdFactory.NextId,
-		                                                                    "Local Notification Title",
-		                                                                    "Big Picture Style Notification for AndroidNative Preview",
-		                                                                    3);
+		                                                                    "Zombie Cross",
+		                                                                    "Right now You have 10 lives, go to kill zombies",
+		                                                                    600);
 		builder.SetBigPicture (bigPicture);
 		AndroidNotificationManager.Instance.ScheduleLocalNotification(builder);
 	}

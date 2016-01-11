@@ -14,11 +14,11 @@ using System.Collections.Generic;
 public class AndroidPopUpExamples : MonoBehaviour {
 
 
-	private string rateText = "If you enjoy using Google Earth, please take a moment to rate it. Thanks for your support!";
+	private string rateText = "If you enjoy playing Zombie Cross, please take a moment to rate it. Thanks for your support!";
 
 
 	//example link to your app on android market
-	private string rateUrl = "market://details?id=com.unionassets.android.plugin.preview";
+	private string rateUrl = "market://details?id=unity.zombiecross";
 
 
 
@@ -85,7 +85,7 @@ public class AndroidPopUpExamples : MonoBehaviour {
 			
 		}
 
-		AN_PoupsProxy.showMessage("Result", result.ToString() + " button pressed");
+		AN_PoupsProxy.showMessage("Result", result.ToString() + "");
 	}
 
 
@@ -103,7 +103,7 @@ public class AndroidPopUpExamples : MonoBehaviour {
 
 		}
 			
-		AN_PoupsProxy.showMessage("Result", result.ToString() + " button pressed");
+		AN_PoupsProxy.showMessage("Result", result.ToString() + "");
 	}
 
 
