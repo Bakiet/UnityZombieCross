@@ -38,13 +38,13 @@ public class NotificationsExample : MonoBehaviour {
 		AndroidToast.ShowToastNotification ("Hello Toast", AndroidToast.LENGTH_LONG);
 	}
 
-	private void Local() {
+	public void Local(int time) {
 		//LastNotificationId = AndroidNotificationManager.instance.ScheduleLocalNotification("Hello", "This is local notification", 5);
 
 		AndroidNotificationBuilder builder = new AndroidNotificationBuilder(SA_IdFactory.NextId,
 		                                                                    "Zombie Cross",
-		                                                                    "Right now You have 10 lives, go to kill zombies",
-		                                                                    600);
+		                                                                    "You have now 10 lives, go to kill zombies",
+		                                                                    time);
 		builder.SetBigPicture (bigPicture);
 		AndroidNotificationManager.Instance.ScheduleLocalNotification(builder);
 	}

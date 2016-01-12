@@ -562,13 +562,18 @@ public class game_uGUI : MonoBehaviour {
 				loading_screen.gameObject.SetActive(true);
 		}
 		//reload this stage
-		if (restart_without_reload_the_stage)
-		{
+		if (restart_without_reload_the_stage) {
 			restarting = true;
-			Reset_me();
+			Reset_me ();
+		} else {
+			if(Checkpoint.lastPoint != null){
+			Checkpoint.Reset ();
+			lose_screen.gameObject.SetActive (false);
+			play_screen.gameObject.SetActive(true);
+			}else{
+				Application.LoadLevel (Application.loadedLevel);
+			}
 		}
-		else
-			Application.LoadLevel (Application.loadedLevel);
 	}
 	
 	public void Next()
@@ -617,9 +622,9 @@ public class game_uGUI : MonoBehaviour {
 
 	public void Go_to_Checkpoint()
 	{
-		Checkpoint.Reset ();
+		/*Checkpoint.Reset ();
 		lose_screen.gameObject.SetActive (false);
-		play_screen.gameObject.SetActive(true);
+		play_screen.gameObject.SetActive(true);*/
 
 	}
 	

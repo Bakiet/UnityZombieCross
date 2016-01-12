@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class EnemyAI : MonoBehaviour
 {
-
+	public GameObject CFX;
 	private Rigidbody2D rb2d;
 	private Animator anim;
 	public float maxSpeed = 5f;
@@ -74,9 +75,12 @@ public class EnemyAI : MonoBehaviour
 	public float yRotation = 5.0F;
 	public float walkingDirectionnew = -1.0f;
 	float distance = 0;
+	public float endTime = 3.0F;
 
 	//Transform myTransform; //current transform data of this enemy
 	void Start () {
+
+		endTime = Time.time + endTime;
 		count = 0;
 		distance = 0;
 
@@ -196,6 +200,8 @@ public class EnemyAI : MonoBehaviour
 					}
 
 					zombiedead = true;
+
+
 				}
 			}
 		}
@@ -282,6 +288,17 @@ public class EnemyAI : MonoBehaviour
 		if (zombiedead) {
 			anim.SetBool ("IsDisturbed", false);
 			gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
+	
+			BoxCollider2D boxCollider = gameObject.GetComponent<BoxCollider2D>();
+			//boxCollider.size = new Vector2(0.2f,0.2f);
+
+			/*GameObject effect = CFX;//(GameObject)Resources.Load ("prefabs/CFXM2_Soul", typeof(GameObject));
+			if(CFX!=null){
+				Instantiate (effect, transform.position, Quaternion.identity);
+				GameObject zombie = GameObject.Find (this.name);
+				zombie.SetActive (false);
+			}*/
+
 		} else {
 			if(distance != 0){
 				if(distance<=range && distance>stop){
@@ -324,6 +341,7 @@ public class EnemyAI : MonoBehaviour
 		}
 
 	}
+
 	public void Flip()
 	{
 		lookingRight = !lookingRight;

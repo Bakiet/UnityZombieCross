@@ -280,13 +280,14 @@ public class game_master : MonoBehaviour {
 	private void Local(int time) {
 		//LastNotificationId = AndroidNotificationManager.instance.ScheduleLocalNotification("Hello", "This is local notification", 5);
 		
-		AndroidNotificationBuilder builder = new AndroidNotificationBuilder(SA_IdFactory.NextId,
+		/*AndroidNotificationBuilder builder = new AndroidNotificationBuilder(SA_IdFactory.NextId,
 		                                                                    "Zombie Cross",
 		                                                                    "You have now 10 lives, go to kill zombies",
-		                                                                    time);
-		bigPicture = (Texture2D)Resources.Load("logo playstore.png");
-		builder.SetBigPicture (bigPicture);
-		AndroidNotificationManager.Instance.ScheduleLocalNotification(builder);
+		                                                                    time);*/
+		//bigPicture = (Texture2D)Resources.Load("images/logoplaystore.png", typeof(Texture2D));
+		//(GameObject)Resources.Load("prefabs/CFXM2_Soul", typeof(GameObject));
+		//builder.SetBigPicture (bigPicture);
+		//AndroidNotificationManager.Instance.ScheduleLocalNotification(builder);
 	}
 	
 	private void LoadLaunchNotification (){
@@ -1005,7 +1006,7 @@ public class game_master : MonoBehaviour {
 			Debug.Log("Total seconds to wait = " + total_seconds_to_wait);
 
 		Invoke("Countdown_end",total_seconds_to_wait);
-		Local (total_seconds_to_wait);
+		//Local (total_seconds_to_wait);
 
 	}
 

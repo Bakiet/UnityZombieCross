@@ -1191,9 +1191,9 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 				
 				Car.transform.position = lastcheckpoint.position;
 				crash = false;
-				crashed=false;
-			}
-		}
+				crashed = false;
+			} 
+		} 
 		//CalculateVelocity();
 	}
 	
