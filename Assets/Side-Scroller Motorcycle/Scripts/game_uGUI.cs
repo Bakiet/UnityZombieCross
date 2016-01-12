@@ -196,7 +196,7 @@ public class game_uGUI : MonoBehaviour {
 	}
 
 	void Start () {
-
+	
 		isfinish=false;
 		in_pause = false;
 		GooglePlayConnection.ActionPlayerConnected +=  OnPlayerConnected;
@@ -564,14 +564,21 @@ public class game_uGUI : MonoBehaviour {
 		//reload this stage
 		if (restart_without_reload_the_stage) {
 			restarting = true;
-			Reset_me ();
+			Reset_me();
 		} else {
 			if(Checkpoint.lastPoint != null){
 			Checkpoint.Reset ();
 			lose_screen.gameObject.SetActive (false);
+			options_screen.gameObject.SetActive(false);
 			play_screen.gameObject.SetActive(true);
+			loading_screen.gameObject.SetActive(false);
+			pause_screen.gameObject.SetActive(false);
+				Pause();
+			in_pause = false;
+
 			}else{
 				Application.LoadLevel (Application.loadedLevel);
+				//in_pause = false;
 			}
 		}
 	}
