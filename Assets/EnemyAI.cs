@@ -200,12 +200,20 @@ public class EnemyAI : MonoBehaviour
 					}
 
 					zombiedead = true;
-
-
+					Invoke("deletezombie",2);
+					GameObject effect = CFX;//(GameObject)Resources.Load ("prefabs/CFXM2_Soul", typeof(GameObject));
+					if (CFX != null) {
+						Instantiate (effect, transform.position, Quaternion.identity);
+					}
 				}
 			}
 		}
 	}	
+	void deletezombie(){
+
+		GameObject zombie = GameObject.Find (this.name);
+		zombie.SetActive (false);
+	}
 	void NotAggro()
 	{
 		anim.SetBool ("IsAggro", false);

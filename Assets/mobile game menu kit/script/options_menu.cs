@@ -66,10 +66,12 @@ public class options_menu : MonoBehaviour {
 	{
 		if (game_master.sfx_on[my_game_master.current_profile_selected])
 		{
+			AudioListener.pause = true;
 			my_game_master.Sfx_on_off(false);
 		}
 		else
 		{
+			AudioListener.pause = false;
 			my_game_master.Sfx_on_off(true);
 		}
 		
