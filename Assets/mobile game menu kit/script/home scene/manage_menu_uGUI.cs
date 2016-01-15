@@ -275,7 +275,8 @@ public class manage_menu_uGUI : MonoBehaviour, MPLobbyListener {
 			{
 			my_game_master = (game_master)game_master.game_master_obj.GetComponent("game_master");
 			my_gift_manager.my_game_master = my_game_master;
-
+			//play music menu again
+			my_game_master.music_source.enabled  = true;
 			if (my_game_master.my_ads_master)
 				{
 				my_game_master.my_ads_master.my_feedback_window = my_feedback_window;

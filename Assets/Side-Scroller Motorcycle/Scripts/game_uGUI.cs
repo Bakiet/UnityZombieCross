@@ -229,7 +229,15 @@ public class game_uGUI : MonoBehaviour {
 			my_game_master.my_ads_master.my_feedback_window = my_feedback_window;
 			my_game_master.my_ads_master.my_gift_manager = my_gift_manager;
 			my_gift_manager.my_game_master = my_game_master;
-			//my_game_master.Start_music(stage_music,true);
+			if(Application.loadedLevelName != "Home"){
+			//my_game_master.Start_music(my_game_master.music_menu,false);
+				my_game_master.music_source.enabled  = false;
+			}
+			else{
+				my_game_master.music_source.enabled  = true;
+				my_game_master.Start_music(my_game_master.music_menu,false);
+			}
+			//my_game_master.music_menu =null;
 			//star score
 			if (!ignore_game_master_preferences)
 			{
@@ -319,6 +327,7 @@ public class game_uGUI : MonoBehaviour {
 		if (my_game_master)
 		{
 			//music
+
 			//my_game_master.Start_music(stage_music,true);
 			
 			//lives
@@ -926,7 +935,7 @@ public class game_uGUI : MonoBehaviour {
 					my_game_master.Start_music(my_game_master.music_stage_win,my_game_master.play_win_music_in_loop);
 				else if (my_game_master.when_win_play_selected == game_master.when_win_play.sfx)
 					my_game_master.Gui_sfx(my_game_master.music_stage_win);
-				
+
 				if (my_game_master.press_start_and_go_to_selected == game_master.press_start_and_go_to.map)
 					next_stage_ico.SetActive(false);
 				else

@@ -76,7 +76,6 @@ public class game_master : MonoBehaviour {
 	}
 	public lose_lives lose_lives_selected;
 
-
 	//continues
 	public bool refresh_stage_and_world_screens;
 	public int start_continue_tokens;
@@ -534,7 +533,7 @@ public class game_master : MonoBehaviour {
 			//this avoid duplication of this istance
 			Destroy(this.gameObject);
 			}
-		
+
 	}
 	
 
