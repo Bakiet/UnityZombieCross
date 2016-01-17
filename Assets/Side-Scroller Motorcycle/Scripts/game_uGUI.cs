@@ -237,6 +237,7 @@ public class game_uGUI : MonoBehaviour {
 				my_game_master.music_source.enabled  = true;
 				my_game_master.Start_music(my_game_master.music_menu,false);
 			}
+			//my_game_master.Start_music(my_game_master.music_menu,false);
 			//my_game_master.music_menu =null;
 			//star score
 			if (!ignore_game_master_preferences)
