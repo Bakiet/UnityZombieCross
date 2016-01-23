@@ -939,6 +939,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 
 	void Start()
 	{
+
 		accelerate = false;
 		rearWheel.freezeRotation = true;
 		frontWheel.freezeRotation = true;
@@ -1421,6 +1422,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 
 	void Update()
 	{
+		Time.timeScale = 1.3f;
 		//accelerate = false;
 		rearWheel.freezeRotation = false;
 		frontWheel.freezeRotation = false;

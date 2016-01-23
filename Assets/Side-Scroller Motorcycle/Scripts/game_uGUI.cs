@@ -1362,6 +1362,7 @@ public class game_uGUI : MonoBehaviour {
 	
 	public void Defeat()
 	{		
+
 		if (!isfinish) {
 			if (!stage_end) {	
 				//stage_end = true;

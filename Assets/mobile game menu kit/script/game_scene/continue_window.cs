@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System;
 
 public class continue_window : MonoBehaviour {
 
@@ -58,6 +59,7 @@ public class continue_window : MonoBehaviour {
 				if (my_game_master.continue_menu_have_countdown)
 				{
 					my_timer.text = my_game_master.continue_menu_countdown_seconds.ToString();
+
 					stop_timer = false;
 					StartCoroutine(Countdown(my_game_master.continue_menu_countdown_seconds));
 					my_timer.gameObject.SetActive(true);
@@ -121,6 +123,7 @@ public class continue_window : MonoBehaviour {
 			if (my_game_master.continue_menu_have_countdown)
 			{
 				my_timer.text = my_game_master.continue_menu_countdown_seconds.ToString();
+			
 				stop_timer = false;
 				StartCoroutine(Countdown(my_game_master.continue_menu_countdown_seconds));
 				my_timer.gameObject.SetActive(true);
@@ -152,8 +155,8 @@ public class continue_window : MonoBehaviour {
 			{
 			yield return new WaitForSeconds(1 * time_scale_multiplier);
 			seconds--;
-			my_timer.text = seconds.ToString();
-
+			my_timer.text = seconds.ToString().Substring(0,1);
+			//my_timer.text = Convert.ToString(Convert.ToInt32(seconds.ToString())- 1000);
 			if(seconds > 0)
 				StartCoroutine(Countdown(seconds));
 			else
