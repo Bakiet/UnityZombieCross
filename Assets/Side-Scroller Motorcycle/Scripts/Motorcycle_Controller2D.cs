@@ -1195,6 +1195,8 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 				crashed = false;
 			} 
 		} 
+		
+		transform.position = new Vector3(transform.position.x, transform.position.y, -1f);
 		//CalculateVelocity();
 	}
 	

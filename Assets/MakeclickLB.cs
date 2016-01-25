@@ -146,6 +146,7 @@ public class MakeclickLB : MonoBehaviour {
 		//Update_local();
 		LoadScore ();
 		ShowGlobal ();
+		ShowAllTime ();
 
 	}
 

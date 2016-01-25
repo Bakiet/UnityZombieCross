@@ -83,6 +83,7 @@ public class Checkpoint : MonoBehaviour {
 		//PrefabUtility.ResetToPrefabState (Motorcycle_Controller2D.BodyCarStatic);
 		Instantiate (moto, lastPoint.position, Quaternion.identity);
 		moto.tag = "SpawnClone";
+
 		//Motorcycle_Controller2D.score = scoreAtLastPoint;
 
 		Motorcycle_Controller2D.checkpoint = true;
