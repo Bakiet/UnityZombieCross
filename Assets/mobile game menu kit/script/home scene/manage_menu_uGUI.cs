@@ -271,6 +271,8 @@ public class manage_menu_uGUI : MonoBehaviour, MPLobbyListener {
 	// Use this for initialization
 	void Start () {
 
+
+
 		if (game_master.game_master_obj)
 			{
 			my_game_master = (game_master)game_master.game_master_obj.GetComponent("game_master");
@@ -990,6 +992,17 @@ public class manage_menu_uGUI : MonoBehaviour, MPLobbyListener {
 		my_options.Start_me();
 		Mark_current_screen(options_screen);
 		Mark_this_button(options_screen_target_button);
+
+		string title = "LOGIN";
+		if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
+			//GooglePlayConnection.Instance.Disconnect ();
+			title = "LOGOUT";
+		} else {
+			//GooglePlayConnection.Instance.Connect ();
+		}
+		Text titleobjt = GameObject.Find ("Textlogin").GetComponent<Text>();
+		
+		titleobjt.text = title;
 	}
 
 	public void Go_to_store_screen(int store_tab)
@@ -1211,12 +1224,28 @@ public class manage_menu_uGUI : MonoBehaviour, MPLobbyListener {
 	}
 	
 	public void ConncetButtonPress() {
-		
+
 		if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
 			//GooglePlayConnection.Instance.Disconnect ();
+
 		} else {
 			GooglePlayConnection.Instance.Connect ();
 		}
+
+	}
+	public void ConncetButtonPressLogin() {
+		
+		string title2 = "";
+		if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
+			GooglePlayConnection.Instance.Disconnect ();
+			title2 = "LOGIN";
+		} else {
+			GooglePlayConnection.Instance.Connect ();
+			title2 = "LOGOUT";
+		}
+		Text titleobjt = GameObject.Find ("Textlogin").GetComponent<Text>();
+		
+		titleobjt.text = title2;
 		
 	}
 	// Update is called once per frame

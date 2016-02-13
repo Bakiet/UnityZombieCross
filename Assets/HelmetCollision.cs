@@ -75,7 +75,7 @@ public class HelmetCollision : MonoBehaviour {
 	{
 		if (obj.gameObject.tag == "Ground") {
 			
-			if (obj.gameObject.tag != "Checkpoint" ^ obj.gameObject.tag != "ZoomOutTrigger" ^ obj.gameObject.tag != "ZoomInTrigger" ^ obj.gameObject.tag == "Player" ^ obj.gameObject.tag == "Coin" ^ obj.gameObject.tag == "nitro"^ obj.gameObject.tag == "Zombie"^ obj.gameObject.tag == "ZombieFat"^ obj.gameObject.tag == "ZombieMid"^ obj.gameObject.tag == "Wood") { //if entered in any other trigger than "Finish" & "Checkpoint", that means player crashed
+			if (obj.gameObject.tag != "Checkpoint" ^ obj.gameObject.tag != "ZoomOutTrigger" ^ obj.gameObject.tag != "ZoomInTrigger" ^ obj.gameObject.tag == "Player" ^ obj.gameObject.tag == "Coin" ^ obj.gameObject.tag == "nitro"^ obj.gameObject.tag == "Zombie"^ obj.gameObject.tag == "ZombieFat"^ obj.gameObject.tag == "ZombieMid"^ obj.gameObject.tag != "Wood") { //if entered in any other trigger than "Finish" & "Checkpoint", that means player crashed
 				if (!Motorcycle_Controller2D.crash) {
 					if (obj.gameObject.tag == "Saw") {					
 						Motorcycle_Controller2D.crashSaw = true;

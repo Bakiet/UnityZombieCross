@@ -1458,20 +1458,23 @@ namespace Water2DTool
             // The distance from the left handle to the center of the collider.
             float distance;
 
-            if (a2DCollider)
-                distance = Mathf.Abs(leftHandleGlobalPos.x - floatingObjects2D[cIndex].bounds.center.x);
-            else
-                distance = Mathf.Abs(leftHandleGlobalPos.x - floatingObjects3D[cIndex].bounds.center.x);
+            if (a2DCollider) {
 
+                distance = Mathf.Abs(leftHandleGlobalPos.x - floatingObjects2D[cIndex].bounds.center.x);
+			} else {
+				distance = Mathf.Abs (leftHandleGlobalPos.x - floatingObjects3D [cIndex].bounds.center.x);
+			}
             // The current water width.
             float waterWidth = Mathf.Abs(water2D.handlesPosition[3].x - water2D.handlesPosition[2].x);
 
             // The distance from the left handle to the left side of the bounding box of the collider.
             float minX;
-            if (a2DCollider)
-                minX = distance - floatingObjects2D[cIndex].bounds.extents.x;
-            else
-                minX = distance - floatingObjects3D[cIndex].bounds.extents.x;
+            if (a2DCollider) {
+
+			minX = distance - floatingObjects2D [cIndex].bounds.extents.x;
+			} else {
+				minX = distance - floatingObjects3D [cIndex].bounds.extents.x;
+			}
             // The distance from the left handle to the right side of the bounding box of the collider.
             float maxX = distance + (a2DCollider ? floatingObjects2D[cIndex].bounds.extents.x : floatingObjects3D[cIndex].bounds.extents.x);
 

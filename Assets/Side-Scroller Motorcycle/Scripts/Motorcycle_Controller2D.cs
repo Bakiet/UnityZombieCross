@@ -41,6 +41,9 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	private  string INCREMENTAL_ACHIEVEMENT_ID_Assassin = "CgkIq6GznYALEAIQCg";
 	private  string INCREMENTAL_ACHIEVEMENT_ID_Sergeant = "CgkIq6GznYALEAIQCQ";
 
+	private  string INCREMENTAL_ACHIEVEMENT_ID_Lieutenant = "CgkIq6GznYALEAIQEg";
+	private  string INCREMENTAL_ACHIEVEMENT_ID_Captain = "CgkIq6GznYALEAIQEw";
+
 	public static bool checkpoint = false;
 	public static Transform lastcheckpoint;
 	public int setscore=100;

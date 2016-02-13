@@ -101,7 +101,6 @@ namespace Soomla.Store
 			VIRTUAL_MONEY_PROFILE_0_ID,            			// the currency associated with this pack
 			new PurchaseWithMarket(VIRTUAL_MONEY_PROFILE_0_PACK_1000_ID, pack1000_cost)
 			//new PurchaseWithMarket(TEST_ID, pack1000_cost)
-
 			);
 		public static VirtualCurrencyPack VIRTUAL_MONEY_PROFILE_0_PACK_2500 = new VirtualCurrencyPack(
 			pack2500_name,                                   	// name

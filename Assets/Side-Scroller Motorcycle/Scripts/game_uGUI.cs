@@ -723,7 +723,7 @@ public class game_uGUI : MonoBehaviour {
 						 //DELETE THIS LINE FOR SOOMLA
 					}
 					else
-						my_game_master.current_virtual_money[my_game_master.current_profile_selected] = my_game_master.virtual_money_cap;
+						//my_game_master.current_virtual_money[my_game_master.current_profile_selected] = my_game_master.virtual_money_cap;
 					
 					if (show_debug_messages)
 						Debug.Log("virtual money cap");
@@ -968,7 +968,7 @@ public class game_uGUI : MonoBehaviour {
 							 //DELETE THIS LINE FOR SOOMLA
 						}
 						else
-							my_game_master.current_virtual_money[my_game_master.current_profile_selected] = my_game_master.virtual_money_cap;
+							//my_game_master.current_virtual_money[my_game_master.current_profile_selected] = my_game_master.virtual_money_cap;
 						
 						if (show_debug_messages)
 							Debug.Log("virtual money cap");
@@ -1134,7 +1134,7 @@ public class game_uGUI : MonoBehaviour {
 							 //DELETE THIS LINE FOR SOOMLA
 						}
 						else
-							my_game_master.current_virtual_money[my_game_master.current_profile_selected] = my_game_master.virtual_money_cap;
+							//my_game_master.current_virtual_money[my_game_master.current_profile_selected] = my_game_master.virtual_money_cap;
 						
 						if (show_debug_messages)
 							Debug.Log("virtual money cap");

@@ -11,8 +11,8 @@ public class game_master : MonoBehaviour {
 	public bool editor_show_lives;
 	public bool editor_show_audio;
 	public bool editor_show_debug;
-		public bool show_debug_messages;
-		public bool show_debug_warnings;
+	public bool show_debug_messages;
+	public bool show_debug_warnings;
 	public bool editor_show_pad;
 	public bool editor_show_store;
 	public bool editor_show_score;

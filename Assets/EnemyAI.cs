@@ -69,6 +69,9 @@ public class EnemyAI : MonoBehaviour
 	private const string INCREMENTAL_ACHIEVEMENT_ID_Two_FrontFlip = "CgkIq6GznYALEAIQBQ";
 	private const string INCREMENTAL_ACHIEVEMENT_ID_Two_BackFlip = "CgkIq6GznYALEAIQAw";
 
+	private  string INCREMENTAL_ACHIEVEMENT_ID_Lieutenant = "CgkIq6GznYALEAIQEg";
+	private  string INCREMENTAL_ACHIEVEMENT_ID_Captain = "CgkIq6GznYALEAIQEw";
+
 	int count = 0;
 	int zombie_count = 0;
 
@@ -148,6 +151,8 @@ public class EnemyAI : MonoBehaviour
 					Achievement.SENDACHIEVEMENTINCREMENT(INCREMENTAL_ACHIEVEMENT_ID_Veteran,1);
 					Achievement.SENDACHIEVEMENTINCREMENT(INCREMENTAL_ACHIEVEMENT_ID_Assassin,1);
 					Achievement.SENDACHIEVEMENTINCREMENT(INCREMENTAL_ACHIEVEMENT_ID_Sergeant,1);
+					Achievement.SENDACHIEVEMENTINCREMENT(INCREMENTAL_ACHIEVEMENT_ID_Lieutenant,1);
+					Achievement.SENDACHIEVEMENTINCREMENT(INCREMENTAL_ACHIEVEMENT_ID_Captain,1);
 
 					if (my_game_uGUI) {
 						my_game_uGUI.Update_int_score (100);
