@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-#if UNITY_4_6 || UNITY_5_0 || UNITY_5_1 || UNITY_5_2
+#if UNITY_4_6 || UNITY_4_7 || UNITY_5_0 || UNITY_5_1 || UNITY_5_2
 #else
 using UnityEngine.SceneManagement;
 #endif
@@ -40,8 +40,6 @@ public class SA_BackButton : DefaultPreviewButton {
 	protected override void OnClick() {
 		base.OnClick();
 		GoBack();
-		//Invoke("GoBack", 0.8f);
-
 	}
 
 	private void GoBack() {
@@ -50,7 +48,7 @@ public class SA_BackButton : DefaultPreviewButton {
 
 	public string LevelName {
 		get {
-			#if UNITY_4_6 || UNITY_5_0 || UNITY_5_1 || UNITY_5_2
+			#if UNITY_4_6 || UNITY_4_7 || UNITY_5_0 || UNITY_5_1 || UNITY_5_2
 			return Application.loadedLevelName;
 			#else
 			return SceneManager.GetActiveScene().name;

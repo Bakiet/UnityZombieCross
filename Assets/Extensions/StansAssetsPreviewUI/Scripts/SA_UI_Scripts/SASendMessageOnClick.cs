@@ -10,7 +10,4 @@ public class SASendMessageOnClick : SAOnClickAction {
 	protected override void OnClick() {
 		Reciver.SendMessage(MethodName, SendMessageOptions.DontRequireReceiver);
 	}
-	void Start(){
-		Reciver.SendMessage(MethodName, SendMessageOptions.DontRequireReceiver);
-	}
 }
