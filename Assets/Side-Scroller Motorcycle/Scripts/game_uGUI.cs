@@ -723,7 +723,7 @@ public class game_uGUI : MonoBehaviour {
 						 //DELETE THIS LINE FOR SOOMLA
 					}
 					else
-						//my_game_master.current_virtual_money[my_game_master.current_profile_selected] = my_game_master.virtual_money_cap;
+						my_game_master.current_virtual_money[my_game_master.current_profile_selected] = my_game_master.virtual_money_cap;
 					
 					if (show_debug_messages)
 						Debug.Log("virtual money cap");
@@ -963,12 +963,13 @@ public class game_uGUI : MonoBehaviour {
 						if (my_game_master.buy_virtual_money_with_real_money_with_soomla)
 						{
 							 //DELETE THIS LINE FOR SOOMLA
-							my_game_master.my_Soomla_billing_script.Give_virtual_money_for_free(my_game_master.current_profile_selected,(my_game_master.virtual_money_cap-my_game_master.current_virtual_money[my_game_master.current_profile_selected]));
+							my_game_master.my_Soomla_billing_script.Give_virtual_money_for_free(my_game_master.current_profile_selected,temp_money_count);
+							//my_game_master.my_Soomla_billing_script.Give_virtual_money_for_free(my_game_master.current_profile_selected,(my_game_master.virtual_money_cap-my_game_master.current_virtual_money[my_game_master.current_profile_selected]));
 							my_game_master.current_virtual_money[my_game_master.current_profile_selected] = my_game_master.my_Soomla_billing_script.Show_how_many_virtual_money_there_is_in_this_profile(my_game_master.current_profile_selected);
 							 //DELETE THIS LINE FOR SOOMLA
 						}
 						else
-							//my_game_master.current_virtual_money[my_game_master.current_profile_selected] = my_game_master.virtual_money_cap;
+							my_game_master.current_virtual_money[my_game_master.current_profile_selected] = my_game_master.virtual_money_cap;
 						
 						if (show_debug_messages)
 							Debug.Log("virtual money cap");
@@ -1134,7 +1135,7 @@ public class game_uGUI : MonoBehaviour {
 							 //DELETE THIS LINE FOR SOOMLA
 						}
 						else
-							//my_game_master.current_virtual_money[my_game_master.current_profile_selected] = my_game_master.virtual_money_cap;
+							my_game_master.current_virtual_money[my_game_master.current_profile_selected] = my_game_master.virtual_money_cap;
 						
 						if (show_debug_messages)
 							Debug.Log("virtual money cap");
