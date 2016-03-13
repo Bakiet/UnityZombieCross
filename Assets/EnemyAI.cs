@@ -73,6 +73,7 @@ public class EnemyAI : MonoBehaviour
 	private  string INCREMENTAL_ACHIEVEMENT_ID_Captain = "CgkIq6GznYALEAIQEw";
 
 	int count = 0;
+	int count2 = 0;
 	int zombie_count = 0;
 
 	public float yRotation = 5.0F;
@@ -85,9 +86,10 @@ public class EnemyAI : MonoBehaviour
 
 		endTime = Time.time + endTime;
 		count = 0;
+		count2 = 0;
 		distance = 0;
 
-		gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
+	//	gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
 
 		GameObject gui = GameObject.FindGameObjectWithTag ("_gui_");
 		if(gui != null){
@@ -97,12 +99,12 @@ public class EnemyAI : MonoBehaviour
 
 		zombiedead=false;
 		anim = GetComponent<Animator>();
-		rb2d = GetComponent<Rigidbody2D>();
+		//rb2d = GetComponent<Rigidbody2D>();
 		
 
 		
-		Flip ();
-		if(gameObject.tag =="ZombieFat"){
+	//	Flip ();
+	/*	if(gameObject.tag =="ZombieFat"){
 			gameObject.GetComponent<Rigidbody2D>().mass =0.2f;
 
 			
@@ -114,7 +116,7 @@ public class EnemyAI : MonoBehaviour
 		if(gameObject.tag =="ZombieMid"){
 			gameObject.GetComponent<Rigidbody2D>().mass =1f;
 
-		}
+		}*/
 		
 		//this.originalX = this.transform.position.x;
 	/*	yRotation += Input.GetAxis("Horizontal");
@@ -138,31 +140,39 @@ public class EnemyAI : MonoBehaviour
 
 	void OnCollisionEnter2D (Collision2D collision)
 	{
+		
+
+
 		if (!zombiedead) {
 			if (ObjectToCollided != null || ObjectToCollided2 != null || BodyToCollided != null || PoliToCollided != null) {
 				if (ObjectToCollided.name == collision.gameObject.name || ObjectToCollided2.name == collision.gameObject.name || BodyToCollided.name == collision.gameObject.name || PoliToCollided.name == collision.gameObject.name) {
-					anim.SetBool ("IsKilled", true);
-					anim.SetBool ("IsAggro", false);
-					rb2d.velocity = new Vector2 (10f, hitForce);
-					rb2d.velocity = new Vector3 (0f, 3f, 0f) * hitForce;
-					AudioSource.PlayClipAtPoint (DeadSound, gameObject.transform.position, 10.0f);
 
+					AudioSource.PlayClipAtPoint (DeadSound, gameObject.transform.position, 10.0f);
+					
 					makeclick Achievement = new makeclick();
 					Achievement.SENDACHIEVEMENTINCREMENT(INCREMENTAL_ACHIEVEMENT_ID_Veteran,1);
 					Achievement.SENDACHIEVEMENTINCREMENT(INCREMENTAL_ACHIEVEMENT_ID_Assassin,1);
 					Achievement.SENDACHIEVEMENTINCREMENT(INCREMENTAL_ACHIEVEMENT_ID_Sergeant,1);
 					Achievement.SENDACHIEVEMENTINCREMENT(INCREMENTAL_ACHIEVEMENT_ID_Lieutenant,1);
 					Achievement.SENDACHIEVEMENTINCREMENT(INCREMENTAL_ACHIEVEMENT_ID_Captain,1);
-
+					
 					if (my_game_uGUI) {
 						my_game_uGUI.Update_int_score (100);
 						//zombie_count = zombie_count + 1;
 						//my_game_uGUI.Add_zombies (1);
 						//my_game_uGUI.star_number = 1;
 						//my_game_uGUI.Add_stars (1);
-
+						
 					}
-
+					zombiedead = true;
+					//gameObject.GetComponent<BoxCollider2D>().enabled =false;
+					//gameObject.GetComponent<Animator>().enabled =false;
+					//anim.SetBool ("IsKilled", true);
+				//	anim.SetBool ("IsAggro", false);
+					//rb2d.velocity = new Vector2 (10f, hitForce);
+					//rb2d.velocity = new Vector3 (0f, 3f, 0f) * hitForce;
+					
+					/*
 					if(gameObject.tag =="ZombieFat"){
 						gameObject.GetComponent<Rigidbody2D>().mass =0.2f;
 						Physics2D.IgnoreCollision(HelmetToCollided.GetComponent<Collider2D>(), GetComponent<Collider2D>());
@@ -209,7 +219,7 @@ public class EnemyAI : MonoBehaviour
 					GameObject effect = CFX;//(GameObject)Resources.Load ("prefabs/CFXM2_Soul", typeof(GameObject));
 					if (CFX != null) {
 						Instantiate (effect, transform.position, Quaternion.identity);
-					}
+					}*/
 				}
 			}
 		}
@@ -299,10 +309,10 @@ public class EnemyAI : MonoBehaviour
 			//Debug.LogError("here: " + target.name);
 		}
 		if (zombiedead) {
-			anim.SetBool ("IsDisturbed", false);
-			gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
+		//	anim.SetBool ("IsDisturbed", false);
+		//	gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
 	
-			BoxCollider2D boxCollider = gameObject.GetComponent<BoxCollider2D>();
+		//	BoxCollider2D boxCollider = gameObject.GetComponent<BoxCollider2D>();
 			//boxCollider.size = new Vector2(0.2f,0.2f);
 
 			/*GameObject effect = CFX;//(GameObject)Resources.Load ("prefabs/CFXM2_Soul", typeof(GameObject));
@@ -314,11 +324,19 @@ public class EnemyAI : MonoBehaviour
 
 		} else {
 			if(distance != 0){
+				if(distance<=range2 && distance>stop){
+					gameObject.GetComponent<BoxCollider2D>().enabled =false;
+					gameObject.GetComponent<Animator>().enabled =false;
+				}
+			}
+			if(distance != 0){
 				if(distance<=range && distance>stop){
-
+					gameObject.GetComponent<Rigidbody2D>().isKinematic =false;
+				//	Flip ();
+					anim.SetBool ("IsDisturbed", true);
 					transform.LookAt (target.position, upAxis);
 					transform.eulerAngles = new Vector3 (0f, 0f);
-					
+
 					//move towards the player
 					//enemyTransform.position += -transform.position * maxSpeed * Time.deltaTime;
 					//enemyTransform.position += transform.right * maxSpeed * Time.deltaTime;
@@ -326,7 +344,7 @@ public class EnemyAI : MonoBehaviour
 					//enemyTransform.position = Vector3.MoveTowards(transform.position , target.position ,Time.deltaTime * maxSpeed);
 					//test
 
-					gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
+//					gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
 
 					walkAmount.x = walkingDirectionnew * maxSpeed * Time.deltaTime;
 					yRotation += Input.GetAxis("Horizontal");
@@ -334,20 +352,20 @@ public class EnemyAI : MonoBehaviour
 					//walkingDirection = -4.0f;
 					transform.Translate(walkAmount);
 
-					anim.SetBool ("IsDisturbed", true);
+					//anim.SetBool ("IsDisturbed", true);
 					count = count +1;
 					if(count == 1){
 					AudioSource.PlayClipAtPoint (ZombieSound, gameObject.transform.position, 10.0f);
 					}
 				}
-				
-				else  {
 
+				else  {
+					/*/
 					gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
 
 					anim.SetBool ("IsDisturbed", false);
-					//anim.SetBool ("IsKilled", false);
-					
+					anim.SetBool ("IsKilled", false);
+					*/
 				}
 			}
 
@@ -357,9 +375,12 @@ public class EnemyAI : MonoBehaviour
 
 	public void Flip()
 	{
-		lookingRight = !lookingRight;
-		Vector3 myScale = transform.localScale;
-		myScale.x *= -1;
-		transform.localScale = myScale;
+		count2 = count2 +1;
+		if (count2 == 1) {
+			lookingRight = !lookingRight;
+			Vector3 myScale = transform.localScale;
+			myScale.x *= -1;
+			transform.localScale = myScale;
+		}
 	}
 }
