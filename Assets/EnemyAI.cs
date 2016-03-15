@@ -147,6 +147,10 @@ public class EnemyAI : MonoBehaviour
 			if (ObjectToCollided != null || ObjectToCollided2 != null || BodyToCollided != null || PoliToCollided != null) {
 				if (ObjectToCollided.name == collision.gameObject.name || ObjectToCollided2.name == collision.gameObject.name || BodyToCollided.name == collision.gameObject.name || PoliToCollided.name == collision.gameObject.name) {
 
+				//	gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+					gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+				
+					gameObject.GetComponent<Rigidbody2D>().freezeRotation = false;
 					AudioSource.PlayClipAtPoint (DeadSound, gameObject.transform.position, 10.0f);
 					
 					makeclick Achievement = new makeclick();
@@ -237,7 +241,7 @@ public class EnemyAI : MonoBehaviour
 	
 	void Update(){
 	
-
+	
 		if (isAutomaticleg) {
 			legToCollided = Motorcycle_Controller2D.legStatic;			
 		}
@@ -327,15 +331,16 @@ public class EnemyAI : MonoBehaviour
 				if(distance<=range2 && distance>stop){
 					gameObject.GetComponent<BoxCollider2D>().enabled =false;
 					gameObject.GetComponent<Animator>().enabled =false;
+					gameObject.GetComponent<Rigidbody2D>().isKinematic =false;
 				}
 			}
 			if(distance != 0){
 				if(distance<=range && distance>stop){
-					gameObject.GetComponent<Rigidbody2D>().isKinematic =false;
+
 				//	Flip ();
 					anim.SetBool ("IsDisturbed", true);
 					transform.LookAt (target.position, upAxis);
-					transform.eulerAngles = new Vector3 (0f, 0f);
+				//	transform.eulerAngles = new Vector3 (0f, 0f);
 
 					//move towards the player
 					//enemyTransform.position += -transform.position * maxSpeed * Time.deltaTime;
@@ -372,6 +377,7 @@ public class EnemyAI : MonoBehaviour
 		}
 
 	}
+
 
 	public void Flip()
 	{
