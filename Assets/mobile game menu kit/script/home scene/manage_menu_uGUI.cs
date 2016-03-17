@@ -1178,6 +1178,12 @@ public class manage_menu_uGUI : MonoBehaviour, MPLobbyListener {
 	public void LikePage() {
 		Application.OpenURL("https://www.facebook.com/zombiecrossgame/");
 	}
+	public void FollowPage() {
+		Application.OpenURL("https://twitter.com/BKTGames");
+	}
+	public void InstaPage() {
+		Application.OpenURL("https://www.instagram.com/bktgames/");
+	}
 	public static AndroidRateUsPopUp Create(string title, string message, string url) {
 		return Create(title, message, url, "Rate app", "Later", "No, thanks");
 	}

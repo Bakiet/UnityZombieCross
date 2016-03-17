@@ -27,9 +27,20 @@ public class BreakJoint : MonoBehaviour {
 	public GameObject ObjectToCollided;
 	public GameObject ObjectToCollided2;
 
+	private int counter;
+	private int counterblood;
+
 	// Use this for initialization
 	void Start () {
-
+		counter = 0;
+		counterblood =0;
+		BoxCollider2D[] myColliders = gameObject.GetComponents<BoxCollider2D>();
+		foreach (BoxCollider2D bc in myColliders) {
+			counter = counter + 1;
+			if(counter > 1){
+			bc.enabled = false;
+			}
+		}
 		distance = 0;
 		//get hingejoint2D and rigidbody2D components from object on which this script is assigned
 		joint = GetComponent<HingeJoint2D>();
@@ -41,7 +52,7 @@ public class BreakJoint : MonoBehaviour {
 		enemyTransform = gameObject.transform;
 	}
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 
 		legToCollided = Motorcycle_Controller2D.legStatic;			
 		trunkToCollided = Motorcycle_Controller2D.trunkStatic;
@@ -65,45 +76,50 @@ public class BreakJoint : MonoBehaviour {
 		distance = Vector3.Distance (enemyTransform.position, target.position);
 		if (distance != 0) {
 			if (distance <= range && distance > stop) {
-
+				
 				gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
 				gameObject.GetComponent<Rigidbody2D>().freezeRotation = false;
-
+				
 				if (rb.velocity.sqrMagnitude > velocityForBrake || rb.angularVelocity > angularVelocityForBrake) {
-
+					
 					if (!body) {
 						//disable joint
 						joint.enabled = false;
-
+						
 						gameObject.GetComponent<Rigidbody2D>().isKinematic =false;
 						//instantiate blood
-						var bloodObject = Instantiate (blood, transform.TransformPoint (GetComponent<HingeJoint2D> ().anchor), Quaternion.identity) as GameObject;
-						Destroy (bloodObject, 1);
+						counterblood = counterblood + 1;
+						if(counterblood <= 30){
+							var bloodObject = Instantiate (blood, transform.TransformPoint (GetComponent<HingeJoint2D> ().anchor), Quaternion.identity) as GameObject;
+							Destroy (bloodObject, 1);
+						}
 
-
-						Invoke ("IgnoreCollision", 0.30f);
+						Invoke ("IgnoreCollision", 0.3f);
 						//play hurt sound
 						if (GetComponent<HurtSound> ()) {
 							GetComponent<HurtSound> ().PlaySound ();
 						}
 					} else {
-						Invoke ("IgnoreCollision", 0.30f);
+						gameObject.GetComponent<Rigidbody2D>().isKinematic =false;
+						Invoke ("IgnoreCollision", 0.3f);
 					}
 				}
 			}
 		}
+
 	}
+
 	private void IgnoreCollision()
 	{
-		Physics2D.IgnoreCollision (this.GetComponent<PolygonCollider2D>(), legToCollided.GetComponent<Collider2D>());
-		Physics2D.IgnoreCollision (this.GetComponent<PolygonCollider2D>(), trunkToCollided.GetComponent<Collider2D>());
-		Physics2D.IgnoreCollision (this.GetComponent<PolygonCollider2D>(), leftarmToCollided.GetComponent<Collider2D>());
-		Physics2D.IgnoreCollision (this.GetComponent<PolygonCollider2D>(), rightarmToCollided.GetComponent<Collider2D>());
-		Physics2D.IgnoreCollision (this.GetComponent<PolygonCollider2D>(), HelmetToCollided.GetComponent<Collider2D>());
-		Physics2D.IgnoreCollision (this.GetComponent<PolygonCollider2D>(), PoliToCollided.GetComponent<Collider2D>());
-		Physics2D.IgnoreCollision (this.GetComponent<PolygonCollider2D>(), BodyToCollided.GetComponent<Collider2D>());
-		Physics2D.IgnoreCollision (this.GetComponent<PolygonCollider2D>(), ObjectToCollided.GetComponent<Collider2D>());
-		Physics2D.IgnoreCollision (this.GetComponent<PolygonCollider2D>(), ObjectToCollided2.GetComponent<Collider2D>());
+		Physics2D.IgnoreCollision (this.GetComponent<BoxCollider2D>(), legToCollided.GetComponent<Collider2D>());
+		Physics2D.IgnoreCollision (this.GetComponent<BoxCollider2D>(), trunkToCollided.GetComponent<Collider2D>());
+		Physics2D.IgnoreCollision (this.GetComponent<BoxCollider2D>(), leftarmToCollided.GetComponent<Collider2D>());
+		Physics2D.IgnoreCollision (this.GetComponent<BoxCollider2D>(), rightarmToCollided.GetComponent<Collider2D>());
+		Physics2D.IgnoreCollision (this.GetComponent<BoxCollider2D>(), HelmetToCollided.GetComponent<Collider2D>());
+		Physics2D.IgnoreCollision (this.GetComponent<BoxCollider2D>(), PoliToCollided.GetComponent<Collider2D>());
+		Physics2D.IgnoreCollision (this.GetComponent<BoxCollider2D>(), BodyToCollided.GetComponent<Collider2D>());
+		Physics2D.IgnoreCollision (this.GetComponent<BoxCollider2D>(), ObjectToCollided.GetComponent<Collider2D>());
+		Physics2D.IgnoreCollision (this.GetComponent<BoxCollider2D>(), ObjectToCollided2.GetComponent<Collider2D>());
 
 
 	}

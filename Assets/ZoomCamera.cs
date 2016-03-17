@@ -55,14 +55,14 @@ public class ZoomCamera : MonoBehaviour {
 	}
 	void ZoomIn()
 	{
-		if (Camera.main.orthographicSize > 8f) {
+		if (Camera.main.orthographicSize > 7f) {
 			Camera.main.orthographicSize = Mathf.Lerp(
 				Camera.main.orthographicSize,
 				Camera.main.orthographicSize * -increment,
 				timeLerp * Time.deltaTime);
 
 		}
-		else if (Camera.main.orthographicSize < 8f) {
+		else if (Camera.main.orthographicSize < 7f) {
 			shouldZoomIn = false;
 		}
 	}

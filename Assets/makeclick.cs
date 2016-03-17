@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class makeclick : MonoBehaviour {
 	//Facebook
@@ -47,11 +48,240 @@ public class makeclick : MonoBehaviour {
 	private GoogleMobileAdBanner banner2;
 
 
+	//google plus
 
+	private List<AN_PlusButton> Abuttons =  new List<AN_PlusButton>();
+	
+	private AN_PlusButton PlusButton = null;
+	//private string PlusUrl = "https://profile.google.com/u/0/104631396711140710378";
+	//private string PlusUrl = "https://unionassets.com/";
+	private string PlusUrl = "https://play.google.com/store/apps/details?id=unity.zombiecross";
+
+	
+	public void CreatePlusButtons() {
+		
+		if(Abuttons.Count != 0) {
+			return;
+		} 
+		
+		AN_PlusButton b =  new AN_PlusButton(PlusUrl, AN_PlusBtnSize.SIZE_TALL, AN_PlusBtnAnnotation.ANNOTATION_BUBBLE);
+		b.SetGravity(TextAnchor.UpperLeft);
+		
+		Abuttons.Add(b);
+		
+		
+		b =  new AN_PlusButton(PlusUrl, AN_PlusBtnSize.SIZE_SMALL, AN_PlusBtnAnnotation.ANNOTATION_INLINE);
+		b.SetGravity(TextAnchor.UpperRight);
+		Abuttons.Add(b);
+		
+		b =  new AN_PlusButton(PlusUrl, AN_PlusBtnSize.SIZE_MEDIUM, AN_PlusBtnAnnotation.ANNOTATION_INLINE);
+		b.SetGravity(TextAnchor.UpperCenter);
+		Abuttons.Add(b);
+		
+		b =  new AN_PlusButton(PlusUrl, AN_PlusBtnSize.SIZE_STANDARD, AN_PlusBtnAnnotation.ANNOTATION_INLINE);
+		b.SetGravity(TextAnchor.MiddleLeft);
+		
+		Abuttons.Add(b);
+		
+		foreach(AN_PlusButton bb in Abuttons) {
+			bb.ButtonClicked += ButtonClicked;
+		}
+		
+	}
+	
+	
+	public void HideButtons() {
+		foreach(AN_PlusButton b in Abuttons) {
+			b.Hide();
+		}
+	}
+	
+	public void ShoweButtons() {
+		foreach(AN_PlusButton b in Abuttons) {
+			b.Show();
+		}
+	}
+	
+	
+	public void CreateRandomPostButton() {
+		if(PlusButton == null) {
+			PlusButton =  new AN_PlusButton(PlusUrl, AN_PlusBtnSize.SIZE_STANDARD, AN_PlusBtnAnnotation.ANNOTATION_BUBBLE);
+			PlusButton.SetPosition(Random.Range(0, Screen.width), Random.Range(0, Screen.height));
+			PlusButton.ButtonClicked += ButtonClicked;
+		}
+		
+	}
+	
+	
+	public void ChangePosPostButton()  {
+		if(PlusButton != null) {
+			PlusButton.SetPosition(Random.Range(0, Screen.width), Random.Range(0, Screen.height));
+		}
+		
+	}
+	
+	void ButtonClicked () {
+		AndroidMessage.Create("Click Detected", "Plus Button Click Detected");
+	}
+	
+	void OnDestroy() {
+		HideButtons();
+		if(PlusButton != null) {
+			PlusButton.Hide();
+		}
+	}
+
+	public void CreateNewSnapshot() {
+		StartCoroutine(MakeScreenshotAndSaveGameData());
+	}
+	
+	public void ShowSavedGamesUI() {
+		int maxNumberOfSavedGamesToShow = 5;
+		GooglePlaySavedGamesManager.instance.ShowSavedGamesUI("See My Saves", maxNumberOfSavedGamesToShow);
+	}
+	
+	
+	public void LoadSavedGames() {
+		GooglePlaySavedGamesManager.ActionAvailableGameSavesLoaded += ActionAvailableGameSavesLoaded;
+		GooglePlaySavedGamesManager.instance.LoadAvailableSavedGames();
+		
+		//SA_StatusBar.text = "Loading saved games.. ";
+	}
+	
+	private void ActionAvailableGameSavesLoaded (GooglePlayResult res) {
+		
+		GooglePlaySavedGamesManager.ActionAvailableGameSavesLoaded -= ActionAvailableGameSavesLoaded;
+		if(res.IsSucceeded) {
+			foreach(GP_SnapshotMeta meta in GooglePlaySavedGamesManager.instance.AvailableGameSaves) {
+				Debug.Log("Meta.Title: " 					+ meta.Title);
+				Debug.Log("Meta.Description: " 				+ meta.Description);
+				Debug.Log("Meta.CoverImageUrl): " 			+ meta.CoverImageUrl);
+				Debug.Log("Meta.LastModifiedTimestamp: " 	+ meta.LastModifiedTimestamp);
+				Debug.Log("Meta.TotalPlayedTime" 			+ meta.TotalPlayedTime);
+			}
+			
+			if(GooglePlaySavedGamesManager.instance.AvailableGameSaves.Count > 0) {
+				GP_SnapshotMeta s =  GooglePlaySavedGamesManager.instance.AvailableGameSaves[0];
+				AndroidDialog dialog = AndroidDialog.Create("Load Snapshot?", "Would you like to load " + s.Title);
+				dialog.ActionComplete += OnSpanshotLoadDialogComplete;
+			}
+			
+		} else {
+			AndroidMessage.Create("Fail", "Available Game Saves Load failed");
+		}
+	}
+	
+	void OnSpanshotLoadDialogComplete (AndroidDialogResult res) {
+		if(res == AndroidDialogResult.YES) {
+			GP_SnapshotMeta s =  GooglePlaySavedGamesManager.instance.AvailableGameSaves[0];
+			GooglePlaySavedGamesManager.instance.LoadSpanshotByName(s.Title);
+		}
+	}
+	
+	//--------------------------------------
+	// EVENTS
+	//--------------------------------------
+	
+	private void ActionNewGameSaveRequest () {
+		//SA_StatusBar.text = "New  Game Save Requested, Creating new save..";
+		//Debug.Log("New  Game Save Requested, Creating new save..");
+		StartCoroutine(MakeScreenshotAndSaveGameData());
+		
+		AndroidMessage.Create("Result", "New Game Save Request");
+	}
+	
+	private void ActionGameSaveLoaded (GP_SpanshotLoadResult result) {
+		
+		Debug.Log("ActionGameSaveLoaded: " + result.Message);
+		if(result.IsSucceeded) {
+			
+			Debug.Log("Snapshot.Title: " 					+ result.Snapshot.meta.Title);
+			Debug.Log("Snapshot.Description: " 				+ result.Snapshot.meta.Description);
+			Debug.Log("Snapshot.CoverImageUrl): " 			+ result.Snapshot.meta.CoverImageUrl);
+			Debug.Log("Snapshot.LastModifiedTimestamp: " 	+ result.Snapshot.meta.LastModifiedTimestamp);
+			
+			Debug.Log("Snapshot.stringData: " 				+ result.Snapshot.stringData);
+			Debug.Log("Snapshot.bytes.Length: " 			+ result.Snapshot.bytes.Length);
+			
+			AndroidMessage.Create("Snapshot Loaded", "Data: " + result.Snapshot.stringData);
+		} 
+		
+		//SA_StatusBar.text = "Games Loaded: " + result.Message;
+		
+	}
+	
+	private void ActionGameSaveResult (GP_SpanshotLoadResult result) {
+		GooglePlaySavedGamesManager.ActionGameSaveResult -= ActionGameSaveResult;
+		Debug.Log("ActionGameSaveResult: " + result.Message);
+		
+		if(result.IsSucceeded) {
+			AndroidToast.ShowToastNotification ("Saved game", 3); //SA_StatusBar.text = "Games Saved: " + result.Snapshot.meta.Title;
+		} else {
+			AndroidToast.ShowToastNotification ("Cant'n Saved game", 3);
+			//SA_StatusBar.text = "Games Save Failed";
+		}
+		
+
+	}	
+	
+	private void ActionConflict (GP_SnapshotConflict result) {
+		
+		Debug.Log("Conflict Detected: ");
+		
+		GP_Snapshot snapshot = result.Snapshot;
+		GP_Snapshot conflictSnapshot = result.ConflictingSnapshot;
+		
+		// Resolve between conflicts by selecting the newest of the conflicting snapshots.
+		GP_Snapshot mResolvedSnapshot = snapshot;
+		
+		if (snapshot.meta.LastModifiedTimestamp < conflictSnapshot.meta.LastModifiedTimestamp) {
+			mResolvedSnapshot = conflictSnapshot;
+		}
+		
+		result.Resolve(mResolvedSnapshot);
+	}
+
+	private IEnumerator MakeScreenshotAndSaveGameData() {
+		
+		
+		yield return new WaitForEndOfFrame();
+		// Create a texture the size of the screen, RGB24 format
+		int width = Screen.width;
+		int height = Screen.height;
+		Texture2D Screenshot = new Texture2D( width, height, TextureFormat.RGB24, false );
+		// Read screen contents into the texture
+		Screenshot.ReadPixels( new Rect(0, 0, width, height), 0, 0 );
+		Screenshot.Apply();
+		
+		
+		long TotalPlayedTime = 20000;
+		string currentSaveName =  "snapshotTemp-" + UnityEngine.Random.Range(1, 281).ToString();
+		//string currentSaveName =  "Saved Game";
+		string description  = "Modified data at: " + System.DateTime.Now.ToString("MM/dd/yyyy H:mm:ss");
+		
+		
+		GooglePlaySavedGamesManager.ActionGameSaveResult += ActionGameSaveResult;
+		GooglePlaySavedGamesManager.instance.CreateNewSnapshot(currentSaveName, description, Screenshot, "Sorry, Problem to load your saved game, we fix soon", TotalPlayedTime);
+		
+		
+		
+		Destroy(Screenshot);
+	}
 
 	void Start () {
 
-	
+		//save game
+		GooglePlaySavedGamesManager.ActionNewGameSaveRequest += ActionNewGameSaveRequest;
+		GooglePlaySavedGamesManager.ActionGameSaveLoaded += ActionGameSaveLoaded;
+		GooglePlaySavedGamesManager.ActionConflict += ActionConflict;
+
+		if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
+			//GooglePlayConnection.Instance.Disconnect ();
+			
+		} else {
+			GooglePlayConnection.Instance.Connect ();
+		}
+
 
 		if (functioncalled != "ShareFB" || functioncalled != "LikePage" || functioncalled != "RateDialogPopUp"  || functioncalled !="showAchievementsUI") {
 			if (callfunction) {

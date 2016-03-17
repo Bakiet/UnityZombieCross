@@ -25,7 +25,7 @@ public class EnemyAI : MonoBehaviour
 	public bool isAutomatictrunk = true;
 	public bool isAutomaticleftarm = true;
 	public bool isAutomaticrightarm = true;
-
+	/*
 	public GameObject legToCollided;
 	public GameObject trunkToCollided;
 	public GameObject leftarmToCollided;
@@ -35,7 +35,7 @@ public class EnemyAI : MonoBehaviour
 	public GameObject PoliToCollided;
 	public GameObject BodyToCollided;
 	public GameObject ObjectToCollided;
-	public GameObject ObjectToCollided2;
+	public GameObject ObjectToCollided2;*/
 
 	private Transform target;
 	Transform enemyTransform;
@@ -136,9 +136,100 @@ public class EnemyAI : MonoBehaviour
 		/*if (GameObject.FindWithTag ("Player").transform) {
 			target = GameObject.FindWithTag ("Player").transform;
 		}*/
-	}
 
-	void OnCollisionEnter2D (Collision2D collision)
+		if (zombiedead) {
+			//	anim.SetBool ("IsDisturbed", false);
+			//	gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
+			
+			//	BoxCollider2D boxCollider = gameObject.GetComponent<BoxCollider2D>();
+			//boxCollider.size = new Vector2(0.2f,0.2f);
+			
+			/*GameObject effect = CFX;//(GameObject)Resources.Load ("prefabs/CFXM2_Soul", typeof(GameObject));
+			if(CFX!=null){
+				Instantiate (effect, transform.position, Quaternion.identity);
+				GameObject zombie = GameObject.Find (this.name);
+				zombie.SetActive (false);
+			}*/
+			
+		} else {
+			if(distance != 0){
+				if(distance<=range2 && distance>stop){
+					//					gameObject.GetComponent<BoxCollider2D>().enabled =false;
+					gameObject.GetComponent<Animator>().enabled =false;
+					gameObject.GetComponent<Rigidbody2D>().isKinematic =false;
+				}
+			}
+			if(distance != 0){
+				if(distance<=range && distance>stop){
+					
+					if(gameObject.GetComponent<Animator>().enabled){
+						//	Flip ();
+						anim.SetBool ("IsDisturbed", true);
+						transform.LookAt (target.position, upAxis);
+						transform.eulerAngles = new Vector3 (0f, 0f);
+						
+						//move towards the player
+						//enemyTransform.position += -transform.position * maxSpeed * Time.deltaTime;
+						//enemyTransform.position += transform.right * maxSpeed * Time.deltaTime;
+						
+						//enemyTransform.position = Vector3.MoveTowards(transform.position , target.position ,Time.deltaTime * maxSpeed);
+						//test
+						
+						//					gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
+						
+						walkAmount.x = walkingDirectionnew * maxSpeed * Time.deltaTime;
+						yRotation += Input.GetAxis("Horizontal");
+						transform.eulerAngles = new Vector2(360,0);
+						//walkingDirection = -4.0f;
+						transform.Translate(walkAmount);
+					}
+					//anim.SetBool ("IsDisturbed", true);
+					count = count +1;
+					if(count == 1){
+						AudioSource.PlayClipAtPoint (ZombieSound, gameObject.transform.position, 10.0f);
+					}
+				}
+				
+				else  {
+					/*/
+					gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
+					
+					anim.SetBool ("IsDisturbed", false);
+					anim.SetBool ("IsKilled", false);
+					*/
+				}
+			}
+			
+		}
+	}
+	/*void OnTriggerEnter2D(Collider2D collision){
+		if (!zombiedead) {
+			if (ObjectToCollided != null || ObjectToCollided2 != null || BodyToCollided != null || PoliToCollided != null) {
+				if (ObjectToCollided.name == collision.gameObject.name || ObjectToCollided2.name == collision.gameObject.name || BodyToCollided.name == collision.gameObject.name || PoliToCollided.name == collision.gameObject.name) {
+					
+					//	gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+					gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+					
+					gameObject.GetComponent<Rigidbody2D>().freezeRotation = false;
+					AudioSource.PlayClipAtPoint (DeadSound, gameObject.transform.position, 10.0f);
+					
+					makeclick Achievement = new makeclick();
+					Achievement.SENDACHIEVEMENTINCREMENT(INCREMENTAL_ACHIEVEMENT_ID_Veteran,1);
+					Achievement.SENDACHIEVEMENTINCREMENT(INCREMENTAL_ACHIEVEMENT_ID_Assassin,1);
+					Achievement.SENDACHIEVEMENTINCREMENT(INCREMENTAL_ACHIEVEMENT_ID_Sergeant,1);
+					Achievement.SENDACHIEVEMENTINCREMENT(INCREMENTAL_ACHIEVEMENT_ID_Lieutenant,1);
+					Achievement.SENDACHIEVEMENTINCREMENT(INCREMENTAL_ACHIEVEMENT_ID_Captain,1);
+					
+					if (my_game_uGUI) {
+						my_game_uGUI.Update_int_score (100);
+					}
+					zombiedead = true;
+
+				}
+			}
+		}
+	}*/
+	/*void OnCollisionEnter2D (Collision2D collision)
 	{
 		
 
@@ -176,7 +267,7 @@ public class EnemyAI : MonoBehaviour
 					//rb2d.velocity = new Vector2 (10f, hitForce);
 					//rb2d.velocity = new Vector3 (0f, 3f, 0f) * hitForce;
 					
-					/*
+
 					if(gameObject.tag =="ZombieFat"){
 						gameObject.GetComponent<Rigidbody2D>().mass =0.2f;
 						Physics2D.IgnoreCollision(HelmetToCollided.GetComponent<Collider2D>(), GetComponent<Collider2D>());
@@ -223,11 +314,11 @@ public class EnemyAI : MonoBehaviour
 					GameObject effect = CFX;//(GameObject)Resources.Load ("prefabs/CFXM2_Soul", typeof(GameObject));
 					if (CFX != null) {
 						Instantiate (effect, transform.position, Quaternion.identity);
-					}*/
+					}
 				}
 			}
 		}
-	}	
+	}	*/
 	void deletezombie(){
 
 		GameObject zombie = GameObject.Find (this.name);
@@ -241,7 +332,7 @@ public class EnemyAI : MonoBehaviour
 	
 	void Update(){
 	
-	
+	/*
 		if (isAutomaticleg) {
 			legToCollided = Motorcycle_Controller2D.legStatic;			
 		}
@@ -312,69 +403,7 @@ public class EnemyAI : MonoBehaviour
 		{
 			//Debug.LogError("here: " + target.name);
 		}
-		if (zombiedead) {
-		//	anim.SetBool ("IsDisturbed", false);
-		//	gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
-	
-		//	BoxCollider2D boxCollider = gameObject.GetComponent<BoxCollider2D>();
-			//boxCollider.size = new Vector2(0.2f,0.2f);
-
-			/*GameObject effect = CFX;//(GameObject)Resources.Load ("prefabs/CFXM2_Soul", typeof(GameObject));
-			if(CFX!=null){
-				Instantiate (effect, transform.position, Quaternion.identity);
-				GameObject zombie = GameObject.Find (this.name);
-				zombie.SetActive (false);
-			}*/
-
-		} else {
-			if(distance != 0){
-				if(distance<=range2 && distance>stop){
-					gameObject.GetComponent<BoxCollider2D>().enabled =false;
-					gameObject.GetComponent<Animator>().enabled =false;
-					gameObject.GetComponent<Rigidbody2D>().isKinematic =false;
-				}
-			}
-			if(distance != 0){
-				if(distance<=range && distance>stop){
-
-				//	Flip ();
-					anim.SetBool ("IsDisturbed", true);
-					transform.LookAt (target.position, upAxis);
-				//	transform.eulerAngles = new Vector3 (0f, 0f);
-
-					//move towards the player
-					//enemyTransform.position += -transform.position * maxSpeed * Time.deltaTime;
-					//enemyTransform.position += transform.right * maxSpeed * Time.deltaTime;
-
-					//enemyTransform.position = Vector3.MoveTowards(transform.position , target.position ,Time.deltaTime * maxSpeed);
-					//test
-
-//					gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
-
-					walkAmount.x = walkingDirectionnew * maxSpeed * Time.deltaTime;
-					yRotation += Input.GetAxis("Horizontal");
-					transform.eulerAngles = new Vector2(360,0);
-					//walkingDirection = -4.0f;
-					transform.Translate(walkAmount);
-
-					//anim.SetBool ("IsDisturbed", true);
-					count = count +1;
-					if(count == 1){
-					AudioSource.PlayClipAtPoint (ZombieSound, gameObject.transform.position, 10.0f);
-					}
-				}
-
-				else  {
-					/*/
-					gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
-
-					anim.SetBool ("IsDisturbed", false);
-					anim.SetBool ("IsKilled", false);
-					*/
-				}
-			}
-
-		}
+		*/
 
 	}
 

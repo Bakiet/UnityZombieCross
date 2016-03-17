@@ -194,15 +194,75 @@ public class game_uGUI : MonoBehaviour {
 		
 		return rate;
 	}
+	private void ActionGameSaveLoaded (GP_SpanshotLoadResult result) {
+		
+		Debug.Log("ActionGameSaveLoaded: " + result.Message);
+		if(result.IsSucceeded) {
+			
+			Debug.Log("Snapshot.Title: " 					+ result.Snapshot.meta.Title);
+			Debug.Log("Snapshot.Description: " 				+ result.Snapshot.meta.Description);
+			Debug.Log("Snapshot.CoverImageUrl): " 			+ result.Snapshot.meta.CoverImageUrl);
+			Debug.Log("Snapshot.LastModifiedTimestamp: " 	+ result.Snapshot.meta.LastModifiedTimestamp);
+			
+			Debug.Log("Snapshot.stringData: " 				+ result.Snapshot.stringData);
+			Debug.Log("Snapshot.bytes.Length: " 			+ result.Snapshot.bytes.Length);
+			
+			AndroidMessage.Create("Snapshot Loaded", "Data: " + result.Snapshot.stringData);
+		} 
+		
+		//SA_StatusBar.text = "Games Loaded: " + result.Message;
+		
+	}
+	private void ActionNewGameSaveRequest () {
+		//SA_StatusBar.text = "New  Game Save Requested, Creating new save..";
+		//Debug.Log("New  Game Save Requested, Creating new save..");
+		StartCoroutine(MakeScreenshotAndSaveGameData());
+		
+		AndroidMessage.Create("Result", "New Game Save Request");
+	}
+	private void ActionConflict (GP_SnapshotConflict result) {
+		
+		Debug.Log("Conflict Detected: ");
+		
+		GP_Snapshot snapshot = result.Snapshot;
+		GP_Snapshot conflictSnapshot = result.ConflictingSnapshot;
+		
+		// Resolve between conflicts by selecting the newest of the conflicting snapshots.
+		GP_Snapshot mResolvedSnapshot = snapshot;
+		
+		if (snapshot.meta.LastModifiedTimestamp < conflictSnapshot.meta.LastModifiedTimestamp) {
+			mResolvedSnapshot = conflictSnapshot;
+		}
+		
+		result.Resolve(mResolvedSnapshot);
+	}
 
 	void Start () {
-	
+	   
+		n_world = Convert.ToInt32(Application.loadedLevelName.Substring(1,1));
+		if(Application.loadedLevelName.Length > 10){
+		n_stage = Convert.ToInt32(Application.loadedLevelName.Substring(9,2));
+		}else{
+			n_stage = Convert.ToInt32(Application.loadedLevelName.Substring(9,1));
+		}
+
 		isfinish=false;
 		in_pause = false;
 		GooglePlayConnection.ActionPlayerConnected +=  OnPlayerConnected;
 		GooglePlayConnection.ActionPlayerDisconnected += OnPlayerDisconnected;		
 		GooglePlayConnection.ActionConnectionResultReceived += OnConnectionResult;
 		GooglePlayManager.ActionScoreSubmited += OnScoreSbumitted;
+
+		GooglePlaySavedGamesManager.ActionNewGameSaveRequest += ActionNewGameSaveRequest;
+		GooglePlaySavedGamesManager.ActionGameSaveLoaded += ActionGameSaveLoaded;
+		GooglePlaySavedGamesManager.ActionConflict += ActionConflict;
+		
+		if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
+			//GooglePlayConnection.Instance.Disconnect ();
+			
+		} else {
+			GooglePlayConnection.Instance.Connect ();
+		}
 		/*
 		if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
 			//GooglePlayConnection.Instance.Disconnect ();
@@ -592,6 +652,49 @@ public class game_uGUI : MonoBehaviour {
 			}
 		}
 	}
+	private void ActionGameSaveResult (GP_SpanshotLoadResult result) {
+		GooglePlaySavedGamesManager.ActionGameSaveResult -= ActionGameSaveResult;
+		Debug.Log("ActionGameSaveResult: " + result.Message);
+		
+		if(result.IsSucceeded) {
+			AndroidToast.ShowToastNotification ("Saved game", 3); //SA_StatusBar.text = "Games Saved: " + result.Snapshot.meta.Title;
+		} else {
+			AndroidToast.ShowToastNotification ("Cant'n Saved game", 3);
+			//SA_StatusBar.text = "Games Save Failed";
+		}
+		
+		//AndroidMessage.Create("Zombie Cross", "Saved game");
+	}	
+	public void CreateNewSnapshot() {
+		StartCoroutine(MakeScreenshotAndSaveGameData());
+	}
+	private IEnumerator MakeScreenshotAndSaveGameData() {
+		
+		
+		yield return new WaitForEndOfFrame();
+		// Create a texture the size of the screen, RGB24 format
+		int width = Screen.width;
+		int height = Screen.height;
+		Texture2D Screenshot = new Texture2D( width, height, TextureFormat.RGB24, false );
+		// Read screen contents into the texture
+		Screenshot.ReadPixels( new Rect(0, 0, width, height), 0, 0 );
+		Screenshot.Apply();
+		
+		
+		long TotalPlayedTime = 20000;
+		string currentSaveName =  "snapshotTemp-" + UnityEngine.Random.Range(1, 281).ToString();
+		//string currentSaveName =  "Saved Game";
+		string description  = "Modified data at: " + System.DateTime.Now.ToString("MM/dd/yyyy H:mm:ss");
+		
+		
+		GooglePlaySavedGamesManager.ActionGameSaveResult += ActionGameSaveResult;
+		GooglePlaySavedGamesManager.instance.CreateNewSnapshot(currentSaveName, description, Screenshot, "some save data, for example you can use JSON or byte array", TotalPlayedTime);
+		
+		
+		
+		Destroy(Screenshot);
+	}
+
 	
 	public void Next()
 	{
@@ -910,8 +1013,8 @@ public class game_uGUI : MonoBehaviour {
 		if (!stage_end)
 		{	
 			//stage_end = true;
-			
-			
+			//makeclick saved = new makeclick();
+			CreateNewSnapshot();
 			if (show_debug_messages)
 				Debug.Log("you win " + "W"+(n_world)+"_Stage_"+(n_stage));
 			allow_game_input = false;
