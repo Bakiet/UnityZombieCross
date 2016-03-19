@@ -76,6 +76,17 @@ public class Bomb : MonoBehaviour {
 
 	private int count = 0;
 
+	Shake.ShakeType shakeType = Shake.ShakeType.standard;
+	Shake cameraShake, objectShake;
+	public GameObject cameraObject;
+	float maxShake = 0.010f;
+	float shakeAmount = 1f;
+	float shakeIncrement = 0.1f;
+	float addDecayIntensity = 0.5f;
+	bool targetIsCamera = true;
+	bool addDecay = false;
+	public bool ifShake = false;
+
 	void OnTriggerEnter2D(Collider2D collider)
 	{
 
@@ -90,14 +101,24 @@ public class Bomb : MonoBehaviour {
 			
 		//}
 	}
-
+	void StartShake() {
+		Shake objectToShake = targetIsCamera == true ? cameraShake : objectShake;
+		if(shakeType == Shake.ShakeType.custom) {
+			if(addDecay) objectToShake.StartShake( addDecayIntensity, 0, maxShake*(shakeAmount/100), true );
+			else objectToShake.StartShake( maxShake*(shakeAmount/100), 0, 0, false );
+		} else {
+			objectToShake.StartShake(shakeType);
+		}
+	}
 	void OnCollisionEnter2D (Collision2D collision)
 	{
 
 		if (collisionEnter == true) {
+
 			Invoke ("MyWaitingFunction", time);
 			if(TimescollisionEnter == 1){
 			collisionEnter = true;
+
 			}
 
 		}
@@ -153,6 +174,8 @@ public class Bomb : MonoBehaviour {
 		
 		//body.AddForce (dir.normalized * expForce * calc);
 		body.AddForce (dir.normalized * expForce * calc);
+
+
 	}
 
 	void TimeEffectExecute()
@@ -166,7 +189,9 @@ public class Bomb : MonoBehaviour {
 				if (hit.gameObject.name == ObjectToCollided.name ||  hit.gameObject.name == ObjectToCollided2.name) {
 
 					if(timeToTouch == countTimes){
-
+						if(ifShake){
+							StartShake();
+						}
 						hitColliderStatic = hit;
 						Invoke ("TimeEffectExecuteAll", timeEffect);
 
@@ -335,6 +360,10 @@ public class Bomb : MonoBehaviour {
 		}
 
 		countTimes = 1;
+		if(ifShake){
+		cameraShake = cameraObject.GetComponent(typeof(Shake)) as Shake;
+		}
+		//objectShake = cubeObject.GetComponent(typeof(Shake)) as Shake;
 //		Explotion.SetActive (false);
 	//	GameObject effect= GameObject.Find ("CFXM2_GroundWoodHit Bigger Dark");
 	//	effect.SetActive (false);
@@ -344,6 +373,7 @@ public class Bomb : MonoBehaviour {
 		//EffectLoseGravity4.SetActive (false);
 	}
 	void Update () {
-		
+		targetIsCamera = true;
+		shakeType = Shake.ShakeType.explosion;
 	}
 }

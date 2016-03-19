@@ -204,11 +204,17 @@ public class makeclick : MonoBehaviour {
 			Debug.Log("Snapshot.bytes.Length: " 			+ result.Snapshot.bytes.Length);
 			
 			AndroidMessage.Create("Snapshot Loaded", "Data: " + result.Snapshot.stringData);
+
+
+			//LoadSavedGames();
 		} 
 		
 		//SA_StatusBar.text = "Games Loaded: " + result.Message;
 		
 	}
+
+
+
 	
 	private void ActionGameSaveResult (GP_SpanshotLoadResult result) {
 		GooglePlaySavedGamesManager.ActionGameSaveResult -= ActionGameSaveResult;

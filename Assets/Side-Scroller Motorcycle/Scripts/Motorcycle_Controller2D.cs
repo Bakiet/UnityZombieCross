@@ -1427,7 +1427,9 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 
 	void Update()
 	{
-		Time.timeScale = 1.3f;
+		if(!D2D_DamageOnCollision.UsedSlowMotionActivated){
+			Time.timeScale = 1.3f;
+		}
 		//accelerate = false;
 		rearWheel.freezeRotation = false;
 		frontWheel.freezeRotation = false;

@@ -33,15 +33,19 @@ public class D2D_DamageOnCollision : MonoBehaviour
 	public bool isAutomaticHelmet = true;
 	public GameObject PoliToCollided;
 
+	public	string				identifier				= "";		// Use to identify the slow motion
+	public	float				delay					= 1;		// Delay to start Slow Motion
+	public	float				desiredFreezeDuration	= 5;		// Duration in seconds of the slow motion
+	public	float				desiredTimeScale		= 0.5f;		// Desired game speed 0 stops game, 1 full speed
+	public	float				desiredEndTimeScale		= 1;		// Desired game speed when slow motion ends 0 stops game, 1 full speed
+	public	Action				callback				= null;		// A
+
 	public AudioClip Sound;
-	private	string	identifier				= "";		// Use to identify the slow motion
+
 	public bool UsedSlowMotion =false;
-	public	float	delay					= 1;		// Delay to start Slow Motion
-	public	float	desiredFreezeDuration	= 5;		// Duration in seconds of the slow motion
-	public	float desiredTimeScale		= 0.5f;		    // Desired game speed 0 stops game, 1 full speed
-	public	float desiredEndTimeScale		= 1;		// Desired game speed when slow motion ends 0 stops game, 1 full speed
-	public	Action	callback	= null;		// Action To execute when slow motion ends
-	private int count = 0;
+	public static bool UsedSlowMotionActivated =false;
+
+	public static int count = 0;
 
 	public float DamageScale = 1.0f;
 	
@@ -111,7 +115,7 @@ public class D2D_DamageOnCollision : MonoBehaviour
 	}
 
 	void Start(){
-
+		D2D_DamageOnCollision.UsedSlowMotionActivated =false;
 		count = 0;
 		//countTimes = 1;
 
@@ -133,8 +137,9 @@ public class D2D_DamageOnCollision : MonoBehaviour
 					if (UsedSlowMotion) {
 						count = count + 1;
 						if (count == 1) {
-							SlowMotionController.AddSlowMotion (desiredFreezeDuration, desiredTimeScale, delay);
-						}
+							SlowMotionController.AddSlowMotion(desiredFreezeDuration, desiredTimeScale, delay);
+							UsedSlowMotionActivated = true;
+						
 					}
 					
 					if (damage >= DamageThreshold) {
@@ -151,38 +156,24 @@ public class D2D_DamageOnCollision : MonoBehaviour
 							Physics2D.IgnoreCollision(ObjectToCollided2.GetComponent<Collider2D>(), GetComponent<Collider2D>());
 						}*/
 					}
-				} else {
-				}
+				} 
 			}
 			
 		} else {
-
-			
-			if (UsedSlowMotion) {
-				count = count + 1;
-				if (count == 1) {
-					SlowMotionController.AddSlowMotion (desiredFreezeDuration, desiredTimeScale, delay);
-				}
-			}
-			
+		
 			if (damage >= DamageThreshold) {
 				if (damageable == null)
 					damageable = GetComponent<D2D_Damageable> ();
-			//	if(usedtime){
+			
 				Invoke ("MyWaitingFunction", time);
-				/*}else{
-					damageable.InflictDamage (damage);
-					AudioSource.PlayClipAtPoint (Sound, gameObject.transform.position);
-					Physics2D.IgnoreCollision(BodyToCollided.GetComponent<Collider2D>(), GetComponent<Collider2D>());
-					Physics2D.IgnoreCollision(ObjectToCollided.GetComponent<Collider2D>(), GetComponent<Collider2D>());
-					Physics2D.IgnoreCollision(ObjectToCollided2.GetComponent<Collider2D>(), GetComponent<Collider2D>());
-				}*/
+				
 
 			}
 		}
-
-
 	}
+	}
+
+	
 
 	void MyWaitingFunction(){
 		damageable.InflictDamage (damage);

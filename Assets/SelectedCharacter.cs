@@ -240,10 +240,10 @@ public class SelectedCharacter : MonoBehaviour {
 		//if(Motorcycle_Controller2D.lastcheckpoint){
 
 
-
+		/*
 		character = (GameObject)Instantiate (selectedChar, spawnPos.position, Quaternion.identity);
 		character.SetActive (true);
-
+		*/
 
 		//}
 		//if have effect

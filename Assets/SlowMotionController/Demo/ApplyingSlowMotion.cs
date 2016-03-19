@@ -19,7 +19,7 @@ public class ApplyingSlowMotion : MonoBehaviour {
 		//SlowMotionController.AddSlowMotion(desiredFreezeDuration, desiredTimeScale, () => Debug.Log("Callback"));
 
 		// Or
-		SlowMotionController.AddSlowMotion(desiredFreezeDuration, desiredTimeScale, delay);
+		//SlowMotionController.AddSlowMotion(desiredFreezeDuration, desiredTimeScale, delay);
 
 		// Or
 		//SlowMotionController.AddSlowMotion(desiredFreezeDuration, desiredTimeScale, "Test");
@@ -29,5 +29,9 @@ public class ApplyingSlowMotion : MonoBehaviour {
 
 		// Or
 		//SlowMotionController.AddSlowMotion(desiredFreezeDuration, desiredTimeScale, () => Debug.Log("Callback"), delay, desiredEndTimeScale);
+	}
+	protected virtual void OnCollisionEnter2D(Collision2D collision)
+	{
+		SlowMotionController.AddSlowMotion(desiredFreezeDuration, desiredTimeScale, delay);
 	}
 }

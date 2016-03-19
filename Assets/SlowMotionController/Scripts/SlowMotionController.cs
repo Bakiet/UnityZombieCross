@@ -57,7 +57,8 @@ public class SlowMotionController : SingletonMonoBehaviour<SlowMotionController>
 			slowMotionList [0].callback ();
 		}
 		slowMotionList.RemoveAt (0);
-
+		D2D_DamageOnCollision.UsedSlowMotionActivated = false;
+		D2D_DamageOnCollision.count = 0;
 		canSlowMotion = true;
 		TestNextSlowMotion ();
 	}

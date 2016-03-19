@@ -12,4 +12,8 @@ public class Movement : MonoBehaviour {
 	void Update () {
 		this.transform.Translate(nMovement * Time.deltaTime);
 	}
+	protected virtual void OnCollisionEnter2D(Collision2D collision)
+	{
+		this.transform.Translate(nMovement * Time.deltaTime);
+	}
 }
