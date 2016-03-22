@@ -1429,6 +1429,14 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	{
 		if(!D2D_DamageOnCollision.UsedSlowMotionActivated){
 			Time.timeScale = 1.3f;
+		}else{
+			Time.timeScale = 0.5f;
+		}
+		if(!Bomb_Nodamage.UsedSlowMotionActivated){
+			Time.timeScale = 1.3f;
+		}
+		else{
+			Time.timeScale = 0.5f;
 		}
 		//accelerate = false;
 		rearWheel.freezeRotation = false;

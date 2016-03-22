@@ -139,22 +139,16 @@ public class D2D_DamageOnCollision : MonoBehaviour
 						if (count == 1) {
 							SlowMotionController.AddSlowMotion(desiredFreezeDuration, desiredTimeScale, delay);
 							UsedSlowMotionActivated = true;
-						
+						}
 					}
 					
 					if (damage >= DamageThreshold) {
 						if (damageable == null)
 							damageable = GetComponent<D2D_Damageable> ();
 						
-						//if(usedtime){
+
 							Invoke ("MyWaitingFunction", time);
-						/*}else{
-							damageable.InflictDamage (damage);
-							AudioSource.PlayClipAtPoint (Sound, gameObject.transform.position);
-							Physics2D.IgnoreCollision(BodyToCollided.GetComponent<Collider2D>(), GetComponent<Collider2D>());
-							Physics2D.IgnoreCollision(ObjectToCollided.GetComponent<Collider2D>(), GetComponent<Collider2D>());
-							Physics2D.IgnoreCollision(ObjectToCollided2.GetComponent<Collider2D>(), GetComponent<Collider2D>());
-						}*/
+
 					}
 				} 
 			}
@@ -170,17 +164,17 @@ public class D2D_DamageOnCollision : MonoBehaviour
 
 			}
 		}
-	}
+	
 	}
 
 	
 
 	void MyWaitingFunction(){
 		damageable.InflictDamage (damage);
-		count = count + 1;
-		if (count == 1) {
+		//count = count + 1;
+		//if (count == 1) {
 			AudioSource.PlayClipAtPoint (Sound, gameObject.transform.position);
-		}
+		//}
 
 		if (iftrash) {
 			if(ifkinematic){
