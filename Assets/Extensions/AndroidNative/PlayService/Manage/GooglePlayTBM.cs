@@ -82,10 +82,14 @@ public class GooglePlayTBM : SA_Singleton<GooglePlayTBM>
 	{
 		AN_GMSRTMProxy.DismissMatch(matchId);
 	}
-	
-	
-	public void ConfirmhMatchFinis(string matchId) {
+
+	public void ConfirmMatchFinish(string matchId) {
 		AN_GMSRTMProxy.TBM_FinishMatchWithId(matchId);
+	}
+
+	[System.Obsolete("This method is deprecated. Use ConfirmMatchFinish method instead")]
+	public void ConfirmhMatchFinis(string matchId) {
+		ConfirmMatchFinish(matchId);
 	}
 	
 	public void FinishMatch(string matchId, byte[] matchData, params GP_ParticipantResult[] results)   {

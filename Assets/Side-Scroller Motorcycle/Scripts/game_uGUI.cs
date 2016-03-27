@@ -1014,7 +1014,34 @@ public class game_uGUI : MonoBehaviour {
 		{	
 			//stage_end = true;
 			//makeclick saved = new makeclick();
-			CreateNewSnapshot();
+			if(n_world == 1 && n_stage == 5){
+				CreateNewSnapshot();
+			}
+			if(n_world == 1 && n_stage == 10){
+				CreateNewSnapshot();
+			}
+			if(n_world == 1 && n_stage == 15){
+				CreateNewSnapshot();
+			}
+			if(n_world == 2 && n_stage == 5){
+				CreateNewSnapshot();
+			}
+			if(n_world == 2 && n_stage == 10){
+				CreateNewSnapshot();
+			}
+			if(n_world == 2 && n_stage == 15){
+				CreateNewSnapshot();
+			}
+			if(n_world == 3 && n_stage == 5){
+				CreateNewSnapshot();
+			}
+			if(n_world == 3 && n_stage == 10){
+				CreateNewSnapshot();
+			}
+			if(n_world == 3 && n_stage == 15){
+				CreateNewSnapshot();
+			}
+
 			if (show_debug_messages)
 				Debug.Log("you win " + "W"+(n_world)+"_Stage_"+(n_stage));
 			allow_game_input = false;
@@ -1503,7 +1530,7 @@ public class game_uGUI : MonoBehaviour {
 					}
 				
 				}
-			
+				Motorcycle_Controller2D.isControllable = false;
 				//go to lose screen
 				play_screen.gameObject.SetActive (false);
 				lose_screen.gameObject.SetActive (true);

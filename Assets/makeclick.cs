@@ -191,10 +191,10 @@ public class makeclick : MonoBehaviour {
 	}
 	
 	private void ActionGameSaveLoaded (GP_SpanshotLoadResult result) {
-		
+	
 		Debug.Log("ActionGameSaveLoaded: " + result.Message);
 		if(result.IsSucceeded) {
-			
+
 			Debug.Log("Snapshot.Title: " 					+ result.Snapshot.meta.Title);
 			Debug.Log("Snapshot.Description: " 				+ result.Snapshot.meta.Description);
 			Debug.Log("Snapshot.CoverImageUrl): " 			+ result.Snapshot.meta.CoverImageUrl);
@@ -203,10 +203,10 @@ public class makeclick : MonoBehaviour {
 			Debug.Log("Snapshot.stringData: " 				+ result.Snapshot.stringData);
 			Debug.Log("Snapshot.bytes.Length: " 			+ result.Snapshot.bytes.Length);
 			
-			AndroidMessage.Create("Snapshot Loaded", "Data: " + result.Snapshot.stringData);
+			AndroidMessage.Create("Loaded Game", "");
 
 
-			//LoadSavedGames();
+		
 		} 
 		
 		//SA_StatusBar.text = "Games Loaded: " + result.Message;
@@ -264,10 +264,11 @@ public class makeclick : MonoBehaviour {
 		string currentSaveName =  "snapshotTemp-" + UnityEngine.Random.Range(1, 281).ToString();
 		//string currentSaveName =  "Saved Game";
 		string description  = "Modified data at: " + System.DateTime.Now.ToString("MM/dd/yyyy H:mm:ss");
-		
+
+
 		
 		GooglePlaySavedGamesManager.ActionGameSaveResult += ActionGameSaveResult;
-		GooglePlaySavedGamesManager.instance.CreateNewSnapshot(currentSaveName, description, Screenshot, "Sorry, Problem to load your saved game, we fix soon", TotalPlayedTime);
+		GooglePlaySavedGamesManager.instance.CreateNewSnapshot(currentSaveName, description, Screenshot, Random.Range(1, 10000).ToString(), TotalPlayedTime);
 		
 		
 		

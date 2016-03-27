@@ -1916,7 +1916,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 						//CFX_SpawnSystem.Instantiate (effectburn);
 						AudioSource.PlayClipAtPoint (BodyDeadDrownSound, CarBody.transform.position, 10.0f);
 					
-						Camera.main.GetComponent<CameraFollow2D> ().target = CarBody.transform; //make camera to follow biker's hips	
+				//		Camera.main.GetComponent<CameraFollow2D> ().target = CarBody.transform; //make camera to follow biker's hips	
 					
 						//unhandlingToDestroy ();
 					
@@ -2044,6 +2044,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		if(my_game_uGUI){
 			crashDrown = false;
 			crashDrowned = true;
+			crash = false;
 			//crashed = true;
 			my_game_uGUI.Defeat();
 			//brake = true;

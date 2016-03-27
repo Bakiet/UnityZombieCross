@@ -28,12 +28,13 @@ public class SA_FriendUI : MonoBehaviour {
 		if(player != null) {
 			playerId.text = "Player Id: " + _pId;
 			playerName.text = "Name: " + player.name;
-
+			
 			if(player.icon != null) {
 				avatar.GetComponent<Renderer>().material.mainTexture = player.icon;
 			}
-
+			
 		}
+		
 	}
 
 	public void PlayWithFried() {

@@ -14,6 +14,34 @@ public class SA_EditorTool {
 		return WWW.EscapeURL(url).Replace("+","%20");
 	}
 
+	private static Texture2D _SALogo = null;
+	
+	public static Texture2D SALogo {
+		get {
+			if(_SALogo == null) {
+				if(EditorGUIUtility.isProSkin) {
+					_SALogo =  Resources.Load("sa_logo_small") as Texture2D;
+				} else {
+					_SALogo =  Resources.Load("sa_logo_small_light") as Texture2D;
+				}
+			} 
+			
+			return _SALogo;
+		}
+	}
+	
+	
+	public static void DrawSALogo() {
+		
+		GUIStyle s =  new GUIStyle();
+		GUIContent content =  new GUIContent(SALogo, "Visit site");
+		
+		bool click = GUILayout.Button(content, s);
+		if(click) {
+			Application.OpenURL("https://stansassets.com/");
+		}
+	}
+
 	public static bool ToggleFiled(string title, bool value) {
 		
 		SA_Bool initialValue = SA_Bool.Enabled;

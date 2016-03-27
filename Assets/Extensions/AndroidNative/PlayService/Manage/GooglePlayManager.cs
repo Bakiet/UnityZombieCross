@@ -65,6 +65,10 @@ public class GooglePlayManager : SA_Singleton<GooglePlayManager> {
 	// PUBLIC API CALL METHODS
 	//--------------------------------------
 
+	public GP_PlayServicesStatus GetPlayServicesStatus() {
+		return AN_GMSGeneralProxy.GetPlayServicesStatus();
+	}
+
 	public void RetrieveDeviceGoogleAccounts() {
 		AN_GMSGeneralProxy.loadGoogleAccountNames();
 	}
@@ -76,6 +80,10 @@ public class GooglePlayManager : SA_Singleton<GooglePlayManager> {
 
 	public void LoadToken() {
 		LoadToken(currentAccount, "oauth2:https://www.googleapis.com/auth/games");
+	}
+
+	public void GetGamesServerAuthCode() {
+
 	}
 
 	public void InvalidateToken(string token) {

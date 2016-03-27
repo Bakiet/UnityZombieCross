@@ -191,6 +191,10 @@ public class SP_FB_API_v7 : SP_FB_API {
 
 
 	private void OnInitComplete() {
+		if (Facebook.Unity.AccessToken.CurrentAccessToken != null) {
+			_AccessToken = Facebook.Unity.AccessToken.CurrentAccessToken.TokenString;
+			_UserId = Facebook.Unity.AccessToken.CurrentAccessToken.UserId;
+		}
 		SPFacebook.Instance.OnInitComplete();
 	}
 

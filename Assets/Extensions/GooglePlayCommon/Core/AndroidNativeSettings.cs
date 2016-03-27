@@ -17,8 +17,8 @@ using UnityEditor;
 
 public class AndroidNativeSettings : ScriptableObject {
 
-	public const string VERSION_NUMBER = "7.4";
-	public const string GOOGLE_PLAY_SDK_VERSION_NUMBER = "8298000";
+	public const string VERSION_NUMBER = "7.5";
+	public const string GOOGLE_PLAY_SDK_VERSION_NUMBER = "8487000";
 
 
 	public bool EnablePlusAPI 		= true;
@@ -159,12 +159,12 @@ public class AndroidNativeSettings : ScriptableObject {
 	public bool ShowPushWhenAppIsForeground = true;
 	public bool EnableVibrationPush = false;
 
+	public Color PushNotificationColor = Color.white;
 	public Texture2D PushNotificationSmallIcon = null;
 	public Texture2D PushNotificationLargeIcon = null;
 	public AudioClip PushNotificationSound = null;
 
 	public const string ANSettingsAssetName = "AndroidNativeSettings";
-	public const string ANSettingsPath = "Extensions/AndroidNative/Resources";
 	public const string ANSettingsAssetExtension = ".asset";
 
 	private static AndroidNativeSettings instance = null;
@@ -183,7 +183,7 @@ public class AndroidNativeSettings : ScriptableObject {
 					#if UNITY_EDITOR
 					//string properPath = Path.Combine(Application.dataPath, ANSettingsPath);
 
-					FileStaticAPI.CreateFolder(ANSettingsPath);
+					FileStaticAPI.CreateFolder(SA_Config.SettingsPath);
 
 					/*
 					if (!Directory.Exists(properPath)) {
@@ -192,7 +192,7 @@ public class AndroidNativeSettings : ScriptableObject {
 					}
 					*/
 					
-					string fullPath = Path.Combine(Path.Combine("Assets", ANSettingsPath),
+					string fullPath = Path.Combine(Path.Combine("Assets", SA_Config.SettingsPath),
 					                               ANSettingsAssetName + ANSettingsAssetExtension
 					                               );
 					
