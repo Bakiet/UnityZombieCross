@@ -94,14 +94,14 @@ public class BreakJoint : MonoBehaviour {
 							Destroy (bloodObject, 1);
 						}
 
-						Invoke ("IgnoreCollision", 0.3f);
+						Invoke ("IgnoreCollision", 0.1f);
 						//play hurt sound
 						if (GetComponent<HurtSound> ()) {
 							GetComponent<HurtSound> ().PlaySound ();
 						}
 					} else {
 						gameObject.GetComponent<Rigidbody2D>().isKinematic =false;
-						Invoke ("IgnoreCollision", 0.3f);
+						Invoke ("IgnoreCollision", 0.1f);
 					}
 				}
 			}

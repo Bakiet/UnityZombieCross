@@ -20,6 +20,8 @@ public class game_master_editor : Editor {
 	public override void OnInspectorGUI () {
 		game_master my_target = (game_master)target;
 		EditorGUI.BeginChangeCheck ();
+
+		my_target.bigPicture = (Texture2D)EditorGUILayout.ObjectField(my_target.bigPicture, typeof(Texture2D));
 			//my_target.bigPicture = (Texture2D)EditorGUILayout.ObjectField("image to notifications",my_target.bigPicture,typeof (Texture2D),false,gui);
 		my_target.allow_ESC = EditorGUILayout.Toggle("go BACK when press device button/ESC",my_target.allow_ESC);
 		my_target.show_loading_screen = EditorGUILayout.Toggle("show loading screen",my_target.show_loading_screen);

@@ -239,10 +239,12 @@ public class SelectedCharacter : MonoBehaviour {
 		//deathZone.GetComponent<FollowAxis>().target = character.transform;
 		//if(Motorcycle_Controller2D.lastcheckpoint){
 
+		if(!Motorcycle_Controller2D.iftesting){
+			character = (GameObject)Instantiate (selectedChar, spawnPos.position, Quaternion.identity);
+			character.SetActive (true);
+		}
 		/*
 
-		character = (GameObject)Instantiate (selectedChar, spawnPos.position, Quaternion.identity);
-		character.SetActive (true);
 		*/
 
 		//}

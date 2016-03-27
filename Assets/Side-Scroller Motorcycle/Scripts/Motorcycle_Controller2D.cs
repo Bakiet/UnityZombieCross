@@ -24,6 +24,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 
 	private int LastNotificationId = 0;
 	public bool testing = false;
+	public static bool iftesting = false;
 	private  string ACHIEVEMENT_ID_First_Freeze = "CgkIq6GznYALEAIQDg";
 	private  string ACHIEVEMENT_ID_First_Buy = "CgkIq6GznYALEAIQDQ";
 	private  string ACHIEVEMENT_ID_First_Burn = "CgkIq6GznYALEAIQDA";
@@ -443,6 +444,8 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	private float testbreakgravity3=4;
 	private float testacceleration3=24;
 */
+
+
 
 	private GameObject effect = null;
 	private GameObject effectnitro = null;
@@ -942,7 +945,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 
 	void Start()
 	{
-
+		CameraFollow2D.CameraifFollow = true;
 		accelerate = false;
 		rearWheel.freezeRotation = true;
 		frontWheel.freezeRotation = true;
@@ -1029,6 +1032,12 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		if(gui != null){
 			my_game_uGUI = GameObject.FindGameObjectWithTag("_gui_").GetComponent<game_uGUI>();
 			
+		}
+		if(testing){
+			iftesting = true;
+		}
+		else{
+			iftesting = false;
 		}
 		if (!testing) {
 			if (my_game_uGUI) {
@@ -1175,7 +1184,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		Reset = false;
 		
 		//axisH = 0;
-		axisV = 0.2f;
+		axisV = 1f;
 		
 		//Center of mass
 		CarBody.GetComponent<Rigidbody2D>().centerOfMass = CenterOfMass.transform.localPosition;
@@ -1260,7 +1269,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					if (ifnitro) {
 						//acce / vertical / time / speedmotor
 							if (forMobile) {
-								CurrentVelocity = 40 * InputGetAxis ("Vertical") * Time.deltaTime * 10;
+								CurrentVelocity = 20 * InputGetAxis ("Vertical") * Time.deltaTime * 20;
 
 								//-maxspeed / maxspeed
 								Velocity = Mathf.Clamp (CurrentVelocity, -20, 100);
@@ -1289,23 +1298,27 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 
 						if (forMobile) {
 							SpeedMotorMobile = SpeedMotorMobile;
+								//float axis = InputGetAxis ("Vertical") + 0.1f;
 
-							CurrentVelocity = Acceleration * InputGetAxis ("Vertical") * Time.deltaTime * SpeedMotorMobile;
-
+								CurrentVelocity = Acceleration * InputGetAxis ("Vertical") * Time.deltaTime * SpeedMotorMobile;
+								//if(CurrentVelocity < MaxSpeed){
 							Velocity = Mathf.Clamp (CurrentVelocity, -MaxSpeed, MaxSpeed);
-
+								//}
 						} else {
 
 							CurrentVelocity = Acceleration * Input.GetAxis ("Vertical") * Time.deltaTime * SpeedMotor;
-							//if(Velocity < MaxSpeed){
-							Velocity = Mathf.Clamp (CurrentVelocity, -MaxSpeed, MaxSpeed);
-							//}
+
+								//if(CurrentVelocity < MaxSpeed){
+									Velocity = Mathf.Clamp (CurrentVelocity, -MaxSpeed, MaxSpeed);
+								//}
+								//Debug.LogWarning(Velocity);
 						}
-						
+
 						for (var i = 0; i <= (Wheels.Length-1); i++) {
 							
 							//Wheels[i].GetComponent<Rigidbody2D>().AddTorque(-0.2f * (30 / WheelRadius[i]) * 10);
-							Wheels [i].GetComponent<Rigidbody2D> ().AddTorque (-0.1f * (Velocity / WheelRadius [i]) * 10);
+							Wheels [i].GetComponent<Rigidbody2D> ().AddTorque(-0.1f * (Velocity / WheelRadius [i]) * 30);
+							
 						}
 
 
@@ -1344,13 +1357,15 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					{
 						Wheels[i].GetComponent.<Rigidbody2D>().AddTorque(-0.2f * (Velocity / WheelRadius[i]) * 10);
 					}*/
+
 					CarBody.GetComponent<Rigidbody2D> ().AddTorque (inAirRotationSpeed * 80 * Time.deltaTime, 0);    
+					
 					
 				}
 				if (right) {
-					
+
 					CarBody.GetComponent<Rigidbody2D> ().AddTorque (80 * -inAirRotationSpeed * Time.deltaTime, 0);   
-					
+
 				}
 				
 			
@@ -1428,15 +1443,15 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	void Update()
 	{
 		if(!D2D_DamageOnCollision.UsedSlowMotionActivated){
-			Time.timeScale = 1.3f;
+			Time.timeScale = 1.15f;
 		}else{
-			Time.timeScale = 0.5f;
+			Time.timeScale = .5f;
 		}
 		if(!Bomb_Nodamage.UsedSlowMotionActivated){
-			Time.timeScale = 1.3f;
+			Time.timeScale = 1.15f;
 		}
 		else{
-			Time.timeScale = 0.5f;
+			Time.timeScale = .5f;
 		}
 		//accelerate = false;
 		rearWheel.freezeRotation = false;
@@ -1797,7 +1812,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 						if (isShow)
 							Time.timeScale = 0;
 						else
-							Time.timeScale = 1;
+							Time.timeScale = 1.15f;
 					}
 					/*if (Checkpoint.lastPoint) {
 					//if ((Input.GetKeyDown (KeyCode.C) || (Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Began)) && crashed) {
@@ -2024,6 +2039,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 			crash = false;
 			crashed = true;
 			my_game_uGUI.Defeat();
+			CameraFollow2D.CameraifFollow = false;
 
 		}
 	}
@@ -2035,6 +2051,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 			//crashed = true;
 			my_game_uGUI.Defeat();
 			brake = true;
+			CameraFollow2D.CameraifFollow = false;
 			//my_game_uGUI.Update_lives(-1);
 
 		}
@@ -2047,6 +2064,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 			crash = false;
 			//crashed = true;
 			my_game_uGUI.Defeat();
+			CameraFollow2D.CameraifFollow = false;
 			//brake = true;
 			//my_game_uGUI.Update_lives(-1);
 			

@@ -13,7 +13,7 @@ public class ZoomCamera : MonoBehaviour {
 	public bool shouldZoomOut;
 	// Use this for initialization
 	void Start () {
-		camSizeLimit = 12f;
+		camSizeLimit = 8.5f;
 	}
 	
 	// Update is called once per frame
@@ -55,14 +55,14 @@ public class ZoomCamera : MonoBehaviour {
 	}
 	void ZoomIn()
 	{
-		if (Camera.main.orthographicSize > 7f) {
+		if (Camera.main.orthographicSize > 6.5f) {
 			Camera.main.orthographicSize = Mathf.Lerp(
 				Camera.main.orthographicSize,
 				Camera.main.orthographicSize * -increment,
 				timeLerp * Time.deltaTime);
 
 		}
-		else if (Camera.main.orthographicSize < 7f) {
+		else if (Camera.main.orthographicSize < 6.5f) {
 			shouldZoomIn = false;
 		}
 	}
