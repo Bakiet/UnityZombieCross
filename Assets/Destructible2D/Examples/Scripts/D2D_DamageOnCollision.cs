@@ -149,6 +149,7 @@ public class D2D_DamageOnCollision : MonoBehaviour
 
 							Invoke ("MyWaitingFunction", time);
 
+
 					}
 				} 
 			}
@@ -160,6 +161,7 @@ public class D2D_DamageOnCollision : MonoBehaviour
 					damageable = GetComponent<D2D_Damageable> ();
 			
 				Invoke ("MyWaitingFunction", time);
+
 				
 
 			}
@@ -167,7 +169,6 @@ public class D2D_DamageOnCollision : MonoBehaviour
 	
 	}
 
-	
 
 	void MyWaitingFunction(){
 		damageable.InflictDamage (damage);

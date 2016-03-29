@@ -2,6 +2,8 @@
 using System.Collections;
 
 public class BreakJoint : MonoBehaviour {
+	public GameObject EffectDead;
+
 	public bool body = false;
 	public float velocityForBrake = 3000;
 	public float angularVelocityForBrake = 2500;
@@ -38,7 +40,7 @@ public class BreakJoint : MonoBehaviour {
 		foreach (BoxCollider2D bc in myColliders) {
 			counter = counter + 1;
 			if(counter > 1){
-			bc.enabled = false;
+			Destroy(bc);
 			}
 		}
 		distance = 0;
@@ -99,16 +101,25 @@ public class BreakJoint : MonoBehaviour {
 						if (GetComponent<HurtSound> ()) {
 							GetComponent<HurtSound> ().PlaySound ();
 						}
+						Invoke ("disappear", 2f);
 					} else {
 						gameObject.GetComponent<Rigidbody2D>().isKinematic =false;
 						Invoke ("IgnoreCollision", 0.1f);
+						Invoke ("disappear", 2f);
 					}
 				}
 			}
 		}
 
 	}
-
+	private void disappear()
+	{
+		if(EffectDead){
+		EffectDead.transform.position = transform.position;
+		Instantiate (EffectDead);
+		}
+		Destroy(gameObject.GetComponent<SpriteRenderer>());
+	}
 	private void IgnoreCollision()
 	{
 		Physics2D.IgnoreCollision (this.GetComponent<BoxCollider2D>(), legToCollided.GetComponent<Collider2D>());

@@ -1856,7 +1856,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					//update lives
 					if (my_game_uGUI) {
 						my_game_uGUI.Update_lives(-1);
-						Invoke ("endgui", 2.0f);
+						Invoke ("endgui", 0.4f);
 						//my_game_uGUI.Update_lives(live);
 					}
 
@@ -1901,7 +1901,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 						//update lives
 						if (my_game_uGUI) {
 							my_game_uGUI.Update_lives(-1);
-							Invoke ("endguiburn", 2.0f);
+							Invoke ("endguiburn", 0.4f);
 
 						}
 					}
@@ -1943,7 +1943,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 						//update lives
 						if (my_game_uGUI) {
 							my_game_uGUI.Update_lives(-1);
-							Invoke ("endguidrown", 2.0f);
+							Invoke ("endguidrown", 0.4f);
 						
 						}
 					}
@@ -1976,7 +1976,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					//update lives
 					if (my_game_uGUI) {
 						my_game_uGUI.Update_lives(-1);
-						Invoke ("endgui", 2.0f);
+						Invoke ("endgui", 0.4f);
 						//my_game_uGUI.Update_lives(live);
 					}
 				
@@ -2008,7 +2008,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					//update lives
 					if (my_game_uGUI) {
 						my_game_uGUI.Update_lives(-1);
-						Invoke ("endgui", 2.0f);
+						Invoke ("endgui", 0.4f);
 						//my_game_uGUI.Update_lives(live);
 					}
 				
