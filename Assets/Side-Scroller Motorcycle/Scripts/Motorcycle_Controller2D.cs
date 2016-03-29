@@ -945,6 +945,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 
 	void Start()
 	{
+
 		CameraFollow2D.CameraifFollow = true;
 		accelerate = false;
 		rearWheel.freezeRotation = true;

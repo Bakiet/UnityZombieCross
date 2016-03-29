@@ -195,7 +195,7 @@ public class Bomb_Nodamage : MonoBehaviour {
 	void Update () {
 		targetIsCamera = true;
 		shakeType = Shake.ShakeType.explosion;
-		//target = GameObject.FindWithTag ("Player").transform;
+		target = GameObject.FindWithTag ("Player").transform;
 		if (GameObject.FindGameObjectWithTag ("Ragdoll") != null) {
 			target = GameObject.FindGameObjectWithTag ("Ragdoll").transform;
 		}

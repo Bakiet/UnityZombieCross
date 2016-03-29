@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System;
 using Soomla.Store;
+using System.Collections.Generic;
 
 public class game_master : MonoBehaviour {
 
@@ -287,8 +288,8 @@ public class game_master : MonoBehaviour {
 		//bigPicture = (Texture2D)Resources.Load("images/logoplaystore.png", typeof(Texture2D));
 		//(GameObject)Resources.Load("prefabs/CFXM2_Soul", typeof(GameObject));
 		builder.SetBigPicture (bigPicture);
-		//AndroidNotificationManager.Instance.ScheduleLocalNotification(builder);
-		AndroidNotificationManager.Instance.ScheduleLocalNotification("Zombie Cross","You have now 20 lives, go to kill zombies",time);
+		AndroidNotificationManager.Instance.ScheduleLocalNotification(builder);
+		//AndroidNotificationManager.Instance.ScheduleLocalNotification("Zombie Cross","You have now 20 lives, go to kill zombies",time);
 	}
 	
 	private void LoadLaunchNotification (){
@@ -338,12 +339,35 @@ public class game_master : MonoBehaviour {
 	private void OnMessageLoaded(string msg) {
 		AN_PoupsProxy.showMessage ("Message Loaded", "Last GCM Message: " + GoogleCloudMessageService.instance.lastMessage);
 	}
+	void HandleActionGCMPushReceived (string message, Dictionary<string, object> data)
+	{
+		Debug.Log("[HandleActionGCMPushReceived]");
+		Debug.Log("Message: " + message);
+		foreach (KeyValuePair<string, object> pair in data) {
+			Debug.Log("Data Entity: " + pair.Key + " " + pair.Value.ToString());
+		}
+		
+		AN_PoupsProxy.showMessage (message, ANMiniJSON.Json.Serialize(data));
+	}
+	
+	void HandleActionGCMPushLaunched (string message, Dictionary<string, object> data)
+	{
+		Debug.Log("[HandleActionGCMPushLaunched]");
+		Debug.Log("Message: " + message);
+		foreach (KeyValuePair<string, object> pair in data) {
+			Debug.Log("Data Entity: " + pair.Key + " " + pair.Value.ToString());
+		}
+		
+		AN_PoupsProxy.showMessage (message, ANMiniJSON.Json.Serialize(data));
+	}
 	// Use this for initialization
 	void Awake () {
-
 		GoogleCloudMessageService.ActionCMDRegistrationResult += HandleActionCMDRegistrationResult;
 		GoogleCloudMessageService.ActionCouldMessageLoaded += OnMessageLoaded;
+		GoogleCloudMessageService.ActionGCMPushLaunched += HandleActionGCMPushLaunched;
+		GoogleCloudMessageService.ActionGCMPushReceived += HandleActionGCMPushReceived;
 		GoogleCloudMessageService.Instance.Init();
+
 
 		if ( !game_is_started )
 			{

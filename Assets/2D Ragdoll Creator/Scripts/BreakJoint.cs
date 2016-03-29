@@ -119,6 +119,7 @@ public class BreakJoint : MonoBehaviour {
 		Instantiate (EffectDead);
 		}
 		Destroy(gameObject.GetComponent<SpriteRenderer>());
+		Destroy(gameObject);
 	}
 	private void IgnoreCollision()
 	{
