@@ -1935,7 +1935,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 				//		Camera.main.GetComponent<CameraFollow2D> ().target = CarBody.transform; //make camera to follow biker's hips	
 					
 						//unhandlingToDestroy ();
-					
+						unhandlingToDrown();
 						//CarBody.transform.Rotate (Vector3.right * 180);
 					
 					
@@ -1944,7 +1944,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 						//update lives
 						if (my_game_uGUI) {
 							my_game_uGUI.Update_lives(-1);
-							Invoke ("endguidrown", 0.4f);
+							Invoke ("endguidrown", 1f);
 						
 						}
 					}
@@ -2124,6 +2124,39 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	
 
 
+	}
+	public void unhandlingToDrown()
+	{
+		/*
+		hingeJoints = Body2D.GetComponents<HingeJoint2D> ();	
+		//boots.GetComponent<Rigidbody2D>().AddTorque (-1080,0); 
+		hingeJoints [0].enabled = false;
+		hingeJoints [1].enabled = false;
+		hingeJoints [2].enabled = false;
+		hingeJoints [3].enabled = false;*/
+		/*if (hingeJoints [4]) {
+				hingeJoints [4].enabled = false;
+			}*/
+	/*	wheelJoints = Body2D.GetComponents<WheelJoint2D> ();
+		wheelJoints [0].enabled = false;
+		wheelJoints [1].enabled = false;*/
+		
+		/*leftHandJoints = leftHand.GetComponents<HingeJoint2D> ();	
+		rightHandJoints = rightHand.GetComponents<HingeJoint2D> ();	
+		bootsJoints = boots.GetComponents<HingeJoint2D> ();	
+		kneeJoints = knee.GetComponents<HingeJoint2D> ();	
+		legJoints = leg.GetComponents<HingeJoint2D> ();	
+		helmetJoints = helmet.GetComponents<HingeJoint2D> ();	
+		
+		leftHandJoints [0].enabled = false;
+		rightHandJoints [0].enabled = false;
+		bootsJoints [0].enabled = false;
+		kneeJoints [0].enabled = false;
+		legJoints [0].enabled = false;
+		helmetJoints [0].enabled = false;
+		*/
+		
+		
 	}
 	public void unhandlingToDestroySawHead()
 	{

@@ -53,7 +53,12 @@ public class HelmetCollision : MonoBehaviour {
 						oohCrowdSC.Play ();
 						//Motorcycle_Controller2D.crashBurn = true;
 						//oohCrowdSC.Play ();
-				} else if (obj.gameObject.tag == "DynamicParticle") {
+					}
+					else if (obj.gameObject.tag == "Drown") {
+						Motorcycle_Controller2D.crashDrown = true;
+						//oohCrowdSC.Play ();
+					} 
+					} else if (obj.gameObject.tag == "DynamicParticle") {
 						Motorcycle_Controller2D.crashBurn = true;
 						oohCrowdSC.Play ();
 					}	else if (obj.gameObject.tag == "Drown") {
@@ -68,7 +73,7 @@ public class HelmetCollision : MonoBehaviour {
 					
 					
 				} 
-			}
+			
 		
 	}
 	void OnTriggerEnter2D(Collider2D obj)
