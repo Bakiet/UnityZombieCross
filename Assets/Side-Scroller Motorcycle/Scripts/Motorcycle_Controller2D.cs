@@ -126,6 +126,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	public static bool crashBurn = false;
 	public static bool crashDrowned = false;
 	public static bool crashDrown = false;
+	public static bool crashDown = false;
 	//used to enable/disable motorcycle controlling
 	public static bool isControllable = true;
 	public static bool isFinish = false;
@@ -1070,6 +1071,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		}
 		crashBurned = false;
 		crashDrown = false;
+		crashDown = false;
 		crashDrowned = false;
 		time =0;
 		ifnitro = false;
@@ -1359,13 +1361,13 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 						Wheels[i].GetComponent.<Rigidbody2D>().AddTorque(-0.2f * (Velocity / WheelRadius[i]) * 10);
 					}*/
 
-					CarBody.GetComponent<Rigidbody2D> ().AddTorque (inAirRotationSpeed * 80 * Time.deltaTime, 0);    
+					CarBody.GetComponent<Rigidbody2D> ().AddTorque (inAirRotationSpeed * 280 * Time.deltaTime, 0);    
 					
 					
 				}
 				if (right) {
 
-					CarBody.GetComponent<Rigidbody2D> ().AddTorque (80 * -inAirRotationSpeed * Time.deltaTime, 0);   
+					CarBody.GetComponent<Rigidbody2D> ().AddTorque (280 * -inAirRotationSpeed * Time.deltaTime, 0);   
 
 				}
 				
@@ -1415,6 +1417,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 
 	void RotateVehicle()
 	{
+
 		// Verify if the user want to rotate the vehicle front and if the vehicle is running.
 		if((vertical > 0) && (CarBody.GetComponent<Rigidbody2D>().velocity.x > acceleration * 2)){
 			
@@ -1702,6 +1705,19 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 						else
 							brake = false;	
 					}
+
+					/*if(usingAccelerometer)
+					{
+						if(Screen.orientation == ScreenOrientation.LandscapeLeft || Screen.orientation == ScreenOrientation.LandscapeRight)
+						{
+							if(Input.acceleration.x > 0.01f)
+								left = true;
+							else if(Input.acceleration.x < -0.01f)
+								right = true;
+							
+							
+						}
+					}*/
 				
 					//----------------------------------
 					//}
@@ -1949,6 +1965,34 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 						}
 					}
 				}
+				if (crashDown && !crashed) { //if player just crashed	
+					if (ifnitro) {
+						effectnitro.SetActive (false);
+					}
+					time = time + 1;
+					//effectburn.transform.position = CarBody.transform.position;
+					if (time == 1) {
+
+						//CFX_SpawnSystem.Instantiate (effectburn);
+						AudioSource.PlayClipAtPoint (BodyDeadDrownSound, CarBody.transform.position, 10.0f);
+						
+						//		Camera.main.GetComponent<CameraFollow2D> ().target = CarBody.transform; //make camera to follow biker's hips	
+						
+						//unhandlingToDestroy ();
+						unhandlingToDown();
+						//CarBody.transform.Rotate (Vector3.right * 180);
+						
+						
+						isControllable = false;
+						//crashed = true;
+						//update lives
+						if (my_game_uGUI) {
+							my_game_uGUI.Update_lives(-1);
+							Invoke ("endgui", 1f);
+							
+						}
+					}
+				}
 				if (crashSaw && !crashed) { //if player just crashed											
 					if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
 					//makeclick Achievement = new makeclick();
@@ -2127,13 +2171,13 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	}
 	public void unhandlingToDrown()
 	{
-		/*
+
 		hingeJoints = Body2D.GetComponents<HingeJoint2D> ();	
 		//boots.GetComponent<Rigidbody2D>().AddTorque (-1080,0); 
 		hingeJoints [0].enabled = false;
 		hingeJoints [1].enabled = false;
 		hingeJoints [2].enabled = false;
-		hingeJoints [3].enabled = false;*/
+		hingeJoints [3].enabled = false;
 		/*if (hingeJoints [4]) {
 				hingeJoints [4].enabled = false;
 			}*/
@@ -2156,6 +2200,18 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		helmetJoints [0].enabled = false;
 		*/
 		
+		
+	}
+	public void unhandlingToDown()
+	{
+
+		hingeJoints = Body2D.GetComponents<HingeJoint2D> ();	
+		//boots.GetComponent<Rigidbody2D>().AddTorque (-1080,0); 
+		hingeJoints [0].enabled = false;
+		hingeJoints [1].enabled = false;
+		hingeJoints [2].enabled = false;
+		hingeJoints [3].enabled = false;
+
 		
 	}
 	public void unhandlingToDestroySawHead()

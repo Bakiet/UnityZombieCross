@@ -108,7 +108,7 @@ public class HelmetCollision : MonoBehaviour {
 	}
 	void OnTriggerEnter2D(Collider2D obj)
 	{
-	/*	if (obj.gameObject.tag != "Checkpoint" ^ obj.gameObject.tag != "ZoomOutTrigger" ^ obj.gameObject.tag != "ZoomInTrigger" ^ obj.gameObject.tag == "Player" ^ obj.gameObject.tag == "Ragdoll" ^ obj.gameObject.tag == "Coin" ^ obj.gameObject.tag == "nitro"^ obj.gameObject.tag == "Zombie"^ obj.gameObject.tag == "ZombieFat"^ obj.gameObject.tag == "ZombieMid"^ obj.gameObject.tag == "Wood") { //if entered in any other trigger than "Finish" & "Checkpoint", that means player crashed
+		if (obj.gameObject.tag != "Checkpoint" ^ obj.gameObject.tag != "ZoomOutTrigger" ^ obj.gameObject.tag != "ZoomInTrigger" ^ obj.gameObject.tag == "Player" ^ obj.gameObject.tag == "Ragdoll" ^ obj.gameObject.tag == "Coin" ^ obj.gameObject.tag == "nitro"^ obj.gameObject.tag == "Zombie"^ obj.gameObject.tag == "ZombieFat"^ obj.gameObject.tag == "ZombieMid"^ obj.gameObject.tag == "Wood") { //if entered in any other trigger than "Finish" & "Checkpoint", that means player crashed
 			if (!Motorcycle_Controller2D.crash) {
 				if (obj.gameObject.tag == "Saw") {					
 					Motorcycle_Controller2D.crashSaw = true;
@@ -151,6 +151,9 @@ public class HelmetCollision : MonoBehaviour {
 					}	else if (obj.gameObject.tag == "Drown") {
 						Motorcycle_Controller2D.crashDrown = true;
 						//oohCrowdSC.Play ();
+					} else if (obj.gameObject.tag == "Ground") {
+						Motorcycle_Controller2D.crashDown = true;
+						//oohCrowdSC.Play ();
 					} else {
 						oohCrowdSC.Play ();
 						Motorcycle_Controller2D.crash = true;
@@ -161,7 +164,7 @@ public class HelmetCollision : MonoBehaviour {
 					
 				} 
 			}
-		}*/
+		}
 	}
 	void endgui()
 	{
