@@ -81,7 +81,8 @@ public class BreakJoint : MonoBehaviour {
 				
 				gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
 				gameObject.GetComponent<Rigidbody2D>().freezeRotation = false;
-				
+				gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
+
 				if (rb.velocity.sqrMagnitude > velocityForBrake || rb.angularVelocity > angularVelocityForBrake) {
 					
 					if (!body) {

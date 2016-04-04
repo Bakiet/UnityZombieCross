@@ -88,7 +88,7 @@ public class MakePoints : MonoBehaviour {
 		}
 		
 		zombiedead=false;
-		anim = GetComponent<Animator>();
+	//	anim = GetComponent<Animator>();
 	}
 	void Awake(){
 		enemyTransform = gameObject.transform;

@@ -98,7 +98,7 @@ public class EnemyAI : MonoBehaviour
 		}
 
 		zombiedead=false;
-		anim = GetComponent<Animator>();
+		//anim = GetComponent<Animator>();
 		//rb2d = GetComponent<Rigidbody2D>();
 		
 
@@ -155,16 +155,22 @@ public class EnemyAI : MonoBehaviour
 			if(distance != 0){
 				if(distance<=range2 && distance>stop){
 					//					gameObject.GetComponent<BoxCollider2D>().enabled =false;
-					gameObject.GetComponent<Animator>().enabled =false;
+					//if(gameObject.GetComponent<Animator>()){
+					//gameObject.GetComponent<Animator>().enabled =false;
+					//}
+
 					gameObject.GetComponent<Rigidbody2D>().isKinematic =false;
+					
 				}
 			}
 			if(distance != 0){
 				if(distance<=range && distance>stop){
-					
+					gameObject.GetComponent<Rigidbody2D>().isKinematic =false;
+				 /* if(gameObject.GetComponent<Animator>()){
 					if(gameObject.GetComponent<Animator>().enabled){
 						//	Flip ();
 						anim.SetBool ("IsDisturbed", true);
+						gameObject.GetComponent<Rigidbody2D>().isKinematic =false;
 						transform.LookAt (target.position, upAxis);
 						transform.eulerAngles = new Vector3 (0f, 0f);
 						
@@ -181,8 +187,12 @@ public class EnemyAI : MonoBehaviour
 						yRotation += Input.GetAxis("Horizontal");
 						transform.eulerAngles = new Vector2(360,0);
 						//walkingDirection = -4.0f;
-						transform.Translate(walkAmount);
+						Transform t = transform;
+						Transform TransformWalk = t.FindChild ("Textures").transform;
+						
+						TransformWalk.Translate(walkAmount);
 					}
+				  }*/
 					//anim.SetBool ("IsDisturbed", true);
 					count = count +1;
 					if(count == 1){
@@ -404,7 +414,11 @@ public class EnemyAI : MonoBehaviour
 			//Debug.LogError("here: " + target.name);
 		}
 		*/
-
+		if (GameObject.FindGameObjectWithTag ("Ragdoll") != null) {
+			target = GameObject.FindGameObjectWithTag ("Ragdoll").transform;
+		}
+		enemyTransform = gameObject.transform;
+		distance = Vector3.Distance (enemyTransform.position, target.position);
 	}
 
 
