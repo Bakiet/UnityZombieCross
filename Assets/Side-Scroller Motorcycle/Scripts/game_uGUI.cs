@@ -176,6 +176,9 @@ public class game_uGUI : MonoBehaviour {
 	public void LikePage() {
 		Application.OpenURL("https://www.facebook.com/zombiecrossgame/");
 	}
+	public void PlayStorePage() {
+		Application.OpenURL("https://play.google.com/store/apps/details?id=unity.zombiecross");
+	}
 	public static AndroidRateUsPopUp Create(string title, string message, string url) {
 		return Create(title, message, url, "Rate app", "Later", "No, thanks");
 	}
@@ -239,6 +242,7 @@ public class game_uGUI : MonoBehaviour {
 
 	void Start () {
 	   
+		GetComponent<AudioSource>().volume = 0.1f;
 		n_world = Convert.ToInt32(Application.loadedLevelName.Substring(1,1));
 		if(Application.loadedLevelName.Length > 10){
 		n_stage = Convert.ToInt32(Application.loadedLevelName.Substring(9,2));
@@ -285,6 +289,7 @@ public class game_uGUI : MonoBehaviour {
 		if (my_game_master)
 		{
 			//set ads gui
+			my_game_master.music_source.Stop();
 			my_game_master.my_ads_master.Initiate_ads();
 			my_game_master.my_ads_master.my_feedback_window = my_feedback_window;
 			my_game_master.my_ads_master.my_gift_manager = my_gift_manager;
@@ -1010,6 +1015,7 @@ public class game_uGUI : MonoBehaviour {
 	
 	public void Victory()
 	{
+
 		if (!stage_end)
 		{	
 			//stage_end = true;
@@ -1062,6 +1068,7 @@ public class game_uGUI : MonoBehaviour {
 			{
 				my_game_master.my_ads_master.Call_ad(my_game_master.my_ads_master.ads_when_player_open_a_gift_packet);
 				//music
+
 				if (my_game_master.when_win_play_selected == game_master.when_win_play.music)
 					my_game_master.Start_music(my_game_master.music_stage_win,my_game_master.play_win_music_in_loop);
 				else if (my_game_master.when_win_play_selected == game_master.when_win_play.sfx)
@@ -1485,6 +1492,7 @@ public class game_uGUI : MonoBehaviour {
 	
 	void Mark_win()
 	{
+
 		if (show_debug_messages)
 			Debug.Log("Mark_win()");
 		Mark_this_button(win_screen_target_button);

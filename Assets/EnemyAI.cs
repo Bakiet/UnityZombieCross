@@ -159,13 +159,13 @@ public class EnemyAI : MonoBehaviour
 					//gameObject.GetComponent<Animator>().enabled =false;
 					//}
 
-					gameObject.GetComponent<Rigidbody2D>().isKinematic =false;
+					//gameObject.GetComponent<Rigidbody2D>().isKinematic =false;
 					
 				}
 			}
 			if(distance != 0){
 				if(distance<=range && distance>stop){
-					gameObject.GetComponent<Rigidbody2D>().isKinematic =false;
+					//gameObject.GetComponent<Rigidbody2D>().isKinematic =false;
 				 /* if(gameObject.GetComponent<Animator>()){
 					if(gameObject.GetComponent<Animator>().enabled){
 						//	Flip ();
@@ -418,7 +418,9 @@ public class EnemyAI : MonoBehaviour
 			target = GameObject.FindGameObjectWithTag ("Ragdoll").transform;
 		}
 		enemyTransform = gameObject.transform;
+		if(enemyTransform && target){
 		distance = Vector3.Distance (enemyTransform.position, target.position);
+		}
 	}
 
 

@@ -1176,13 +1176,16 @@ public class manage_menu_uGUI : MonoBehaviour, MPLobbyListener {
 		Application.OpenURL("https://www.facebook.com/BKT-Games-762018407240812/");
 	}
 	public void LikePage() {
-		Application.OpenURL("https://www.facebook.com/zombiecrossgame/");
+		Application.OpenURL("https://www.facebook.com/BKT-Games-762018407240812/");
 	}
 	public void FollowPage() {
 		Application.OpenURL("https://twitter.com/BKTGames");
 	}
 	public void InstaPage() {
 		Application.OpenURL("https://www.instagram.com/bktgames/");
+	}
+	public void PlayStorePage() {
+		Application.OpenURL("https://play.google.com/store/apps/details?id=unity.zombiecross");
 	}
 	public static AndroidRateUsPopUp Create(string title, string message, string url) {
 		return Create(title, message, url, "Rate app", "Later", "No, thanks");

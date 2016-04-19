@@ -1318,10 +1318,10 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 						}
 
 						for (var i = 0; i <= (Wheels.Length-1); i++) {
-							
+								if(Velocity <= MaxSpeed){
 							//Wheels[i].GetComponent<Rigidbody2D>().AddTorque(-0.2f * (30 / WheelRadius[i]) * 10);
-							Wheels [i].GetComponent<Rigidbody2D> ().AddTorque(-0.1f * (Velocity / WheelRadius [i]) * 30);
-							
+									Wheels [i].GetComponent<Rigidbody2D> ().AddTorque(-0.1f * (Velocity / WheelRadius [i]) * 30);
+								}
 						}
 
 
