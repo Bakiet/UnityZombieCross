@@ -523,7 +523,9 @@ public class ads_master : MonoBehaviour {
 	{
 		return Advertisement.isInitialized;
 	}
-	
+	public void Call_rewards_button(){
+		Call_ad(my_game_master.my_ads_master.ads_just_after_logo_when_game_start_as_daily_reward);
+	}
 	public void Call_ad(ad_options target_ad)
 	{
 		my_game_master = (game_master)game_master.game_master_obj.GetComponent("game_master");

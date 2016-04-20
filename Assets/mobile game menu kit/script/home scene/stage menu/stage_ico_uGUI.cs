@@ -1,9 +1,46 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI ;
+using Soomla.Store;
+using System.Collections.Generic;
+using System;
 
 public class stage_ico_uGUI : MonoBehaviour {
 
+	//ads
+	//public string ad;
+	//public int invoked=1;
+	//private static int countstatic;
+	public event Action<AndroidDialogResult> ActionComplete = delegate{};
+	
+	private const string MY_BANNERS_AD_UNIT_ID		 = "ca-app-pub-7288875708989992/5953651462"; 
+	private const string MY_INTERSTISIALS_AD_UNIT_ID =  "ca-app-pub-7288875708989992/3000185061"; 
+	
+	private GoogleMobileAdBanner banner1;
+	private GoogleMobileAdBanner banner2;
+	//public int timestoexe=1;
+	private int count=0;
+	private bool IsInterstisialsAdReady = false;
+	
+	
+	private DefaultPreviewButton ShowIntersButton;
+	
+	private DefaultPreviewButton[] b1CreateButtons;
+	private DefaultPreviewButton b1Hide;
+	private DefaultPreviewButton b1Show;
+	private DefaultPreviewButton b1Refresh;
+	private DefaultPreviewButton ChangePost1;
+	private DefaultPreviewButton ChangePost2;
+	private DefaultPreviewButton b1Destroy;
+	
+	
+	private DefaultPreviewButton[] b2CreateButtons;
+	private DefaultPreviewButton b2Hide;
+	private DefaultPreviewButton b2Show;
+	private DefaultPreviewButton b2Refresh;
+	private DefaultPreviewButton b2Destroy;
+
+	//end ads
 
 	[HideInInspector]public int world_number;//the world_that contain this stage
 	[HideInInspector]public int stage_number;//the number of this stage, this is important to load the correct stage scene
@@ -32,6 +69,157 @@ public class stage_ico_uGUI : MonoBehaviour {
 	[HideInInspector]public game_master my_game_master;
 	[HideInInspector]public stage_ico_uGUI next_stage_ico;
 
+	void Start (){
+		/*
+		if (ad == "SmartBottom" || ad == "StartInterstitialAd" || ad == "B2Hide" || ad == "ConncetButtonPress") {
+			
+			AndroidAdMobController.instance.Init (MY_BANNERS_AD_UNIT_ID);
+			
+			//If yoi whant to use Interstisial ad also, you need to set additional ad unin id for Interstisial as well
+			AndroidAdMobController.instance.SetInterstisialsUnitID (MY_INTERSTISIALS_AD_UNIT_ID);
+			
+			
+			//Optional, add data for better ad targeting
+			AndroidAdMobController.instance.SetGender (GoogleGender.Male);
+			AndroidAdMobController.instance.AddKeyword ("game");
+			AndroidAdMobController.instance.SetBirthday (1989, AndroidMonth.MARCH, 18);
+			AndroidAdMobController.instance.TagForChildDirectedTreatment (false);
+			
+
+			
+			AndroidAdMobController.instance.OnInterstitialLoaded += OnInterstisialsLoaded; 
+			AndroidAdMobController.instance.OnInterstitialOpened += OnInterstisialsOpen;
+			
+			
+
+			AndroidAdMobController.instance.OnAdInAppRequest += OnInAppRequest;
+			
+			
+			//listen for GooglePlayConnection events
+			GooglePlayConnection.ActionPlayerConnected +=  OnPlayerConnected;
+			GooglePlayConnection.ActionPlayerDisconnected += OnPlayerDisconnected;
+
+			if (StoreInventory.GetItemBalance ("no_ads") <= 0) {
+				count = count +1;
+				countstatic = countstatic + 1;
+
+				Invoke (ad, invoked);
+
+			}
+
+		}*/
+		//B1Refresh();
+		//B1Show();
+	}
+
+	public void CreateBannerBottomCenter() {
+		banner1 = AndroidAdMobController.instance.CreateAdBanner(TextAnchor.LowerCenter, GADBannerSize.BANNER);
+	}
+	
+	public void CreateBannerBottomRight() {
+		banner1 = AndroidAdMobController.instance.CreateAdBanner(TextAnchor.LowerRight, GADBannerSize.BANNER);
+	}
+	
+	public void B1Hide() {
+		banner1.Hide();
+	}
+	
+	
+	public void B1Show() {
+		banner1.Show();
+	}
+	
+	public void B1Refresh() {
+		banner1.Refresh();
+	}
+	
+	public void B1Destrouy() {
+		AndroidAdMobController.instance.DestroyBanner(banner1.id);
+		banner1 = null;
+	}
+
+
+	public void SmartTOP() {
+		banner2 = AndroidAdMobController.instance.CreateAdBanner(TextAnchor.UpperCenter, GADBannerSize.SMART_BANNER);
+		banner2.Show();
+	}
+	
+	public void SmartBottom() {
+		banner2 = AndroidAdMobController.instance.CreateAdBanner(TextAnchor.LowerCenter, GADBannerSize.SMART_BANNER);
+		banner2.Show();
+	}
+	
+	
+	public void B2Hide() {
+		banner2.Hide();
+	}
+	
+	
+	public void B2Show() {
+		banner2.Show();
+	}
+	
+	public void B2Refresh() {
+		banner2.Refresh();
+	}
+	
+	public void B2Destrouy() {
+		AndroidAdMobController.instance.DestroyBanner(banner2.id);
+		banner2 = null;
+	}
+	
+	public void ChnagePostToMiddle() {
+		//banner1.SetBannerPosition(TextAnchor.MiddleCenter);
+	}
+	
+	public void ChangePostRandom() {
+		//		banner1.SetBannerPosition(UnityEngine.Random.Range(0, Screen.width), UnityEngine.Random.Range(0, Screen.height));
+	}
+	
+	
+	// Update is called once per frame
+	void Update () {
+		
+	}
+	
+	private void OnInterstisialsLoaded() {
+		IsInterstisialsAdReady = true;
+	}
+	
+	private void OnInterstisialsOpen() {
+		IsInterstisialsAdReady = false;
+	}
+	
+	private void OnInAppRequest(string productId) {
+		
+
+		AndroidAdMobController.instance.RecordInAppResolution(GADInAppResolution.RESOLUTION_SUCCESS);
+		
+	}
+	private void ConncetButtonPress() {
+		GooglePlayConnection.Instance.Connect ();
+	
+	}
+	
+	private void OnPlayerDisconnected() {
+
+	}
+	
+	private void OnPlayerConnected() {
+
+	}
+
+	public void StartInterstitialAd() {
+		AndroidAdMobController.instance.StartInterstitialAd ();
+	}
+	
+	public void LoadInterstitialAd() {
+		AndroidAdMobController.instance.LoadInterstitialAd ();
+	}
+	
+	public void ShowInterstitialAd() {
+		AndroidAdMobController.instance.ShowInterstitialAd ();
+	}
 	// Use this for initialization
 	public void My_start() {
 

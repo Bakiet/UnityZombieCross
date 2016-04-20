@@ -242,7 +242,7 @@ public class game_uGUI : MonoBehaviour {
 
 	void Start () {
 	   
-		GetComponent<AudioSource>().volume = 0.1f;
+		GetComponent<AudioSource>().volume = 0.4f;
 		n_world = Convert.ToInt32(Application.loadedLevelName.Substring(1,1));
 		if(Application.loadedLevelName.Length > 10){
 		n_stage = Convert.ToInt32(Application.loadedLevelName.Substring(9,2));
@@ -1076,6 +1076,7 @@ public class game_uGUI : MonoBehaviour {
 
 				if (my_game_master.press_start_and_go_to_selected == game_master.press_start_and_go_to.map)
 					next_stage_ico.SetActive(false);
+				   //next_stage_ico.SetActive(true);
 				else
 					next_stage_ico.SetActive(true);
 				

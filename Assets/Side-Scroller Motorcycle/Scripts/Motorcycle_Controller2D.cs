@@ -1711,9 +1711,9 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 						if(Screen.orientation == ScreenOrientation.LandscapeLeft || Screen.orientation == ScreenOrientation.LandscapeRight)
 						{
 							if(Input.acceleration.x > 0.01f)
-								left = true;
-							else if(Input.acceleration.x < -0.01f)
 								right = true;
+							else if(Input.acceleration.x < -0.01f)
+								left = true;
 							
 							
 						}
