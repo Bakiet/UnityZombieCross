@@ -36,6 +36,7 @@ public class EnemyAI : MonoBehaviour
 	public GameObject BodyToCollided;
 	public GameObject ObjectToCollided;
 	public GameObject ObjectToCollided2;*/
+	public GameObject TextureObject;
 
 	private Transform target;
 	Transform enemyTransform;
@@ -153,8 +154,9 @@ public class EnemyAI : MonoBehaviour
 			
 		} else {
 			if(distance != 0){
-				if(distance<=range2 && distance>stop){
-					//					gameObject.GetComponent<BoxCollider2D>().enabled =false;
+				if(distance<=range && distance>stop){
+
+					TextureObject.SetActive(true);
 					//if(gameObject.GetComponent<Animator>()){
 					//gameObject.GetComponent<Animator>().enabled =false;
 					//}

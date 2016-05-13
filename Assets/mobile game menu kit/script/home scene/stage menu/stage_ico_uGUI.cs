@@ -70,56 +70,65 @@ public class stage_ico_uGUI : MonoBehaviour {
 	[HideInInspector]public stage_ico_uGUI next_stage_ico;
 
 	void Start (){
-		/*
-		if (ad == "SmartBottom" || ad == "StartInterstitialAd" || ad == "B2Hide" || ad == "ConncetButtonPress") {
-			
-			AndroidAdMobController.instance.Init (MY_BANNERS_AD_UNIT_ID);
-			
-			//If yoi whant to use Interstisial ad also, you need to set additional ad unin id for Interstisial as well
-			AndroidAdMobController.instance.SetInterstisialsUnitID (MY_INTERSTISIALS_AD_UNIT_ID);
-			
-			
-			//Optional, add data for better ad targeting
-			AndroidAdMobController.instance.SetGender (GoogleGender.Male);
-			AndroidAdMobController.instance.AddKeyword ("game");
-			AndroidAdMobController.instance.SetBirthday (1989, AndroidMonth.MARCH, 18);
-			AndroidAdMobController.instance.TagForChildDirectedTreatment (false);
-			
 
-			
-			AndroidAdMobController.instance.OnInterstitialLoaded += OnInterstisialsLoaded; 
-			AndroidAdMobController.instance.OnInterstitialOpened += OnInterstisialsOpen;
-			
-			
+            //  
+            /*
+            if (ad == "SmartBottom" || ad == "StartInterstitialAd" || ad == "B2Hide" || ad == "ConncetButtonPress") {
 
-			AndroidAdMobController.instance.OnAdInAppRequest += OnInAppRequest;
-			
-			
-			//listen for GooglePlayConnection events
-			GooglePlayConnection.ActionPlayerConnected +=  OnPlayerConnected;
-			GooglePlayConnection.ActionPlayerDisconnected += OnPlayerDisconnected;
+                AndroidAdMobController.instance.Init (MY_BANNERS_AD_UNIT_ID);
 
-			if (StoreInventory.GetItemBalance ("no_ads") <= 0) {
-				count = count +1;
-				countstatic = countstatic + 1;
+                //If yoi whant to use Interstisial ad also, you need to set additional ad unin id for Interstisial as well
+                AndroidAdMobController.instance.SetInterstisialsUnitID (MY_INTERSTISIALS_AD_UNIT_ID);
 
-				Invoke (ad, invoked);
 
-			}
+                //Optional, add data for better ad targeting
+                AndroidAdMobController.instance.SetGender (GoogleGender.Male);
+                AndroidAdMobController.instance.AddKeyword ("game");
+                AndroidAdMobController.instance.SetBirthday (1989, AndroidMonth.MARCH, 18);
+                AndroidAdMobController.instance.TagForChildDirectedTreatment (false);
 
-		}*/
-		//B1Refresh();
-		//B1Show();
-	}
 
-	public void CreateBannerBottomCenter() {
+
+                AndroidAdMobController.instance.OnInterstitialLoaded += OnInterstisialsLoaded; 
+                AndroidAdMobController.instance.OnInterstitialOpened += OnInterstisialsOpen;
+
+
+
+                AndroidAdMobController.instance.OnAdInAppRequest += OnInAppRequest;
+
+
+                //listen for GooglePlayConnection events
+                GooglePlayConnection.ActionPlayerConnected +=  OnPlayerConnected;
+                GooglePlayConnection.ActionPlayerDisconnected += OnPlayerDisconnected;
+
+                if (StoreInventory.GetItemBalance ("no_ads") <= 0) {
+                    count = count +1;
+                    countstatic = countstatic + 1;
+
+                    Invoke (ad, invoked);
+
+                }
+
+            }*/
+            //B1Refresh();
+            //B1Show();
+        }
+
+    public void CreateBannerBottomCenter() {
 		banner1 = AndroidAdMobController.instance.CreateAdBanner(TextAnchor.LowerCenter, GADBannerSize.BANNER);
 	}
 	
 	public void CreateBannerBottomRight() {
 		banner1 = AndroidAdMobController.instance.CreateAdBanner(TextAnchor.LowerRight, GADBannerSize.BANNER);
 	}
-	
+	public void CheckB1B2() {
+		if(banner1 != null){
+		banner1.Hide();
+		}
+		if(banner2 != null){
+			banner2.Hide();
+		}
+	}
 	public void B1Hide() {
 		banner1.Hide();
 	}

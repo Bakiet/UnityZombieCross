@@ -56,6 +56,7 @@ public class BreakJoint : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 
+
 		legToCollided = Motorcycle_Controller2D.legStatic;			
 		trunkToCollided = Motorcycle_Controller2D.trunkStatic;
 		leftarmToCollided = Motorcycle_Controller2D.leftarmStatic;		
@@ -78,7 +79,7 @@ public class BreakJoint : MonoBehaviour {
 		distance = Vector3.Distance (enemyTransform.position, target.position);
 		if (distance != 0) {
 			if (distance <= range && distance > stop) {
-				
+				gameObject.GetComponent<SpriteRenderer>().enabled = true;
 				gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
 				gameObject.GetComponent<Rigidbody2D>().freezeRotation = false;
 				gameObject.GetComponent<BoxCollider2D>().isTrigger = false;

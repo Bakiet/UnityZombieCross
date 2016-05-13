@@ -1974,7 +1974,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					if (time == 1) {
 
 						//CFX_SpawnSystem.Instantiate (effectburn);
-						AudioSource.PlayClipAtPoint (BodyDeadDrownSound, CarBody.transform.position, 10.0f);
+						AudioSource.PlayClipAtPoint (BodyDeadSound, CarBody.transform.position, 10.0f);
 						
 						//		Camera.main.GetComponent<CameraFollow2D> ().target = CarBody.transform; //make camera to follow biker's hips	
 						
@@ -2210,7 +2210,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		hingeJoints [0].enabled = false;
 		hingeJoints [1].enabled = false;
 		hingeJoints [2].enabled = false;
-		hingeJoints [3].enabled = false;
+		//hingeJoints [3].enabled = false;
 
 		
 	}

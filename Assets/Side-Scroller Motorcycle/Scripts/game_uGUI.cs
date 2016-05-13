@@ -705,39 +705,45 @@ public class game_uGUI : MonoBehaviour {
 	{
 		if (my_game_master)
 		{
-			my_game_master.Gui_sfx(my_game_master.tap_sfx);
+            if (my_game_master.press_start_and_go_to_selected != game_master.press_start_and_go_to.map) { 
+                my_game_master.Gui_sfx(my_game_master.tap_sfx);
 			//my_game_master.Unlink_me_to_camera();
 			
-			if(n_stage < my_game_master.total_stages_in_world_n[n_world-1])//there are more stages in this world to play
-			{
-				int next_stage = n_stage+1;
-				int next_world = n_world;
-				if (show_debug_messages)
-					Debug.Log("there are more stage in this world, so go to " + "W"+next_world.ToString()+"_Stage_" + next_stage.ToString());
-				if (my_game_master.show_loading_screen)
-					loading_screen.gameObject.SetActive(true);
-				Application.LoadLevel ("W"+next_world.ToString()+"_Stage_" + next_stage.ToString()); 
-			}
-			else //go to next word if exist
-			{
-				if (n_world < my_game_master.total_stages_in_world_n.Length)
-				{
-					if (my_game_master.world_playable[my_game_master.current_profile_selected][n_world] && my_game_master.stage_playable[my_game_master.current_profile_selected][n_world,0])
-					{
-						int next_world = n_world+1;
-						if (show_debug_messages)
-							Debug.Log("go to next world " + ("W"+next_world.ToString()+"_Stage_1"));
-						if (my_game_master.show_loading_screen)
-							loading_screen.gameObject.SetActive(true);
-						Application.LoadLevel ("W"+next_world.ToString()+"_Stage_1"); 
-					}
-					else 
-						Go_to_stage_screen();
-				}
-				else //this was the last stage, so...
-					my_game_master.All_stages_solved();
-			}
-		}
+			    if(n_stage < my_game_master.total_stages_in_world_n[n_world-1])//there are more stages in this world to play
+			    {
+				    int next_stage = n_stage+1;
+				    int next_world = n_world;
+				    if (show_debug_messages)
+					    Debug.Log("there are more stage in this world, so go to " + "W"+next_world.ToString()+"_Stage_" + next_stage.ToString());
+				    if (my_game_master.show_loading_screen)
+					    loading_screen.gameObject.SetActive(true);
+				    Application.LoadLevel ("W"+next_world.ToString()+"_Stage_" + next_stage.ToString()); 
+			    }
+			    else //go to next word if exist
+			    {
+				    if (n_world < my_game_master.total_stages_in_world_n.Length)
+				    {
+					    if (my_game_master.world_playable[my_game_master.current_profile_selected][n_world] && my_game_master.stage_playable[my_game_master.current_profile_selected][n_world,0])
+					    {
+						    int next_world = n_world+1;
+						    if (show_debug_messages)
+							    Debug.Log("go to next world " + ("W"+next_world.ToString()+"_Stage_1"));
+						    if (my_game_master.show_loading_screen)
+							    loading_screen.gameObject.SetActive(true);
+						    Application.LoadLevel ("W"+next_world.ToString()+"_Stage_1"); 
+					    }
+					    else 
+						    Go_to_stage_screen();
+				    }
+				    else //this was the last stage, so...
+					    my_game_master.All_stages_solved();
+			    }
+            }
+            else
+            {
+                Go_to_stage_screen();
+            }
+        }
 		else
 		{
 			if (show_debug_warnings)
@@ -1075,8 +1081,8 @@ public class game_uGUI : MonoBehaviour {
 					my_game_master.Gui_sfx(my_game_master.music_stage_win);
 
 				if (my_game_master.press_start_and_go_to_selected == game_master.press_start_and_go_to.map)
-					next_stage_ico.SetActive(false);
-				   //next_stage_ico.SetActive(true);
+					//next_stage_ico.SetActive(false);
+				   next_stage_ico.SetActive(true);
 				else
 					next_stage_ico.SetActive(true);
 				
@@ -1243,7 +1249,7 @@ public class game_uGUI : MonoBehaviour {
 					my_game_master.Gui_sfx(my_game_master.music_stage_win);
 				
 				if (my_game_master.press_start_and_go_to_selected == game_master.press_start_and_go_to.map)
-					next_stage_ico.SetActive(false);
+					next_stage_ico.SetActive(true);
 				else
 					next_stage_ico.SetActive(true);
 				
