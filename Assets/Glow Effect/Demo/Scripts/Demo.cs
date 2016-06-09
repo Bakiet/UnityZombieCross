@@ -164,8 +164,8 @@ namespace GlowEffect
 			//glowGroup = GameObject.Find ("RearWheel");
             glowEffect.enabled = enableGlow;
             if (enableGlow) {
-                ActiveRecursively(glowGroup.transform, (int)glowMode % 2 == 0);
-                ActiveRecursively(alphaGlowGroup.transform, (int)glowMode % 2 == 1);
+               // ActiveRecursively(glowGroup.transform, (int)glowMode % 2 == 0);
+               // ActiveRecursively(alphaGlowGroup.transform, (int)glowMode % 2 == 1);
                 glowEffect.glowMode = glowMode;
                 glowEffect.blendMode = blendMode;
                 glowEffect.downsampleSize = (int)Mathf.Pow(2, downsamplePower);

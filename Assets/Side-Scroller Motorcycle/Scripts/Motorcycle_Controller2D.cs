@@ -14,6 +14,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	public Collider2D backwardsBtn; // Collider2D of the backwards button.
 	public Collider2D tiltForwardsBtn; // Collider2D of the tilt forwards button.
 	public Collider2D tiltBackwardsBtn; // Collider2D of the tilt backwards button.
+	public Collider2D tiltUpBtn; // Collider2D of the tilt up button.
 
 	public GameObject CFXM2_Soul;
 	public GameObject CFXM_ExplosionTextNoSmoke;
@@ -24,6 +25,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 
 	private int LastNotificationId = 0;
 	public bool testing = false;
+	public static bool touchground = false;
 	public static bool iftesting = false;
 	private  string ACHIEVEMENT_ID_First_Freeze = "CgkIq6GznYALEAIQDg";
 	private  string ACHIEVEMENT_ID_First_Buy = "CgkIq6GznYALEAIQDQ";
@@ -148,7 +150,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	
 	
 	
-	private bool onGround = false;
+	public static bool onGround = false;
 	private bool inAir = false;
 	
 	//used to start/stop dirt particles
@@ -199,6 +201,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	private bool brake = false;	
 	private bool left = false;
 	private bool right = false;
+	private bool up = false;
 	private bool pause = false;
 	private bool restart = false;
 	private bool leftORright = false;			
@@ -459,6 +462,8 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 
 	private int healtcount = 0;
 	private int virtualmoneycount = 0;
+
+	public float forcejump = 20.0f;
 
 	public game_master my_game_master;
 	public static int my_item_ID;
@@ -851,6 +856,12 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		}else if(tiltBackwardsBtn == Physics2D.OverlapPoint(touchPosition) && Input.GetTouch(position).phase == TouchPhase.Ended){
 			left = false;
 		}
+		if(tiltUpBtn == Physics2D.OverlapPoint(touchPosition) && Input.GetTouch(position).phase == TouchPhase.Began){
+			up = true;
+			// Verify if the tilt backward button is released.
+		}else if(tiltUpBtn == Physics2D.OverlapPoint(touchPosition) && Input.GetTouch(position).phase == TouchPhase.Ended){
+			up = false;
+		}
 		
 	}
 	public void SendScore() {
@@ -1159,6 +1170,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		backwardsBtn = GameObject.Find ("brake").GetComponent<Collider2D>();
 		tiltForwardsBtn = GameObject.Find ("right").GetComponent<Collider2D>(); 
 		tiltBackwardsBtn = GameObject.Find ("left").GetComponent<Collider2D>();
+		tiltUpBtn = GameObject.Find ("up").GetComponent<Collider2D>();
 
 		/*
 		throttleTexture = GameObject.Find ("throttle").GetComponent<Button>();
@@ -1265,6 +1277,9 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					//effectnitro.transform.position = Body2D.transform.position;
 					effectnitrostatic.transform.position = effectnitro.transform.position;	
 				} else {
+						if(effectnitro == true){
+							effectnitro.SetActive (false);
+						}
 				//	effectnitro.SetActive (false);
 				}
 
@@ -1272,14 +1287,20 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					if (ifnitro) {
 						//acce / vertical / time / speedmotor
 							if (forMobile) {
-								CurrentVelocity = 20 * InputGetAxis ("Vertical") * Time.deltaTime * 20;
+
+								CurrentVelocity = Acceleration * InputGetAxis ("Vertical") * Time.deltaTime * SpeedMotorMobile;
+								//CurrentVelocity = 20 * InputGetAxis ("Vertical") * Time.deltaTime * 20;
 
 								//-maxspeed / maxspeed
-								Velocity = Mathf.Clamp (CurrentVelocity, -20, 100);
+
+								Velocity = Mathf.Clamp (CurrentVelocity, -20, 10);
 							}else{
-								CurrentVelocity = 20 * Input.GetAxis ("Vertical") * Time.deltaTime * 10;
+
+								CurrentVelocity = Acceleration * InputGetAxis ("Vertical") * Time.deltaTime * SpeedMotorMobile;
+								//CurrentVelocity = 20 * Input.GetAxis ("Vertical") * Time.deltaTime * 10;
 								//-maxspeed / maxspeed
-								Velocity = Mathf.Clamp (CurrentVelocity, -20, 100);
+
+								Velocity = Mathf.Clamp (CurrentVelocity, -20, 10);
 							}
 
 						
@@ -1370,8 +1391,17 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					CarBody.GetComponent<Rigidbody2D> ().AddTorque (280 * -inAirRotationSpeed * Time.deltaTime, 0);   
 
 				}
-				
-			
+				if (up) {
+						if(touchground){
+						//if(CarBody.GetComponent<Rigidbody2D> ().velocity < 1f){
+						//rigidbody.velocity += jumpSpeed * Vector3.up;
+						CarBody.GetComponent<Rigidbody2D> ().velocity += forcejump * Vector2.up;
+						}
+						//CarBody.GetComponent<Rigidbody2D> ().velocity += 20.0f * Vector2.zero;
+						//CarBody.GetComponent<Rigidbody2D> ().AddTorque (Vector2.up * 20f,ForceMode2D.Impulse);
+						//}
+				}
+
 				if (Physics.Raycast (rearWheel.transform.position, -CarBody.transform.up, out hit, 0.4f)) { // cast ray to know if motorcycle is in air or grounded
 					if (hit.collider.tag == "Ground") //if motorcycle is standig on object taged as "Ground"
 						onGround = true;
@@ -1688,6 +1718,15 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 							//setVerticalAxis(-1);
 							left = false;
 						}
+						if (Input.GetKeyDown("space")) {
+							up = true;
+							//setVerticalAxis(1);
+						} else {
+							//setVerticalAxis(-1);
+							up = false;
+						}
+
+
 						/*if (Input.GetKeyDown (KeyCode.Q)) {
 						ifnitro = true;
 
@@ -2210,7 +2249,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		hingeJoints [0].enabled = false;
 		hingeJoints [1].enabled = false;
 		hingeJoints [2].enabled = false;
-		//hingeJoints [3].enabled = false;
+		hingeJoints [3].enabled = false;
 
 		
 	}

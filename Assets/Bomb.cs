@@ -31,6 +31,7 @@ public class Bomb : MonoBehaviour {
 	public bool isAutomaticBackWheel = true;
 	public GameObject ObjectToCollided;
 	public GameObject ObjectToCollided2;
+	public GameObject ObjectToCollided3;
 	public GameObject ObjectToExploted;
 
 
@@ -139,6 +140,7 @@ public class Bomb : MonoBehaviour {
 		else {
 			ObjectToCollided2 = ObjectToCollided2;
 		}
+		ObjectToCollided3 = GameObject.FindGameObjectWithTag ("Ground");
 		//ObjectToCollided = Motorcycle_Controller2D.frontWheelStatic;
 		ObjectToExploted = Explotion;
 		bomb = ObjectToExploted;
@@ -186,19 +188,22 @@ public class Bomb : MonoBehaviour {
 		foreach (Collider2D hit in colliders) {
 			if(ObjectToCollided != null || ObjectToCollided2 !=null)
 			{
+
+
 				if (hit.gameObject.name == ObjectToCollided.name ||  hit.gameObject.name == ObjectToCollided2.name) {
 
-					if(timeToTouch == countTimes){
-						if(ifShake){
-							StartShake();
-						}
-						hitColliderStatic = hit;
-						Invoke ("TimeEffectExecuteAll", timeEffect);
+						if(timeToTouch == countTimes){
+							if(ifShake){
+								StartShake();
+							}
+							hitColliderStatic = hit;
+							Invoke ("TimeEffectExecuteAll", timeEffect);
 
-					}
-					else{
-						countTimes = countTimes +1;
-					}			
+						}
+						else{
+							countTimes = countTimes +1;
+						}	
+
 				}
 				else{}
 			}

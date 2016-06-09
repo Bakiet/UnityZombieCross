@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEditor;
 using System.Collections;
 
@@ -105,8 +105,8 @@ public class SA_EditorTool {
 
 
 	public static void ChnageDefineState(string file, string tag, bool IsEnabled) {
-		if(FileStaticAPI.IsFileExists(file)) {
-			string content = FileStaticAPI.Read(file);
+		if(SA_FileStaticAPI.IsFileExists(file)) {
+			string content = SA_FileStaticAPI.Read(file);
 			//	Debug.Log(file);
 			//Debug.Log(content);
 			
@@ -124,7 +124,7 @@ public class SA_EditorTool {
 			}
 			//		Debug.Log(content);
 			
-			FileStaticAPI.Write(file, content);
+			SA_FileStaticAPI.Write(file, content);
 		}		
 	}
 

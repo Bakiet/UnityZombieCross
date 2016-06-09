@@ -229,6 +229,98 @@ public class stage_ico_uGUI : MonoBehaviour {
 	public void ShowInterstitialAd() {
 		AndroidAdMobController.instance.ShowInterstitialAd ();
 	}
+	public void pad(){
+		if (my_game_master.latest_stage_played_world[my_game_master.current_profile_selected] == world_number //if this is the icon of the lastest stage played
+		    && my_game_master.latest_stage_played_stage[my_game_master.current_profile_selected] == stage_number)
+		{
+			Just_show_tail_on();
+			
+			if (my_game_master.show_star_score)
+			{
+				if (my_game_master.star_score_difference > 0) //if better score, show animation
+				{
+					
+					Remove_padlock();
+					
+					for(int i = 0; i < star_off.Length; i++)
+					{
+						star_on[i].SetActive(false);
+						star_off[i].SetActive(true);
+					}
+					
+					if (this.gameObject.activeInHierarchy)
+					{
+						if (my_game_master.star_score_difference == 3)
+							StartCoroutine(Star_animation(true,true,true));
+						else if (my_game_master.star_score_difference == 2)
+						{
+							if (star_number == 2)
+								StartCoroutine(Star_animation(true,true,false));
+							else if (star_number == 3)
+							{
+								star_on[0].SetActive(true);
+								StartCoroutine(Star_animation(false,true,true));
+							}
+						}
+						else if (my_game_master.star_score_difference == 1)
+						{
+							if (star_number == 1)
+								StartCoroutine(Star_animation(true,false,false));
+							else if (star_number == 2)
+							{
+								star_on[0].SetActive(true);
+								StartCoroutine(Star_animation(false,true,false));
+							}
+							else if (star_number == 3)
+							{
+								star_on[0].SetActive(true);
+								star_on[1].SetActive(true);
+								StartCoroutine(Star_animation(false,false,true));
+							}
+						}
+					}
+					else
+						Just_show_the_score();
+					
+				}
+				else
+				{
+					Just_show_the_score();
+				}
+			}
+			else
+			{
+				Just_show_the_score();
+			}
+		}
+		else if (my_game_master.play_this_stage_to_progress_in_the_game_world[my_game_master.current_profile_selected] == world_number-1
+		         && my_game_master.play_this_stage_to_progress_in_the_game_stage[my_game_master.current_profile_selected] == stage_number-1)//this is the next stage to play to_progress_in_the_game
+		{	
+			if (my_tail_dot.Length > 0)
+			{	
+				if (my_game_master.dot_tail_turn_on[my_game_master.current_profile_selected][world_number-1,stage_number-1])
+					Just_show_the_score();
+				else
+				{
+					if (my_manage_menu_uGUI.stage_ico_update_animation_is_running)
+						Put_padlock();
+					else
+					{
+						my_game_master.dot_tail_turn_on[my_game_master.current_profile_selected][world_number-1,stage_number-1] = true;
+						Remove_padlock();
+						Just_show_the_score();
+					}
+				}
+			}
+			else
+				Just_show_the_score();
+		}
+		else //just show the score
+		{
+			Just_show_the_score();
+		}
+		
+	}
 	// Use this for initialization
 	public void My_start() {
 
@@ -241,106 +333,14 @@ public class stage_ico_uGUI : MonoBehaviour {
 		
 		if (!padlock)//if this level il playable
 			{
-
-			if (my_game_master.latest_stage_played_world[my_game_master.current_profile_selected] == world_number //if this is the icon of the lastest stage played
-			    && my_game_master.latest_stage_played_stage[my_game_master.current_profile_selected] == stage_number)
-				{
-				Just_show_tail_on();
-
-				if (my_game_master.show_star_score)
-					{
-					if (my_game_master.star_score_difference > 0) //if better score, show animation
-						{
-
-						Remove_padlock();
-
-						for(int i = 0; i < star_off.Length; i++)
-							{
-							star_on[i].SetActive(false);
-							star_off[i].SetActive(true);
-							}
-
-						if (this.gameObject.activeInHierarchy)
-							{
-							if (my_game_master.star_score_difference == 3)
-								StartCoroutine(Star_animation(true,true,true));
-							else if (my_game_master.star_score_difference == 2)
-								{
-								if (star_number == 2)
-									StartCoroutine(Star_animation(true,true,false));
-								else if (star_number == 3)
-									{
-									star_on[0].SetActive(true);
-									StartCoroutine(Star_animation(false,true,true));
-									}
-								}
-							else if (my_game_master.star_score_difference == 1)
-								{
-								if (star_number == 1)
-									StartCoroutine(Star_animation(true,false,false));
-								else if (star_number == 2)
-									{
-									star_on[0].SetActive(true);
-									StartCoroutine(Star_animation(false,true,false));
-									}
-								else if (star_number == 3)
-									{
-									star_on[0].SetActive(true);
-									star_on[1].SetActive(true);
-									StartCoroutine(Star_animation(false,false,true));
-									}
-								}
-							}
-						else
-							Just_show_the_score();
-
-						}
-					else
-						{
-						Just_show_the_score();
-						}
-					}
-				else
-					{
-					Just_show_the_score();
-					}
-				}
-			else if (my_game_master.play_this_stage_to_progress_in_the_game_world[my_game_master.current_profile_selected] == world_number-1
-			         && my_game_master.play_this_stage_to_progress_in_the_game_stage[my_game_master.current_profile_selected] == stage_number-1)//this is the next stage to play to_progress_in_the_game
-				{	
-				if (my_tail_dot.Length > 0)
-					{	
-					if (my_game_master.dot_tail_turn_on[my_game_master.current_profile_selected][world_number-1,stage_number-1])
-						Just_show_the_score();
-					else
-						{
-						if (my_manage_menu_uGUI.stage_ico_update_animation_is_running)
-							Put_padlock();
-						else
-							{
-							my_game_master.dot_tail_turn_on[my_game_master.current_profile_selected][world_number-1,stage_number-1] = true;
-							Remove_padlock();
-							Just_show_the_score();
-							}
-						}
-					}
-				else
-					Just_show_the_score();
-				}
-			else //just show the score
-				{
-				Just_show_the_score();
-				}
-		
-
-
-
+			pad();
 
 		}
 		else//you can't play this stage yet
 		{
 			Reset_tail();
 			Put_padlock();
+			pad();
 		}
 
 	}
@@ -562,6 +562,11 @@ public class stage_ico_uGUI : MonoBehaviour {
 				Invoke("Load_stage",0.5f);
 				}
 			}
+		/*if(stage_number == 1){
+			my_game_master.Gui_sfx(my_game_master.tap_sfx);
+			my_game_master.my_ads_master.Call_ad(my_game_master.my_ads_master.ads_before_start_to_play_a_stage);
+			Invoke("Load_stage",0.5f);
+		}*/
 
 	}
 

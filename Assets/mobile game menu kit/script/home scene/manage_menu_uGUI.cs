@@ -257,6 +257,7 @@ public class manage_menu_uGUI : MonoBehaviour, MPLobbyListener {
 	void Check_internet()
 	{
 		if ( (Application.internetReachability == NetworkReachability.NotReachable) || !my_game_master.my_ads_master.Advertisement_isInitialized()) 
+		//	if ( (Application.internetReachability == NetworkReachability.NotReachable)) 
 			{
 			internet_off_ico.SetActive(true);
 			Invoke("Check_internet",1);

@@ -161,12 +161,9 @@ public class AN_GMSGeneralProxy : MonoBehaviour {
 	}
 
 
-
 	public static void OnApplicationPause(bool isPaused) {
 		CallActivityFunction("OnApplicationPause", isPaused);
 	}
-
-
 	
 	// --------------------------------------
 	// Saved Games Bridge
@@ -197,29 +194,4 @@ public class AN_GMSGeneralProxy : MonoBehaviour {
 	public static void DeleteSpanshotByName_Bridge(string name) {
 		CallActivityFunction("DeleteSpanshotByName_Bridge", name);
 	}
-
-	//--------------------------------------
-	// Goole Cloud
-	//--------------------------------------
-	
-	public static void ListStates() {
-		CallActivityFunction("ListStates_Bridge");
-	}
-	
-	public static void UpdateState(int stateKey, string data) {
-		CallActivityFunction("UpdateState_Bridge", stateKey.ToString(), data);
-	}
-	
-	public static void ResolveState(int stateKey, string resolvedData, string resolvedVersion) {
-		CallActivityFunction("ResolveState_Bridge", stateKey.ToString(), resolvedData, resolvedVersion);
-	}
-	
-	public static void DeleteState(int stateKey)  {
-		CallActivityFunction("DeleteState_Bridge", stateKey.ToString());
-	}
-	
-	public static void LoadState(int stateKey)  {
-		CallActivityFunction("LoadState_Bridge", stateKey.ToString());
-	}
-
 }

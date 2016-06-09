@@ -59,6 +59,7 @@ public class manage_linear_map : MonoBehaviour {
 					
 					}
 				}
+
 			my_manage_menu_uGUI.stage_screen_target_button = stage_icons[0].gameObject;
 			if (this.gameObject.activeSelf)
 				my_manage_menu_uGUI.Mark_this_button(my_manage_menu_uGUI.stage_screen_target_button);

@@ -72,7 +72,7 @@ public class GooglePlayerTemplate {
 		}
 		
 		
-		WWWTextureLoader loader = WWWTextureLoader.Create();
+		SA_WWWTextureLoader loader = SA_WWWTextureLoader.Create();
 		loader.OnLoad += OnProfileImageLoaded;
 		loader.LoadTexture(_hiResImageUrl);
 	}
@@ -86,7 +86,7 @@ public class GooglePlayerTemplate {
 		}
 
 
-		WWWTextureLoader loader = WWWTextureLoader.Create();
+		SA_WWWTextureLoader loader = SA_WWWTextureLoader.Create();
 		loader.OnLoad += OnProfileIconLoaded;
 		loader.LoadTexture(_iconImageUrl);
 	}

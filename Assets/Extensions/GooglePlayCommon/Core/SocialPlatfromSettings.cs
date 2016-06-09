@@ -9,7 +9,7 @@ using UnityEditor;
 
 public class SocialPlatfromSettings : ScriptableObject {
 
-	public const string VERSION_NUMBER = "7.4";
+	public const string VERSION_NUMBER = "7.6";
 	public const string FB_SDK_VERSION_NUMBER = "6.2.2";
 
 	public bool ShowImageSharingSettings = false;
@@ -61,7 +61,7 @@ public class SocialPlatfromSettings : ScriptableObject {
 					#if UNITY_EDITOR
 					//string properPath = Path.Combine(Application.dataPath, ISNSettingsPath);
 
-					FileStaticAPI.CreateFolder(SA_Config.SettingsPath);
+					SA_FileStaticAPI.CreateFolder(SA_Config.SettingsPath);
 
 					/*
 					if (!Directory.Exists(properPath)) {

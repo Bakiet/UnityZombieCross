@@ -120,7 +120,7 @@ public class SavedGamesExample : MonoBehaviour {
 
 	private void ShowSavedGamesUI() {
 		int maxNumberOfSavedGamesToShow = 5;
-		GooglePlaySavedGamesManager.instance.ShowSavedGamesUI("See My Saves", maxNumberOfSavedGamesToShow);
+		GooglePlaySavedGamesManager.Instance.ShowSavedGamesUI("See My Saves", maxNumberOfSavedGamesToShow);
 	}
 
 

@@ -46,7 +46,7 @@ public class StartAndroidAds : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		if (ad == "SmartBottom" || ad == "StartInterstitialAd" || ad == "B2Hide" || ad == "ConncetButtonPress") {
+		//if (ad == "SmartTop" ||  ad == "SmartBottom" || ad == "StartInterstitialAd" || ad == "B2Hide" || ad == "ConncetButtonPress") {
 
 				AndroidAdMobController.instance.Init (MY_BANNERS_AD_UNIT_ID);
 			
@@ -97,12 +97,12 @@ public class StartAndroidAds : MonoBehaviour {
 				count = count +1;
 				countstatic = countstatic + 1;
 				//if(countstatic == 1){
-					//if(timestoexe <= count){
+					if(timestoexe <= count){
 					Invoke (ad, invoked);
-					//}
+					}
 				//}
 			}
-		}
+		//}
 	}
 
 	public void StartInterstitialAd() {

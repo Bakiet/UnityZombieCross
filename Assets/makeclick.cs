@@ -137,13 +137,13 @@ public class makeclick : MonoBehaviour {
 	
 	public void ShowSavedGamesUI() {
 		int maxNumberOfSavedGamesToShow = 5;
-		GooglePlaySavedGamesManager.instance.ShowSavedGamesUI("See My Saves", maxNumberOfSavedGamesToShow);
+		GooglePlaySavedGamesManager.Instance.ShowSavedGamesUI("See My Saves", maxNumberOfSavedGamesToShow);
 	}
 	
 	
 	public void LoadSavedGames() {
 		GooglePlaySavedGamesManager.ActionAvailableGameSavesLoaded += ActionAvailableGameSavesLoaded;
-		GooglePlaySavedGamesManager.instance.LoadAvailableSavedGames();
+		GooglePlaySavedGamesManager.Instance.LoadAvailableSavedGames();
 		
 		//SA_StatusBar.text = "Loading saved games.. ";
 	}
@@ -152,7 +152,7 @@ public class makeclick : MonoBehaviour {
 		
 		GooglePlaySavedGamesManager.ActionAvailableGameSavesLoaded -= ActionAvailableGameSavesLoaded;
 		if(res.IsSucceeded) {
-			foreach(GP_SnapshotMeta meta in GooglePlaySavedGamesManager.instance.AvailableGameSaves) {
+			foreach(GP_SnapshotMeta meta in GooglePlaySavedGamesManager.Instance.AvailableGameSaves) {
 				Debug.Log("Meta.Title: " 					+ meta.Title);
 				Debug.Log("Meta.Description: " 				+ meta.Description);
 				Debug.Log("Meta.CoverImageUrl): " 			+ meta.CoverImageUrl);
@@ -160,8 +160,8 @@ public class makeclick : MonoBehaviour {
 				Debug.Log("Meta.TotalPlayedTime" 			+ meta.TotalPlayedTime);
 			}
 			
-			if(GooglePlaySavedGamesManager.instance.AvailableGameSaves.Count > 0) {
-				GP_SnapshotMeta s =  GooglePlaySavedGamesManager.instance.AvailableGameSaves[0];
+			if(GooglePlaySavedGamesManager.Instance.AvailableGameSaves.Count > 0) {
+				GP_SnapshotMeta s =  GooglePlaySavedGamesManager.Instance.AvailableGameSaves[0];
 				AndroidDialog dialog = AndroidDialog.Create("Load Snapshot?", "Would you like to load " + s.Title);
 				dialog.ActionComplete += OnSpanshotLoadDialogComplete;
 			}
@@ -173,8 +173,8 @@ public class makeclick : MonoBehaviour {
 	
 	void OnSpanshotLoadDialogComplete (AndroidDialogResult res) {
 		if(res == AndroidDialogResult.YES) {
-			GP_SnapshotMeta s =  GooglePlaySavedGamesManager.instance.AvailableGameSaves[0];
-			GooglePlaySavedGamesManager.instance.LoadSpanshotByName(s.Title);
+			GP_SnapshotMeta s =  GooglePlaySavedGamesManager.Instance.AvailableGameSaves[0];
+			GooglePlaySavedGamesManager.Instance.LoadSpanshotByName(s.Title);
 		}
 	}
 	
@@ -268,7 +268,7 @@ public class makeclick : MonoBehaviour {
 
 		
 		GooglePlaySavedGamesManager.ActionGameSaveResult += ActionGameSaveResult;
-		GooglePlaySavedGamesManager.instance.CreateNewSnapshot(currentSaveName, description, Screenshot, Random.Range(1, 10000).ToString(), TotalPlayedTime);
+		GooglePlaySavedGamesManager.Instance.CreateNewSnapshot(currentSaveName, description, Screenshot, Random.Range(1, 10000).ToString(), TotalPlayedTime);
 		
 		
 		
@@ -295,25 +295,25 @@ public class makeclick : MonoBehaviour {
 				Invoke (functioncalled, 0);
 			}
 		}
-	//	SPFacebook.instance.OnInitCompleteAction += OnInit;
-	//	SPFacebook.instance.OnFocusChangedAction += OnFocusChanged;
+	//	SPFacebook.Instance.OnInitCompleteAction += OnInit;
+	//	SPFacebook.Instance.OnFocusChangedAction += OnFocusChanged;
 		
 		
-	//	SPFacebook.instance.OnAuthCompleteAction += OnAuth;
+	//	SPFacebook.Instance.OnAuthCompleteAction += OnAuth;
 		
 		
 		
-	//	SPFacebook.instance.OnPostingCompleteAction += OnPost;
+	//	SPFacebook.Instance.OnPostingCompleteAction += OnPost;
 
 		
-	//	SPFacebook.instance.Init();
+	//	SPFacebook.Instance.Init();
 
 
 	
 	}
 	/*public void Connect() {
 		if(!IsAuntificated) {
-			SPFacebook.instance.Login("email,publish_actions");
+			SPFacebook.Instance.Login("email,publish_actions");
 
 		} else {
 			LogOut();
@@ -322,7 +322,7 @@ public class makeclick : MonoBehaviour {
 	}
 	*/
 	/*private void OnInit() {
-		if(SPFacebook.instance.IsLoggedIn) {
+		if(SPFacebook.Instance.IsLoggedIn) {
 			IsAuntificated = true;
 		} else {
 
@@ -345,7 +345,7 @@ public class makeclick : MonoBehaviour {
 	}
 	
 /*	private void OnAuth(FBResult result) {
-		if(SPFacebook.instance.IsLoggedIn) {
+		if(SPFacebook.Instance.IsLoggedIn) {
 			IsAuntificated = true;
 
 		} else {
@@ -371,7 +371,7 @@ public class makeclick : MonoBehaviour {
 		
 		IsAuntificated = false;
 		
-		SPFacebook.instance.Logout();
+		SPFacebook.Instance.Logout();
 	}
 	*/
 	public void PostNativeScreenshot() {
@@ -485,7 +485,7 @@ public class makeclick : MonoBehaviour {
 	// Update is called once per frame
 
 	public void SmartBottom() {
-		banner2 = AndroidAdMobController.instance.CreateAdBanner(TextAnchor.LowerCenter, GADBannerSize.SMART_BANNER);
+		banner2 = AndroidAdMobController.Instance.CreateAdBanner(TextAnchor.LowerCenter, GADBannerSize.SMART_BANNER);
 		//banner2.Show();
 	}
 	

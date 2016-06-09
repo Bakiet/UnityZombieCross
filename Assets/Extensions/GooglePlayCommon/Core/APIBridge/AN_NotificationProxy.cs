@@ -44,7 +44,8 @@ public class AN_NotificationProxy {
 							 builder.Color == null ? string.Empty : string.Format("{0}|{1}|{2}|{3}", 255 * builder.Color.Value.a,
 		                                                     										 255 * builder.Color.Value.r,
 		                                                     										 255 * builder.Color.Value.g,
-		                                                     										 255 * builder.Color.Value.b));
+		                                                     										 255 * builder.Color.Value.b),
+		                     builder.WakeLockTime);
 	}
 	
 	public static void CanselLocalNotification(int id) {

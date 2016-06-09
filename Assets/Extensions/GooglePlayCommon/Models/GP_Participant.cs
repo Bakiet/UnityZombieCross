@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System;
 using System.Collections;
 
@@ -46,7 +46,7 @@ public class GP_Participant  {
 	}
 
 	public void LoadBigPhoto() {
-		WWWTextureLoader loader = WWWTextureLoader.Create();
+		SA_WWWTextureLoader loader = SA_WWWTextureLoader.Create();
 		loader.OnLoad += HandheBigPhotoLoaed;
 		loader.LoadTexture(_HiResImageUrl);
 	}
@@ -54,7 +54,7 @@ public class GP_Participant  {
 	
 	public void LoadSmallPhoto() {
 		
-		WWWTextureLoader loader = WWWTextureLoader.Create();
+		SA_WWWTextureLoader loader = SA_WWWTextureLoader.Create();
 		loader.OnLoad += HandheSmallPhotoLoaed;
 		loader.LoadTexture(_IconImageUrl);
 

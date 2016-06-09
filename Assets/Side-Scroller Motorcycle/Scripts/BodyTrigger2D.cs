@@ -23,6 +23,8 @@ public class BodyTrigger2D : MonoBehaviour {
 	public GUIText crashText;		
 	public Color winTextColor;
 	public Color crashTextColor;
+
+    private GameObject nitrobject;
 	
 	//used to know if next level exists.
 	private bool nextLevel = false;
@@ -84,9 +86,19 @@ public class BodyTrigger2D : MonoBehaviour {
 		oohCrowdSC.clip = oohCrowdSound;
 		//--------------------------------------------------
 	}
-	
-	void OnColliderEnter2D(Collision2D obj)
+	void OnCollisionExit2D(Collision2D obj)
+	{
+		if (obj.gameObject.tag == "Ground") {
+			Motorcycle_Controller2D.touchground = false;
+			Motorcycle_Controller2D.onGround = false;
+		}
+	}
+	void OnCollisionEnter2D(Collision2D obj)
 	{	
+		if (obj.gameObject.tag == "Ground") {
+			Motorcycle_Controller2D.touchground = true;
+			Motorcycle_Controller2D.onGround = true;
+		}
 
 		if (obj.gameObject.tag == "Coin") {
 			
@@ -114,7 +126,9 @@ public class BodyTrigger2D : MonoBehaviour {
 			//Motorcycle_Controller2D.effectstatic.transform.position = position.transform.position;
 			//CFX_SpawnSystem.Instantiate (Motorcycle_Controller2D.effectnitrostatic);
 			AudioSource.PlayClipAtPoint (NitroSound, Motorcycle_Controller2D.backWheelStatic.transform.position, 10.0f);
-			Destroy (obj.gameObject);
+            nitrobject = obj.gameObject;
+            obj.gameObject.SetActive(false);
+			//Destroy (obj.gameObject);
 			Invoke ("NitroOff", 8);
 			
 		}
@@ -336,10 +350,13 @@ public class BodyTrigger2D : MonoBehaviour {
 			//Motorcycle_Controller2D.effectstatic.transform.position = position.transform.position;
 			//CFX_SpawnSystem.Instantiate (Motorcycle_Controller2D.effectnitrostatic);
 			AudioSource.PlayClipAtPoint (NitroSound, Motorcycle_Controller2D.backWheelStatic.transform.position, 10.0f);
-			Destroy (obj.gameObject);
-			Invoke ("NitroOff", 8);
+            nitrobject = obj.gameObject;
+            obj.gameObject.SetActive(false);
+            //Destroy (obj.gameObject);
+            Invoke ("NitroOff", 8);
+            
 
-		}
+        }
 		if (obj.gameObject.tag == "Finish" && !Motorcycle_Controller2D.crash) {//if entered in finish trigger
 			finish = true;
 
@@ -548,7 +565,10 @@ public class BodyTrigger2D : MonoBehaviour {
 	{
 		Motorcycle_Controller2D.ifnitro = false;
 		Motorcycle_Controller2D.offnitro = true;
-	}
+        nitrobject.SetActive(true);
+
+
+    }
 	
 	void Update()
 	{
