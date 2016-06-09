@@ -13,6 +13,7 @@ public class game_uGUI : MonoBehaviour {
 	//example link to your app on android market
 	private string rateUrl = "https://play.google.com/store/apps/details?id=unity.zombiecross";
 	*/
+	private int next_tutorial = 0;
 	private int healtcount = 0;
 	private const string LEADERBOARD_ID = "CgkIq6GznYALEAIQAA";
 	private const string LEADERBOARD_MULTIPLAYER_ID = "CgkIq6GznYALEAIQAQ";
@@ -34,7 +35,9 @@ public class game_uGUI : MonoBehaviour {
 	[HideInInspector]public Transform pause_screen;
 	[HideInInspector]public Transform loading_screen;
 	public Transform options_screen;
+	public Transform tutorial_screen;
 	options_menu my_options;
+
 	[HideInInspector]public Transform win_screen;
 	[HideInInspector]public Transform lose_screen;
 	[HideInInspector]public GameObject retry_button;
@@ -43,7 +46,8 @@ public class game_uGUI : MonoBehaviour {
 	[HideInInspector]public continue_window my_continue_window;
 	
 	//what button select with the pad when open this screen
-	[HideInInspector]public GameObject options_screen_target_button;
+	public GameObject tutorial_screen_target_button;
+	public GameObject options_screen_target_button;
 	[HideInInspector]public GameObject pause_screen_target_button;
 	[HideInInspector]public GameObject win_screen_target_button;
 	[HideInInspector]public GameObject lose_screen_target_button;
@@ -77,7 +81,7 @@ public class game_uGUI : MonoBehaviour {
 	
 	public bool show_int_score;
 	public bool show_stage_record;
-	[HideInInspector]public GameObject stars_ico;
+	public GameObject stars_ico;
 	[HideInInspector]public Text stars_count;
 	
 	[HideInInspector]public GameObject lose_screen_lives_ico;
@@ -89,7 +93,10 @@ public class game_uGUI : MonoBehaviour {
 	public float delay_start_star_score_animation = 1;
 	public float delay_star_creation = 1; // recommend value = 1
 	[HideInInspector]public GameObject star_container;
-	[HideInInspector]public GameObject[] stars_on;
+	public GameObject images_tutorial_container;
+	public GameObject[] tutorial_on;
+
+	public GameObject[] stars_on;
 	int invoke_count = 0;
 	[HideInInspector]public int star_number;
 	[HideInInspector]public int int_score;
@@ -242,6 +249,7 @@ public class game_uGUI : MonoBehaviour {
 
 	void Start () {
 	   
+
 		GetComponent<AudioSource>().volume = 0.4f;
 		n_world = Convert.ToInt32(Application.loadedLevelName.Substring(1,1));
 		if(Application.loadedLevelName.Length > 10){
@@ -275,6 +283,7 @@ public class game_uGUI : MonoBehaviour {
 		}*/
 
 		my_options = options_screen.GetComponent<options_menu>();
+
 		//normal_emoticon = perfect_target.sprite;
 
 		if (game_master.game_master_obj)
@@ -285,7 +294,7 @@ public class game_uGUI : MonoBehaviour {
 		funds = StoreInventory.GetItemBalance("Coins");
 
 		Update_virtual_money (funds);
-		
+
 		if (my_game_master)
 		{
 			//set ads gui
@@ -336,7 +345,8 @@ public class game_uGUI : MonoBehaviour {
 			if (show_debug_warnings)
 				Debug.LogWarning("In order to allow saves and play music and menu sfx, you must star from Home scene and open this stage using the in game menu");
 		}
-		
+
+
 		//star score
 		if (show_star_score)
 			star_container.SetActive(true);
@@ -362,6 +372,9 @@ public class game_uGUI : MonoBehaviour {
 			int_score_ico.SetActive(false);
 		
 		Reset_me();
+		if (Application.loadedLevelName == "W1_Stage_1") {
+			Open_tutorial(true);
+		}
 	}
 	private void OnPlayerDisconnected() {
 		
@@ -452,6 +465,7 @@ public class game_uGUI : MonoBehaviour {
 		
 		//reset win screen
 		win_screen.gameObject.SetActive(false);
+		tutorial_screen.gameObject.SetActive(false);
 		//perfect_target.sprite = normal_emoticon;
 		for (int i = 0; i < 3; i++)
 		{
@@ -531,7 +545,49 @@ public class game_uGUI : MonoBehaviour {
 			}
 		}
 	}
-	
+	public void Open_tutorial(bool from_pause_screen)
+	{
+		if (my_game_master)
+		{
+			if (from_pause_screen){
+				pause_screen.gameObject.SetActive(false);
+				in_pause = true;
+			}
+			else
+			{
+				in_pause = true;
+				allow_game_input = false;
+				play_screen.gameObject.SetActive(false);
+				Time.timeScale = 0;
+			}
+			
+			tutorial_screen.gameObject.SetActive(true);
+
+			Mark_this_button(tutorial_screen_target_button);
+		}
+		else
+		{
+			if (show_debug_warnings)
+				Debug.LogWarning("In order to allow saves and play music and menu sfx, you must star from Home scene and open this stage using the in game menu");
+		}
+	}
+	public void Close_Tutorial(bool back_to_pause_screen)
+	{
+		tutorial_screen.gameObject.SetActive(false);
+		if (back_to_pause_screen)
+		{
+			pause_screen.gameObject.SetActive(true);
+			Mark_this_button(pause_screen_target_button);
+		}
+		else
+		{
+			in_pause = false;
+			allow_game_input = true;
+			play_screen.gameObject.SetActive(true);
+			Time.timeScale = 1;
+		}
+	}
+
 	public void Open_options_menu(bool from_pause_screen)
 	{
 		if (my_game_master)
@@ -645,6 +701,7 @@ public class game_uGUI : MonoBehaviour {
 			Checkpoint.Reset ();
 			lose_screen.gameObject.SetActive (false);
 			options_screen.gameObject.SetActive(false);
+			tutorial_screen.gameObject.SetActive(false);
 			play_screen.gameObject.SetActive(true);
 			loading_screen.gameObject.SetActive(false);
 			pause_screen.gameObject.SetActive(false);
@@ -956,7 +1013,24 @@ public class game_uGUI : MonoBehaviour {
 		if (show_progress_bar && progress_bar_use_score)
 			my_progress_bar.Update_fill (int_score);
 	}
-	
+	public void Next_tutorial(){
+
+		next_tutorial = next_tutorial+1;
+		if (next_tutorial >= 3) {
+			next_tutorial = 0;
+
+			tutorial_on[0].SetActive(false);
+			tutorial_on[1].SetActive(false);
+			tutorial_on[2].SetActive(false);
+
+		}
+		//foreach (GameObject t in tutorial_on) {
+			tutorial_on[next_tutorial].SetActive(true);
+		//}
+
+		//Invoke("Star_sfx",delay_star_creation*n_star);
+	}
+
 	public void Add_stars(int quantity)
 	{
 		star_number += quantity;//add star

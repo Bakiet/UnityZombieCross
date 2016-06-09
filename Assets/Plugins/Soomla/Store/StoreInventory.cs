@@ -75,12 +75,14 @@ namespace Soomla.Store
 		/// <exception cref="VirtualItemNotFoundException">Thrown if the item is not found.</exception>
 		public static int GetItemBalance(string itemId) {
 			int amount;
-			if (localItemBalances.TryGetValue(itemId, out amount)) {
-				return amount;
+			if (itemId != String.Empty) {
+				if (localItemBalances.TryGetValue (itemId, out amount)) {
+					return amount;
+				}
 			}
+				VirtualItem item = StoreInfo.GetItemByItemId (itemId);
+				return item.GetBalance ();
 			
-			VirtualItem item = StoreInfo.GetItemByItemId(itemId);
-			return item.GetBalance();
 		}
 
 		/** VIRTUAL ITEMS **/
