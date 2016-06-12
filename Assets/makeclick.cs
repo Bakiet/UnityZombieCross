@@ -476,7 +476,7 @@ public class makeclick : MonoBehaviour {
 	public void ConncetButtonPress() {
 
 		if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
-			//GooglePlayConnection.Instance.Disconnect ();
+			GooglePlayConnection.Instance.Disconnect ();
 		} else {
 			GooglePlayConnection.Instance.Connect ();
 		}

@@ -148,6 +148,7 @@ public class MakeclickLB : MonoBehaviour {
 		ShowGlobal ();
 		ShowAllTime ();
 
+
 	}
 
 	

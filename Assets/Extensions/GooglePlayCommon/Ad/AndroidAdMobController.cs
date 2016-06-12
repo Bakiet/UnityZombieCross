@@ -52,12 +52,16 @@ public class AndroidAdMobController : SA_Singleton<AndroidAdMobController>, Goog
 
 	void OnApplicationPause(bool pauseStatus) {
 		if (pauseStatus) {
+			if(_banners != null){
 			foreach (KeyValuePair<int, AndroidADBanner> banner in _banners) {
 				banner.Value.Pause();
+				}
 			}
 		} else {
+			if(_banners != null){
 			foreach (KeyValuePair<int, AndroidADBanner> banner in _banners) {
 				banner.Value.Resume();
+				}
 			}
 		}
 	}

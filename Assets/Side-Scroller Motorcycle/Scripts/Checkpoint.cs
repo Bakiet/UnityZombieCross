@@ -23,12 +23,9 @@ public class Checkpoint : MonoBehaviour {
 
 	void Update(){
 
-		//gameObjects = (GameObject[])FindObjectsOfType(GameObject);
-		GameObject[] allObjects = UnityEngine.Object.FindObjectsOfType<GameObject>() ;
-		/*foreach (GameObject go in allObjects) {
 
-			motorcyclePrefab =go;
-		}*/
+		GameObject[] allObjects = UnityEngine.Object.FindObjectsOfType<GameObject>() ;
+
 
 		for (var i=0; i < allObjects.Length; i++){
 			if(allObjects[i].name.Contains("Spawn")){
@@ -37,18 +34,22 @@ public class Checkpoint : MonoBehaviour {
 		}
 
 		moto = motorcyclePrefab;
-		//motorcyclePrefab = GameObject.Find(Children().Where(x=>x.name.Contains("Spawn")));
-		//motorcyclePrefabClone = GameObject.Find("Spawn(Clone)");
-		/*if (motorcyclePrefab != null) {
-			moto = motorcyclePrefab;
-		}
-		if (motorcyclePrefabClone != null) {
-			moto = motorcyclePrefabClone;
-		}*/
+
 	}
 	// Use this for initialization
 	void Start () {
 
+		/*GameObject[] allObjects = UnityEngine.Object.FindObjectsOfType<GameObject>() ;
+
+		
+		for (var i=0; i < allObjects.Length; i++){
+			if(allObjects[i].name.Contains("Spawn")){
+				motorcyclePrefab = allObjects[i];
+			}
+		}
+		
+		moto = motorcyclePrefab;
+		*/
 		audioSource = GetComponent<AudioSource>();
 		//motorcyclePrefab = Motorcycle_Controller2D.BodyCarStatic;
 		/*motorcyclePrefab = GameObject.Find("Spawn");

@@ -6,6 +6,7 @@ using Soomla.Profile;
 using Soomla.Store;
 using System.Collections.Generic;
 using System;
+using System.Text;
 
 public class game_uGUI : MonoBehaviour {
 	/*
@@ -13,6 +14,7 @@ public class game_uGUI : MonoBehaviour {
 	//example link to your app on android market
 	private string rateUrl = "https://play.google.com/store/apps/details?id=unity.zombiecross";
 	*/
+	private static int temptutorial = 0;
 	private int next_tutorial = 0;
 	private int healtcount = 0;
 	private const string LEADERBOARD_ID = "CgkIq6GznYALEAIQAA";
@@ -91,7 +93,7 @@ public class game_uGUI : MonoBehaviour {
 	
 	//win screen
 	public float delay_start_star_score_animation = 1;
-	public float delay_star_creation = 1; // recommend value = 1
+	public float delay_star_creation = 0.10f; // recommend value = 1
 	[HideInInspector]public GameObject star_container;
 	public GameObject images_tutorial_container;
 	public GameObject[] tutorial_on;
@@ -268,7 +270,7 @@ public class game_uGUI : MonoBehaviour {
 		GooglePlaySavedGamesManager.ActionNewGameSaveRequest += ActionNewGameSaveRequest;
 		GooglePlaySavedGamesManager.ActionGameSaveLoaded += ActionGameSaveLoaded;
 		GooglePlaySavedGamesManager.ActionConflict += ActionConflict;
-		
+
 		if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
 			//GooglePlayConnection.Instance.Disconnect ();
 			
@@ -373,7 +375,10 @@ public class game_uGUI : MonoBehaviour {
 		
 		Reset_me();
 		if (Application.loadedLevelName == "W1_Stage_1") {
+			temptutorial = temptutorial + 1;
+			if(temptutorial <= 1){
 			Open_tutorial(true);
+			}
 		}
 	}
 	private void OnPlayerDisconnected() {
@@ -552,10 +557,12 @@ public class game_uGUI : MonoBehaviour {
 			if (from_pause_screen){
 				pause_screen.gameObject.SetActive(false);
 				in_pause = true;
+				allow_game_input = false;
+
 			}
 			else
 			{
-				in_pause = true;
+				in_pause = false;
 				allow_game_input = false;
 				play_screen.gameObject.SetActive(false);
 				Time.timeScale = 0;
@@ -578,6 +585,12 @@ public class game_uGUI : MonoBehaviour {
 		{
 			pause_screen.gameObject.SetActive(true);
 			Mark_this_button(pause_screen_target_button);
+
+			in_pause = false;
+			allow_game_input = true;
+			play_screen.gameObject.SetActive(true);
+
+
 		}
 		else
 		{
@@ -731,7 +744,19 @@ public class game_uGUI : MonoBehaviour {
 		StartCoroutine(MakeScreenshotAndSaveGameData());
 	}
 	private IEnumerator MakeScreenshotAndSaveGameData() {
-		
+
+		/*
+		int stage = PlayerPrefs.GetInt("profile_"+profile_slot.ToString()+"_play_this_stage_to_progress");
+		int world = PlayerPrefs.GetInt("profile_"+profile_slot.ToString()+"_play_this_world_to_progress");
+		int stages = PlayerPrefs.GetInt("profile_"+profile_slot.ToString()+"_total_number_of_stages_in_the_game_solved");
+		int starts= PlayerPrefs.GetInt("profile_"+profile_slot.ToString()+"_total_stars");
+		int cotinues = PlayerPrefs.GetInt("profile_"+profile_slot.ToString()+"_current_continue_tokens"); 
+		int money = PlayerPrefs.GetInt("profile_"+profile_slot.ToString()+"_virtual_money");
+		int lives = PlayerPrefs.GetInt("profile_"+profile_slot.ToString()+"_current_lives");
+		string saveState = String.Format("{0};{1};{2}", gold_coins, heal_pot, mana_pot);
+		byte[] saveBytes = Encoding.UTF8.GetBytes(saveState);
+
+		*/
 		
 		yield return new WaitForEndOfFrame();
 		// Create a texture the size of the screen, RGB24 format
@@ -1290,7 +1315,7 @@ public class game_uGUI : MonoBehaviour {
 
 			if (show_int_score && !show_star_score)
 				StartCoroutine(Int_score_animation(0.5f,0));
-			//Invoke("SendScore",0.1f);
+			Invoke("SendScore",5f);
 			Invoke("Mark_win",0.1f);
 			//Invoke("",0.1f);
 		}
@@ -1480,14 +1505,14 @@ public class game_uGUI : MonoBehaviour {
 		{
 			int temp_score = start_from;
 			int add_this = int_score/100;
-			float seconds = int_score/(10*int_score);
+			float seconds = int_score/(100000*int_score);
 			
 			if (add_this < 1)
 				add_this = 1;
 			
 			if (seconds == 0)
-				seconds = 0.01f;
-			
+				seconds = 0.0001f;
+
 			while (temp_score < int_score)
 			{
 				if ((temp_score+add_this) < int_score)
@@ -1496,7 +1521,7 @@ public class game_uGUI : MonoBehaviour {
 					temp_score = int_score;
 				
 				win_screen_int_score_count.text = (temp_score).ToString("N0");
-				yield return new WaitForSeconds(seconds);
+				//yield return new WaitForSeconds(seconds);
 			}
 		}
 		
@@ -1533,14 +1558,15 @@ public class game_uGUI : MonoBehaviour {
 
 		long score = 0;
 		score = Convert.ToInt64(long.Parse(win_screen_int_score_count.text));
-		/*if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
+		//if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
 			//GooglePlayConnection.Instance.Disconnect ();
-		} else {
+		//} else {
 			GooglePlayConnection.Instance.Connect ();
-		}*/
-		if (GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
+		//}
+		//if (GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
 			GooglePlayManager.instance.SubmitScoreById (LEADERBOARD_ID, score);
-		}
+			AndroidToast.ShowToastNotification ("Saved Score: " + score, 1);
+		//}
 	}
 	public void Double_score_button()
 	{
@@ -1694,7 +1720,8 @@ public class game_uGUI : MonoBehaviour {
 	void Show_star(int n_star)
 	{
 		stars_on[n_star].SetActive(true);
-		Invoke("Star_sfx",delay_star_creation*n_star);
+		//Invoke("Star_sfx",delay_star_creation*n_star);
+		Invoke("Star_sfx",n_star/3f);
 	}
 	
 	void Star_sfx()

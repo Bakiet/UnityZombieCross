@@ -872,7 +872,7 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 	}
 	public void SENDACHIEVEMENT(string id) {
 
-		GooglePlayManager.Instance.UnlockAchievement (id);
+		GooglePlayManager.Instance.UnlockAchievementById (id);
 
 	}
 	
@@ -965,11 +965,11 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 		//forwardsBtn = null;
 		//Velocity = 0f;
 		isFinish = false;
-		/*if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
+		//if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
 			//GooglePlayConnection.Instance.Disconnect ();
-		} else {
+		//} else {
 			GooglePlayConnection.Instance.Connect ();
-		}*/
+		//}
 		//SpeedMotorMobile = SpeedMotorMobile + 10;
 
 		if (this.name == "super_bike(Clone)") {
@@ -1779,12 +1779,13 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 						flip = false;				
 						backflipParticle.Emit (1);
 					
-						if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
+						//if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
 						//	makeclick Achievement = new makeclick ();
+
 						SENDACHIEVEMENT (ACHIEVEMENT_ID_First_BackFlip);
 
 						SENDACHIEVEMENTINCREMENT (INCREMENTAL_ACHIEVEMENT_ID_Two_BackFlip, 1);
-						}
+						//}
 						//Reciver.SendMessage ("revealAchievement", ACHIEVEMENT_ID_First_BackFlip,SendMessageOptions.DontRequireReceiver);
 
 						//score += 100;
@@ -1801,11 +1802,12 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 						AudioSource.PlayClipAtPoint (audioXP, gameObject.transform.position, 10.0f);
 						flip = false;
 						frontflipParticle.Emit (1);
-						if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
+
+						//if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
 						//	makeclick Achievement = new makeclick ();
 						SENDACHIEVEMENT (ACHIEVEMENT_ID_First_FrontFlip);
 						SENDACHIEVEMENTINCREMENT (INCREMENTAL_ACHIEVEMENT_ID_Two_FrontFlip, 1);
-						}
+						//}
 						//	Reciver.SendMessage ("revealAchievement", INCREMENTAL_ACHIEVEMENT_ID_Two_FrontFlip,SendMessageOptions.DontRequireReceiver);
 						//score += 150;	
 						//scoreText.text = "SCORE : " + score;					
@@ -1884,10 +1886,10 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 						effectnitro.SetActive (false);
 
 					}
-					if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
-					//makeclick Achievement = new makeclick();
-					SENDACHIEVEMENT (ACHIEVEMENT_ID_First_Death);
-					}
+					//if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
+
+						SENDACHIEVEMENT (ACHIEVEMENT_ID_First_Death);
+					//}
 					//AN_PoupsProxy.showMessage ("Achievement unlocked","You Firts Death","Ok");
 					//	Reciver.SendMessage ("revealAchievement", ACHIEVEMENT_ID_First_Death,SendMessageOptions.DontRequireReceiver);
 
@@ -1927,10 +1929,10 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					time = time + 1;
 					effectburn.transform.position = CarBody.transform.position;
 					if (time == 1) {
-						if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
+						//if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
 						//makeclick Achievement = new makeclick();
 						SENDACHIEVEMENT (ACHIEVEMENT_ID_First_Burn);
-						}
+						//}
 						//	Reciver.SendMessage ("revealAchievement", ACHIEVEMENT_ID_First_Burn,SendMessageOptions.DontRequireReceiver);
 						/*
 					GameObject soul = (GameObject)Resources.Load("prefabs/CFXM2_Soul", typeof(GameObject));
@@ -1969,10 +1971,11 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					time = time + 1;
 					//effectburn.transform.position = CarBody.transform.position;
 					if (time == 1) {
-						if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
+
+					//	if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
 						//makeclick Achievement = new makeclick();
 						SENDACHIEVEMENT (ACHIEVEMENT_ID_First_Drown);
-						}
+						//}
 						//	Reciver.SendMessage ("revealAchievement", ACHIEVEMENT_ID_First_Burn,SendMessageOptions.DontRequireReceiver);
 						/*
 					GameObject soul = (GameObject)Resources.Load("prefabs/CFXM2_Soul", typeof(GameObject));
@@ -2008,9 +2011,13 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					if (ifnitro) {
 						effectnitro.SetActive (false);
 					}
+
 					time = time + 1;
 					//effectburn.transform.position = CarBody.transform.position;
 					if (time == 1) {
+
+
+						SENDACHIEVEMENT (ACHIEVEMENT_ID_First_Death);
 
 						//CFX_SpawnSystem.Instantiate (effectburn);
 						AudioSource.PlayClipAtPoint (BodyDeadSound, CarBody.transform.position, 10.0f);
@@ -2033,10 +2040,11 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 					}
 				}
 				if (crashSaw && !crashed) { //if player just crashed											
-					if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
+					//if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
 					//makeclick Achievement = new makeclick();
+
 					SENDACHIEVEMENT (ACHIEVEMENT_ID_First_Death);
-					}
+					//}
 					//	Reciver.SendMessage ("revealAchievement", ACHIEVEMENT_ID_First_Death,SendMessageOptions.DontRequireReceiver);
 
 					GameObject soul = CFXM2_Soul;//(GameObject)Resources.Load ("prefabs/CFXM2_Soul", typeof(GameObject));
@@ -2066,11 +2074,12 @@ public class Motorcycle_Controller2D : MonoBehaviour {
 				
 				}
 				if (crashSawHead && !crashed) { //if player just crashed											
-					if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
+					//if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
 					//makeclick Achievement = new makeclick();
+
 					SENDACHIEVEMENT (ACHIEVEMENT_ID_First_Death);
 					//Reciver.SendMessage ("revealAchievement", ACHIEVEMENT_ID_First_Death,SendMessageOptions.DontRequireReceiver);
-					}
+					//}
 					GameObject soul = CFXM2_Soul;//(GameObject)Resources.Load ("prefabs/CFXM2_Soul", typeof(GameObject));
 					Instantiate (soul, CarBody.transform.position, Quaternion.identity);
 					GameObject explotion = CFXM_ExplosionTextNoSmoke;//(GameObject)Resources.Load ("prefabs/CFXM_Explosion+Text NoSmoke", typeof(GameObject));
