@@ -277,7 +277,13 @@ public class game_master : MonoBehaviour {
 	private void Toast() {
 		AndroidToast.ShowToastNotification ("Hello Toast", AndroidToast.LENGTH_LONG);
 	}
-	
+	private void Update(){
+		Load (0);
+	}
+	private void Start(){
+		Load (0);
+
+	}
 	private void Local(int time) {
 		//LastNotificationId = AndroidNotificationManager.instance.ScheduleLocalNotification("Hello", "This is local notification", 5);
 		

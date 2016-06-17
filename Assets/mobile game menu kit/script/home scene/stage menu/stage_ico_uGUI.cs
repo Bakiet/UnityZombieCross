@@ -70,7 +70,7 @@ public class stage_ico_uGUI : MonoBehaviour {
 	[HideInInspector]public stage_ico_uGUI next_stage_ico;
 
 	void Start (){
-
+		//My_start ();
             //  
             /*
             if (ad == "SmartBottom" || ad == "StartInterstitialAd" || ad == "B2Hide" || ad == "ConncetButtonPress") {
@@ -188,7 +188,7 @@ public class stage_ico_uGUI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+	
 	}
 	
 	private void OnInterstisialsLoaded() {

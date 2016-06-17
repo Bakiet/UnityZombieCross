@@ -7,6 +7,8 @@ using Soomla.Store;
 using System.Collections.Generic;
 using System;
 using System.Text;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 
 public class game_uGUI : MonoBehaviour {
 	/*
@@ -14,6 +16,49 @@ public class game_uGUI : MonoBehaviour {
 	//example link to your app on android market
 	private string rateUrl = "https://play.google.com/store/apps/details?id=unity.zombiecross";
 	*/
+	public enum this_world_is_unlocked_after
+	{
+		start,
+		previous_world_is_finished,
+		reach_this_star_score,
+		bui_it
+		
+	}
+	int starts;
+	int money;
+	//int money = my_Soomla_billing_script.Show_how_many_virtual_money_there_is_in_this_profile(0);
+	int lives;
+	int stages;
+	int best_score;
+	int stage_progress;
+	int world_progress;
+
+	public store_item_manager my_store_item_manager;
+	public int[][] incremental_item_current_level;//[profile][item_array_slot]
+	public int[][] consumable_item_current_quantity;//[profile][item_array_slot]
+	public this_world_is_unlocked_after[] this_world_is_unlocked_after_selected;
+
+	public int[] total_stages_in_world_n;
+
+
+	public bool[][] world_playable;//[profile][world]
+	public bool[][] world_purchased;//[profile][world]
+	public bool[][,] stage_playable; //[profile][world,stage]
+	public bool[][,] stage_solved; //[profile][world,stage]
+
+	//star score
+	public int[][,] stage_stars_score; //[profile][world,stage]
+	public int[][] star_score_in_this_world;//[profile][world]
+	public int[] stars_total_score;//[profile] this can be helpful if you want to unlock worlds when player get enough stars 
+	//int score
+	public int[][,] best_int_score_in_this_stage; //[profile][world,stage]
+	public int[] best_int_score_for_current_player; //[profile]
+	public int best_int_score_on_this_device;//the best score among all profiles
+	public static bool[] all_stages_solved;//[profile]
+	
+	public bool[][,] dot_tail_turn_on;//[profile][w,s];
+
+	public my_Soomla_billing my_Soomla_billing_script;
 	private static int temptutorial = 0;
 	private int next_tutorial = 0;
 	private int healtcount = 0;
@@ -206,25 +251,7 @@ public class game_uGUI : MonoBehaviour {
 		
 		return rate;
 	}
-	private void ActionGameSaveLoaded (GP_SpanshotLoadResult result) {
-		
-		Debug.Log("ActionGameSaveLoaded: " + result.Message);
-		if(result.IsSucceeded) {
-			
-			Debug.Log("Snapshot.Title: " 					+ result.Snapshot.meta.Title);
-			Debug.Log("Snapshot.Description: " 				+ result.Snapshot.meta.Description);
-			Debug.Log("Snapshot.CoverImageUrl): " 			+ result.Snapshot.meta.CoverImageUrl);
-			Debug.Log("Snapshot.LastModifiedTimestamp: " 	+ result.Snapshot.meta.LastModifiedTimestamp);
-			
-			Debug.Log("Snapshot.stringData: " 				+ result.Snapshot.stringData);
-			Debug.Log("Snapshot.bytes.Length: " 			+ result.Snapshot.bytes.Length);
-			
-			AndroidMessage.Create("Snapshot Loaded", "Data: " + result.Snapshot.stringData);
-		} 
-		
-		//SA_StatusBar.text = "Games Loaded: " + result.Message;
-		
-	}
+
 	private void ActionNewGameSaveRequest () {
 		//SA_StatusBar.text = "New  Game Save Requested, Creating new save..";
 		//Debug.Log("New  Game Save Requested, Creating new save..");
@@ -249,8 +276,500 @@ public class game_uGUI : MonoBehaviour {
 		result.Resolve(mResolvedSnapshot);
 	}
 
+	private void ActionGameSaveResult (GP_SpanshotLoadResult result) {
+		GooglePlaySavedGamesManager.ActionGameSaveResult -= ActionGameSaveResult;
+		Debug.Log("ActionGameSaveResult: " + result.Message);
+		
+		if(result.IsSucceeded) {
+			AndroidToast.ShowToastNotification ("Saved game", 1); //SA_StatusBar.text = "Games Saved: " + result.Snapshot.meta.Title;
+		} else {
+			AndroidToast.ShowToastNotification ("Cant'n Saved game", 1);
+			//SA_StatusBar.text = "Games Save Failed";
+		}
+		
+		//AndroidMessage.Create("Zombie Cross", "Saved game");
+	}	
+	public void CreateNewSnapshot() {
+		StartCoroutine(MakeScreenshotAndSaveGameData());
+	}
+	private void save(){
+		/*
+		starts= PlayerPrefs.GetInt("profile_0_total_stars");
+		//int money = PlayerPrefs.GetInt("profile_0_virtual_money");
+		money = my_game_master.my_Soomla_billing_script.Show_how_many_virtual_money_there_is_in_this_profile(0);
+		lives = PlayerPrefs.GetInt("profile_0_current_lives");
+		stages = PlayerPrefs.GetInt("profile_0_total_number_of_stages_in_the_game_solved");
+		best_score = PlayerPrefs.GetInt("profile_0_best_int_score_for_this_profile");
+		stage_progress = PlayerPrefs.GetInt("profile_0_play_this_stage_to_progress");
+		world_progress = PlayerPrefs.GetInt("profile_0_play_this_world_to_progress");
+		*/
+		for(int world = 0; world < my_game_master.total_stages_in_world_n.Length; world++)
+		{
+			
+				world_purchased[0][world] = System.Convert.ToBoolean(PlayerPrefs.GetInt("profile_0_array_W"+world.ToString()+"_"+"world_purchased"));
+				star_score_in_this_world[0][world] = PlayerPrefs.GetInt("profile_0_star_score_in_this_world");
+
+			for(int stage = 0; stage < my_game_master.total_stages_in_world_n[world]; stage++)
+			{
+				//array bool
+				stage_playable[0][world,stage] = System.Convert.ToBoolean(PlayerPrefs.GetInt("profile_0_array_W"+world.ToString()+"S"+stage.ToString()+"_"+"stages_unlocked")) ;
+				stage_solved[0][world,stage] = System.Convert.ToBoolean(PlayerPrefs.GetInt("profile_0_array_W"+world.ToString()+"S"+stage.ToString()+"_"+"stage_solved")) ;
+				dot_tail_turn_on[0][world,stage] = System.Convert.ToBoolean(PlayerPrefs.GetInt("profile_0_array_W"+world.ToString()+"S"+stage.ToString()+"_"+"dots")) ;
+				
+				//array int
+				stage_stars_score[0][world,stage] = PlayerPrefs.GetInt("profile_0_array_W"+world.ToString()+"S"+stage.ToString()+"_"+"stage_stars_score") ;
+				best_int_score_in_this_stage[0][world,stage] = PlayerPrefs.GetInt("profile_0_array_W"+world.ToString()+"S"+stage.ToString()+"_"+"stage_int_score") ;
+			}
+			
+			if (PlayerPrefs.HasKey("profile_0_array_W"+world.ToString()+"_"+"world_unlocked"))
+				world_playable[0][world] = System.Convert.ToBoolean(PlayerPrefs.GetInt("profile_0_array_W"+world.ToString()+"_"+"world_unlocked"));
+			else
+			{
+				if (this_world_is_unlocked_after_selected[world] == this_world_is_unlocked_after.start)
+				{
+					world_playable[0][world] = true;
+					stage_playable[0][world,0] = true;
+				}
+			}
+		}
+		for (int i = 0; i < my_game_master.my_store_item_manager.incremental_item_list.Length; i++)
+		{
+			incremental_item_current_level[0][i] = PlayerPrefs.GetInt("profile_0_incremental_item_"+i.ToString()+"_current_level");
+		}
+		for (int i = 0; i < my_game_master.my_store_item_manager.consumable_item_list.Length; i++)
+		{
+			consumable_item_current_quantity[0][i] = PlayerPrefs.GetInt("profile_0_consumable_item_"+i.ToString()+"_current_quantity");
+		}
+	}
+	private IEnumerator MakeScreenshotAndSaveGameData() {
+		
+		save ();
+		
+		
+		
+		int world_playable_0_0 = System.Convert.ToInt32(world_playable[0][0]);
+		int world_purchased_0_0 = System.Convert.ToInt32(world_purchased[0][0]);
+		int star_score_in_this_world_0_0 = System.Convert.ToInt32(star_score_in_this_world[0][0]);
+		int world_playable_0_1 = System.Convert.ToInt32(world_playable[0][1]);
+		int world_purchased_0_1 = System.Convert.ToInt32(world_purchased[0][1]);
+		int star_score_in_this_world_0_1 = System.Convert.ToInt32(star_score_in_this_world[0][1]);
+		int world_playable_0_2=System.Convert.ToInt32(world_playable[0][2]);
+		int world_purchased_0_2 = System.Convert.ToInt32(world_purchased[0][2]);
+		int star_score_in_this_world_0_2=star_score_in_this_world[0][2];
+		int stage_playable_0_00=System.Convert.ToInt32(stage_playable[0][0,0]);
+		int stage_solved_0_00=System.Convert.ToInt32(stage_solved[0][0,0]);
+		int dot_tail_turn_on_0_00=System.Convert.ToInt32(dot_tail_turn_on[0][0,0]);
+		int stage_stars_score_0_00=stage_stars_score[0][0,0];
+		int best_int_score_in_this_stage_0_00=best_int_score_in_this_stage[0][0,0];
+		int stage_playable_0_01 =System.Convert.ToInt32(stage_playable[0][0,1]);
+		int stage_solved_0_01 = System.Convert.ToInt32 (stage_solved [0] [0, 1]);
+		int dot_tail_turn_on_0_01 = System.Convert.ToInt32 (dot_tail_turn_on [0] [0, 1]);
+		int stage_stars_score_0_01 = stage_stars_score [0] [0, 1];
+		int best_int_score_in_this_stage_0_01 = best_int_score_in_this_stage [0] [0, 1];
+		int stage_playable_0_02 = System.Convert.ToInt32 (stage_playable [0] [0, 2]);
+		int stage_solved_0_02 = System.Convert.ToInt32(stage_solved[0][0,2]);
+		int dot_tail_turn_on_0_02=System.Convert.ToInt32(dot_tail_turn_on[0][0,2]);
+		int stage_stars_score_0_02= stage_stars_score[0][0,2];
+		int best_int_score_in_this_stage_0_02=best_int_score_in_this_stage[0][0,2];
+		int stage_playable_0_03 =System.Convert.ToInt32(stage_playable[0][0,3]);
+		int stage_solved_0_03=System.Convert.ToInt32(stage_solved[0][0,3]);
+		int dot_tail_turn_on_0_03=System.Convert.ToInt32(dot_tail_turn_on[0][0,3]);
+		int stage_stars_score_0_03=stage_stars_score[0][0,3];
+		int best_int_score_in_this_stage_0_03=best_int_score_in_this_stage[0][0,3];
+		int stage_playable_0_04=System.Convert.ToInt32(stage_playable[0][0,4]);
+		int stage_solved__04 =System.Convert.ToInt32(stage_solved[0][0,4]);
+		int dot_tail_turn_on_0_04=System.Convert.ToInt32(dot_tail_turn_on[0][0,4]);
+		int stage_stars_score_0_04=stage_stars_score[0][0,4];
+		int best_int_score_in_this_stage_0_04=best_int_score_in_this_stage[0][0,4];
+		int stage_playable_0_05=System.Convert.ToInt32(stage_playable[0][0,5]);
+		int stage_solved_0_05=System.Convert.ToInt32(stage_solved[0][0,5]);
+		int dot_tail_turn_on_0_05=System.Convert.ToInt32(dot_tail_turn_on[0][0,5]);
+		int stage_stars_score_0_05=stage_stars_score[0][0,5];
+		int best_int_score_in_this_stage_0_05=best_int_score_in_this_stage[0][0,5];
+		int stage_playable_0_06=System.Convert.ToInt32(stage_playable[0][0,6]);
+		int stage_solved_0_06=System.Convert.ToInt32(stage_solved[0][0,6]);
+		int dot_tail_turn_on_0_06=System.Convert.ToInt32(dot_tail_turn_on[0][0,6]);
+		int stage_stars_score_0_06 = stage_stars_score[0][0,6];
+		int best_int_score_in_this_stage_0_06=best_int_score_in_this_stage[0][0,6];
+		int stage_playable_0_07=System.Convert.ToInt32(stage_playable[0][0,7]);
+		int stage_solved_0_07=System.Convert.ToInt32(stage_solved[0][0,7]);
+		int dot_tail_turn_on_0_07=System.Convert.ToInt32(dot_tail_turn_on[0][0,7]);
+		int stage_stars_score_0_07=stage_stars_score[0][0,7];
+		int best_int_score_in_this_stage_0_07=best_int_score_in_this_stage[0][0,7];
+		int stage_playable_0_08=System.Convert.ToInt32(stage_playable[0][0,8]);
+		int stage_solved_0_08=System.Convert.ToInt32(stage_solved[0][0,8]);
+		int dot_tail_turn_on_0_08=System.Convert.ToInt32(dot_tail_turn_on[0][0,8]);
+		int stage_stars_score_0_08=stage_stars_score[0][0,8];
+		int best_int_score_in_this_stage_0_08=best_int_score_in_this_stage[0][0,8];
+		int stage_playable_0_09=System.Convert.ToInt32(stage_playable[0][0,9]);
+		int stage_solved_0_09=System.Convert.ToInt32(stage_solved[0][0,9]);
+		int dot_tail_turn_on_0_09=System.Convert.ToInt32(dot_tail_turn_on[0][0,9]);
+		int stage_stars_score_0_09=stage_stars_score[0][0,9];
+		int best_int_score_in_this_stage_0_09=best_int_score_in_this_stage[0][0,9];
+		int stage_playable_0_010=System.Convert.ToInt32(stage_playable[0][0,10]);
+		int stage_solved_0_010=System.Convert.ToInt32(stage_solved[0][0,10]);
+		int dot_tail_turn_on_0_010=System.Convert.ToInt32(dot_tail_turn_on[0][0,10]);
+		int stage_stars_score_0_010=stage_stars_score[0][0,10];
+		int best_int_score_in_this_stage_0_010=best_int_score_in_this_stage[0][0,10];
+		int stage_playable_0_011=System.Convert.ToInt32(stage_playable[0][0,11]);
+		int stage_solved_0_011=System.Convert.ToInt32(stage_solved[0][0,11]);
+		int dot_tail_turn_on_0_011=System.Convert.ToInt32(dot_tail_turn_on[0][0,11]);
+		int stage_stars_score_0_011=stage_stars_score[0][0,11];
+		int best_int_score_in_this_stage_0_011=best_int_score_in_this_stage[0][0,11];
+		int stage_playable_0_012=System.Convert.ToInt32(stage_playable[0][0,12]);
+		int stage_solved_0_012=System.Convert.ToInt32(stage_solved[0][0,12]);
+		int dot_tail_turn_on_0_012=System.Convert.ToInt32(dot_tail_turn_on[0][0,12]);
+		int stage_stars_score_0_012=stage_stars_score[0][0,12];
+		int best_int_score_in_this_stage_0_012=best_int_score_in_this_stage[0][0,12];
+		int stage_playable_0_013=System.Convert.ToInt32(stage_playable[0][0,13]);
+		int stage_solved_0_013=System.Convert.ToInt32(stage_solved[0][0,13]);
+		int dot_tail_turn_on_0_013=System.Convert.ToInt32(dot_tail_turn_on[0][0,13]);
+		int stage_stars_score_0_013=stage_stars_score[0][0,13];
+		int best_int_score_in_this_stage_0_013=best_int_score_in_this_stage[0][0,13];
+		int stage_playable_0_014=System.Convert.ToInt32(stage_playable[0][0,14]);
+		int stage_solved_0_014=System.Convert.ToInt32(stage_solved[0][0,14]);
+		int dot_tail_turn_on_0_014=System.Convert.ToInt32(dot_tail_turn_on[0][0,14]);
+		int stage_stars_score_0_014=stage_stars_score[0][0,14];
+		int best_int_score_in_this_stage_0_014=best_int_score_in_this_stage[0][0,14];
+		int stage_playable_0_10=System.Convert.ToInt32(stage_playable[0][1,0]);
+		int stage_solved_0_10=System.Convert.ToInt32(stage_solved[0][1,0]);
+		int dot_tail_turn_on_0_10=System.Convert.ToInt32(dot_tail_turn_on[0][1,0]);
+		int stage_stars_score_0_10=stage_stars_score[0][1,0];
+		int best_int_score_in_this_stage_0_10=best_int_score_in_this_stage[0][1,0];
+		int stage_playable_0_11=System.Convert.ToInt32(stage_playable[0][1,1]);
+		int stage_solved_0_11=System.Convert.ToInt32(stage_solved[0][1,1]);
+		int dot_tail_turn_on_0_11=System.Convert.ToInt32(dot_tail_turn_on[0][1,1]);
+		int stage_stars_score_0_11=stage_stars_score[0][1,1];
+		int best_int_score_in_this_stage_0_11=best_int_score_in_this_stage[0][1,1];
+		int stage_playable_0_12=System.Convert.ToInt32(stage_playable[0][1,2]);
+		int stage_solved_0_12=System.Convert.ToInt32(stage_solved[0][1,2]);
+		int dot_tail_turn_on_0_12=System.Convert.ToInt32(dot_tail_turn_on[0][1,2]);
+		int stage_stars_score_0_12=stage_stars_score[0][1,2];
+		int best_int_score_in_this_stage_0_12=best_int_score_in_this_stage[0][1,2];
+		int stage_playable_0_13=System.Convert.ToInt32(stage_playable[0][1,3]);
+		int stage_solved_0_13=System.Convert.ToInt32(stage_solved[0][1,3]);
+		int dot_tail_turn_on_0_13=System.Convert.ToInt32(dot_tail_turn_on[0][1,3]);
+		int stage_stars_score_0_13=stage_stars_score[0][1,3];
+		int best_int_score_in_this_stage_0_13=best_int_score_in_this_stage[0][1,3];
+		int stage_playable_0_14=System.Convert.ToInt32(stage_playable[0][1,4]);
+		int stage_solved_0_14=System.Convert.ToInt32(stage_solved[0][1,4]);
+		int dot_tail_turn_on_0_14=System.Convert.ToInt32(dot_tail_turn_on[0][1,4]);
+		int stage_stars_score_0_14=stage_stars_score[0][1,4];
+		int best_int_score_in_this_stage_0_14=best_int_score_in_this_stage[0][1,4];
+		int stage_playable_0_15=System.Convert.ToInt32(stage_playable[0][1,5]);
+		int stage_solved_0_15=System.Convert.ToInt32(stage_solved[0][1,5]);
+		int dot_tail_turn_on_0_15=System.Convert.ToInt32(dot_tail_turn_on[0][1,5]);
+		int stage_stars_score_0_15=stage_stars_score[0][1,5];
+		int best_int_score_in_this_stage_0_15=best_int_score_in_this_stage[0][1,5];
+		int stage_playable_0_16=System.Convert.ToInt32(stage_playable[0][1,6]);
+		int stage_solved_0_16=System.Convert.ToInt32(stage_solved[0][1,6]);
+		int dot_tail_turn_on_0_16=System.Convert.ToInt32(dot_tail_turn_on[0][1,6]);
+		int stage_stars_score_0_16=stage_stars_score[0][1,6];
+		int best_int_score_in_this_stage_0_16=best_int_score_in_this_stage[0][1,6];
+		int stage_playable_0_17=System.Convert.ToInt32(stage_playable[0][1,7]);
+		int stage_solved_0_17=System.Convert.ToInt32(stage_solved[0][1,7]);
+		int dot_tail_turn_on_0_17=System.Convert.ToInt32(dot_tail_turn_on[0][1,7]);
+		int stage_stars_score_0_17=stage_stars_score[0][1,7];
+		int best_int_score_in_this_stage_0_17=best_int_score_in_this_stage[0][1,7];
+		int stage_playable_0_18=System.Convert.ToInt32(stage_playable[0][1,8]);
+		int stage_solved_0_18=System.Convert.ToInt32(stage_solved[0][1,8]);
+		int dot_tail_turn_on_0_18=System.Convert.ToInt32(dot_tail_turn_on[0][1,8]);
+		int stage_stars_score_0_18=stage_stars_score[0][1,8];
+		int best_int_score_in_this_stage_0_18=best_int_score_in_this_stage[0][1,8];
+		int stage_playable_0_19=System.Convert.ToInt32(stage_playable[0][1,9]);
+		int stage_solved_0_19=System.Convert.ToInt32(stage_solved[0][1,9]);
+		int dot_tail_turn_on_0_19=System.Convert.ToInt32(dot_tail_turn_on[0][1,9]);
+		int stage_stars_score_0_19=stage_stars_score[0][1,9];
+		int best_int_score_in_this_stage_0_19=best_int_score_in_this_stage[0][1,9];
+		int stage_playable_0_110=System.Convert.ToInt32(stage_playable[0][1,10]);
+		int stage_solved_0_110=System.Convert.ToInt32(stage_solved[0][1,10]);
+		int dot_tail_turn_on_0_110=System.Convert.ToInt32(dot_tail_turn_on[0][1,10]);
+		int stage_stars_score_0_110=stage_stars_score[0][1,10];
+		int best_int_score_in_this_stage_0_110=best_int_score_in_this_stage[0][1,10];
+		int stage_playable_0_111=System.Convert.ToInt32(stage_playable[0][1,11]);
+		int stage_solved_0_111=System.Convert.ToInt32(stage_solved[0][1,11]);
+		int dot_tail_turn_on_0_111=System.Convert.ToInt32(dot_tail_turn_on[0][1,11]);
+		int stage_stars_score_0_111=stage_stars_score[0][1,11];
+		int best_int_score_in_this_stage_0_111=best_int_score_in_this_stage[0][1,11];
+		int stage_playable_0_112=System.Convert.ToInt32(stage_playable[0][1,12]);
+		int stage_solved_0_112=System.Convert.ToInt32(stage_solved[0][1,12]);
+		int dot_tail_turn_on_0_112=System.Convert.ToInt32(dot_tail_turn_on[0][1,12]);
+		int stage_stars_score_0_112=stage_stars_score[0][1,12];
+		int best_int_score_in_this_stage_0_112=best_int_score_in_this_stage[0][1,12];
+		int stage_playable_0_113=System.Convert.ToInt32(stage_playable[0][1,13]);
+		int stage_solved_0_113=System.Convert.ToInt32(stage_solved[0][1,13]);
+		int dot_tail_turn_on_0_113=System.Convert.ToInt32(dot_tail_turn_on[0][1,13]);
+		int stage_stars_score_0_113=stage_stars_score[0][1,13];
+		int best_int_score_in_this_stage_0_113=best_int_score_in_this_stage[0][1,13];
+		int stage_playable_0_114=System.Convert.ToInt32(stage_playable[0][1,14]);
+		int stage_solved_0_114=System.Convert.ToInt32(stage_solved[0][1,14]);
+		int dot_tail_turn_on_0_114=System.Convert.ToInt32(dot_tail_turn_on[0][1,14]);
+		int stage_stars_score_0_114=stage_stars_score[0][1,14];
+		int best_int_score_in_this_stage_0_114=best_int_score_in_this_stage[0][1,14];
+		int stage_playable_0_20=System.Convert.ToInt32(stage_playable[0][2,0]);
+		int stage_solved_0_20=System.Convert.ToInt32(stage_solved[0][2,0]);
+		int dot_tail_turn_on_0_20=System.Convert.ToInt32(dot_tail_turn_on[0][2,0]);
+		int stage_stars_score_0_20=stage_stars_score[0][2,0];
+		int best_int_score_in_this_stage_0_20=best_int_score_in_this_stage[0][2,0];
+		int stage_playable_0_21=System.Convert.ToInt32(stage_playable[0][2,1]);
+		int stage_solved_0_21=System.Convert.ToInt32(stage_solved[0][2,1]);
+		int dot_tail_turn_on_0_21=System.Convert.ToInt32(dot_tail_turn_on[0][2,1]);
+		int stage_stars_score_0_21=stage_stars_score[0][2,1];
+		int best_int_score_in_this_stage_0_21=best_int_score_in_this_stage[0][2,1];
+		int stage_playable_0_22=System.Convert.ToInt32(stage_playable[0][2,2]);
+		int stage_solved_0_22=System.Convert.ToInt32(stage_solved[0][2,2]);
+		int dot_tail_turn_on_0_22=System.Convert.ToInt32(dot_tail_turn_on[0][2,2]);
+		int stage_stars_score_0_22=stage_stars_score[0][2,2];
+		int best_int_score_in_this_stage_0_22=best_int_score_in_this_stage[0][2,2];
+		int stage_playable_0_23=System.Convert.ToInt32(stage_playable[0][2,3]);
+		int stage_solved_0_23=System.Convert.ToInt32(stage_solved[0][2,3]);
+		int dot_tail_turn_on_0_23=System.Convert.ToInt32(dot_tail_turn_on[0][2,3]);
+		int stage_stars_score_0_23=stage_stars_score[0][2,3];
+		int best_int_score_in_this_stage_0_23=best_int_score_in_this_stage[0][2,3];
+		int stage_playable_0_24=System.Convert.ToInt32(stage_playable[0][2,4]);
+		int stage_solved_0_24=System.Convert.ToInt32(stage_solved[0][2,4]);
+		int dot_tail_turn_on_0_24=System.Convert.ToInt32(dot_tail_turn_on[0][2,4]);
+		int stage_stars_score_0_24=stage_stars_score[0][2,4];
+		int best_int_score_in_this_stage_0_24=best_int_score_in_this_stage[0][2,4];
+		int stage_playable_0_25=System.Convert.ToInt32(stage_playable[0][2,5]);
+		int stage_solved_0_25=System.Convert.ToInt32(stage_solved[0][2,5]);
+		int dot_tail_turn_on_0_25=System.Convert.ToInt32(dot_tail_turn_on[0][2,5]);
+		int stage_stars_score_0_25=stage_stars_score[0][2,5];
+		int best_int_score_in_this_stage_0_25=best_int_score_in_this_stage[0][2,5];
+		int stage_playable_0_26=System.Convert.ToInt32(stage_playable[0][2,6]);
+		int stage_solved_0_26=System.Convert.ToInt32(stage_solved[0][2,6]);
+		int dot_tail_turn_on_0_26=System.Convert.ToInt32(dot_tail_turn_on[0][2,6]);
+		int stage_stars_score_0_26=stage_stars_score[0][2,6];
+		int best_int_score_in_this_stage_0_26=best_int_score_in_this_stage[0][2,6];
+		int stage_playable_0_27=System.Convert.ToInt32(stage_playable[0][2,7]);
+		int stage_solved_0_27=System.Convert.ToInt32(stage_solved[0][2,7]);
+		int dot_tail_turn_on_0_27=System.Convert.ToInt32(dot_tail_turn_on[0][2,7]);
+		int stage_stars_score_0_27=stage_stars_score[0][2,7];
+		int best_int_score_in_this_stage_0_27=best_int_score_in_this_stage[0][2,7];
+		int stage_playable_0_28=System.Convert.ToInt32(stage_playable[0][2,8]);
+		int stage_solved_0_28=System.Convert.ToInt32(stage_solved[0][2,8]);
+		int dot_tail_turn_on_0_28=System.Convert.ToInt32(dot_tail_turn_on[0][2,8]);
+		int stage_stars_score_0_28=stage_stars_score[0][2,8];
+		int best_int_score_in_this_stage_0_28=best_int_score_in_this_stage[0][2,8];
+		int stage_playable_0_29=System.Convert.ToInt32(stage_playable[0][2,9]);
+		int stage_solved_0_29=System.Convert.ToInt32(stage_solved[0][2,9]);
+		int dot_tail_turn_on_0_29=System.Convert.ToInt32(dot_tail_turn_on[0][2,9]);
+		int stage_stars_score_0_29=stage_stars_score[0][2,9];
+		int best_int_score_in_this_stage_0_29=best_int_score_in_this_stage[0][2,9];
+		int stage_playable_0_210=System.Convert.ToInt32(stage_playable[0][2,10]);
+		int stage_solved_0_210=System.Convert.ToInt32(stage_solved[0][2,10]);
+		int	dot_tail_turn_on_0_210=System.Convert.ToInt32(dot_tail_turn_on[0][2,10]);
+		int stage_stars_score_0_210=stage_stars_score[0][2,10];
+		int best_int_score_in_this_stage_0_210=best_int_score_in_this_stage[0][2,10];
+		int stage_playable_0_211=System.Convert.ToInt32(stage_playable[0][2,11]);
+		int stage_solved_0_211=System.Convert.ToInt32(stage_solved[0][2,11]);
+		int dot_tail_turn_on_0_211=System.Convert.ToInt32(dot_tail_turn_on[0][2,11]);
+		int stage_stars_score_0_211=stage_stars_score[0][2,11];
+		int best_int_score_in_this_stage_0_211=best_int_score_in_this_stage[0][2,11];
+		int stage_playable_0_212=System.Convert.ToInt32(stage_playable[0][2,12]);
+		int stage_solved_0_212=System.Convert.ToInt32(stage_solved[0][2,12]);
+		int dot_tail_turn_on_0_212=System.Convert.ToInt32(dot_tail_turn_on[0][2,12]);
+		int stage_stars_score_0_212=stage_stars_score[0][2,12];
+		int best_int_score_in_this_stage_0_212=best_int_score_in_this_stage[0][2,12];
+		int stage_playable_0_213=System.Convert.ToInt32(stage_playable[0][2,13]);
+		int stage_solved_0_213=System.Convert.ToInt32(stage_solved[0][2,13]);
+		int dot_tail_turn_on_0_213=System.Convert.ToInt32(dot_tail_turn_on[0][2,13]);
+		int stage_stars_score_0_213=stage_stars_score[0][2,13];
+		int best_int_score_in_this_stage_0_213=best_int_score_in_this_stage[0][2,13];
+		int stage_playable_0_214=System.Convert.ToInt32(stage_playable[0][2,14]);
+		int stage_solved_0_214=System.Convert.ToInt32(stage_solved[0][2,14]);
+		int dot_tail_turn_on_0_214=System.Convert.ToInt32(dot_tail_turn_on[0][2,14]);
+		int stage_stars_score_0_214=stage_stars_score[0][2,14];
+		int best_int_score_in_this_stage_0_214=best_int_score_in_this_stage[0][2,14];
+		int incremental_item_current_level_0_0 = incremental_item_current_level[0][0];
+		int incremental_item_current_level_0_1 = incremental_item_current_level[0][1];
+		int incremental_item_current_level_0_2 = incremental_item_current_level[0][2];
+		int incremental_item_current_level_0_3 = incremental_item_current_level[0][3];
+		int incremental_item_current_level_0_4 = incremental_item_current_level[0][4];
+		int incremental_item_current_level_0_5 = incremental_item_current_level[0][5];
+		int incremental_item_current_level_0_6 = incremental_item_current_level[0][6];
+		int consumable_item_current_quantity_0_0 = consumable_item_current_quantity[0][0];
+		int consumable_item_current_quantity_0_1 = consumable_item_current_quantity[0][1];
+		int consumable_item_current_quantity_0_2 = consumable_item_current_quantity[0][2];
+		int consumable_item_current_quantity_0_3 = consumable_item_current_quantity[0][3];
+		int consumable_item_current_quantity_0_4 = consumable_item_current_quantity[0][4];
+		int consumable_item_current_quantity_0_5 = consumable_item_current_quantity[0][5];
+		int consumable_item_current_quantity_0_6 = consumable_item_current_quantity[0][6];
+		int consumable_item_current_quantity_0_7 = consumable_item_current_quantity[0][7];
+		int consumable_item_current_quantity_0_8 = consumable_item_current_quantity[0][8];
+		int consumable_item_current_quantity_0_9 = consumable_item_current_quantity[0][9];
+		int consumable_item_current_quantity_0_10 = consumable_item_current_quantity[0][10];
+		int consumable_item_current_quantity_0_11 = consumable_item_current_quantity[0][11];
+		int consumable_item_current_quantity_0_12 = consumable_item_current_quantity[0][12];
+		int consumable_item_current_quantity_0_13 = consumable_item_current_quantity[0][13];
+		int consumable_item_current_quantity_0_14 = consumable_item_current_quantity[0][14];
+		int consumable_item_current_quantity_0_15 = consumable_item_current_quantity[0][15];
+		int consumable_item_current_quantity_0_16 = consumable_item_current_quantity[0][16];
+		starts= PlayerPrefs.GetInt("profile_0_total_stars");
+		money = my_game_master.my_Soomla_billing_script.Show_how_many_virtual_money_there_is_in_this_profile(0);
+		lives = PlayerPrefs.GetInt("profile_0_current_lives");
+		stages = PlayerPrefs.GetInt("profile_0_total_number_of_stages_in_the_game_solved");
+		best_score = PlayerPrefs.GetInt("profile_0_best_int_score_for_this_profile");
+		stage_progress = PlayerPrefs.GetInt("profile_0_play_this_stage_to_progress");
+		world_progress = PlayerPrefs.GetInt("profile_0_play_this_world_to_progress");
+		
+		
+		
+		string saveData = System.String.Format("{0};{1};{2};{3};{4};{5};{6};{7};{8};"+
+		                                       "{9};{10};{11};{12};{13};"+
+		                                       "{14};{15};{16};{17};{18};"+
+		                                       "{19};{20};{21};{22};{23};"+
+		                                       "{24};{25};{26};{27};{28};"+
+		                                       "{29};{30};{31};{32};{33};"+
+		                                       "{34};{35};{36};{37};{38};"+
+		                                       "{39};{40};{41};{42};{43};"+
+		                                       "{44};{45};{46};{47};{48};"+
+		                                       "{49};{50};{51};{52};{53};"+
+		                                       "{54};{55};{56};{57};{58};"+
+		                                       "{59};{60};{61};{62};{63};"+
+		                                       "{64};{65};{66};{67};{68};"+
+		                                       "{69};{70};{71};{72};{73};"+
+		                                       "{74};{75};{76};{77};{78};"+
+		                                       "{79};{80};{81};{82};{83};"+
+		                                       "{84};{85};{86};{87};{88};"+
+		                                       "{89};{90};{91};{92};{93};"+
+		                                       "{94};{95};{96};{97};{98};"+
+		                                       "{99};{100};{101};{102};{103};"+
+		                                       "{104};{105};{106};{107};{108};"+
+		                                       "{109};{110};{111};{112};{113};"+
+		                                       "{114};{115};{116};{117};{118};"+
+		                                       "{119};{120};{121};{122};{123};"+
+		                                       "{124};{125};{126};{127};{128};"+
+		                                       "{129};{130};{131};{132};{133};"+
+		                                       "{134};{135};{136};{137};{138};"+
+		                                       "{139};{140};{141};{142};{143};"+
+		                                       "{144};{145};{146};{147};{148};"+
+		                                       "{149};{150};{151};{152};{153};"+
+		                                       "{154};{155};{156};{157};{158};"+
+		                                       "{159};{160};{161};{162};{163};"+
+		                                       "{164};{165};{166};{167};{168};"+
+		                                       "{169};{170};{171};{172};{173};"+
+		                                       "{174};{175};{176};{177};{178};"+
+		                                       "{179};{180};{181};{182};{183};"+
+		                                       "{184};{185};{186};{187};{188};"+
+		                                       "{189};{190};{191};{192};{193};"+
+		                                       "{194};{195};{196};{197};{198};"+
+		                                       "{199};{200};{201};{202};{203};"+
+		                                       "{204};{205};{206};{207};{208};"+
+		                                       "{209};{210};{211};{212};{213};"+
+		                                       "{214};{215};{216};{217};{218};"+
+		                                       "{219};{220};{221};{222};{223};"+
+		                                       "{224};{225};{226};{227};{228};"+
+		                                       "{229};{230};{231};{232};{233};"+
+		                                       "{234};{235};{236};"+
+		                                       "{237};{238};{239};{240};"+
+		                                       "{241};{242};{243};{241};{245};"+
+		                                       "{246};{247};{248};{249};{250};"+
+		                                       "{251};{252};{253};{254};{255};"+
+		                                       "{256};{257};"+
+		                                       "{258};"+
+		                                       "{259};"+
+		                                       "{260};"+
+		                                       "{261};"+
+		                                       "{262};"+
+		                                       "{263};"+
+		                                       "{264};"
+		                                       ,world_playable_0_0,world_purchased_0_0,star_score_in_this_world_0_0,world_playable_0_1,world_purchased_0_1,star_score_in_this_world_0_1,world_playable_0_2,world_purchased_0_2,star_score_in_this_world_0_2,
+		                                       stage_playable_0_00,stage_solved_0_00,dot_tail_turn_on_0_00,stage_stars_score_0_00,best_int_score_in_this_stage_0_00,
+		                                       stage_playable_0_01,stage_solved_0_01,dot_tail_turn_on_0_01,stage_stars_score_0_01,best_int_score_in_this_stage_0_01,
+		                                       stage_playable_0_02,stage_solved_0_02,dot_tail_turn_on_0_02,stage_stars_score_0_02,best_int_score_in_this_stage_0_02,
+		                                       stage_playable_0_03,stage_solved_0_03,dot_tail_turn_on_0_03,stage_stars_score_0_03,best_int_score_in_this_stage_0_03,
+		                                       stage_playable_0_04,stage_solved__04,dot_tail_turn_on_0_04,stage_stars_score_0_04,best_int_score_in_this_stage_0_04,
+		                                       stage_playable_0_05,stage_solved_0_05,dot_tail_turn_on_0_05,stage_stars_score_0_05,best_int_score_in_this_stage_0_05,
+		                                       stage_playable_0_06,stage_solved_0_06,dot_tail_turn_on_0_06,stage_stars_score_0_06,best_int_score_in_this_stage_0_06,
+		                                       stage_playable_0_07,stage_solved_0_07,dot_tail_turn_on_0_07,stage_stars_score_0_07,best_int_score_in_this_stage_0_07,
+		                                       stage_playable_0_08,stage_solved_0_08,dot_tail_turn_on_0_08,stage_stars_score_0_08,best_int_score_in_this_stage_0_08,
+		                                       stage_playable_0_09,stage_solved_0_09,dot_tail_turn_on_0_09,stage_stars_score_0_09,best_int_score_in_this_stage_0_09,
+		                                       stage_playable_0_010,stage_solved_0_010,dot_tail_turn_on_0_010,stage_stars_score_0_010,best_int_score_in_this_stage_0_010,
+		                                       stage_playable_0_011,stage_solved_0_011,dot_tail_turn_on_0_011,stage_stars_score_0_011,best_int_score_in_this_stage_0_011,
+		                                       stage_playable_0_012,stage_solved_0_012,dot_tail_turn_on_0_012,stage_stars_score_0_012,best_int_score_in_this_stage_0_012,
+		                                       stage_playable_0_013,stage_solved_0_013,dot_tail_turn_on_0_013,stage_stars_score_0_013,best_int_score_in_this_stage_0_013,
+		                                       stage_playable_0_014,stage_solved_0_014,dot_tail_turn_on_0_014,stage_stars_score_0_014,best_int_score_in_this_stage_0_014,	
+		                                       stage_playable_0_10,stage_solved_0_10,dot_tail_turn_on_0_10,stage_stars_score_0_10,best_int_score_in_this_stage_0_10,
+		                                       stage_playable_0_11,stage_solved_0_11,dot_tail_turn_on_0_11,stage_stars_score_0_11,best_int_score_in_this_stage_0_11,
+		                                       stage_playable_0_12,stage_solved_0_12,dot_tail_turn_on_0_12,stage_stars_score_0_12,best_int_score_in_this_stage_0_12,
+		                                       stage_playable_0_13,stage_solved_0_13,dot_tail_turn_on_0_13,stage_stars_score_0_13,best_int_score_in_this_stage_0_13,
+		                                       stage_playable_0_14,stage_solved_0_14,dot_tail_turn_on_0_14,stage_stars_score_0_14,best_int_score_in_this_stage_0_14,
+		                                       stage_playable_0_15,stage_solved_0_15,dot_tail_turn_on_0_15,stage_stars_score_0_15,best_int_score_in_this_stage_0_15,
+		                                       stage_playable_0_16,stage_solved_0_16,dot_tail_turn_on_0_16,stage_stars_score_0_16,best_int_score_in_this_stage_0_16,
+		                                       stage_playable_0_17,stage_solved_0_17,dot_tail_turn_on_0_17,stage_stars_score_0_17,best_int_score_in_this_stage_0_17,
+		                                       stage_playable_0_18,stage_solved_0_18,dot_tail_turn_on_0_18,stage_stars_score_0_18,best_int_score_in_this_stage_0_18,
+		                                       stage_playable_0_19,stage_solved_0_19,dot_tail_turn_on_0_19,stage_stars_score_0_19,best_int_score_in_this_stage_0_19,
+		                                       stage_playable_0_110,stage_solved_0_110,dot_tail_turn_on_0_110,stage_stars_score_0_110,best_int_score_in_this_stage_0_110,
+		                                       stage_playable_0_111,stage_solved_0_111,dot_tail_turn_on_0_111,stage_stars_score_0_111,best_int_score_in_this_stage_0_111,
+		                                       stage_playable_0_112,stage_solved_0_112,dot_tail_turn_on_0_112,stage_stars_score_0_112,best_int_score_in_this_stage_0_112,
+		                                       stage_playable_0_113,stage_solved_0_113,dot_tail_turn_on_0_113,stage_stars_score_0_113,best_int_score_in_this_stage_0_113,
+		                                       stage_playable_0_114,stage_solved_0_114,dot_tail_turn_on_0_114,stage_stars_score_0_114,best_int_score_in_this_stage_0_114,
+		                                       stage_playable_0_20,stage_solved_0_20,dot_tail_turn_on_0_20,stage_stars_score_0_20,best_int_score_in_this_stage_0_20,
+		                                       stage_playable_0_21,stage_solved_0_21,dot_tail_turn_on_0_21,stage_stars_score_0_21,best_int_score_in_this_stage_0_21,
+		                                       stage_playable_0_22,stage_solved_0_22,dot_tail_turn_on_0_22,stage_stars_score_0_22,best_int_score_in_this_stage_0_22,
+		                                       stage_playable_0_23,stage_solved_0_23,dot_tail_turn_on_0_23,stage_stars_score_0_23,best_int_score_in_this_stage_0_23,
+		                                       stage_playable_0_24,stage_solved_0_24,dot_tail_turn_on_0_24,stage_stars_score_0_24,best_int_score_in_this_stage_0_24,
+		                                       stage_playable_0_25,stage_solved_0_25,dot_tail_turn_on_0_25,stage_stars_score_0_25,best_int_score_in_this_stage_0_25,
+		                                       stage_playable_0_26,stage_solved_0_26,dot_tail_turn_on_0_26,stage_stars_score_0_26,best_int_score_in_this_stage_0_26,
+		                                       stage_playable_0_27,stage_solved_0_27,dot_tail_turn_on_0_27,stage_stars_score_0_27,best_int_score_in_this_stage_0_27,
+		                                       stage_playable_0_28,stage_solved_0_28,dot_tail_turn_on_0_28,stage_stars_score_0_28,best_int_score_in_this_stage_0_28,
+		                                       stage_playable_0_29,stage_solved_0_29,dot_tail_turn_on_0_29,stage_stars_score_0_29,best_int_score_in_this_stage_0_29,
+		                                       stage_playable_0_210,stage_solved_0_210,dot_tail_turn_on_0_210,stage_stars_score_0_210,best_int_score_in_this_stage_0_210,
+		                                       stage_playable_0_211,stage_solved_0_211,dot_tail_turn_on_0_211,stage_stars_score_0_211,best_int_score_in_this_stage_0_211,
+		                                       stage_playable_0_212,stage_solved_0_212,dot_tail_turn_on_0_212,stage_stars_score_0_212,best_int_score_in_this_stage_0_212,
+		                                       stage_playable_0_213,stage_solved_0_213,dot_tail_turn_on_0_213,stage_stars_score_0_213,best_int_score_in_this_stage_0_213,
+		                                       stage_playable_0_214,stage_solved_0_214,dot_tail_turn_on_0_214,stage_stars_score_0_214,best_int_score_in_this_stage_0_214,
+		                                       incremental_item_current_level_0_0,incremental_item_current_level_0_1,incremental_item_current_level_0_2,
+											   incremental_item_current_level_0_3,incremental_item_current_level_0_4,incremental_item_current_level_0_5,incremental_item_current_level_0_6,
+		                                       consumable_item_current_quantity_0_0,consumable_item_current_quantity_0_1,consumable_item_current_quantity_0_2,consumable_item_current_quantity_0_3,consumable_item_current_quantity_0_4,
+		                                       consumable_item_current_quantity_0_5,consumable_item_current_quantity_0_6,consumable_item_current_quantity_0_7,consumable_item_current_quantity_0_8,consumable_item_current_quantity_0_9,
+		                                       consumable_item_current_quantity_0_10,consumable_item_current_quantity_0_11,consumable_item_current_quantity_0_12,consumable_item_current_quantity_0_13,consumable_item_current_quantity_0_14,
+		                                       consumable_item_current_quantity_0_15,consumable_item_current_quantity_0_16,
+		                                       starts,
+		                                       money,
+		                                       lives,
+		                                       stages,
+		                                       best_score,
+		                                       stage_progress,
+		                                       world_progress);
+		
+		//string saveData = System.String.Format("{0};{1};{2}",starts,money,lives);
+		//byte[] saveBytes = Encoding.UTF8.GetBytes(saveState);
+		AndroidMessage.Create("Snapshot Created", "Data: Starts: " + starts + " Coins: " + money + " Lives: " + lives);
+		//AndroidMessage.Create("Snapshot Created", "Data: Starts: " + starts + " Coins: " + money + " Lives: " + lives + " stages: " + stages + " best_score: " + best_score + " stage_progress: " + stage_progress+ " world_progress: " + world_progress+ " world_purchased: " + world_purchased+ " star_score_in_this_world: " + star_score_in_this_world+ " stage_playable: " + stage_playable+ " stage_solved: " + stage_solved+ " dot_tail_turn_on: " + dot_tail_turn_on+ " stage_stars_score: " + stage_stars_score+ " best_int_score_in_this_stage: " + best_int_score_in_this_stage+ " world_playable: " + world_playable);
+
+
+
+		yield return new WaitForEndOfFrame();
+		// Create a texture the size of the screen, RGB24 format
+		int width = Screen.width;
+		int height = Screen.height;
+		Texture2D Screenshot = new Texture2D( width, height, TextureFormat.RGB24, false );
+		// Read screen contents into the texture
+		Screenshot.ReadPixels( new Rect(0, 0, width, height), 0, 0 );
+		Screenshot.Apply();
+		
+		
+		long TotalPlayedTime = 20000;
+		string currentSaveName =  "snapshotTemp-" + UnityEngine.Random.Range(1, 281).ToString();
+		//string currentSaveName =  "Saved Game";
+		//string description  = "Modified data at: " + System.DateTime.Now.ToString("MM/dd/yyyy H:mm:ss");
+		string description  = "Data: Starts: " + starts + " Coins: " + money + " Lives: " + lives;
+		
+		
+		GooglePlaySavedGamesManager.ActionGameSaveResult += ActionGameSaveResult;
+		GooglePlaySavedGamesManager.instance.CreateNewSnapshot(currentSaveName, description, Screenshot, saveData, TotalPlayedTime);
+		
+		
+		
+		Destroy(Screenshot);
+	}
+
+
 	void Start () {
-	   
+		int max_stages_in_a_world = 15;
+
 
 		GetComponent<AudioSource>().volume = 0.4f;
 		n_world = Convert.ToInt32(Application.loadedLevelName.Substring(1,1));
@@ -268,7 +787,7 @@ public class game_uGUI : MonoBehaviour {
 		GooglePlayManager.ActionScoreSubmited += OnScoreSbumitted;
 
 		GooglePlaySavedGamesManager.ActionNewGameSaveRequest += ActionNewGameSaveRequest;
-		GooglePlaySavedGamesManager.ActionGameSaveLoaded += ActionGameSaveLoaded;
+	//	GooglePlaySavedGamesManager.ActionGameSaveLoaded += ActionGameSaveLoaded;
 		GooglePlaySavedGamesManager.ActionConflict += ActionConflict;
 
 		if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
@@ -288,13 +807,55 @@ public class game_uGUI : MonoBehaviour {
 
 		//normal_emoticon = perfect_target.sprite;
 
+
 		if (game_master.game_master_obj)
 		{
+			my_store_item_manager = game_master.game_master_obj.GetComponent<store_item_manager>();
 			my_game_master = (game_master)game_master.game_master_obj.GetComponent("game_master");
 			my_game_master.my_ads_master.my_game_uGUI = this;
 		}
 		funds = StoreInventory.GetItemBalance("Coins");
 
+		my_game_master = (game_master)game_master.game_master_obj.GetComponent("game_master");
+
+		world_playable = new bool[1][];
+		world_purchased = new bool[1][];
+		stage_playable = new bool[1][,];
+		stage_solved = new bool[1][,];
+		all_stages_solved = new bool[1];
+		dot_tail_turn_on = new bool[1][,];
+		stage_stars_score = new int[1][,];
+		star_score_in_this_world = new int[1][];
+		stars_total_score = new int[1];
+		best_int_score_in_this_stage = new int[1][,];
+		best_int_score_for_current_player = new int[1];
+
+		incremental_item_current_level= new int[1][];
+	
+		consumable_item_current_quantity = new int[1][];
+
+		for (int i = 0; i < 1; i++)
+		{
+			incremental_item_current_level[i] = new int[my_game_master.my_store_item_manager.incremental_item_list.Length];
+			
+			consumable_item_current_quantity[i] = new int[my_game_master.my_store_item_manager.consumable_item_list.Length];
+
+			world_playable[i] = new bool[my_game_master.total_stages_in_world_n.Length];
+			world_purchased[i] = new bool[my_game_master.total_stages_in_world_n.Length];
+			stage_playable[i] = new bool[my_game_master.total_stages_in_world_n.Length,max_stages_in_a_world];
+			stage_solved[i] = new bool[my_game_master.total_stages_in_world_n.Length,max_stages_in_a_world];
+			stage_stars_score[i] = new int[my_game_master.total_stages_in_world_n.Length,max_stages_in_a_world];
+			star_score_in_this_world[i] = new int[my_game_master.total_stages_in_world_n.Length];
+			best_int_score_in_this_stage[i] = new int[my_game_master.total_stages_in_world_n.Length,max_stages_in_a_world]; 
+			dot_tail_turn_on[i] = new bool[my_game_master.total_stages_in_world_n.Length,max_stages_in_a_world];
+			
+			//this_profile_have_a_save_state_in_it[i] = Convert.ToBoolean(PlayerPrefs.GetInt("profile_"+i.ToString()+"_have_a_save_state_in_it")) ;
+			/*if (my_store_item_manager)
+			{
+				incremental_item_current_level[i] = new int[my_store_item_manager.incremental_item_list.Length]; 
+				consumable_item_current_quantity[i] = new int[my_store_item_manager.consumable_item_list.Length];
+			}*/
+		}
 		Update_virtual_money (funds);
 
 		if (my_game_master)
@@ -727,60 +1288,7 @@ public class game_uGUI : MonoBehaviour {
 			}
 		}
 	}
-	private void ActionGameSaveResult (GP_SpanshotLoadResult result) {
-		GooglePlaySavedGamesManager.ActionGameSaveResult -= ActionGameSaveResult;
-		Debug.Log("ActionGameSaveResult: " + result.Message);
-		
-		if(result.IsSucceeded) {
-			AndroidToast.ShowToastNotification ("Saved game", 3); //SA_StatusBar.text = "Games Saved: " + result.Snapshot.meta.Title;
-		} else {
-			AndroidToast.ShowToastNotification ("Cant'n Saved game", 3);
-			//SA_StatusBar.text = "Games Save Failed";
-		}
-		
-		//AndroidMessage.Create("Zombie Cross", "Saved game");
-	}	
-	public void CreateNewSnapshot() {
-		StartCoroutine(MakeScreenshotAndSaveGameData());
-	}
-	private IEnumerator MakeScreenshotAndSaveGameData() {
 
-		/*
-		int stage = PlayerPrefs.GetInt("profile_"+profile_slot.ToString()+"_play_this_stage_to_progress");
-		int world = PlayerPrefs.GetInt("profile_"+profile_slot.ToString()+"_play_this_world_to_progress");
-		int stages = PlayerPrefs.GetInt("profile_"+profile_slot.ToString()+"_total_number_of_stages_in_the_game_solved");
-		int starts= PlayerPrefs.GetInt("profile_"+profile_slot.ToString()+"_total_stars");
-		int cotinues = PlayerPrefs.GetInt("profile_"+profile_slot.ToString()+"_current_continue_tokens"); 
-		int money = PlayerPrefs.GetInt("profile_"+profile_slot.ToString()+"_virtual_money");
-		int lives = PlayerPrefs.GetInt("profile_"+profile_slot.ToString()+"_current_lives");
-		string saveState = String.Format("{0};{1};{2}", gold_coins, heal_pot, mana_pot);
-		byte[] saveBytes = Encoding.UTF8.GetBytes(saveState);
-
-		*/
-		
-		yield return new WaitForEndOfFrame();
-		// Create a texture the size of the screen, RGB24 format
-		int width = Screen.width;
-		int height = Screen.height;
-		Texture2D Screenshot = new Texture2D( width, height, TextureFormat.RGB24, false );
-		// Read screen contents into the texture
-		Screenshot.ReadPixels( new Rect(0, 0, width, height), 0, 0 );
-		Screenshot.Apply();
-		
-		
-		long TotalPlayedTime = 20000;
-		string currentSaveName =  "snapshotTemp-" + UnityEngine.Random.Range(1, 281).ToString();
-		//string currentSaveName =  "Saved Game";
-		string description  = "Modified data at: " + System.DateTime.Now.ToString("MM/dd/yyyy H:mm:ss");
-		
-		
-		GooglePlaySavedGamesManager.ActionGameSaveResult += ActionGameSaveResult;
-		GooglePlaySavedGamesManager.instance.CreateNewSnapshot(currentSaveName, description, Screenshot, "some save data, for example you can use JSON or byte array", TotalPlayedTime);
-		
-		
-		
-		Destroy(Screenshot);
-	}
 
 	
 	public void Next()
@@ -1125,6 +1633,9 @@ public class game_uGUI : MonoBehaviour {
 		{	
 			//stage_end = true;
 			//makeclick saved = new makeclick();
+			if(n_world == 1 && n_stage == 1){
+				CreateNewSnapshot();
+			}
 			if(n_world == 1 && n_stage == 5){
 				CreateNewSnapshot();
 			}

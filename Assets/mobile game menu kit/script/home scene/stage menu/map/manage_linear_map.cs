@@ -75,6 +75,7 @@ public class manage_linear_map : MonoBehaviour {
 			else if (Input.GetKeyDown(my_game_master.pad_previous_button))
 				Previous();
 		}
+
 	}
 
 	void Next()
