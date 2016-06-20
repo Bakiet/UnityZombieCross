@@ -188,7 +188,7 @@ public class stage_ico_uGUI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		//My_start ();
 	}
 	
 	private void OnInterstisialsLoaded() {

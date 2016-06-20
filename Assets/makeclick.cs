@@ -8,6 +8,53 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 
 public class makeclick : MonoBehaviour {
+
+	int best_int_score_in_this_stage_0_00;
+	int best_int_score_in_this_stage_0_01;
+	int best_int_score_in_this_stage_0_02;
+	int best_int_score_in_this_stage_0_03;
+	int best_int_score_in_this_stage_0_04;
+	int best_int_score_in_this_stage_0_05;
+	int best_int_score_in_this_stage_0_06;
+	int best_int_score_in_this_stage_0_07;
+	int best_int_score_in_this_stage_0_08;
+	int best_int_score_in_this_stage_0_09;
+	int best_int_score_in_this_stage_0_010;
+	int best_int_score_in_this_stage_0_011;
+	int best_int_score_in_this_stage_0_012;
+	int best_int_score_in_this_stage_0_013;
+	int best_int_score_in_this_stage_0_014;
+	int best_int_score_in_this_stage_0_10;
+	int best_int_score_in_this_stage_0_11;
+	int best_int_score_in_this_stage_0_12;
+	int best_int_score_in_this_stage_0_13;
+	int best_int_score_in_this_stage_0_14;
+	int best_int_score_in_this_stage_0_15;
+	int best_int_score_in_this_stage_0_16;
+	int best_int_score_in_this_stage_0_17;
+	int best_int_score_in_this_stage_0_18;
+	int best_int_score_in_this_stage_0_19;
+	int best_int_score_in_this_stage_0_110;
+	int best_int_score_in_this_stage_0_111;
+	int best_int_score_in_this_stage_0_112;
+	int best_int_score_in_this_stage_0_113;
+	int best_int_score_in_this_stage_0_114;
+	int best_int_score_in_this_stage_0_20;
+	int best_int_score_in_this_stage_0_21;
+	int best_int_score_in_this_stage_0_22;
+	int best_int_score_in_this_stage_0_23;
+	int best_int_score_in_this_stage_0_24;
+	int best_int_score_in_this_stage_0_25;
+	int best_int_score_in_this_stage_0_26;
+	int best_int_score_in_this_stage_0_27;
+	int best_int_score_in_this_stage_0_28;
+	int best_int_score_in_this_stage_0_29;
+	int best_int_score_in_this_stage_0_210;
+	int best_int_score_in_this_stage_0_211;
+	int best_int_score_in_this_stage_0_212;
+	int best_int_score_in_this_stage_0_213;
+	int best_int_score_in_this_stage_0_214;
+
 	//Facebook
 	private static bool IsUserInfoLoaded = false;
 	private static bool IsFrindsInfoLoaded = false;
@@ -53,6 +100,7 @@ public class makeclick : MonoBehaviour {
 	private GoogleMobileAdBanner banner2;
 
 	game_master my_game_master;
+	manage_linear_map my_manage_linear_map;
 
 	public enum this_world_is_unlocked_after
 	{
@@ -70,7 +118,8 @@ public class makeclick : MonoBehaviour {
 	int best_score;
 	int stage_progress;
 	int world_progress;
-	
+
+	manage_menu_uGUI my_manage_menu_uGUI;
 	public store_item_manager my_store_item_manager;
 	public int[][] incremental_item_current_level;//[profile][item_array_slot]
 	public int[][] consumable_item_current_quantity;//[profile][item_array_slot]
@@ -138,6 +187,8 @@ public class makeclick : MonoBehaviour {
 		}
 		
 	}
+
+
 	
 	
 	public void HideButtons() {
@@ -257,227 +308,227 @@ public class makeclick : MonoBehaviour {
 		int stage_solved_0_00=System.Convert.ToInt32(stage_solved[0][0,0]);
 		int dot_tail_turn_on_0_00=System.Convert.ToInt32(dot_tail_turn_on[0][0,0]);
 		int stage_stars_score_0_00=stage_stars_score[0][0,0];
-		int best_int_score_in_this_stage_0_00=best_int_score_in_this_stage[0][0,0];
+		best_int_score_in_this_stage_0_00=best_int_score_in_this_stage[0][0,0];
 		int stage_playable_0_01 =System.Convert.ToInt32(stage_playable[0][0,1]);
 		int stage_solved_0_01 = System.Convert.ToInt32 (stage_solved [0] [0, 1]);
 		int dot_tail_turn_on_0_01 = System.Convert.ToInt32 (dot_tail_turn_on [0] [0, 1]);
 		int stage_stars_score_0_01 = stage_stars_score [0] [0, 1];
-		int best_int_score_in_this_stage_0_01 = best_int_score_in_this_stage [0] [0, 1];
+		best_int_score_in_this_stage_0_01 = best_int_score_in_this_stage [0] [0, 1];
 		int stage_playable_0_02 = System.Convert.ToInt32 (stage_playable [0] [0, 2]);
 		int stage_solved_0_02 = System.Convert.ToInt32(stage_solved[0][0,2]);
 		int dot_tail_turn_on_0_02=System.Convert.ToInt32(dot_tail_turn_on[0][0,2]);
 		int stage_stars_score_0_02= stage_stars_score[0][0,2];
-		int best_int_score_in_this_stage_0_02=best_int_score_in_this_stage[0][0,2];
+		best_int_score_in_this_stage_0_02=best_int_score_in_this_stage[0][0,2];
 		int stage_playable_0_03 =System.Convert.ToInt32(stage_playable[0][0,3]);
 		int stage_solved_0_03=System.Convert.ToInt32(stage_solved[0][0,3]);
 		int dot_tail_turn_on_0_03=System.Convert.ToInt32(dot_tail_turn_on[0][0,3]);
 		int stage_stars_score_0_03=stage_stars_score[0][0,3];
-		int best_int_score_in_this_stage_0_03=best_int_score_in_this_stage[0][0,3];
+		best_int_score_in_this_stage_0_03=best_int_score_in_this_stage[0][0,3];
 		int stage_playable_0_04=System.Convert.ToInt32(stage_playable[0][0,4]);
 		int stage_solved__04 =System.Convert.ToInt32(stage_solved[0][0,4]);
 		int dot_tail_turn_on_0_04=System.Convert.ToInt32(dot_tail_turn_on[0][0,4]);
 		int stage_stars_score_0_04=stage_stars_score[0][0,4];
-		int best_int_score_in_this_stage_0_04=best_int_score_in_this_stage[0][0,4];
+		best_int_score_in_this_stage_0_04=best_int_score_in_this_stage[0][0,4];
 		int stage_playable_0_05=System.Convert.ToInt32(stage_playable[0][0,5]);
 		int stage_solved_0_05=System.Convert.ToInt32(stage_solved[0][0,5]);
 		int dot_tail_turn_on_0_05=System.Convert.ToInt32(dot_tail_turn_on[0][0,5]);
 		int stage_stars_score_0_05=stage_stars_score[0][0,5];
-		int best_int_score_in_this_stage_0_05=best_int_score_in_this_stage[0][0,5];
+		best_int_score_in_this_stage_0_05=best_int_score_in_this_stage[0][0,5];
 		int stage_playable_0_06=System.Convert.ToInt32(stage_playable[0][0,6]);
 		int stage_solved_0_06=System.Convert.ToInt32(stage_solved[0][0,6]);
 		int dot_tail_turn_on_0_06=System.Convert.ToInt32(dot_tail_turn_on[0][0,6]);
 		int stage_stars_score_0_06 = stage_stars_score[0][0,6];
-		int best_int_score_in_this_stage_0_06=best_int_score_in_this_stage[0][0,6];
+		best_int_score_in_this_stage_0_06=best_int_score_in_this_stage[0][0,6];
 		int stage_playable_0_07=System.Convert.ToInt32(stage_playable[0][0,7]);
 		int stage_solved_0_07=System.Convert.ToInt32(stage_solved[0][0,7]);
 		int dot_tail_turn_on_0_07=System.Convert.ToInt32(dot_tail_turn_on[0][0,7]);
 		int stage_stars_score_0_07=stage_stars_score[0][0,7];
-		int best_int_score_in_this_stage_0_07=best_int_score_in_this_stage[0][0,7];
+		best_int_score_in_this_stage_0_07=best_int_score_in_this_stage[0][0,7];
 		int stage_playable_0_08=System.Convert.ToInt32(stage_playable[0][0,8]);
 		int stage_solved_0_08=System.Convert.ToInt32(stage_solved[0][0,8]);
 		int dot_tail_turn_on_0_08=System.Convert.ToInt32(dot_tail_turn_on[0][0,8]);
 		int stage_stars_score_0_08=stage_stars_score[0][0,8];
-		int best_int_score_in_this_stage_0_08=best_int_score_in_this_stage[0][0,8];
+		best_int_score_in_this_stage_0_08=best_int_score_in_this_stage[0][0,8];
 		int stage_playable_0_09=System.Convert.ToInt32(stage_playable[0][0,9]);
 		int stage_solved_0_09=System.Convert.ToInt32(stage_solved[0][0,9]);
 		int dot_tail_turn_on_0_09=System.Convert.ToInt32(dot_tail_turn_on[0][0,9]);
 		int stage_stars_score_0_09=stage_stars_score[0][0,9];
-		int best_int_score_in_this_stage_0_09=best_int_score_in_this_stage[0][0,9];
+		best_int_score_in_this_stage_0_09=best_int_score_in_this_stage[0][0,9];
 		int stage_playable_0_010=System.Convert.ToInt32(stage_playable[0][0,10]);
 		int stage_solved_0_010=System.Convert.ToInt32(stage_solved[0][0,10]);
 		int dot_tail_turn_on_0_010=System.Convert.ToInt32(dot_tail_turn_on[0][0,10]);
 		int stage_stars_score_0_010=stage_stars_score[0][0,10];
-		int best_int_score_in_this_stage_0_010=best_int_score_in_this_stage[0][0,10];
+		best_int_score_in_this_stage_0_010=best_int_score_in_this_stage[0][0,10];
 		int stage_playable_0_011=System.Convert.ToInt32(stage_playable[0][0,11]);
 		int stage_solved_0_011=System.Convert.ToInt32(stage_solved[0][0,11]);
 		int dot_tail_turn_on_0_011=System.Convert.ToInt32(dot_tail_turn_on[0][0,11]);
 		int stage_stars_score_0_011=stage_stars_score[0][0,11];
-		int best_int_score_in_this_stage_0_011=best_int_score_in_this_stage[0][0,11];
+		best_int_score_in_this_stage_0_011=best_int_score_in_this_stage[0][0,11];
 		int stage_playable_0_012=System.Convert.ToInt32(stage_playable[0][0,12]);
 		int stage_solved_0_012=System.Convert.ToInt32(stage_solved[0][0,12]);
 		int dot_tail_turn_on_0_012=System.Convert.ToInt32(dot_tail_turn_on[0][0,12]);
 		int stage_stars_score_0_012=stage_stars_score[0][0,12];
-		int best_int_score_in_this_stage_0_012=best_int_score_in_this_stage[0][0,12];
+		best_int_score_in_this_stage_0_012=best_int_score_in_this_stage[0][0,12];
 		int stage_playable_0_013=System.Convert.ToInt32(stage_playable[0][0,13]);
 		int stage_solved_0_013=System.Convert.ToInt32(stage_solved[0][0,13]);
 		int dot_tail_turn_on_0_013=System.Convert.ToInt32(dot_tail_turn_on[0][0,13]);
 		int stage_stars_score_0_013=stage_stars_score[0][0,13];
-		int best_int_score_in_this_stage_0_013=best_int_score_in_this_stage[0][0,13];
+		best_int_score_in_this_stage_0_013=best_int_score_in_this_stage[0][0,13];
 		int stage_playable_0_014=System.Convert.ToInt32(stage_playable[0][0,14]);
 		int stage_solved_0_014=System.Convert.ToInt32(stage_solved[0][0,14]);
 		int dot_tail_turn_on_0_014=System.Convert.ToInt32(dot_tail_turn_on[0][0,14]);
 		int stage_stars_score_0_014=stage_stars_score[0][0,14];
-		int best_int_score_in_this_stage_0_014=best_int_score_in_this_stage[0][0,14];
+		best_int_score_in_this_stage_0_014=best_int_score_in_this_stage[0][0,14];
 		int stage_playable_0_10=System.Convert.ToInt32(stage_playable[0][1,0]);
 		int stage_solved_0_10=System.Convert.ToInt32(stage_solved[0][1,0]);
 		int dot_tail_turn_on_0_10=System.Convert.ToInt32(dot_tail_turn_on[0][1,0]);
 		int stage_stars_score_0_10=stage_stars_score[0][1,0];
-		int best_int_score_in_this_stage_0_10=best_int_score_in_this_stage[0][1,0];
+		best_int_score_in_this_stage_0_10=best_int_score_in_this_stage[0][1,0];
 		int stage_playable_0_11=System.Convert.ToInt32(stage_playable[0][1,1]);
 		int stage_solved_0_11=System.Convert.ToInt32(stage_solved[0][1,1]);
 		int dot_tail_turn_on_0_11=System.Convert.ToInt32(dot_tail_turn_on[0][1,1]);
 		int stage_stars_score_0_11=stage_stars_score[0][1,1];
-		int best_int_score_in_this_stage_0_11=best_int_score_in_this_stage[0][1,1];
+		best_int_score_in_this_stage_0_11=best_int_score_in_this_stage[0][1,1];
 		int stage_playable_0_12=System.Convert.ToInt32(stage_playable[0][1,2]);
 		int stage_solved_0_12=System.Convert.ToInt32(stage_solved[0][1,2]);
 		int dot_tail_turn_on_0_12=System.Convert.ToInt32(dot_tail_turn_on[0][1,2]);
 		int stage_stars_score_0_12=stage_stars_score[0][1,2];
-		int best_int_score_in_this_stage_0_12=best_int_score_in_this_stage[0][1,2];
+		best_int_score_in_this_stage_0_12=best_int_score_in_this_stage[0][1,2];
 		int stage_playable_0_13=System.Convert.ToInt32(stage_playable[0][1,3]);
 		int stage_solved_0_13=System.Convert.ToInt32(stage_solved[0][1,3]);
 		int dot_tail_turn_on_0_13=System.Convert.ToInt32(dot_tail_turn_on[0][1,3]);
 		int stage_stars_score_0_13=stage_stars_score[0][1,3];
-		int best_int_score_in_this_stage_0_13=best_int_score_in_this_stage[0][1,3];
+		best_int_score_in_this_stage_0_13=best_int_score_in_this_stage[0][1,3];
 		int stage_playable_0_14=System.Convert.ToInt32(stage_playable[0][1,4]);
 		int stage_solved_0_14=System.Convert.ToInt32(stage_solved[0][1,4]);
 		int dot_tail_turn_on_0_14=System.Convert.ToInt32(dot_tail_turn_on[0][1,4]);
 		int stage_stars_score_0_14=stage_stars_score[0][1,4];
-		int best_int_score_in_this_stage_0_14=best_int_score_in_this_stage[0][1,4];
+		best_int_score_in_this_stage_0_14=best_int_score_in_this_stage[0][1,4];
 		int stage_playable_0_15=System.Convert.ToInt32(stage_playable[0][1,5]);
 		int stage_solved_0_15=System.Convert.ToInt32(stage_solved[0][1,5]);
 		int dot_tail_turn_on_0_15=System.Convert.ToInt32(dot_tail_turn_on[0][1,5]);
 		int stage_stars_score_0_15=stage_stars_score[0][1,5];
-		int best_int_score_in_this_stage_0_15=best_int_score_in_this_stage[0][1,5];
+		best_int_score_in_this_stage_0_15=best_int_score_in_this_stage[0][1,5];
 		int stage_playable_0_16=System.Convert.ToInt32(stage_playable[0][1,6]);
 		int stage_solved_0_16=System.Convert.ToInt32(stage_solved[0][1,6]);
 		int dot_tail_turn_on_0_16=System.Convert.ToInt32(dot_tail_turn_on[0][1,6]);
 		int stage_stars_score_0_16=stage_stars_score[0][1,6];
-		int best_int_score_in_this_stage_0_16=best_int_score_in_this_stage[0][1,6];
+		best_int_score_in_this_stage_0_16=best_int_score_in_this_stage[0][1,6];
 		int stage_playable_0_17=System.Convert.ToInt32(stage_playable[0][1,7]);
 		int stage_solved_0_17=System.Convert.ToInt32(stage_solved[0][1,7]);
 		int dot_tail_turn_on_0_17=System.Convert.ToInt32(dot_tail_turn_on[0][1,7]);
 		int stage_stars_score_0_17=stage_stars_score[0][1,7];
-		int best_int_score_in_this_stage_0_17=best_int_score_in_this_stage[0][1,7];
+		best_int_score_in_this_stage_0_17=best_int_score_in_this_stage[0][1,7];
 		int stage_playable_0_18=System.Convert.ToInt32(stage_playable[0][1,8]);
 		int stage_solved_0_18=System.Convert.ToInt32(stage_solved[0][1,8]);
 		int dot_tail_turn_on_0_18=System.Convert.ToInt32(dot_tail_turn_on[0][1,8]);
 		int stage_stars_score_0_18=stage_stars_score[0][1,8];
-		int best_int_score_in_this_stage_0_18=best_int_score_in_this_stage[0][1,8];
+		best_int_score_in_this_stage_0_18=best_int_score_in_this_stage[0][1,8];
 		int stage_playable_0_19=System.Convert.ToInt32(stage_playable[0][1,9]);
 		int stage_solved_0_19=System.Convert.ToInt32(stage_solved[0][1,9]);
 		int dot_tail_turn_on_0_19=System.Convert.ToInt32(dot_tail_turn_on[0][1,9]);
 		int stage_stars_score_0_19=stage_stars_score[0][1,9];
-		int best_int_score_in_this_stage_0_19=best_int_score_in_this_stage[0][1,9];
+		best_int_score_in_this_stage_0_19=best_int_score_in_this_stage[0][1,9];
 		int stage_playable_0_110=System.Convert.ToInt32(stage_playable[0][1,10]);
 		int stage_solved_0_110=System.Convert.ToInt32(stage_solved[0][1,10]);
 		int dot_tail_turn_on_0_110=System.Convert.ToInt32(dot_tail_turn_on[0][1,10]);
 		int stage_stars_score_0_110=stage_stars_score[0][1,10];
-		int best_int_score_in_this_stage_0_110=best_int_score_in_this_stage[0][1,10];
+		best_int_score_in_this_stage_0_110=best_int_score_in_this_stage[0][1,10];
 		int stage_playable_0_111=System.Convert.ToInt32(stage_playable[0][1,11]);
 		int stage_solved_0_111=System.Convert.ToInt32(stage_solved[0][1,11]);
 		int dot_tail_turn_on_0_111=System.Convert.ToInt32(dot_tail_turn_on[0][1,11]);
 		int stage_stars_score_0_111=stage_stars_score[0][1,11];
-		int best_int_score_in_this_stage_0_111=best_int_score_in_this_stage[0][1,11];
+		best_int_score_in_this_stage_0_111=best_int_score_in_this_stage[0][1,11];
 		int stage_playable_0_112=System.Convert.ToInt32(stage_playable[0][1,12]);
 		int stage_solved_0_112=System.Convert.ToInt32(stage_solved[0][1,12]);
 		int dot_tail_turn_on_0_112=System.Convert.ToInt32(dot_tail_turn_on[0][1,12]);
 		int stage_stars_score_0_112=stage_stars_score[0][1,12];
-		int best_int_score_in_this_stage_0_112=best_int_score_in_this_stage[0][1,12];
+		best_int_score_in_this_stage_0_112=best_int_score_in_this_stage[0][1,12];
 		int stage_playable_0_113=System.Convert.ToInt32(stage_playable[0][1,13]);
 		int stage_solved_0_113=System.Convert.ToInt32(stage_solved[0][1,13]);
 		int dot_tail_turn_on_0_113=System.Convert.ToInt32(dot_tail_turn_on[0][1,13]);
 		int stage_stars_score_0_113=stage_stars_score[0][1,13];
-		int best_int_score_in_this_stage_0_113=best_int_score_in_this_stage[0][1,13];
+		best_int_score_in_this_stage_0_113=best_int_score_in_this_stage[0][1,13];
 		int stage_playable_0_114=System.Convert.ToInt32(stage_playable[0][1,14]);
 		int stage_solved_0_114=System.Convert.ToInt32(stage_solved[0][1,14]);
 		int dot_tail_turn_on_0_114=System.Convert.ToInt32(dot_tail_turn_on[0][1,14]);
 		int stage_stars_score_0_114=stage_stars_score[0][1,14];
-		int best_int_score_in_this_stage_0_114=best_int_score_in_this_stage[0][1,14];
+		best_int_score_in_this_stage_0_114=best_int_score_in_this_stage[0][1,14];
 		int stage_playable_0_20=System.Convert.ToInt32(stage_playable[0][2,0]);
 		int stage_solved_0_20=System.Convert.ToInt32(stage_solved[0][2,0]);
 		int dot_tail_turn_on_0_20=System.Convert.ToInt32(dot_tail_turn_on[0][2,0]);
 		int stage_stars_score_0_20=stage_stars_score[0][2,0];
-		int best_int_score_in_this_stage_0_20=best_int_score_in_this_stage[0][2,0];
+		best_int_score_in_this_stage_0_20=best_int_score_in_this_stage[0][2,0];
 		int stage_playable_0_21=System.Convert.ToInt32(stage_playable[0][2,1]);
 		int stage_solved_0_21=System.Convert.ToInt32(stage_solved[0][2,1]);
 		int dot_tail_turn_on_0_21=System.Convert.ToInt32(dot_tail_turn_on[0][2,1]);
 		int stage_stars_score_0_21=stage_stars_score[0][2,1];
-		int best_int_score_in_this_stage_0_21=best_int_score_in_this_stage[0][2,1];
+		best_int_score_in_this_stage_0_21=best_int_score_in_this_stage[0][2,1];
 		int stage_playable_0_22=System.Convert.ToInt32(stage_playable[0][2,2]);
 		int stage_solved_0_22=System.Convert.ToInt32(stage_solved[0][2,2]);
 		int dot_tail_turn_on_0_22=System.Convert.ToInt32(dot_tail_turn_on[0][2,2]);
 		int stage_stars_score_0_22=stage_stars_score[0][2,2];
-		int best_int_score_in_this_stage_0_22=best_int_score_in_this_stage[0][2,2];
+		best_int_score_in_this_stage_0_22=best_int_score_in_this_stage[0][2,2];
 		int stage_playable_0_23=System.Convert.ToInt32(stage_playable[0][2,3]);
 		int stage_solved_0_23=System.Convert.ToInt32(stage_solved[0][2,3]);
 		int dot_tail_turn_on_0_23=System.Convert.ToInt32(dot_tail_turn_on[0][2,3]);
 		int stage_stars_score_0_23=stage_stars_score[0][2,3];
-		int best_int_score_in_this_stage_0_23=best_int_score_in_this_stage[0][2,3];
+		best_int_score_in_this_stage_0_23=best_int_score_in_this_stage[0][2,3];
 		int stage_playable_0_24=System.Convert.ToInt32(stage_playable[0][2,4]);
 		int stage_solved_0_24=System.Convert.ToInt32(stage_solved[0][2,4]);
 		int dot_tail_turn_on_0_24=System.Convert.ToInt32(dot_tail_turn_on[0][2,4]);
 		int stage_stars_score_0_24=stage_stars_score[0][2,4];
-		int best_int_score_in_this_stage_0_24=best_int_score_in_this_stage[0][2,4];
+		best_int_score_in_this_stage_0_24=best_int_score_in_this_stage[0][2,4];
 		int stage_playable_0_25=System.Convert.ToInt32(stage_playable[0][2,5]);
 		int stage_solved_0_25=System.Convert.ToInt32(stage_solved[0][2,5]);
 		int dot_tail_turn_on_0_25=System.Convert.ToInt32(dot_tail_turn_on[0][2,5]);
 		int stage_stars_score_0_25=stage_stars_score[0][2,5];
-		int best_int_score_in_this_stage_0_25=best_int_score_in_this_stage[0][2,5];
+		best_int_score_in_this_stage_0_25=best_int_score_in_this_stage[0][2,5];
 		int stage_playable_0_26=System.Convert.ToInt32(stage_playable[0][2,6]);
 		int stage_solved_0_26=System.Convert.ToInt32(stage_solved[0][2,6]);
 		int dot_tail_turn_on_0_26=System.Convert.ToInt32(dot_tail_turn_on[0][2,6]);
 		int stage_stars_score_0_26=stage_stars_score[0][2,6];
-		int best_int_score_in_this_stage_0_26=best_int_score_in_this_stage[0][2,6];
+		best_int_score_in_this_stage_0_26=best_int_score_in_this_stage[0][2,6];
 		int stage_playable_0_27=System.Convert.ToInt32(stage_playable[0][2,7]);
 		int stage_solved_0_27=System.Convert.ToInt32(stage_solved[0][2,7]);
 		int dot_tail_turn_on_0_27=System.Convert.ToInt32(dot_tail_turn_on[0][2,7]);
 		int stage_stars_score_0_27=stage_stars_score[0][2,7];
-		int best_int_score_in_this_stage_0_27=best_int_score_in_this_stage[0][2,7];
+		best_int_score_in_this_stage_0_27=best_int_score_in_this_stage[0][2,7];
 		int stage_playable_0_28=System.Convert.ToInt32(stage_playable[0][2,8]);
 		int stage_solved_0_28=System.Convert.ToInt32(stage_solved[0][2,8]);
 		int dot_tail_turn_on_0_28=System.Convert.ToInt32(dot_tail_turn_on[0][2,8]);
 		int stage_stars_score_0_28=stage_stars_score[0][2,8];
-		int best_int_score_in_this_stage_0_28=best_int_score_in_this_stage[0][2,8];
+		best_int_score_in_this_stage_0_28=best_int_score_in_this_stage[0][2,8];
 		int stage_playable_0_29=System.Convert.ToInt32(stage_playable[0][2,9]);
 		int stage_solved_0_29=System.Convert.ToInt32(stage_solved[0][2,9]);
 		int dot_tail_turn_on_0_29=System.Convert.ToInt32(dot_tail_turn_on[0][2,9]);
 		int stage_stars_score_0_29=stage_stars_score[0][2,9];
-		int best_int_score_in_this_stage_0_29=best_int_score_in_this_stage[0][2,9];
+		best_int_score_in_this_stage_0_29=best_int_score_in_this_stage[0][2,9];
 		int stage_playable_0_210=System.Convert.ToInt32(stage_playable[0][2,10]);
 		int stage_solved_0_210=System.Convert.ToInt32(stage_solved[0][2,10]);
 		int	dot_tail_turn_on_0_210=System.Convert.ToInt32(dot_tail_turn_on[0][2,10]);
 		int stage_stars_score_0_210=stage_stars_score[0][2,10];
-		int best_int_score_in_this_stage_0_210=best_int_score_in_this_stage[0][2,10];
+		best_int_score_in_this_stage_0_210=best_int_score_in_this_stage[0][2,10];
 		int stage_playable_0_211=System.Convert.ToInt32(stage_playable[0][2,11]);
 		int stage_solved_0_211=System.Convert.ToInt32(stage_solved[0][2,11]);
 		int dot_tail_turn_on_0_211=System.Convert.ToInt32(dot_tail_turn_on[0][2,11]);
 		int stage_stars_score_0_211=stage_stars_score[0][2,11];
-		int best_int_score_in_this_stage_0_211=best_int_score_in_this_stage[0][2,11];
+		best_int_score_in_this_stage_0_211=best_int_score_in_this_stage[0][2,11];
 		int stage_playable_0_212=System.Convert.ToInt32(stage_playable[0][2,12]);
 		int stage_solved_0_212=System.Convert.ToInt32(stage_solved[0][2,12]);
 		int dot_tail_turn_on_0_212=System.Convert.ToInt32(dot_tail_turn_on[0][2,12]);
 		int stage_stars_score_0_212=stage_stars_score[0][2,12];
-		int best_int_score_in_this_stage_0_212=best_int_score_in_this_stage[0][2,12];
+		best_int_score_in_this_stage_0_212=best_int_score_in_this_stage[0][2,12];
 		int stage_playable_0_213=System.Convert.ToInt32(stage_playable[0][2,13]);
 		int stage_solved_0_213=System.Convert.ToInt32(stage_solved[0][2,13]);
 		int dot_tail_turn_on_0_213=System.Convert.ToInt32(dot_tail_turn_on[0][2,13]);
 		int stage_stars_score_0_213=stage_stars_score[0][2,13];
-		int best_int_score_in_this_stage_0_213=best_int_score_in_this_stage[0][2,13];
+		best_int_score_in_this_stage_0_213=best_int_score_in_this_stage[0][2,13];
 		int stage_playable_0_214=System.Convert.ToInt32(stage_playable[0][2,14]);
 		int stage_solved_0_214=System.Convert.ToInt32(stage_solved[0][2,14]);
 		int dot_tail_turn_on_0_214=System.Convert.ToInt32(dot_tail_turn_on[0][2,14]);
 		int stage_stars_score_0_214=stage_stars_score[0][2,14];
-		int best_int_score_in_this_stage_0_214=best_int_score_in_this_stage[0][2,14];
+		best_int_score_in_this_stage_0_214=best_int_score_in_this_stage[0][2,14];
 		int incremental_item_current_level_0_0 = incremental_item_current_level[0][0];
 		int incremental_item_current_level_0_1 = incremental_item_current_level[0][1];
 		int incremental_item_current_level_0_2 = incremental_item_current_level[0][2];
@@ -634,7 +685,7 @@ public class makeclick : MonoBehaviour {
 		
 		//string saveData = System.String.Format("{0};{1};{2}",starts,money,lives);
 		//byte[] saveBytes = Encoding.UTF8.GetBytes(saveState);
-		AndroidMessage.Create("Snapshot Created", "Data: Starts: " + starts + " Coins: " + money + " Lives: " + lives);
+		//AndroidMessage.Create("Snapshot Created", "Data: Starts: " + starts + " Coins: " + money + " Lives: " + lives);
 		
 		
 		yield return new WaitForEndOfFrame();
@@ -649,19 +700,78 @@ public class makeclick : MonoBehaviour {
 		
 		long TotalPlayedTime = 20000;
 		//string currentSaveName =  "snapshotTemp-" + UnityEngine.Random.Range(1, 281).ToString();
-		string currentSaveName =  "snapshotTemp";
+		string currentSaveName =  "snapshotTemp-" + UnityEngine.Random.Range(1, 281).ToString();
 		//string currentSaveName =  "Saved Game";
-		string description  = "Data: Starts: " + starts + " Coins: " + money + " Lives: " + lives;
+		string description  = "Starts: " + starts + " Coins: " + money + " Lives: " + lives+ " Level: "+ stage_progress +" and also purchases.";
 		
 		
 		GooglePlaySavedGamesManager.ActionGameSaveResult += ActionGameSaveResult;
 		GooglePlaySavedGamesManager.instance.CreateNewSnapshot(currentSaveName, description, Screenshot, saveData, TotalPlayedTime);
 		
-		
+		Invoke("SendScore",1f);
 		
 		Destroy(Screenshot);
 	}
-	
+	public void SendScore() {
+		
+		long score = 0;
+		int v= best_int_score_in_this_stage_0_00+
+			best_int_score_in_this_stage_0_01+
+				best_int_score_in_this_stage_0_02+
+				best_int_score_in_this_stage_0_03+
+				best_int_score_in_this_stage_0_04+
+				best_int_score_in_this_stage_0_05+
+				best_int_score_in_this_stage_0_06+
+				best_int_score_in_this_stage_0_07+
+				best_int_score_in_this_stage_0_08+
+				best_int_score_in_this_stage_0_09+
+				best_int_score_in_this_stage_0_010+
+				best_int_score_in_this_stage_0_011+
+				best_int_score_in_this_stage_0_012+
+				best_int_score_in_this_stage_0_013+
+				best_int_score_in_this_stage_0_014+
+				best_int_score_in_this_stage_0_10+
+				best_int_score_in_this_stage_0_11+
+				best_int_score_in_this_stage_0_12+
+				best_int_score_in_this_stage_0_13+
+				best_int_score_in_this_stage_0_14+
+				best_int_score_in_this_stage_0_15+
+				best_int_score_in_this_stage_0_16+
+				best_int_score_in_this_stage_0_17+
+				best_int_score_in_this_stage_0_18+
+				best_int_score_in_this_stage_0_19+
+				best_int_score_in_this_stage_0_110+
+				best_int_score_in_this_stage_0_111+
+				best_int_score_in_this_stage_0_112+
+				best_int_score_in_this_stage_0_113+
+				best_int_score_in_this_stage_0_114+
+				best_int_score_in_this_stage_0_20+
+				best_int_score_in_this_stage_0_21+
+				best_int_score_in_this_stage_0_22+
+				best_int_score_in_this_stage_0_23+
+				best_int_score_in_this_stage_0_24+
+				best_int_score_in_this_stage_0_25+
+				best_int_score_in_this_stage_0_26+
+				best_int_score_in_this_stage_0_27+
+				best_int_score_in_this_stage_0_28+
+				best_int_score_in_this_stage_0_29+
+				best_int_score_in_this_stage_0_210+
+				best_int_score_in_this_stage_0_211+
+				best_int_score_in_this_stage_0_212+
+				best_int_score_in_this_stage_0_213+
+				best_int_score_in_this_stage_0_214;
+		//score = Convert.ToInt64(long.Parse(win_screen_int_score_count.text));
+		score = System.Convert.ToInt64(v);
+		//if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
+		//GooglePlayConnection.Instance.Disconnect ();
+		//} else {
+		GooglePlayConnection.Instance.Connect ();
+		//}
+		//if (GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
+		GooglePlayManager.instance.SubmitScoreById (LEADERBOARD_ID, score);
+		AndroidToast.ShowToastNotification ("Saved Score: " + score, 1);
+		//}
+	}
 	private void ActionGameSaveLoaded (GP_SpanshotLoadResult result) {
 	
 	
@@ -952,7 +1062,7 @@ public class makeclick : MonoBehaviour {
 			world_progress= System.Convert.ToInt32(values[264]);
 
 			//AndroidMessage.Create ("Snapshot Loaded", "Data: Starts: " + result.Snapshot.stringData);
-			AndroidMessage.Create ("Snapshot Loaded", "Data: money: " + values[259]+" lives: " +values[260]+" field 0: "+values[0]+" field 1: "+values[1]);
+			AndroidMessage.Create ("Loaded", "Data: money: " + values[259]+" lives: " +values[260] + " Purchased and Levels to.");
 				//	string saveData = String.Format("{0};{1};{2};{3};{4};{5};{6}", stage, world, stages,starts,continues,money,lives);
 
 				PlayerPrefs.SetInt ("profile_0_array_W0_world_unlocked", world_playable_0_0);
@@ -1225,7 +1335,10 @@ public class makeclick : MonoBehaviour {
 
 		
 			} 
-
+		my_game_master.SimulateAwake ();
+		my_manage_menu_uGUI.Back ();
+	
+		//mp.My_start ();
 
 		
 	}
@@ -1336,7 +1449,10 @@ public class makeclick : MonoBehaviour {
 			}
 		}
 		my_game_master = (game_master)game_master.game_master_obj.GetComponent("game_master");
-		
+		my_manage_menu_uGUI = GameObject.Find("Home_Canvas").GetComponent<manage_menu_uGUI>();
+
+
+
 		world_playable = new bool[1][];
 		world_purchased = new bool[1][];
 		stage_playable = new bool[1][,];

@@ -215,6 +215,7 @@ public class game_master : MonoBehaviour {
 		music,
 		sfx
 	}
+	private bool ifLoad =false;
 	public when_lose_play when_lose_play_selected = when_lose_play.music;
 	public bool play_lose_music_in_loop;
 
@@ -278,9 +279,10 @@ public class game_master : MonoBehaviour {
 		AndroidToast.ShowToastNotification ("Hello Toast", AndroidToast.LENGTH_LONG);
 	}
 	private void Update(){
-		Load (0);
+		//Load (0);
 	}
 	private void Start(){
+		ifLoad = false;
 		Load (0);
 
 	}
@@ -366,6 +368,13 @@ public class game_master : MonoBehaviour {
 		
 		AN_PoupsProxy.showMessage (message, ANMiniJSON.Json.Serialize(data));
 	}
+
+	public void SimulateAwake(){
+		ifLoad = true;
+		Load (0);
+
+
+	}
 	// Use this for initialization
 	void Awake () {
 		GoogleCloudMessageService.ActionCMDRegistrationResult += HandleActionCMDRegistrationResult;
@@ -389,6 +398,7 @@ public class game_master : MonoBehaviour {
 		if (keep_me)
 			{
 			game_master_obj = this.gameObject;
+
 			DontDestroyOnLoad(game_master_obj);//this prefab will be used as reference from the others, so don't destry it when load a new scene
 			
 			//sum the stages in every world to know the total number of stages in the game
@@ -640,9 +650,13 @@ public class game_master : MonoBehaviour {
 
 		if (buy_virtual_money_with_real_money_with_soomla)
 			{
-			 //DELETE THIS LINE FOR SOOMLA
-			current_virtual_money[profile_slot] = my_Soomla_billing_script.Show_how_many_virtual_money_there_is_in_this_profile(profile_slot);
-			 //DELETE THIS LINE FOR SOOMLA
+				if(ifLoad){
+					current_virtual_money[profile_slot] = PlayerPrefs.GetInt("profile_"+profile_slot.ToString()+"_virtual_money");
+				}else{
+				 //DELETE THIS LINE FOR SOOMLA
+				current_virtual_money[profile_slot] = my_Soomla_billing_script.Show_how_many_virtual_money_there_is_in_this_profile(profile_slot);
+				 //DELETE THIS LINE FOR SOOMLA
+				}
 			}
 		else
 			current_virtual_money[profile_slot] = PlayerPrefs.GetInt("profile_"+profile_slot.ToString()+"_virtual_money");

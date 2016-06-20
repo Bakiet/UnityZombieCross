@@ -50,6 +50,7 @@ public class MakeclickLB : MonoBehaviour {
 
 	public DefaultPreviewButton connectButton;
 	public SA_Label playerLabel;
+	public SA_Label LoadingLabel;
 	public DefaultPreviewButton GlobalButton;
 	public DefaultPreviewButton LocalButton;
 	public DefaultPreviewButton AllTimeButton;
@@ -75,7 +76,7 @@ public class MakeclickLB : MonoBehaviour {
 		//Invoke ("LoadScore", 0);
 	}
 	void Start () {
-
+		//LoadingLabel.text = "Loading...Wait";
 		playerLabel.text = "Player Disconnected";
 		defaulttexture = avatar.GetComponent<Renderer>().material.mainTexture;
 		SA_StatusBar.text = "Custom Leader-board example scene loaded";
@@ -302,7 +303,7 @@ public class MakeclickLB : MonoBehaviour {
 		
 		
 		
-		
+		//LoadingLabel.text = "Success";
 		
 		
 	}

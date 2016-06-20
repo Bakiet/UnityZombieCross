@@ -11,15 +11,20 @@ public class manage_linear_map : MonoBehaviour {
 	int current_ico_selected;
 	manage_menu_uGUI my_manage_menu_uGUI;
 	game_master my_game_master;
+	public static GameObject manager_linear_map_obj;
+
 	
 	// Use this for initialization
 	void Start () {
 		//My_start();
 
+
 	}
 
 	public void My_start()
 	{
+		manager_linear_map_obj = this.gameObject;
+		DontDestroyOnLoad(manager_linear_map_obj);
 
 		if (stage_icons.Length > 0)
 			{
@@ -64,6 +69,7 @@ public class manage_linear_map : MonoBehaviour {
 			if (this.gameObject.activeSelf)
 				my_manage_menu_uGUI.Mark_this_button(my_manage_menu_uGUI.stage_screen_target_button);
 			}
+
 	}
 
 	void Update()
