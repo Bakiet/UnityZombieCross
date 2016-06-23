@@ -20,10 +20,19 @@ public class Checkpoint : MonoBehaviour {
 	private static int scoreAtLastPoint = 0;
 
 	private GameObject[] gameObjects;
+	private int nextUpdate=5;
+
 
 	void Update(){
 
-
+		if(Time.time>=nextUpdate){
+			Debug.Log(Time.time+">="+nextUpdate);
+			// Change the next update (current second+1)
+			nextUpdate=Mathf.FloorToInt(Time.time)+1;
+			// Call your fonction
+			findSpawn();
+		}
+		/*
 		GameObject[] allObjects = UnityEngine.Object.FindObjectsOfType<GameObject>() ;
 
 
@@ -34,7 +43,22 @@ public class Checkpoint : MonoBehaviour {
 		}
 
 		moto = motorcyclePrefab;
+		*/
+		//InvokeRepeating("findSpawn", 0, 1.0);
+	}
 
+	private void findSpawn(){
+
+		GameObject[] allObjects = UnityEngine.Object.FindObjectsOfType<GameObject>() ;
+		
+		
+		for (var i=0; i < allObjects.Length; i++){
+			if(allObjects[i].name.Contains("Spawn")){
+				motorcyclePrefab = allObjects[i];
+			}
+		}
+		
+		moto = motorcyclePrefab;
 	}
 	// Use this for initialization
 	void Start () {

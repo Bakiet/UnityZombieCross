@@ -49,7 +49,7 @@ namespace Soomla.Store
 		const string pack1000_name = "coins";
 		const string pack1000_description = "1000 coins to unlock items.";
 		const int pack1000_quantity = 1000;
-		const double pack1000_cost = 0.99;
+		const double pack1000_cost = 1.99;
 
 		const string pack2500_name = "coin pack";
 		const string pack2500_description = "2500 coins! saving of 10%";
@@ -99,8 +99,8 @@ namespace Soomla.Store
 			VIRTUAL_MONEY_PROFILE_0_PACK_1000_ID,                     // item id
 			pack1000_quantity,												// number of currencies in the pack
 			VIRTUAL_MONEY_PROFILE_0_ID,            			// the currency associated with this pack
-			new PurchaseWithMarket(VIRTUAL_MONEY_PROFILE_0_PACK_1000_ID, pack1000_cost)
-			//new PurchaseWithMarket(TEST_ID, pack1000_cost)
+			//new PurchaseWithMarket(VIRTUAL_MONEY_PROFILE_0_PACK_1000_ID, pack1000_cost)
+			new PurchaseWithMarket(TEST_ID, pack1000_cost)
 			);
 		public static VirtualCurrencyPack VIRTUAL_MONEY_PROFILE_0_PACK_2500 = new VirtualCurrencyPack(
 			pack2500_name,                                   	// name

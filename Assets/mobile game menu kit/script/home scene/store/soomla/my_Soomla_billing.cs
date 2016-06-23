@@ -74,6 +74,7 @@ namespace Soomla.Store
 			//Debug.Log ("Show_how_many_virtual_money_there_is_in_this_profile" + " : " + profile_number);
 			//return StoreInventory.GetItemBalance(my_Soomla_Assets.prefix+"virtual_money_p"+profile_number.ToString());
 			return StoreInventory.GetItemBalance("Coins");
+
 	}
 	 //DELETE THIS LINE FOR SOOMLA
 }

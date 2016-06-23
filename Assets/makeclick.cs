@@ -554,7 +554,8 @@ public class makeclick : MonoBehaviour {
 		int consumable_item_current_quantity_0_15 = consumable_item_current_quantity[0][15];
 		int consumable_item_current_quantity_0_16 = consumable_item_current_quantity[0][16];
 		starts= PlayerPrefs.GetInt("profile_0_total_stars");
-		money = my_game_master.my_Soomla_billing_script.Show_how_many_virtual_money_there_is_in_this_profile(0);
+		money = PlayerPrefs.GetInt("profile_0_virtual_money");
+		//my_game_master.my_Soomla_billing_script.Show_how_many_virtual_money_there_is_in_this_profile(0);
 		lives = PlayerPrefs.GetInt("profile_0_current_lives");
 		stages = PlayerPrefs.GetInt("profile_0_total_number_of_stages_in_the_game_solved");
 		best_score = PlayerPrefs.GetInt("profile_0_best_int_score_for_this_profile");
@@ -699,10 +700,11 @@ public class makeclick : MonoBehaviour {
 		
 		
 		long TotalPlayedTime = 20000;
-		//string currentSaveName =  "snapshotTemp-" + UnityEngine.Random.Range(1, 281).ToString();
 		string currentSaveName =  "snapshotTemp-" + UnityEngine.Random.Range(1, 281).ToString();
+		//string currentSaveName =  "snapshotTemp";
+		//string currentSaveName =  "snapshotTemp-" + UnityEngine.Random.Range(1, 281).ToString();
 		//string currentSaveName =  "Saved Game";
-		string description  = "Starts: " + starts + " Coins: " + money + " Lives: " + lives+ " Level: "+ stage_progress +" and also purchases.";
+		string description  = "Starts:" + starts + " Coins:" + money + " Lives:" + lives+ " Level:"+ stage_progress +" and purchases.";
 		
 		
 		GooglePlaySavedGamesManager.ActionGameSaveResult += ActionGameSaveResult;
@@ -1062,7 +1064,7 @@ public class makeclick : MonoBehaviour {
 			world_progress= System.Convert.ToInt32(values[264]);
 
 			//AndroidMessage.Create ("Snapshot Loaded", "Data: Starts: " + result.Snapshot.stringData);
-			AndroidMessage.Create ("Loaded", "Data: money: " + values[259]+" lives: " +values[260] + " Purchased and Levels to.");
+			AndroidMessage.Create ("Loaded", "Data: money: " + values[259]+" lives: " +values[260] + " Purchased and Levels.");
 				//	string saveData = String.Format("{0};{1};{2};{3};{4};{5};{6}", stage, world, stages,starts,continues,money,lives);
 
 				PlayerPrefs.SetInt ("profile_0_array_W0_world_unlocked", world_playable_0_0);
@@ -1336,8 +1338,9 @@ public class makeclick : MonoBehaviour {
 		
 			} 
 		my_game_master.SimulateAwake ();
-		my_manage_menu_uGUI.Back ();
-	
+		if (Application.loadedLevelName == "Home") {
+			my_manage_menu_uGUI.Back ();
+		}
 		//mp.My_start ();
 
 		
@@ -1449,8 +1452,9 @@ public class makeclick : MonoBehaviour {
 			}
 		}
 		my_game_master = (game_master)game_master.game_master_obj.GetComponent("game_master");
-		my_manage_menu_uGUI = GameObject.Find("Home_Canvas").GetComponent<manage_menu_uGUI>();
-
+		if (Application.loadedLevelName == "Home") {
+			my_manage_menu_uGUI = GameObject.Find ("Home_Canvas").GetComponent<manage_menu_uGUI> ();
+		}
 
 
 		world_playable = new bool[1][];

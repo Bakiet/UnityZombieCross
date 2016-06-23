@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 public class game_master : MonoBehaviour {
 
-
+	private int countcheck = 0;
 	private int healtcount = 0;
 	//editor
 	public bool editor_show_worlds;
@@ -372,8 +372,6 @@ public class game_master : MonoBehaviour {
 	public void SimulateAwake(){
 		ifLoad = true;
 		Load (0);
-
-
 	}
 	// Use this for initialization
 	void Awake () {
@@ -617,7 +615,8 @@ public class game_master : MonoBehaviour {
 			 //DELETE THIS LINE FOR SOOMLA
 			my_Soomla_billing_script.Remove_all_virtual_money_from_this_profile(current_profile_selected);
 			my_Soomla_billing_script.Give_virtual_money_for_free (current_profile_selected, start_virtual_money);
-			current_virtual_money[current_profile_selected] = my_Soomla_billing_script.Show_how_many_virtual_money_there_is_in_this_profile(current_profile_selected);
+			//current_virtual_money[current_profile_selected] = my_Soomla_billing_script.Show_how_many_virtual_money_there_is_in_this_profile(current_profile_selected);
+			current_virtual_money[current_profile_selected] = PlayerPrefs.GetInt("profile_0_virtual_money");
 			 //DELETE THIS LINE FOR SOOMLA
 			}
 		else
@@ -650,13 +649,13 @@ public class game_master : MonoBehaviour {
 
 		if (buy_virtual_money_with_real_money_with_soomla)
 			{
-				if(ifLoad){
+				//if(ifLoad){
 					current_virtual_money[profile_slot] = PlayerPrefs.GetInt("profile_"+profile_slot.ToString()+"_virtual_money");
-				}else{
+				//}else{
 				 //DELETE THIS LINE FOR SOOMLA
-				current_virtual_money[profile_slot] = my_Soomla_billing_script.Show_how_many_virtual_money_there_is_in_this_profile(profile_slot);
+				//current_virtual_money[profile_slot] = my_Soomla_billing_script.Show_how_many_virtual_money_there_is_in_this_profile(profile_slot);
 				 //DELETE THIS LINE FOR SOOMLA
-				}
+				//}
 			}
 		else
 			current_virtual_money[profile_slot] = PlayerPrefs.GetInt("profile_"+profile_slot.ToString()+"_virtual_money");
@@ -669,7 +668,9 @@ public class game_master : MonoBehaviour {
 				{
 				string temp_string = PlayerPrefs.GetString("profile_"+profile_slot.ToString()+"_target_time");
 				target_time[current_profile_selected] = DateTime.Parse(temp_string);
-				Check_countdown();
+					if(countcheck < 1){
+					Check_countdown();
+					}
 				}
 			}
 		if(continue_rule_selected == continue_rule.continue_cost_a_continue_token)
@@ -1028,6 +1029,7 @@ public class game_master : MonoBehaviour {
 
 	void Check_countdown()
 	{
+		countcheck = countcheck + 1;
 		TimeSpan span = target_time[current_profile_selected].Subtract(DateTime.Now);
 		int days = span.Days;
 		int hours = span.Hours;
@@ -1051,7 +1053,7 @@ public class game_master : MonoBehaviour {
 			Debug.Log("Total seconds to wait = " + total_seconds_to_wait);
 
 		Invoke("Countdown_end",total_seconds_to_wait);
-		Local (total_seconds_to_wait);
+
 
 	}
 
@@ -1123,6 +1125,7 @@ public class game_master : MonoBehaviour {
 		if (show_debug_warnings)
 			Debug.LogWarning("Countdown_end");
 		Save(current_profile_selected);
+		Local (1);
 	}
 	#endregion
 	

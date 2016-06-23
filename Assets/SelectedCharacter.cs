@@ -103,9 +103,14 @@ public class SelectedCharacter : MonoBehaviour {
 			selectedChar = characters[10];
 
 		//GameObject selectedEffect = effects[0];
-		
+		/*if (!neonbikeselected) {
+			GameObject.Find ("Main Camera").GetComponent<GlowEffect.GlowEffect>().enabled=false;
+		}*/
 		//	StoreInventory.RefreshLocalInventory ();
 		//check for other character selections in the storage
+		if (!neonbikeeffectselected) {
+			GameObject.Find ("Main Camera").GetComponent<GlowEffect.GlowEffect>().enabled=false;
+		}
 		if (superbikeeffectselected) {
 			super_bike_effect = true;
 			superbikeselected = true;
