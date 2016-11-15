@@ -653,7 +653,9 @@ public class game_uGUI : MonoBehaviour {
 		int consumable_item_current_quantity_0_15 = consumable_item_current_quantity[0][15];
 		int consumable_item_current_quantity_0_16 = consumable_item_current_quantity[0][16];
 		starts= PlayerPrefs.GetInt("profile_0_total_stars");
-		money = PlayerPrefs.GetInt("profile_0_virtual_money");
+		//money = PlayerPrefs.GetInt("profile_0_virtual_money");
+		money = my_game_master.current_virtual_money [0];
+		//PlayerPrefs.GetInt("profile_0_virtual_money");
 		//my_game_master.my_Soomla_billing_script.Show_how_many_virtual_money_there_is_in_this_profile(0);
 		lives = PlayerPrefs.GetInt("profile_0_current_lives");
 		stages = PlayerPrefs.GetInt("profile_0_total_number_of_stages_in_the_game_solved");
@@ -863,7 +865,8 @@ public class game_uGUI : MonoBehaviour {
 			my_game_master = (game_master)game_master.game_master_obj.GetComponent("game_master");
 			my_game_master.my_ads_master.my_game_uGUI = this;
 		}
-		funds = StoreInventory.GetItemBalance("Coins");
+		funds = my_game_master.current_virtual_money [0];
+			//StoreInventory.GetItemBalance("Coins");
 
 		my_game_master = (game_master)game_master.game_master_obj.GetComponent("game_master");
 
@@ -1456,9 +1459,12 @@ public class game_uGUI : MonoBehaviour {
 					if (my_game_master.buy_virtual_money_with_real_money_with_soomla)
 					{
 						// DELETE THIS LINE FOR SOOMLA
-						my_game_master.my_Soomla_billing_script.Give_virtual_money_for_free(my_game_master.current_profile_selected,money);
+						//my_game_master.my_Soomla_billing_script.Give_virtual_money_for_free(my_game_master.current_profile_selected,money);
 					//	my_game_master.current_virtual_money[my_game_master.current_profile_selected] = my_game_master.my_Soomla_billing_script.Show_how_many_virtual_money_there_is_in_this_profile(my_game_master.current_profile_selected);
-						my_game_master.current_virtual_money[my_game_master.current_profile_selected] = PlayerPrefs.GetInt("profile_0_virtual_money");
+
+						my_game_master.my_Soomla_billing_script.Remove_all_virtual_money_from_this_profile(0);
+						my_game_master.my_Soomla_billing_script.Give_virtual_money_for_free(0,my_game_master.current_virtual_money[my_game_master.current_profile_selected]);
+						my_game_master.current_virtual_money[my_game_master.current_profile_selected] = PlayerPrefs.GetInt("profile_0_virtual_money")+money;
 						 //DELETE THIS LINE FOR SOOMLA
 					}
 					else
@@ -1474,7 +1480,10 @@ public class game_uGUI : MonoBehaviour {
 						// DELETE THIS LINE FOR SOOMLA
 						my_game_master.my_Soomla_billing_script.Give_virtual_money_for_free(my_game_master.current_profile_selected,(my_game_master.virtual_money_cap-my_game_master.current_virtual_money[my_game_master.current_profile_selected]));
 						//my_game_master.current_virtual_money[my_game_master.current_profile_selected] = my_game_master.my_Soomla_billing_script.Show_how_many_virtual_money_there_is_in_this_profile(my_game_master.current_profile_selected);
-						my_game_master.current_virtual_money[my_game_master.current_profile_selected] = PlayerPrefs.GetInt("profile_0_virtual_money");
+
+
+						my_game_master.my_Soomla_billing_script.Give_virtual_money_for_free(0,my_game_master.current_virtual_money[my_game_master.current_profile_selected]);
+						my_game_master.current_virtual_money[my_game_master.current_profile_selected] = PlayerPrefs.GetInt("profile_0_virtual_money")+money;
 						 //DELETE THIS LINE FOR SOOMLA
 					}
 					else
@@ -1484,8 +1493,11 @@ public class game_uGUI : MonoBehaviour {
 						Debug.Log("virtual money cap");
 				}
 				
-				PlayerPrefs.SetInt("profile_"+my_game_master.current_profile_selected.ToString()+"_virtual_money",	my_game_master.current_virtual_money[my_game_master.current_profile_selected]);
+
+				my_game_master.my_Soomla_billing_script.Remove_all_virtual_money_from_this_profile(0);
+				my_game_master.my_Soomla_billing_script.Give_virtual_money_for_free(0,my_game_master.current_virtual_money[my_game_master.current_profile_selected]);
 				virtual_money_count.text = my_game_master.current_virtual_money[my_game_master.current_profile_selected].ToString();
+				PlayerPrefs.SetInt("profile_"+my_game_master.current_profile_selected.ToString()+"_virtual_money",	my_game_master.current_virtual_money[my_game_master.current_profile_selected]);
 				
 				
 			}
@@ -1755,8 +1767,11 @@ public class game_uGUI : MonoBehaviour {
 						if (my_game_master.buy_virtual_money_with_real_money_with_soomla)
 						{
 							 //DELETE THIS LINE FOR SOOMLA
-							my_game_master.my_Soomla_billing_script.Give_virtual_money_for_free(my_game_master.current_profile_selected,temp_money_count);
+							//my_game_master.my_Soomla_billing_script.Give_virtual_money_for_free(my_game_master.current_profile_selected,temp_money_count);
 							//my_game_master.current_virtual_money[my_game_master.current_profile_selected] = my_game_master.my_Soomla_billing_script.Show_how_many_virtual_money_there_is_in_this_profile(my_game_master.current_profile_selected);
+
+							my_game_master.my_Soomla_billing_script.Remove_all_virtual_money_from_this_profile(0);
+							my_game_master.my_Soomla_billing_script.Give_virtual_money_for_free(0,my_game_master.current_virtual_money[my_game_master.current_profile_selected]);
 							my_game_master.current_virtual_money[my_game_master.current_profile_selected] = PlayerPrefs.GetInt("profile_0_virtual_money");
 							 //DELETE THIS LINE FOR SOOMLA
 						}
@@ -1769,10 +1784,13 @@ public class game_uGUI : MonoBehaviour {
 						if (my_game_master.buy_virtual_money_with_real_money_with_soomla)
 						{
 							 //DELETE THIS LINE FOR SOOMLA
-							my_game_master.my_Soomla_billing_script.Give_virtual_money_for_free(my_game_master.current_profile_selected,temp_money_count);
+							//my_game_master.my_Soomla_billing_script.Give_virtual_money_for_free(my_game_master.current_profile_selected,temp_money_count);
 							//my_game_master.my_Soomla_billing_script.Give_virtual_money_for_free(my_game_master.current_profile_selected,(my_game_master.virtual_money_cap-my_game_master.current_virtual_money[my_game_master.current_profile_selected]));
 							//my_game_master.current_virtual_money[my_game_master.current_profile_selected] = my_game_master.my_Soomla_billing_script.Show_how_many_virtual_money_there_is_in_this_profile(my_game_master.current_profile_selected);
-							my_game_master.current_virtual_money[my_game_master.current_profile_selected] = PlayerPrefs.GetInt("profile_0_virtual_money");
+
+							my_game_master.my_Soomla_billing_script.Remove_all_virtual_money_from_this_profile(0);
+							my_game_master.my_Soomla_billing_script.Give_virtual_money_for_free(0,my_game_master.current_virtual_money[my_game_master.current_profile_selected]);
+							my_game_master.current_virtual_money[my_game_master.current_profile_selected] = PlayerPrefs.GetInt("profile_0_virtual_money")+temp_money_count;
 							 //DELETE THIS LINE FOR SOOMLA
 						}
 						else
@@ -1880,7 +1898,7 @@ public class game_uGUI : MonoBehaviour {
 			if (show_int_score && !show_star_score)
 				StartCoroutine(Int_score_animation(0.5f,0));
 
-			Invoke("SendScore",1f);
+			Invoke("SendScore",2f);
 			Invoke("Mark_win",0.1f);
 
 			//Invoke("",0.1f);
@@ -1926,7 +1944,7 @@ public class game_uGUI : MonoBehaviour {
 						if (my_game_master.buy_virtual_money_with_real_money_with_soomla)
 						{
 							 //DELETE THIS LINE FOR SOOMLA
-							my_game_master.my_Soomla_billing_script.Give_virtual_money_for_free(my_game_master.current_profile_selected,temp_money_count);
+							//my_game_master.my_Soomla_billing_script.Give_virtual_money_for_free(my_game_master.current_profile_selected,temp_money_count);
 							//my_game_master.current_virtual_money[my_game_master.current_profile_selected] = my_game_master.my_Soomla_billing_script.Show_how_many_virtual_money_there_is_in_this_profile(my_game_master.current_profile_selected);
 							my_game_master.current_virtual_money[my_game_master.current_profile_selected] = PlayerPrefs.GetInt("profile_0_virtual_money");
 							 //DELETE THIS LINE FOR SOOMLA
@@ -1940,10 +1958,10 @@ public class game_uGUI : MonoBehaviour {
 						if (my_game_master.buy_virtual_money_with_real_money_with_soomla)
 						{
 							 //DELETE THIS LINE FOR SOOMLA
-							my_game_master.my_Soomla_billing_script.Give_virtual_money_for_free(my_game_master.current_profile_selected,(my_game_master.virtual_money_cap-my_game_master.current_virtual_money[my_game_master.current_profile_selected]));
+							//my_game_master.my_Soomla_billing_script.Give_virtual_money_for_free(my_game_master.current_profile_selected,(my_game_master.virtual_money_cap-my_game_master.current_virtual_money[my_game_master.current_profile_selected]));
 							//my_game_master.current_virtual_money[my_game_master.current_profile_selected] = my_game_master.my_Soomla_billing_script.Show_how_many_virtual_money_there_is_in_this_profile(my_game_master.current_profile_selected);
 							my_game_master.current_virtual_money[my_game_master.current_profile_selected] = PlayerPrefs.GetInt("profile_0_virtual_money");
-							my_game_master.current_virtual_money[my_game_master.current_profile_selected] = money;
+							//my_game_master.current_virtual_money[my_game_master.current_profile_selected] = money;
 							 //DELETE THIS LINE FOR SOOMLA
 						}
 						else
@@ -2180,7 +2198,7 @@ public class game_uGUI : MonoBehaviour {
 		//}
 		//if (GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
 			GooglePlayManager.instance.SubmitScoreById (LEADERBOARD_ID, score);
-			AndroidToast.ShowToastNotification ("Saved Score: " + score, 1);
+			AndroidToast.ShowToastNotification ("Total Score Ranked: " + score, 1);
 		//}
 	}
 	public void Double_score_button()

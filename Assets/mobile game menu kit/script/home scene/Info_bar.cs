@@ -47,7 +47,11 @@ public class Info_bar : MonoBehaviour {
 		if (game_master.game_master_obj)
 			my_game_master = (game_master)game_master.game_master_obj.GetComponent("game_master");
 	}
-	
+	void Update(){
+		my_game_master.SimulateAwake ();
+		Update_me ();
+		//my_game_master.SimulateAwake ();
+	}
 	public void Show_info_bar(bool show)
 	{
 		if (show)
@@ -96,7 +100,8 @@ public class Info_bar : MonoBehaviour {
 			//if (my_game_master.store_enabled)
 				//{
 				my_virtual_money.gameObject.SetActive(true);
-			my_game_master.current_virtual_money[my_game_master.current_profile_selected] = my_game_master.my_Soomla_billing_script.Show_how_many_virtual_money_there_is_in_this_profile(my_game_master.current_profile_selected);
+			//my_game_master.current_virtual_money[my_game_master.current_profile_selected] = my_game_master.my_Soomla_billing_script.Show_how_many_virtual_money_there_is_in_this_profile(my_game_master.current_profile_selected);
+			my_game_master.current_virtual_money[my_game_master.current_profile_selected] = PlayerPrefs.GetInt("profile_0_virtual_money");
 				my_virtual_money.GetChild(0).GetComponent<Text>().text = my_game_master.current_virtual_money[my_game_master.current_profile_selected].ToString("N0");
 				if (my_game_master.can_buy_virtual_money_with_real_money)
 					my_virtual_money.GetChild(1).gameObject.SetActive(true);

@@ -9,7 +9,7 @@ namespace Soomla.Store
 		
 		public int GetVersion()
 		{
-			return 0;
+			return 1;
 		}
 		
 		#region virtual currency
@@ -99,8 +99,8 @@ namespace Soomla.Store
 			VIRTUAL_MONEY_PROFILE_0_PACK_1000_ID,                     // item id
 			pack1000_quantity,												// number of currencies in the pack
 			VIRTUAL_MONEY_PROFILE_0_ID,            			// the currency associated with this pack
-			//new PurchaseWithMarket(VIRTUAL_MONEY_PROFILE_0_PACK_1000_ID, pack1000_cost)
-			new PurchaseWithMarket(TEST_ID, pack1000_cost)
+			new PurchaseWithMarket(VIRTUAL_MONEY_PROFILE_0_PACK_1000_ID, pack1000_cost)
+			//new PurchaseWithMarket(VIRTUAL_MONEY_PROFILE_0_PACK_1000_ID_TEST, pack1000_cost)
 			);
 		public static VirtualCurrencyPack VIRTUAL_MONEY_PROFILE_0_PACK_2500 = new VirtualCurrencyPack(
 			pack2500_name,                                   	// name
@@ -109,6 +109,7 @@ namespace Soomla.Store
 			pack2500_quantity,												// number of currencies in the pack
 			VIRTUAL_MONEY_PROFILE_0_ID,            			// the currency associated with this pack
 			new PurchaseWithMarket(VIRTUAL_MONEY_PROFILE_0_PACK_2500_ID, pack2500_cost)
+			//new PurchaseWithMarket(VIRTUAL_MONEY_PROFILE_0_PACK_2500_ID_TEST, pack2500_cost)			
 			);
 		public static VirtualCurrencyPack VIRTUAL_MONEY_PROFILE_0_PACK_6000 = new VirtualCurrencyPack(
 			pack6000_name,                                   	// name
@@ -149,9 +150,13 @@ namespace Soomla.Store
 			"No More Ads!",				 									// description
 			"no_ads",														// item id
 			new PurchaseWithMarket("no_ads", 1.99));// the way this virtual good is purchased
-
-
-
+		/*
+		public static NotConsumableItem NO_ADS = new NotConsumableItem(
+			"No Ads", 														// name
+			"No More Ads!",				 									// description
+			"no_ads",														// item id
+			new PurchaseWithMarket("no_ads", 1.99));// the way this virtual good is purchased
+		*/
 
 		public static VirtualGood token = new SingleUseVG(
 			"Continue Token",                                        		// name
@@ -556,17 +561,23 @@ namespace Soomla.Store
 
 
 		public VirtualGood[] GetGoods() {
-			return new VirtualGood[] {health, healthx2,healthx3,NO_ADS,hell_bike_upgrade,monster_bike_upgrade,neon_bike_upgrade,monster_bike_upgrade,nightmare_bike_upgrade,party_bike_upgrade,super_bike_upgrade,bike_upgrade_level_1,bike_upgrade_level_2,bike_upgrade_level_3,super_upgrade_level_1,super_upgrade_level_2,super_upgrade_level_3,party_upgrade_level_1,party_upgrade_level_2,party_upgrade_level_3,nightmare_upgrade_level_1,nightmare_upgrade_level_2,nightmare_upgrade_level_3,monster_upgrade_level_1,monster_upgrade_level_2,monster_upgrade_level_3,neon_upgrade_level_1,neon_upgrade_level_2,neon_upgrade_level_3,hell_upgrade_level_1,hell_upgrade_level_2,hell_upgrade_level_3};
+			return new VirtualGood[] {NO_ADS,health, healthx2,healthx3,hell_bike_upgrade,monster_bike_upgrade,neon_bike_upgrade,monster_bike_upgrade,nightmare_bike_upgrade,party_bike_upgrade,super_bike_upgrade,bike_upgrade_level_1,bike_upgrade_level_2,bike_upgrade_level_3,super_upgrade_level_1,super_upgrade_level_2,super_upgrade_level_3,party_upgrade_level_1,party_upgrade_level_2,party_upgrade_level_3,nightmare_upgrade_level_1,nightmare_upgrade_level_2,nightmare_upgrade_level_3,monster_upgrade_level_1,monster_upgrade_level_2,monster_upgrade_level_3,neon_upgrade_level_1,neon_upgrade_level_2,neon_upgrade_level_3,hell_upgrade_level_1,hell_upgrade_level_2,hell_upgrade_level_3};
 			//return new VirtualGood[] {};
 		}
 
 		//if you don't need this, leave it empty, BUT NOT delete it!
+
 		public LifetimeVG[] GetNotConsumableItems()//
 		{
 			return new LifetimeVG[]{};//NO_ADS_NONCONS
 		}
+		/*
+		public NotConsumableItem[] GetNotConsumableItems()//
+		{
+			return new NotConsumableItem[]{NO_ADS};//NO_ADS_NONCONS
+		}
+		*/
 
-		
 		public UpgradeVG[] GetIncrementalItems()
 		{
 			return new UpgradeVG[]{};

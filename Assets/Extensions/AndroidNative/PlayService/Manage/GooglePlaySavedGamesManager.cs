@@ -37,7 +37,7 @@ public class GooglePlaySavedGamesManager :  SA_Singleton<GooglePlaySavedGamesMan
 	public void ShowSavedGamesUI(string title, int maxNumberOfSavedGamesToShow, bool allowAddButton = true, bool allowDelete = true)  {
 		if (!GooglePlayConnection.CheckState ()) { return; }
 
-		AN_GMSGeneralProxy.ShowSavedGamesUI_Bridge(title, maxNumberOfSavedGamesToShow, allowAddButton, allowDelete);
+		AN_GMSGeneralProxy.ShowSavedGamesUI_Bridge(title, 2, allowAddButton, allowDelete);
 	}
 
 

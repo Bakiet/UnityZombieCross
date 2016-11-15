@@ -40,6 +40,7 @@ public class store_button : MonoBehaviour {
 
 	public enum give_this
 	{
+		no_ads,
 		virtual_money, 
 		new_live,
 		unlock_world,
@@ -51,7 +52,7 @@ public class store_button : MonoBehaviour {
 	public int quantity;
 	public bool show_quantity;
 	public bool disable_me_after_purchased;
-	bool purchased;
+	public static bool purchased;
 	public int my_item_ID;//for consumable and incremental items
 
 	bool you_have_enough_money;
@@ -322,6 +323,12 @@ public class store_button : MonoBehaviour {
 	{
 		switch(give_this_selected)
 		{
+		case give_this.no_ads:
+			if ((my_game_master.current_virtual_money[my_game_master.current_profile_selected] + quantity) > my_game_master.virtual_money_cap)
+				this_buy_hit_the_cap = false;
+			else
+				this_buy_hit_the_cap = false;
+			break;
 		case give_this.virtual_money:
 			if ((my_game_master.current_virtual_money[my_game_master.current_profile_selected] + quantity) > my_game_master.virtual_money_cap)
 				this_buy_hit_the_cap = true;
@@ -369,6 +376,13 @@ public class store_button : MonoBehaviour {
 
 		switch(give_this_selected)
 		{
+		case give_this.no_ads:
+
+				//this.gameObject.SetActive(false);
+				//my_check = false;
+
+			
+			break;
 		case give_this.virtual_money:
 			if ((quantity > my_game_master.virtual_money_cap)
 				|| (!my_game_master.show_virtual_money_even_if_cap_reached && (my_game_master.current_virtual_money[my_game_master.current_profile_selected] + quantity > my_game_master.virtual_money_cap)))
@@ -522,21 +536,60 @@ public class store_button : MonoBehaviour {
 		{
 			if (give_this_selected == give_this.virtual_money)
 			{
-
+				//my_game_master.my_Soomla_billing_script.Remove_all_virtual_money_from_this_profile(0);
 				my_game_master.my_Soomla_billing_script.Buy_virutal_money_with_real_money(my_game_master.current_profile_selected,quantity,id);
-				my_game_master.current_virtual_money[my_game_master.current_profile_selected] = my_game_master.my_Soomla_billing_script.Show_how_many_virtual_money_there_is_in_this_profile(my_game_master.current_profile_selected);
-
-				if (my_game_master.show_purchase_feedback)
-					my_feedback_window.Start_me(my_ico,quantity,my_name);
+				//my_game_master.my_Soomla_billing_script.
+					if(purchased){
+					int money = 0;
+					int money_before = PlayerPrefs.GetInt("profile_0_virtual_money");
 				
-				my_store_tabs.Update_buttons_in_windows();
-				purchased = true;
+					money = my_game_master.my_Soomla_billing_script.Show_how_many_virtual_money_there_is_in_this_profile(my_game_master.current_profile_selected);
 
+					PlayerPrefs.SetInt ("profile_0_virtual_money", money);
+					my_game_master.current_virtual_money[my_game_master.current_profile_selected] = PlayerPrefs.GetInt("profile_0_virtual_money");
+					//if(money_before != money){
+						if (my_game_master.show_purchase_feedback){
+							//my_feedback_window.Start_me(my_ico,quantity,my_name);
+							}
+					//}
+
+					my_store_tabs.Update_buttons_in_windows();
+					purchased = true;
+					}else{
+						purchased = false;
+					}
+
+				//my_game_master.current_virtual_money[my_game_master.current_profile_selected] = my_game_master.my_Soomla_billing_script.Show_how_many_virtual_money_there_is_in_this_profile(my_game_master.current_profile_selected);
 			}
 			else
 			{
 				if (my_game_master.show_debug_warnings)
 					Debug.LogWarning("You can buy with real money ONLY virtual money, not items or other stuff");
+			}
+			if (give_this_selected == give_this.no_ads)
+			{
+				//my_game_master.my_Soomla_billing_script.Remove_all_virtual_money_from_this_profile(0);
+				my_game_master.my_Soomla_billing_script.Buy_ad_with_real_money(id);
+				//my_game_master.my_Soomla_billing_script.
+				if(purchased){
+					int money_before = PlayerPrefs.GetInt("profile_0_virtual_money");
+					
+					int money = my_game_master.my_Soomla_billing_script.Show_how_many_virtual_money_there_is_in_this_profile(my_game_master.current_profile_selected);
+					
+					PlayerPrefs.SetInt ("profile_0_virtual_money", money);
+					my_game_master.current_virtual_money[my_game_master.current_profile_selected] = PlayerPrefs.GetInt("profile_0_virtual_money");
+				
+						if (my_game_master.show_purchase_feedback){
+							my_feedback_window.Start_me(my_ico,quantity,my_name);
+						}
+
+					my_store_tabs.Update_buttons_in_windows();
+					purchased = true;
+				}else{
+					purchased = false;
+				}
+				
+				//my_game_master.current_virtual_money[my_game_master.current_profile_selected] = my_game_master.my_Soomla_billing_script.Show_how_many_virtual_money_there_is_in_this_profile(my_game_master.current_profile_selected);
 			}
 		}
 		else
@@ -544,19 +597,29 @@ public class store_button : MonoBehaviour {
 		//put here your code
 		Give_the_stuff(); //call this when money operation is done
 		}
-	}
+		my_game_master.current_virtual_money[my_game_master.current_profile_selected] = PlayerPrefs.GetInt("profile_0_virtual_money");
+		//if(money_before != money){
+		if (my_game_master.show_purchase_feedback){
+			my_feedback_window.Start_me(my_ico,quantity,my_name);
+		}
 
+	}
+	
 	void Pay_with_virtual_money()
 	{
 		if (my_game_master.show_debug_messages)
 			Debug.Log("Pay_with_virtual_money");
 		if(my_game_master.buy_virtual_money_with_real_money_with_soomla)
 			{
-
+			int money_stuff = PlayerPrefs.GetInt("profile_0_virtual_money");
 			//if (my_game_master.my_Soomla_billing_script.Buy_stuff_with_virtual_money(my_game_master.current_profile_selected,Mathf.RoundToInt(my_price)))
-			if (my_game_master.my_Soomla_billing_script.Buy_stuff_with_virtual_money(my_game_master.current_profile_selected,Mathf.RoundToInt(my_price),id))
+			if (my_game_master.my_Soomla_billing_script.Buy_stuff_with_virtual_money(my_game_master.current_profile_selected,Mathf.RoundToInt(my_price),id,money_stuff))
 			    {
-				my_game_master.current_virtual_money[my_game_master.current_profile_selected] = my_game_master.my_Soomla_billing_script.Show_how_many_virtual_money_there_is_in_this_profile(my_game_master.current_profile_selected);
+				//int money = my_game_master.my_Soomla_billing_script.Show_how_many_virtual_money_there_is_in_this_profile(my_game_master.current_profile_selected);
+				//PlayerPrefs.SetInt ("profile_0_virtual_money", money);
+				my_game_master.current_virtual_money[my_game_master.current_profile_selected] = PlayerPrefs.GetInt("profile_0_virtual_money");
+
+				//my_game_master.current_virtual_money[my_game_master.current_profile_selected] = my_game_master.my_Soomla_billing_script.Show_how_many_virtual_money_there_is_in_this_profile(my_game_master.current_profile_selected);
 				Give_the_stuff();
 				}
 			else

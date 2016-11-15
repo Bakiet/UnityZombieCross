@@ -55,6 +55,10 @@ namespace Soomla.Store {
 		/// </summary>
 		/// <returns>All virtual goods in your game.</returns>
 	    VirtualGood[] GetGoods();
+
+
+
+		//NotConsumableItem[] GetNotConsumableItems();
 	
 		/// <summary>
 		/// Retrieves the array of all virtual currency packs served by your store.

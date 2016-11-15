@@ -93,7 +93,7 @@ public class StartAndroidAds : MonoBehaviour {
 				GooglePlayManager.ActionAvailableDeviceAccountsLoaded += ActionAvailableDeviceAccountsLoaded;
 				GooglePlayManager.ActionAchievementsLoaded += OnAchievmnetsLoadedInfoListner;
 				*/
-			if (StoreInventory.GetItemBalance ("no_ads") <= 0) {
+		if (StoreInventory.GetItemBalance ("no_ads") <= 0 || StoreInventory.GetItemBalance ("coins") <= 0) {
 				count = count +1;
 				countstatic = countstatic + 1;
 				//if(countstatic == 1){
@@ -106,7 +106,9 @@ public class StartAndroidAds : MonoBehaviour {
 	}
 
 	public void StartInterstitialAd() {
+		if (PlayerPrefs.GetInt("profile_0_ready_purchased") != 1) {
 		AndroidAdMobController.instance.StartInterstitialAd ();
+		}
 	}
 	
 	public void LoadInterstitialAd() {

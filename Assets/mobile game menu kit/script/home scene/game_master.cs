@@ -616,7 +616,10 @@ public class game_master : MonoBehaviour {
 			my_Soomla_billing_script.Remove_all_virtual_money_from_this_profile(current_profile_selected);
 			my_Soomla_billing_script.Give_virtual_money_for_free (current_profile_selected, start_virtual_money);
 			//current_virtual_money[current_profile_selected] = my_Soomla_billing_script.Show_how_many_virtual_money_there_is_in_this_profile(current_profile_selected);
-			current_virtual_money[current_profile_selected] = PlayerPrefs.GetInt("profile_0_virtual_money");
+		//	current_virtual_money[current_profile_selected] = PlayerPrefs.GetInt("profile_0_virtual_money");
+			PlayerPrefs.SetInt ("profile_0_virtual_money", start_virtual_money);
+			current_virtual_money[current_profile_selected] = start_virtual_money;
+			PlayerPrefs.SetInt("profile_0_ready_purchased",	0);
 			 //DELETE THIS LINE FOR SOOMLA
 			}
 		else
@@ -650,15 +653,17 @@ public class game_master : MonoBehaviour {
 		if (buy_virtual_money_with_real_money_with_soomla)
 			{
 				//if(ifLoad){
-					current_virtual_money[profile_slot] = PlayerPrefs.GetInt("profile_"+profile_slot.ToString()+"_virtual_money");
-				//}else{
-				 //DELETE THIS LINE FOR SOOMLA
-				//current_virtual_money[profile_slot] = my_Soomla_billing_script.Show_how_many_virtual_money_there_is_in_this_profile(profile_slot);
-				 //DELETE THIS LINE FOR SOOMLA
-				//}
+				current_virtual_money[profile_slot] = PlayerPrefs.GetInt("profile_"+profile_slot.ToString()+"_virtual_money");
+				my_Soomla_billing_script.Remove_all_virtual_money_from_this_profile(0);
+				my_Soomla_billing_script.Give_virtual_money_for_free(0,current_virtual_money[profile_slot]);
+
+		
 			}
 		else
 			current_virtual_money[profile_slot] = PlayerPrefs.GetInt("profile_"+profile_slot.ToString()+"_virtual_money");
+			my_Soomla_billing_script.Remove_all_virtual_money_from_this_profile(0);
+			my_Soomla_billing_script.Give_virtual_money_for_free(0,current_virtual_money[profile_slot]);
+
 
 		if (!infinite_lives)
 			{
@@ -772,11 +777,13 @@ public class game_master : MonoBehaviour {
 				PlayerPrefs.SetString("profile_"+profile_slot.ToString()+"_target_time",target_time[current_profile_selected].ToString());
 				}
 			}
-
+		 
 		if(continue_rule_selected == continue_rule.continue_cost_a_continue_token)
 			PlayerPrefs.SetInt("profile_"+profile_slot.ToString()+"_current_continue_tokens",current_continue_tokens[profile_slot]);
 
 		PlayerPrefs.SetInt("profile_"+profile_slot.ToString()+"_virtual_money",	current_virtual_money[profile_slot]);
+		my_Soomla_billing_script.Remove_all_virtual_money_from_this_profile(profile_slot);
+		my_Soomla_billing_script.Give_virtual_money_for_free(profile_slot,current_virtual_money[profile_slot]);
 
 		PlayerPrefs.SetInt("profile_"+profile_slot.ToString()+"_total_number_of_stages_in_the_game_solved",total_number_of_stages_in_the_game_solved[profile_slot]);
 		PlayerPrefs.SetInt("profile_"+profile_slot.ToString()+"_total_stars",stars_total_score[profile_slot]);
@@ -1126,6 +1133,7 @@ public class game_master : MonoBehaviour {
 			Debug.LogWarning("Countdown_end");
 		Save(current_profile_selected);
 		Local (1);
+		countcheck = 0;
 	}
 	#endregion
 	

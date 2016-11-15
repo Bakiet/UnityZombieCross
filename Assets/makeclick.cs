@@ -1334,7 +1334,8 @@ public class makeclick : MonoBehaviour {
 				PlayerPrefs.SetInt ("profile_0_play_this_world_to_progress", world_progress);
 
 
-
+			my_game_master.my_Soomla_billing_script.Remove_all_virtual_money_from_this_profile(0);
+			my_game_master.my_Soomla_billing_script.Give_virtual_money_for_free(0,money);
 		
 			} 
 		my_game_master.SimulateAwake ();
@@ -1383,8 +1384,9 @@ public class makeclick : MonoBehaviour {
 	private void save(){
 		
 		int starts= PlayerPrefs.GetInt("profile_0_total_stars");
-		//int money = PlayerPrefs.GetInt("profile_0_virtual_money");
-		int money = my_game_master.my_Soomla_billing_script.Show_how_many_virtual_money_there_is_in_this_profile(0);
+		int money = my_game_master.current_virtual_money [0];
+		//PlayerPrefs.GetInt("profile_0_virtual_money");
+		//int money = my_game_master.my_Soomla_billing_script.Show_how_many_virtual_money_there_is_in_this_profile(0);
 		int lives = PlayerPrefs.GetInt("profile_0_current_lives");
 		int stages = PlayerPrefs.GetInt("profile_0_total_number_of_stages_in_the_game_solved");
 		int best_score = PlayerPrefs.GetInt("profile_0_best_int_score_for_this_profile");

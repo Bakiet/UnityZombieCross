@@ -17,9 +17,14 @@ using System;
 using System.Runtime.InteropServices;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.UI;
+using System.Collections;
+using UnityEngine;
+
 
 namespace Soomla.Store
 {
+
 	/// <summary>
 	/// This class will help you do your day to day virtual economy operations easily.
 	/// You can give or take items from your users. You can buy items or upgrade them.
@@ -29,7 +34,7 @@ namespace Soomla.Store
 	{
 
 		protected const string TAG = "SOOMLA StoreInventory";
-
+	
 		/// <summary>
 		/// Checks if there is enough funds to afford <c>itemId</c>.
 		/// </summary>
@@ -365,7 +370,10 @@ namespace Soomla.Store
 		}
 		
 		private static void UpdateLocalBalance(string itemId, int balance) {
+
 			localItemBalances[itemId] = balance;
+			PlayerPrefs.SetInt ("profile_0_virtual_money", balance);
+
 		}
 
 

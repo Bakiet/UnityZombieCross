@@ -26,10 +26,33 @@ namespace Soomla.Store
 	public void onSoomlaStoreInitialized(){
 		}
 
+	public void Buy_ad_with_real_money(string itemid)
+	{
+		try{
+			
+			
+			StoreInventory.BuyItem(itemid);
+			
+			store_button.purchased = true;
+		}catch(System.Exception e)
+		{
+			store_button.purchased = false;
+		}
+	}
 	public void Buy_virutal_money_with_real_money(int profile_number, int quantity_pack,string itemid)
 		{
+			try{
+
 			//Debug.Log ("Buy_virutal_money_with_real_money" + " : " + profile_number + "," + quantity_pack);
 			StoreInventory.BuyItem(itemid);
+
+				//StoreInventory.GiveItem("Coins",quantity_pack);
+
+				store_button.purchased = true;
+			}catch(System.Exception e)
+			{
+				store_button.purchased = false;
+			}
 		}
 
 	public void Give_virtual_money_for_free(int profile_number, int quantity)
@@ -38,11 +61,15 @@ namespace Soomla.Store
 			StoreInventory.GiveItem(my_Soomla_Assets.VIRTUAL_MONEY_PROFILE_0_ID.ToString(), quantity);
 	}
 
-	public bool Buy_stuff_with_virtual_money(int profile_number, int stuff_cost,string itemid)
+	public bool Buy_stuff_with_virtual_money(int profile_number, int stuff_cost,string itemid, int money_stuff)
 		{
 			//Debug.Log("Buy_stuff_with_virtual_money" + " : " + profile_number + "," + stuff_cost);
 
 			bool paid = false;
+
+			int money_now = money_stuff - stuff_cost;
+
+			PlayerPrefs.SetInt ("profile_0_virtual_money", money_now);
 
 			if (StoreInventory.GetItemBalance(my_Soomla_Assets.VIRTUAL_MONEY_PROFILE_0_ID.ToString()) >= stuff_cost)
 				{

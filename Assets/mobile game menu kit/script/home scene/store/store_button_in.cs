@@ -319,8 +319,8 @@ public class store_button_in : MonoBehaviour {
 			Debug.Log("Pay_with_virtual_money");
 		if(my_game_master.buy_virtual_money_with_real_money_with_soomla)
 			{
-			
-			if (my_game_master.my_Soomla_billing_script.Buy_stuff_with_virtual_money(my_game_master.current_profile_selected,Mathf.RoundToInt(my_price),id))
+			int money_stuff = PlayerPrefs.GetInt("profile_0_virtual_money");
+			if (my_game_master.my_Soomla_billing_script.Buy_stuff_with_virtual_money(my_game_master.current_profile_selected,Mathf.RoundToInt(my_price),id,money_stuff))
 			    {
 				my_game_master.current_virtual_money[my_game_master.current_profile_selected] = my_game_master.my_Soomla_billing_script.Show_how_many_virtual_money_there_is_in_this_profile(my_game_master.current_profile_selected);
 				Give_the_stuff();
